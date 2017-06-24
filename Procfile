@@ -1,2 +1,2 @@
-build: npm install --only=dev
+build: npm install -g gulp
 web: gulp prod
