@@ -86,6 +86,7 @@
     "grunt-protractor-coverage": "~0.2.15",
     "grunt-protractor-runner": "^2.1.0",
     "gulp": "^3.9.0",
+    "gulp-cli": "",
     "gulp-angular-templatecache": "^1.7.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-concat": "^2.6.0",
