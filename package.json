@@ -15,7 +15,7 @@
     "npm": ">=1.4.28"
   },
   "scripts": {
-    "start": "gulp prod",
+    "start": "npm install --only=dev && npm install -g gulp && npm install -g gulp-cli && gulp prod",
     "postinstall": "bower install --config.interactive=false"
   },
   "dependencies": {
