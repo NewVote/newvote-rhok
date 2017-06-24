@@ -15,8 +15,7 @@
     "npm": ">=1.4.28"
   },
   "scripts": {
-    "start": "grunt",
-    "test": "grunt test",
+    "start": "gulp prod",
     "postinstall": "bower install --config.interactive=false"
   },
   "dependencies": {
