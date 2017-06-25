@@ -6,7 +6,10 @@ Net zero or net negative Australian greenhouse gas emissions by 2050
     </p>
   </div>
 </md-toolbar>
-
+<div layout-padding>
+<div layout="row" ng-if="authentication.user">
+  <md-button class="md-primary md-raised create-btn"><md-icon>add</md-icon>Create Solution</md-button>
+</div>
 <md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
   <md-card-title>
     <md-card-title-text>
@@ -42,3 +45,4 @@ Net zero or net negative Australian greenhouse gas emissions by 2050
     <md-button>Vote</md-button>
   </md-card-actions>
 </md-card>
+</div>
