@@ -17,9 +17,38 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/',
       templateUrl: 'modules/core/client/views/home.client.view.html',
       data: {
-        title: 'HOME'
+        title: 'NewVote'
       }
     })
+
+    .state('topics', {
+      url: '/topics',
+      templateUrl: 'modules/core/client/views/topics.client.view.html',
+      data: {
+        title: 'Topics'
+      }
+    })
+
+
+    .state('ideas', {
+      url: '/ideas',
+      templateUrl: 'modules/core/client/views/ideas.client.view.html',
+      data: {
+        title: 'Ideas'
+      }
+    })
+
+    .state('results', {
+      url: '/results',
+      templateUrl: 'modules/core/client/views/results.client.view.html',
+      data: {
+        title: 'Results'
+      }
+    })
+
+
+
+
     .state('not-found', {
       url: '/not-found',
       templateUrl: 'modules/core/client/views/404.client.view.html',

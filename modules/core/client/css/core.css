@@ -43,7 +43,10 @@ body {
 .logo {
   height: 40px; }
 
-.left-menu .item-content {
+md-sidenav, md-sidenav md-content {
+  background-color: #eee; }
+
+md-sidenav .item-content {
   text-align: center;
   font-weight: bold;
   font-size: 20px; }
