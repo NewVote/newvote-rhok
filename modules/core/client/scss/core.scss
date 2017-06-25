@@ -35,11 +35,26 @@ a:hover .header-profile-image {
 .has-error .help-inline.error-text {
   display: inline;
 }
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+  color: #00838F;
+}
+
 .logo {
   height: 40px;
 }
 .left-menu {
   .item-content {
     text-align: center;
+    font-weight: bold;
+    font-size: 20px;
   }
+}
+
+.home-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
 }
