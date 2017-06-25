@@ -52,7 +52,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
     .state('ideas', {
       url: '/ideas',
-      abstract: true
+      abstract: true,
+      template: '<ui-view/>'
     })
     .state('ideas.list', {
       url: '/',
