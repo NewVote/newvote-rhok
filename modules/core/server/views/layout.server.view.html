@@ -52,14 +52,14 @@
           <md-list class="left-menu" ng-cloak>
 
             <md-list-item ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">Home</p>
+              <p class="item-content">About</p>
             </md-list-item>
             <md-list-item ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">Home</p>
+              <p class="item-content">Topics</p>
             </md-list-item><md-list-item class="" ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">Home</p>
+              <p class="item-content">Ideas</p>
             </md-list-item><md-list-item class="" ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">Home</p>
+              <p class="item-content">Results</p>
             </md-list-item>
 
           </md-list>
@@ -70,13 +70,13 @@
       <md-content flex>
         <md-toolbar class="md-primary md-hue-2">
           <div class="md-toolbar-tools">
-            <md-button ng-click="toggleLeft()" class="md-icon-button">
+            <!-- <md-button ng-click="toggleLeft()" class="md-icon-button">
               <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
+            </md-button> -->
             <md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-sm>
               <md-icon>menu</md-icon>
             </md-button>
-            <h1 class="md-toolbar-tools">Idea name</h1>
+            <div class="home-title">Idea name</div>
             <div flex></div>
 
             <md-menu ng-show="authentication.user">
