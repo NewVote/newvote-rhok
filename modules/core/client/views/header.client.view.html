@@ -12,17 +12,25 @@
     <md-icon>person</md-icon>
   </md-button>
   <md-menu-content width="4">
+
     <md-menu-item>
-      <md-button ng-click="ctrl.redial($event)">
+      <md-button ui-sref="settings.profile">
         My Profile
       </md-button>
     </md-menu-item>
+
+
+
     <md-menu-item>
-      <md-button ng-click="ctrl.checkVoicemail()">
+      <md-button href="/api/auth/signout" target="_self">
         Sign Out
       </md-button>
     </md-menu-item>
+
+
+
   </md-menu-content>
+
 </md-menu>
 
 <!-- <md-button class="md-icon-button">
