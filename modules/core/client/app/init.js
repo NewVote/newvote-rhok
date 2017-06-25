@@ -12,6 +12,26 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
   }
 ]);
 
+var app = angular.module(ApplicationConfiguration.applicationModuleName);
+app.config(['$mdThemingProvider', function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+  .primaryPalette('cyan', {
+    'default': '800',
+    'hue-1': '500',
+    'hue-2': '900',
+    'hue-3': 'A700'
+  })
+  .accentPalette('orange', {
+    'default': '700',
+    'hue-1': '500',
+    'hue-2': '900',
+    'hue-3': 'A700'
+  })
+  .warnPalette('orange')
+  .backgroundPalette('grey');
+}
+]);
+
 angular.module(ApplicationConfiguration.applicationModuleName).run(function ($rootScope, $state, Authentication) {
 
   // Check authentication before changing state
@@ -45,7 +65,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
 
   // Store previous state
   function storePreviousState(state, params) {
-    // only store this state if it shouldn't be ignored 
+    // only store this state if it shouldn't be ignored
     if (!state.data || !state.data.ignoreState) {
       $state.previous = {
         state: state,

@@ -4,7 +4,10 @@ module.exports = {
   client: {
     lib: {
       css: [
-        'public/lib/angular-material/angular-material.min.css'
+        'public/lib/angular-material/angular-material.min.css',
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
+        'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,700'
       ],
       js: [
         'public/lib/angular/angular.min.js',
