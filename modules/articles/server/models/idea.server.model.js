@@ -52,4 +52,4 @@ var IdeaSchema = new Schema({
   }]
 });
 
-mongoose.model('Idea', Idea);
+mongoose.model('Idea', IdeaSchema);

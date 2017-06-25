@@ -5,108 +5,107 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Comment = mongoose.model('Comment'),
-  Comment = mongoose.model('User'),
+  Vote = mongoose.model('Vote'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a comment
+ * Create a vote
  */
 exports.create = function (req, res) {
-  var comment = new Comment(req.body);
+  var vote = new Vote(req.body);
 
-  comment.save(function (err) {
+  vote.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(comment);
+      res.json(vote);
     }
   });
 };
 
 /**
- * Show the current comment
+ * Show the current vote
  */
 exports.read = function (req, res) {
 
-  res.json(req.comment);
+  res.json(req.vote);
 };
 
 /**
- * Update a comment
+ * Update a vote
  */
 exports.update = function (req, res) {
-  var comment = req.comment;
-  _.extend(comment, req.body);
-  // comment.title = req.body.title;
-  // comment.content = req.body.content;
+  var vote = req.vote;
+  _.extend(vote, req.body);
+  // vote.title = req.body.title;
+  // vote.content = req.body.content;
 
-  comment.save(function (err) {
+  vote.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(comment);
+      res.json(vote);
     }
   });
 };
 
 /**
- * Delete an comment
+ * Delete an vote
  */
 exports.delete = function (req, res) {
-  var comment = req.comment;
+  var vote = req.vote;
 
-  comment.remove(function (err) {
+  vote.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(comment);
+      res.json(vote);
     }
   });
 };
 
 /**
- * List of Comments
+ * List of Votes
  */
 exports.list = function (req, res) {
-  Comment.find().sort('-created').populate('user', 'displayName').exec(function (err, comments) {
+  Vote.find().sort('-created').populate('user', 'displayName').exec(function (err, votes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(comments);
+      res.json(votes);
     }
   });
 };
 
 /**
- * Comment middleware
+ * Vote middleware
  */
-exports.commentByID = function (req, res, next, id) {
+exports.voteByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Comment is invalid'
+      message: 'Vote is invalid'
     });
   }
 
-  Comment.findById(id).populate('user', 'displayName').exec(function (err, comment) {
+  Vote.findById(id).populate('user', 'displayName').exec(function (err, vote) {
     if (err) {
       return next(err);
-    } else if (!comment) {
+    } else if (!vote) {
       return res.status(404).send({
-        message: 'No comment with that identifier has been found'
+        message: 'No vote with that identifier has been found'
       });
     }
-    req.comment = comment;
+    req.vote = vote;
     next();
   });
 };

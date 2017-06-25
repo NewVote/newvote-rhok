@@ -24,4 +24,4 @@ var VoteSchema = new Schema({
   }
 });
 
-mongoose.model('Vote', IdeaSchema);
+mongoose.model('Vote', VoteSchema);

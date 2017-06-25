@@ -5,108 +5,107 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Vote = mongoose.model('Vote'),
-  Vote = mongoose.model('User'),
+  Idea = mongoose.model('Idea'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a vote
+ * Create a idea
  */
 exports.create = function (req, res) {
-  var vote = new Vote(req.body);
+  var idea = new Idea(req.body);
 
-  vote.save(function (err) {
+  idea.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(vote);
+      res.json(idea);
     }
   });
 };
 
 /**
- * Show the current vote
+ * Show the current idea
  */
 exports.read = function (req, res) {
 
-  res.json(req.vote);
+  res.json(req.idea);
 };
 
 /**
- * Update a vote
+ * Update a idea
  */
 exports.update = function (req, res) {
-  var vote = req.vote;
-  _.extend(vote, req.body);
-  // vote.title = req.body.title;
-  // vote.content = req.body.content;
+  var idea = req.idea;
+  _.extend(idea, req.body);
+  // idea.title = req.body.title;
+  // idea.content = req.body.content;
 
-  vote.save(function (err) {
+  idea.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(vote);
+      res.json(idea);
     }
   });
 };
 
 /**
- * Delete an vote
+ * Delete an idea
  */
 exports.delete = function (req, res) {
-  var vote = req.vote;
+  var idea = req.idea;
 
-  vote.remove(function (err) {
+  idea.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(vote);
+      res.json(idea);
     }
   });
 };
 
 /**
- * List of Votes
+ * List of Ideas
  */
 exports.list = function (req, res) {
-  Vote.find().sort('-created').populate('user', 'displayName').exec(function (err, votes) {
+  Idea.find().sort('-created').populate('user', 'displayName').exec(function (err, ideas) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(votes);
+      res.json(ideas);
     }
   });
 };
 
 /**
- * Vote middleware
+ * Idea middleware
  */
-exports.voteByID = function (req, res, next, id) {
+exports.ideaByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Vote is invalid'
+      message: 'Idea is invalid'
     });
   }
 
-  Vote.findById(id).populate('user', 'displayName').exec(function (err, vote) {
+  Idea.findById(id).populate('user', 'displayName').exec(function (err, idea) {
     if (err) {
       return next(err);
-    } else if (!vote) {
+    } else if (!idea) {
       return res.status(404).send({
-        message: 'No vote with that identifier has been found'
+        message: 'No idea with that identifier has been found'
       });
     }
-    req.vote = vote;
+    req.idea = idea;
     next();
   });
 };
