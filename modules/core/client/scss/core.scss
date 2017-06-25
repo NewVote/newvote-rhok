@@ -45,7 +45,12 @@ body {
 .logo {
   height: 40px;
 }
-.left-menu {
+md-sidenav {
+
+  &, md-content {
+    background-color: #eee;
+  }
+
   .item-content {
     text-align: center;
     font-weight: bold;
