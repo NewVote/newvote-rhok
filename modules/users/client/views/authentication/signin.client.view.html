@@ -1,8 +1,28 @@
-<div ng-controller="AuthenticationController">
+<!-- <div ng-controller="AuthenticationController">
   <h3 class="col-md-12 text-center">Or with your account</h3>
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
     <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
+
+      <md-content layout-padding>
+        <div>
+          <form name="userForm">
+
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Username</label>
+                <input ng-model="user.firstName">
+              </md-input-container>
+
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Password</label>
+                <input ng-model="user.firstName">
+              </md-input-container>
+            </div>
+
+          </form>
+        </div>
+
         <div class="form-group" show-errors>
           <label for="username">Username</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required>
@@ -31,4 +51,4 @@
       </fieldset>
     </form>
   </div>
-</div>
+</div> -->
