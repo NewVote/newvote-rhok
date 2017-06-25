@@ -23,18 +23,54 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
     .state('topics', {
       url: '/topics',
+      abstract: true
+    })
+    .state('topics.list', {
+      url: '/',
       templateUrl: 'modules/core/client/views/topics.client.view.html',
       data: {
         title: 'Topics'
+      }
+    })
+    .state('topics.create', {
+      url: '/create',
+      templateUrl: 'modules/core/client/views/create-topic.client.view.html',
+      data: {
+        title: 'Create Topic'
+      }
+    })
+    .state('topics.view', {
+      url: '/:topicId',
+      templateUrl: 'modules/core/client/views/topic.client.view.html',
+      data: {
+        title: 'Topic Name'
       }
     })
 
 
     .state('ideas', {
       url: '/ideas',
+      abstract: true
+    })
+    .state('ideas.list', {
+      url: '/',
       templateUrl: 'modules/core/client/views/ideas.client.view.html',
       data: {
         title: 'Ideas'
+      }
+    })
+    .state('ideas.create', {
+      url: '/create',
+      templateUrl: 'modules/core/client/views/create-idea.client.view.html',
+      data: {
+        title: 'Create Idea'
+      }
+    })
+    .state('ideas.view', {
+      url: '/:ideaId',
+      templateUrl: 'modules/core/client/views/idea.client.view.html',
+      data: {
+        title: 'Idea Name'
       }
     })
 
