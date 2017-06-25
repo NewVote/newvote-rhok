@@ -40,40 +40,14 @@
   <div ng-controller="HomeController" flex layout="column" ng-cloak>
 
     <section layout="row" flex>
-
       <md-sidenav class="md-sidenav-left"
           md-component-id="left"
           md-is-locked-open="$mdMedia('gt-sm')"
           md-whiteframe="4">
         <md-content>
-          <div layout="row" layout-padding layout-align="center">
-            <img class="logo" src="modules/core/client/img/brand/logo.png">
-          </div>
-          <md-list class="left-menu" ng-cloak>
-
-            <md-list-item ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">About</p>
-            </md-list-item>
-            <md-list-item ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">Topics</p>
-            </md-list-item><md-list-item class="" ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">Ideas</p>
-            </md-list-item><md-list-item class="" ui-sref="home" ui-sref-active="active" >
-              <p class="item-content">Results</p>
-            </md-list-item>
-            <div layout-padding></div>
-            <md-divider></md-divider>
-            <div layout-padding></div>
-          </md-list-item><md-list-item class="" ui-sref="home" ui-sref-active="active" >
-            <p class="item-content">Join</p>
-          </md-list-item><md-list-item class="" ui-sref="home" ui-sref-active="active" >
-            <p class="item-content">Log in</p>
-          </md-list-item>
-          </md-list>
-        </md-content>
-
-      </md-sidenav>
-
+      <div flex ng-include="'modules/core/client/views/sidebar.client.view.html'"></div>
+</md-content>
+</md-sidenav>
       <md-content flex>
         <md-toolbar class="md-primary md-hue-2">
           <div class="md-toolbar-tools">
