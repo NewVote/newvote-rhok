@@ -45,7 +45,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/:topicId',
       templateUrl: 'modules/core/client/views/topic.client.view.html',
       data: {
-        title: 'Topic Name'
+        title: 'Global Warming'
       }
     })
 
@@ -73,7 +73,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/:ideaId',
       templateUrl: 'modules/core/client/views/idea.client.view.html',
       data: {
-        title: 'Idea Name'
+        title: 'We should do our part for global warming'
       }
     })
 
