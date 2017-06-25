@@ -1,3 +1,35 @@
+<!-- <md-button ng-click="toggleLeft()" class="md-icon-button">
+  <md-icon>keyboard_arrow_left</md-icon>
+</md-button> -->
+<md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-sm>
+  <md-icon>menu</md-icon>
+</md-button>
+<div class="home-title">{{pageTitle}}</div>
+<div flex></div>
+
+<md-menu ng-show="authentication.user">
+  <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
+    <md-icon>person</md-icon>
+  </md-button>
+  <md-menu-content width="4">
+    <md-menu-item>
+      <md-button ng-click="ctrl.redial($event)">
+        My Profile
+      </md-button>
+    </md-menu-item>
+    <md-menu-item>
+      <md-button ng-click="ctrl.checkVoicemail()">
+        Sign Out
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>
+
+<!-- <md-button class="md-icon-button">
+  <md-icon>person</md-icon>
+</md-button> -->
+
+<!--
 <div class="container" ng-controller="HeaderController">
   <div class="navbar-header">
     <button class="navbar-toggle" type="button" ng-click="toggleCollapsibleMenu()">
@@ -56,4 +88,4 @@
       </li>
     </ul>
   </nav>
-</div>
+</div> -->
