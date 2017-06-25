@@ -69,3 +69,9 @@ md-sidenav {
 text-transform: none;
 padding: 20px;
 }
+
+.left-menu {
+  .active .item-content {
+    color: #009688;
+  }
+}
