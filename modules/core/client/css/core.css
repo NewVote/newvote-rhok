@@ -61,10 +61,8 @@ md-sidenav .item-content {
   text-transform: none;
   padding: 20px; }
 
-.topic {
-  cursor: pointer;
-}
+.left-menu .active .item-content {
+  color: #009688; }
 
-.idea {
-  cursor: pointer;
-}
+.topic, .idea {
+  cursor: pointer; }
