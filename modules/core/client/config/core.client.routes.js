@@ -23,7 +23,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
     .state('topics', {
       url: '/topics',
-      abstract: true
+      abstract: true,
+      template: '<ui-view/>'
+
     })
     .state('topics.list', {
       url: '/',

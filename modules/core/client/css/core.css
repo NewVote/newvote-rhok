@@ -60,3 +60,7 @@ md-sidenav .item-content {
   font-size: 30px;
   text-transform: none;
   padding: 20px; }
+
+.topic {
+  cursor: pointer;
+}
