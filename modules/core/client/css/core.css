@@ -55,3 +55,8 @@ md-sidenav .item-content {
   font-weight: 700;
   text-transform: uppercase;
   color: #fff; }
+
+.signin-btn {
+  font-size: 30px;
+  text-transform: none;
+  padding: 20px; }
