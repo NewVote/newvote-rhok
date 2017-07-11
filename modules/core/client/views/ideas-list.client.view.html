@@ -1,68 +1,17 @@
 <div layout="row">
-  <md-button class="md-primary md-raised create-btn" ng-if="authentication.user"><md-icon>add</md-icon>Create Idea</md-button>
+  <md-button class="md-primary md-raised create-btn" ui-sref="ideas.create"><md-icon>add</md-icon>Create Idea</md-button>
 </div>
-  <div flex layout="column" layout-gt-xs="row">
+<md-grid-list
+  class="ideas"
+  md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12"
+  md-row-height="2:2"
+  md-gutter="16px">
+  {{vm.topic}}
+  <md-grid-tile ng-repeat="idea in vm.ideas" ui-sref="ideas.view({ideaId:idea.id})" md-rowspan="3" md-colspan="3" class="idea" md-whiteframe="3">
+    <img ng-src="{{idea.imageUrl}}" alt="idea Image">
+    <md-grid-tile-footer>
+      <h2 ng-bind="idea.name"></h2>
+    </md-grid-tile-footer>
+  </md-grid-tile>
 
-    <div flex layout="column" layout-gt-md="row">
-      <md-card class="idea" md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ui-sref="ideas.view({ideaId:'test'})">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">We should do our part for global warming</span>
-            <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-          </md-card-title-text>
-          <!-- <md-card-title-media>
-          <div class="md-media-sm card-media">[icon]</div>
-        </md-card-title-media> -->
-      </md-card-title>
-      <md-card-actions layout="row" layout-align="end right">
-        <md-button>Read More</md-button>
-      </md-card-actions>
-    </md-card>
-      <md-card class="idea" md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ui-sref="ideas.view({ideaId:'test'})">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Strengthen medicare</span>
-            <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-          </md-card-title-text>
-          <!-- <md-card-title-media>
-            <div class="md-media-sm card-media">[icon]</div>
-          </md-card-title-media> -->
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end right">
-          <md-button>Read More</md-button>
-        </md-card-actions>
-      </md-card>
-    </div>
-
-    <div flex layout="column" layout-gt-md="row">
-
-      <md-card class="idea" md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ui-sref="ideas.view({ideaId:'test'})">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Improve human rights in Australia</span>
-            <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-          </md-card-title-text>
-          <!-- <md-card-title-media>
-            <div class="md-media-sm card-media">[icon]</div>
-          </md-card-title-media> -->
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end right">
-          <md-button>Read More</md-button>
-        </md-card-actions>
-      </md-card>
-      <md-card class="idea" md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ui-sref="ideas.view({ideaId:'test'})">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Allow same sex couple to marry</span>
-            <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-          </md-card-title-text>
-          <!-- <md-card-title-media>
-            <div class="md-media-sm card-media">[icon]</div>
-          </md-card-title-media> -->
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end right">
-          <md-button>Read More</md-button>
-        </md-card-actions>
-      </md-card>
-    </div>
-  </div>
+</md-grid-list>

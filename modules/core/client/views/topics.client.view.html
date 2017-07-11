@@ -1,150 +1,30 @@
-<md-toolbar class="md-primary">
-  <div layout-padding>
-    <p>
-      Select a topic to view ideas.
-    </p>
-  </div>
-</md-toolbar>
-<md-content class="md-padding" layout-xs="column" layout="row" layout-align="center">
-
-  <div flex layout="column" layout-gt-xs="row">
-
-    <div flex layout="column" layout-gt-md="row">
-      <md-card class="topic" ui-sref="topics.view({topicId: 'test'})" flex>
-        <img src="modules/core/client/img/1.png" class="md-card-image" alt="Topic Image">
-      </md-card>
-      <md-card class="topic" ui-sref="topics.view({topicId: 'test'})" flex>
-        <img src="modules/core/client/img/2.png" class="md-card-image" alt="Topic Image">
-      </md-card>
+<div ng-controller="TopicsController as vm">
+  <md-toolbar class="md-primary">
+    <div layout-padding class="md-toolbar-tools"
+      <p>
+        Select a topic to view ideas.
+      </p>
+      <div flex></div>
+      <md-button class="md-icon-button" ui-sref="topics.create">
+        <md-icon>add</md-icon>
+      </md-button>
     </div>
+  </md-toolbar>
 
-    <div flex layout="column" layout-gt-md="row">
 
-      <md-card class="topic" ui-sref="topics.view({topicId: 'test'})" flex>
-        <img src="modules/core/client/img/3.png" class="md-card-image" alt="Topic Image">
-      </md-card>
-      <md-card class="topic" ui-sref="topics.view({topicId: 'test'})" flex>
-        <img src="modules/core/client/img/4.png" class="md-card-image" alt="Topic Image">
-      </md-card>
-    </div>
-  </div>
+  <md-grid-list
+    class="topics"
+    md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12"
+    md-row-height="2:2"
+    md-gutter="16px">
 
-  <!-- <md-card>
-  <md-card-title>
-  <md-card-title-text>
-  <span class="md-headline">Topics Name</span>
-  <span class="md-subhead">Brief abstract about the topic content to introduce the user in a sentence or two.</span>
-</md-card-title-text>
-<md-card-title-media>
-<md-icon class="md-media-sm card-media">person</md-icon>
-</md-card-title-media>
-</md-card-title>
-<md-card-actions layout="row" layout-align="end right">
-<md-button>Read More</md-button>
-</md-card-actions>
-</md-card>
+    <md-grid-tile ng-repeat="topic in vm.topics" ui-sref="topics.view({ topicId: topic.id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="topic" md-whiteframe="3">
+      <img ng-src="{{topic.imageUrl}}" alt="Topic Image">
+      <md-grid-tile-footer>
+        <h2 ng-bind="topic.name"></h2>
+      </md-grid-tile-footer>
+    </md-grid-tile>
 
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card-title>
-<md-card-title-text>
-<span class="md-headline">Topics Name</span>
-<span class="md-subhead">Brief abstract about the topic content to introduce the user in a sentence or two.</span>
-</md-card-title-text>
-<md-card-title-media>
-<div class="md-media-sm card-media">[icon]</div>
-</md-card-title-media>
-</md-card-title>
-<md-card-actions layout="row" layout-align="end right">
-<md-button>Read More</md-button>
-</md-card-actions>
-</md-card>
+  </md-grid-list>
 
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card-title>
-<md-card-title-text>
-<span class="md-headline">Topics Name</span>
-<span class="md-subhead">Brief abstract about the topic content to introduce the user in a sentence or two.</span>
-</md-card-title-text>
-<md-card-title-media>
-<div class="md-media-sm card-media">[icon]</div>
-</md-card-title-media>
-</md-card-title>
-<md-card-actions layout="row" layout-align="end right">
-<md-button>Read More</md-button>
-</md-card-actions>
-</md-card>
-
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card-title>
-<md-card-title-text>
-<span class="md-headline">Topics Name</span>
-<span class="md-subhead">Brief abstract about the topic content to introduce the user in a sentence or two.</span>
-</md-card-title-text>
-<md-card-title-media>
-<div class="md-media-sm card-media">[icon]</div>
-</md-card-title-media>
-</md-card-title>
-<md-card-actions layout="row" layout-align="end right">
-<md-button>Read More</md-button>
-</md-card-actions>
-</md-card> -->
-<!--
-<md-grid-list
-md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
-md-row-height-gt-md="1:1" md-row-height="2:2"
-md-gutter="12px" md-gutter-gt-sm="8px" >
-
-<md-grid-tile
-md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card-title>
-<md-card-title-text>
-<span class="md-headline">Topics Name</span>
-<span class="md-subhead">Brief abstract about the topic content to introduce the user in a sentence or two.</span>
-</md-card-title-text>
-<md-card-title-media>
-<div class="md-media-sm card-media">[icon]</div>
-</md-card-title-media>
-</md-card-title>
-<md-card-actions layout="row" layout-align="end right">
-<md-button>Read More</md-button>
-</md-card-actions>
-</md-card>
-</md-grid-tile>
-
-<md-grid-tile
-md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card-title>
-<md-card-title-text>
-<span class="md-headline">Topics Name</span>
-<span class="md-subhead">Brief abstract about the topic content to introduce the user in a sentence or two.</span>
-</md-card-title-text>
-<md-card-title-media>
-<div class="md-media-sm card-media">[icon]</div>
-</md-card-title-media>
-</md-card-title>
-<md-card-actions layout="row" layout-align="end right">
-<md-button>Read More</md-button>
-</md-card-actions>
-</md-card>
-</md-grid-tile>
-
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-<md-card-title>
-<md-card-title-text>
-<span class="md-headline">Card with image</span>
-<span class="md-subhead">Small</span>
-</md-card-title-text>
-<md-card-title-media>
-<div class="md-media-sm card-media"></div>
-</md-card-title-media>
-</md-card-title>
-<md-card-actions layout="row" layout-align="end center">
-<md-button>Action 1</md-button>
-<md-button>Action 2</md-button>
-</md-card-actions>
-</md-card>
-</md-grid-list> -->
-
-</md-content>
+</div>

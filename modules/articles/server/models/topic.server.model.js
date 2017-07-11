@@ -16,7 +16,6 @@ var TopicSchema = new Schema({
   },
   title: {
     type: String,
-    default: '',
     trim: true,
     required: 'Title cannot be blank'
   },
@@ -24,7 +23,12 @@ var TopicSchema = new Schema({
     type: String,
     default: '',
     trim: true
-  }
+  },
+  imageUrl: {
+    type: String,
+    default: '',
+    trim: true
+  },
 });
 
 mongoose.model('Topic', TopicSchema);

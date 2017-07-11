@@ -16,7 +16,6 @@ var IdeaSchema = new Schema({
   },
   title: {
     type: String,
-    default: '',
     trim: true,
     required: 'Title cannot be blank'
   },

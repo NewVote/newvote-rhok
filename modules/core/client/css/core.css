@@ -43,13 +43,14 @@ body {
 .logo {
   height: 250px; }
 
-md-sidenav, md-sidenav md-content {
-  background-color: #eee; }
-
-md-sidenav .item-content {
-  text-align: center;
-  font-weight: bold;
-  font-size: 20px; }
+md-sidenav {
+  width: 250px; }
+  md-sidenav, md-sidenav md-content {
+    background-color: #eee; }
+  md-sidenav .item-content {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px; }
 
 .home-title {
   font-weight: 700;
@@ -64,5 +65,29 @@ md-sidenav .item-content {
 .left-menu .active .item-content {
   color: #009688; }
 
+.topics, .ideas {
+  margin: 16px; }
+
 .topic, .idea {
   cursor: pointer; }
+  .topic figcaption, .idea figcaption {
+    width: 100%; }
+    .topic figcaption h2, .idea figcaption h2 {
+      text-align: center; }
+  .topic img, .idea img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover; }
+
+.create-btn {
+  font-size: 18px; }
+
+.vote-button {
+  margin-right: 20px; }
+  .vote-button md-icon {
+    height: 35px;
+    width: 35px;
+    min-height: 35px;
+    min-width: 35px;
+    font-size: 35px; }

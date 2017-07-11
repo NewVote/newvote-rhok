@@ -41,15 +41,15 @@
 
     <section layout="row" flex>
       <md-sidenav class="md-sidenav-left"
-          md-component-id="left"
-          md-is-locked-open="$mdMedia('gt-sm')"
-          md-whiteframe="4">
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-sm')"
+        md-whiteframe="4">
         <md-content>
-      <div flex ng-include="'modules/core/client/views/sidebar.client.view.html'"></div>
-</md-content>
-</md-sidenav>
+          <div flex ng-include="'modules/core/client/views/sidebar.client.view.html'"></div>
+        </md-content>
+      </md-sidenav>
       <md-content flex layout-fill layout="column">
-        <md-toolbar class="md-primary md-hue-2">
+        <md-toolbar class="md-primary md-hue-2" ng-hide="$state.includes('home')">
           <div class="md-toolbar-tools" ng-include="'modules/core/client/views/header.client.view.html'"></div>
         </md-toolbar>
         <md-content flex>
@@ -60,21 +60,17 @@
     </section>
 
   </div>
-  <!-- <div ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></div>
-  <section class="content">
-    <section class="container">
-
-    </section>
-  </section> -->
 
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{ user | json | safe }};
   </script>
+  <script async='true' src='https://pol.is/embed.js'></script>
 
   <!--Load The Socket.io File-->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-
+  <!-- <div class='polis' data-conversation_id='6vdjkikpra'></div>
+  <script async='true' src='https://pol.is/embed.js'></script> -->
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 

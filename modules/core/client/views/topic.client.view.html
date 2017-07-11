@@ -1,4 +1,4 @@
-<md-toolbar class="md-primary">
+<md-toolbar class="md-primary" ng-controller="TopicController as ctrl">
   <div layout-padding>
     <h2>Description</h2>
     <p>
@@ -8,7 +8,7 @@
     </p>
   </div>
 </md-toolbar>
-<md-content class="md-padding" layout-xs="column" layout="column" layout-align="center" ng-include="'modules/core/client/views/ideas-list.client.view.html'">
+<md-content class="md-padding" layout-xs="column" onload="vm.topic = ctrl.topic" layout="column" layout-align="center" ng-controller="IdeasListController as vm" ng-include="'modules/core/client/views/ideas-list.client.view.html'">
 
 </md-content>
 <!-- <md-toolbar class="md-primary">

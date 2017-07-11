@@ -10,11 +10,34 @@ Net zero or net negative Australian greenhouse gas emissions by 2050
 <div layout="row" ng-if="authentication.user">
   <md-button class="md-primary md-raised create-btn"><md-icon>add</md-icon>Create Solution</md-button>
 </div>
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
+<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ng-repeat="">
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline">Solution</span>
       <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-actions layout="row" layout-align="end right">
+    <md-button>Vote</md-button>
+  </md-card-actions>
+</md-card>
+
+<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
+  <md-card-title>
+    <md-card-title-text>
+      <div layout="row">
+        <div layout="column" flex="1">
+          <md-button class="vote-button md-icon-button">
+            <md-icon>arrow_upward</md-icon>
+            <md-tooltip>Vote</md-tooltip>
+          </md-button>
+        </div>
+        <div layout="column" flex="3">
+          <span class="md-headline">Solution</span>
+          <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
+        </div>
+      </div>
+
     </md-card-title-text>
   </md-card-title>
   <md-card-actions layout="row" layout-align="end right">
@@ -34,15 +57,5 @@ Net zero or net negative Australian greenhouse gas emissions by 2050
   </md-card-actions>
 </md-card>
 
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-  <md-card-title>
-    <md-card-title-text>
-      <span class="md-headline">Solution</span>
-      <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-    </md-card-title-text>
-  </md-card-title>
-  <md-card-actions layout="row" layout-align="end right">
-    <md-button>Vote</md-button>
-  </md-card-actions>
-</md-card>
+<div class='polis' data-conversation_id='6vdjkikpra'></div>
 </div>
