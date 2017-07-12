@@ -115,3 +115,9 @@ padding: 20px;
     @include md-icon-size(35px);
   }
 }
+
+md-progress-linear {
+  overflow: visible;
+  height: 0;
+  z-index: 3;
+}

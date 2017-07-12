@@ -36,17 +36,21 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     })
     .state('issues.create', {
       url: '/create',
-      templateUrl: 'modules/core/client/views/create-issue.client.view.html',
+      templateUrl: 'modules/core/client/views/edit-issue.client.view.html',
       data: {
         title: 'Create Issue'
       }
     })
+    .state('issues.edit', {
+      url: '/:issueId/edit',
+      templateUrl: 'modules/core/client/views/edit-issue.client.view.html',
+      data: {
+        title: 'Edit Issue'
+      }
+    })
     .state('issues.view', {
       url: '/:issueId',
-      templateUrl: 'modules/core/client/views/issue.client.view.html',
-      data: {
-        title: 'Global Warming'
-      }
+      templateUrl: 'modules/core/client/views/issue.client.view.html'
     })
 
 
@@ -64,26 +68,30 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     })
     .state('solutions.create', {
       url: '/create',
-      templateUrl: 'modules/core/client/views/create-solution.client.view.html',
+      templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
       data: {
         title: 'Create Solution'
       }
     })
+    .state('solutions.edit', {
+      url: '/:solutionId/edit',
+      templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
+      data: {
+        title: 'Edit Solution'
+      }
+    })
     .state('solutions.view', {
       url: '/:solutionId',
-      templateUrl: 'modules/core/client/views/solution.client.view.html',
-      data: {
-        title: 'We should do our part for global warming'
-      }
+      templateUrl: 'modules/core/client/views/solution.client.view.html'
     })
 
-    .state('results', {
-      url: '/results',
-      templateUrl: 'modules/core/client/views/results.client.view.html',
-      data: {
-        title: 'Results'
-      }
-    })
+    // .state('results', {
+    //   url: '/results',
+    //   templateUrl: 'modules/core/client/views/results.client.view.html',
+    //   data: {
+    //     title: 'Results'
+    //   }
+    // })
 
 
 

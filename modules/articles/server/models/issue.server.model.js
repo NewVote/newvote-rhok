@@ -14,7 +14,7 @@ var IssueSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  title: {
+  name: {
     type: String,
     trim: true,
     required: 'Title cannot be blank'
@@ -29,6 +29,10 @@ var IssueSchema = new Schema({
     default: '',
     trim: true
   },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
 });
 
 mongoose.model('Issue', IssueSchema);

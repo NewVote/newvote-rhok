@@ -1,12 +1,12 @@
 <md-toolbar class="md-primary" ng-controller="IssueController as ctrl">
-  <div layout-padding>
-    <h2>Description</h2>
-    <p>
-      Global warming is is the rise in the average temperature of the Earth's climate system (and its related effects) over the past century.
-
-      It’s particularly important to the Australian community because of it’s effects on Australia
-    </p>
+  <div layout="row" layout-padding>
+    <div layout-padding flex>
+      {{ctrl.issue.description}}
+    </div>
+    <md-button class="md-icon-button" ng-click="ctrl.delete()"><md-icon>delete</md-icon></md-button>
+    <md-button class="md-icon-button" ui-sref="issues.edit({issueId: ctrl.issue._id})"><md-icon>edit</md-icon></md-button>
   </div>
+
 </md-toolbar>
 <md-content class="md-padding" layout-xs="column" onload="vm.issue = ctrl.issue" layout="column" layout-align="center" ng-controller="SolutionsListController as vm" ng-include="'modules/core/client/views/solutions-list.client.view.html'">
 

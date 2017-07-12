@@ -8,6 +8,9 @@ var acl = require('acl');
 // Using the memory backend
 acl = new acl(new acl.memoryBackend());
 
+
+var collectionRoutes = ['/api/articles', '/api/issues', '/api/solutions', '/api/votes', '/api/comments'];
+var objectRoutes = ['/api/articles/:articleId', '/api/issues/:issueId', '/api/solutions/:solutionId', '/api/votes/:voteId', '/api/comments/:commentId'];
 /**
  * Invoke Articles Permissions
  */
@@ -15,28 +18,28 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/articles',
+      resources: ['/api/*'],
       permissions: '*'
     }, {
-      resources: '/api/articles/:articleId',
+      resources: ['/api/*/*'],
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/articles',
+      resources: collectionRoutes,
       permissions: ['get', 'post']
     }, {
-      resources: '/api/articles/:articleId',
-      permissions: ['get']
+      resources: objectRoutes,
+      permissions: ['get', 'put', 'delete']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/articles',
+      resources: collectionRoutes,
       permissions: ['get']
     }, {
-      resources: '/api/articles/:articleId',
+      resources: objectRoutes,
       permissions: ['get']
     }]
   }]);
@@ -49,7 +52,8 @@ exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an article is being processed and the current user created it then allow any manipulation
-  if (req.article && req.user && req.article.user.id === req.user.id) {
+  var object = req.article || req.vote || req.issue || req.solution || req.comment;
+  if (object && req.user && object.user && object.user.id === req.user.id) {
     return next();
   }
 

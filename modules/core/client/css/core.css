@@ -91,3 +91,8 @@ md-sidenav {
     min-height: 35px;
     min-width: 35px;
     font-size: 35px; }
+
+md-progress-linear {
+  overflow: visible;
+  height: 0;
+  z-index: 3; }

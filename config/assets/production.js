@@ -10,6 +10,7 @@ module.exports = {
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,700'
       ],
       js: [
+        'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',
         'public/lib/angular-animate/angular-animate.min.js',

@@ -18,7 +18,7 @@
     md-row-height="2:2"
     md-gutter="16px">
 
-    <md-grid-tile ng-repeat="issue in vm.issues" ui-sref="issues.view({ issueId: issue.id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">
+    <md-grid-tile ng-repeat="issue in vm.issues" ui-sref="issues.view({ issueId: issue._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">
       <img ng-src="{{issue.imageUrl}}" alt="Issue Image">
       <md-grid-tile-footer>
         <h2 ng-bind="issue.name"></h2>

@@ -1,0 +1,22 @@
+<div ng-controller="IssueController as vm" ng-init="vm.getIssue()" layout-padding  layout="column" layout-align="top center" flex>
+
+  <md-input-container>
+    <label>Issue Title</label>
+    <input ng-model="vm.issue.name">
+  </md-input-container>
+
+  <!-- TODO richtext editor -->
+  <md-input-container class="md-block">
+    <label>Issue Description</label>
+    <textarea ng-model="vm.issue.description"></textarea>
+  </md-input-container>
+  <div layout="row">
+    <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
+      <span ng-if="vm.issue._id">Update</span>
+      <span ng-if="!vm.issue._id">Create</span>
+    </md-button>
+    <md-button  class="md-raised md-warn" ng-if="vm.issue._id" ng-click="vm.delete()">
+      Delete
+    </md-button>
+  </div>
+</div>

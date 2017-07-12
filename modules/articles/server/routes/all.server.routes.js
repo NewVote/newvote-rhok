@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var articlesPolicy = require('../policies/articles.server.policy'),
+var articlesPolicy = require('../policies/generic.server.policy'),
   issues = require('../controllers/issues.server.controller'),
   solutions = require('../controllers/solutions.server.controller'),
   comments = require('../controllers/comments.server.controller'),
