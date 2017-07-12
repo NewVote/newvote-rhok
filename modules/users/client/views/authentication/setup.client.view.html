@@ -1,0 +1,29 @@
+<div ng-controller="AuthenticationController">
+	<h3 class="col-md-12 text-center">Please provide your details</h3>
+	<div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+		<form name="userForm" ng-submit="setup(userForm.$valid)" class="setup" novalidate autocomplete="off">
+			<fieldset>
+				<div layout-gt-sm="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>First Name</label>
+						<input ng-model="user.firstName">
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Last Name</label>
+						<input ng-model="user.lastName">
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Postcode</label>
+						<input ng-model="user.postcode">
+					</md-input-container>
+
+					<md-checkbox ng-model="user.terms" aria-label="I accept the terms and conditions">
+						I accept the <a href="#">terms and conditions</a>
+					</md-checkbox>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
