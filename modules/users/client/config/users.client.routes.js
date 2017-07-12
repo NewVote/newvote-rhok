@@ -46,11 +46,11 @@ angular.module('users').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
       })
       .state('setup', {
-          url: '/setup',
-          templateUrl: 'modules/users/client/views/authentication/setup.client.view.html',
-          data: {
-            title: 'Setup Account'
-          }
+        url: '/setup',
+        templateUrl: 'modules/users/client/views/authentication/setup.client.view.html',
+        data: {
+          title: 'Setup Account'
+        }
       })
       .state('password', {
         abstract: true,
