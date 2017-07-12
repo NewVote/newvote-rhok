@@ -5,107 +5,107 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Idea = mongoose.model('Idea'),
+  Solution = mongoose.model('Solution'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a idea
+ * Create a solution
  */
 exports.create = function (req, res) {
-  var idea = new Idea(req.body);
+  var solution = new Solution(req.body);
 
-  idea.save(function (err) {
+  solution.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(idea);
+      res.json(solution);
     }
   });
 };
 
 /**
- * Show the current idea
+ * Show the current solution
  */
 exports.read = function (req, res) {
 
-  res.json(req.idea);
+  res.json(req.solution);
 };
 
 /**
- * Update a idea
+ * Update a solution
  */
 exports.update = function (req, res) {
-  var idea = req.idea;
-  _.extend(idea, req.body);
-  // idea.title = req.body.title;
-  // idea.content = req.body.content;
+  var solution = req.solution;
+  _.extend(solution, req.body);
+  // solution.title = req.body.title;
+  // solution.content = req.body.content;
 
-  idea.save(function (err) {
+  solution.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(idea);
+      res.json(solution);
     }
   });
 };
 
 /**
- * Delete an idea
+ * Delete an solution
  */
 exports.delete = function (req, res) {
-  var idea = req.idea;
+  var solution = req.solution;
 
-  idea.remove(function (err) {
+  solution.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(idea);
+      res.json(solution);
     }
   });
 };
 
 /**
- * List of Ideas
+ * List of Solutions
  */
 exports.list = function (req, res) {
-  Idea.find().sort('-created').populate('user', 'displayName').exec(function (err, ideas) {
+  Solution.find().sort('-created').populate('user', 'displayName').exec(function (err, solutions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(ideas);
+      res.json(solutions);
     }
   });
 };
 
 /**
- * Idea middleware
+ * Solution middleware
  */
-exports.ideaByID = function (req, res, next, id) {
+exports.solutionByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Idea is invalid'
+      message: 'Solution is invalid'
     });
   }
 
-  Idea.findById(id).populate('user', 'displayName').exec(function (err, idea) {
+  Solution.findById(id).populate('user', 'displayName').exec(function (err, solution) {
     if (err) {
       return next(err);
-    } else if (!idea) {
+    } else if (!solution) {
       return res.status(404).send({
-        message: 'No idea with that identifier has been found'
+        message: 'No solution with that identifier has been found'
       });
     }
-    req.idea = idea;
+    req.solution = solution;
     next();
   });
 };

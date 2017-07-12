@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('core').controller('TopicsController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state',
+angular.module('core').controller('IssuesController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state',
   function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state) {
     // This provides Authentication context.
     var vm = this;
 
-    vm.topics = [{
+    vm.issues = [{
       id: 0,
       name: 'Global Warming',
       imageUrl: 'modules/core/client/img/1.png'

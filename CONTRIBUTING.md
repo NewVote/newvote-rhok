@@ -14,7 +14,7 @@ Before you create a new Issue:
 
 ## Making Changes
 
-* Create a topic branch from the master branch.
+* Create a issue branch from the master branch.
 * Check for unnecessary whitespace / changes with `git diff --check` before committing.
 	* Also check that your code is formatted properly with spaces (hint: Use [.editorconfig](http://editorconfig.org/))
 * Keep git commit messages clear and appropriate
@@ -67,8 +67,8 @@ Fixes #82
 
 ## Submitting the Pull Request
 
-* Push your changes to your topic branch on your fork of the repo.
-* Submit a pull request from your topic branch to the master branch on the MEAN.JS repository.
+* Push your changes to your issue branch on your fork of the repo.
+* Submit a pull request from your issue branch to the master branch on the MEAN.JS repository.
 * Be sure to tag any issues your pull request is taking care of / contributing to.
 	* By adding "Closes #xyz" to a commit message will auto close the issue once the pull request is merged in.
 * Small changes are usually accepted and merged in within a week (provided that 2 collaborators give the okay)

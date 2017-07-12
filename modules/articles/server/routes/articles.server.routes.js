@@ -4,20 +4,20 @@
  * Module dependencies.
  */
 var articlesPolicy = require('../policies/articles.server.policy'),
-  topics = require('../controllers/topics.server.controller'),
-  ideas = require('../controllers/ideas.server.controller'),
+  issues = require('../controllers/issues.server.controller'),
+  solutions = require('../controllers/solutions.server.controller'),
   comments = require('../controllers/comments.server.controller'),
   votes = require('../controllers/votes.server.controller');
 
 module.exports = function (app) {
   // Articles collection routes
-  app.route('/api/topics').all(articlesPolicy.isAllowed)
-    .get(topics.list)
-    .post(topics.create);
+  app.route('/api/issues').all(articlesPolicy.isAllowed)
+    .get(issues.list)
+    .post(issues.create);
 
-  app.route('/api/ideas').all(articlesPolicy.isAllowed)
-    .get(ideas.list)
-    .post(ideas.create);
+  app.route('/api/solutions').all(articlesPolicy.isAllowed)
+    .get(solutions.list)
+    .post(solutions.create);
 
   app.route('/api/comments').all(articlesPolicy.isAllowed)
     .get(comments.list)
@@ -28,15 +28,15 @@ module.exports = function (app) {
     .post(votes.create);
 
   // Single article routes
-  app.route('/api/topics/:topicId').all(articlesPolicy.isAllowed)
-    .get(topics.read)
-    .put(topics.update)
-    .delete(topics.delete);
+  app.route('/api/issues/:issueId').all(articlesPolicy.isAllowed)
+    .get(issues.read)
+    .put(issues.update)
+    .delete(issues.delete);
 
-  app.route('/api/ideas/:ideaId').all(articlesPolicy.isAllowed)
-    .get(ideas.read)
-    .put(ideas.update)
-    .delete(ideas.delete);
+  app.route('/api/solutions/:solutionId').all(articlesPolicy.isAllowed)
+    .get(solutions.read)
+    .put(solutions.update)
+    .delete(solutions.delete);
 
   app.route('/api/comments/:commentId').all(articlesPolicy.isAllowed)
     .get(comments.read)
@@ -49,9 +49,9 @@ module.exports = function (app) {
     .delete(votes.delete);
 
   // Finish by binding the article middleware
-  console.log(topics);
-  app.param('topicId', topics.topicByID);
-  app.param('ideaId', ideas.ideaByID);
+  console.log(issues);
+  app.param('issueId', issues.issueByID);
+  app.param('solutionId', solutions.solutionByID);
   app.param('commentId', comments.commentByID);
   app.param('voteId', votes.voteByID);
 };

@@ -65,16 +65,16 @@ md-sidenav {
 .left-menu .active .item-content {
   color: #009688; }
 
-.topics, .ideas {
+.issues, .solutions {
   margin: 16px; }
 
-.topic, .idea {
+.issue, .solution {
   cursor: pointer; }
-  .topic figcaption, .idea figcaption {
+  .issue figcaption, .solution figcaption {
     width: 100%; }
-    .topic figcaption h2, .idea figcaption h2 {
+    .issue figcaption h2, .solution figcaption h2 {
       text-align: center; }
-  .topic img, .idea img {
+  .issue img, .solution img {
     width: 100%;
     height: 100%;
     -o-object-fit: cover;

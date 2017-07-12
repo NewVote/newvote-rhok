@@ -18,9 +18,9 @@ var VoteSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  idea: {
+  solution: {
     type: Schema.ObjectId,
-    ref: 'Idea'
+    ref: 'Solution'
   }
 });
 

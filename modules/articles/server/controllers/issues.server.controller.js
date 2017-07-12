@@ -5,107 +5,107 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Topic = mongoose.model('Topic'),
+  Issue = mongoose.model('Issue'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a topic
+ * Create a issue
  */
 exports.create = function (req, res) {
-  var topic = new Topic(req.body);
+  var issue = new Issue(req.body);
 
-  topic.save(function (err) {
+  issue.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(topic);
+      res.json(issue);
     }
   });
 };
 
 /**
- * Show the current topic
+ * Show the current issue
  */
 exports.read = function (req, res) {
 
-  res.json(req.topic);
+  res.json(req.issue);
 };
 
 /**
- * Update a topic
+ * Update a issue
  */
 exports.update = function (req, res) {
-  var topic = req.topic;
-  _.extend(topic, req.body);
-  // topic.title = req.body.title;
-  // topic.content = req.body.content;
+  var issue = req.issue;
+  _.extend(issue, req.body);
+  // issue.title = req.body.title;
+  // issue.content = req.body.content;
 
-  topic.save(function (err) {
+  issue.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(topic);
+      res.json(issue);
     }
   });
 };
 
 /**
- * Delete an topic
+ * Delete an issue
  */
 exports.delete = function (req, res) {
-  var topic = req.topic;
+  var issue = req.issue;
 
-  topic.remove(function (err) {
+  issue.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(topic);
+      res.json(issue);
     }
   });
 };
 
 /**
- * List of Topics
+ * List of Issues
  */
 exports.list = function (req, res) {
-  Topic.find().sort('-created').populate('user', 'displayName').exec(function (err, topics) {
+  Issue.find().sort('-created').populate('user', 'displayName').exec(function (err, issues) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(topics);
+      res.json(issues);
     }
   });
 };
 
 /**
- * Topic middleware
+ * Issue middleware
  */
-exports.topicByID = function (req, res, next, id) {
+exports.issueByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Topic is invalid'
+      message: 'Issue is invalid'
     });
   }
 
-  Topic.findById(id).populate('user', 'displayName').exec(function (err, topic) {
+  Issue.findById(id).populate('user', 'displayName').exec(function (err, issue) {
     if (err) {
       return next(err);
-    } else if (!topic) {
+    } else if (!issue) {
       return res.status(404).send({
-        message: 'No topic with that identifier has been found'
+        message: 'No issue with that identifier has been found'
       });
     }
-    req.topic = topic;
+    req.issue = issue;
     next();
   });
 };

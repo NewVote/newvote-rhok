@@ -8,7 +8,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.toggleLeft = function() {
       $mdSidenav('left').toggle();
     };
-    $rootScope.pageTitle = 'Idea name';
+    $rootScope.pageTitle = 'Solution name';
 
     $scope.openMenu = function($mdMenu, ev) {
       $mdMenu.open(ev);

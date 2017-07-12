@@ -21,57 +21,57 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       }
     })
 
-    .state('topics', {
-      url: '/topics',
+    .state('issues', {
+      url: '/issues',
       abstract: true,
       template: '<ui-view/>'
 
     })
-    .state('topics.list', {
+    .state('issues.list', {
       url: '/',
-      templateUrl: 'modules/core/client/views/topics.client.view.html',
+      templateUrl: 'modules/core/client/views/issues.client.view.html',
       data: {
-        title: 'Topics'
+        title: 'Issues'
       }
     })
-    .state('topics.create', {
+    .state('issues.create', {
       url: '/create',
-      templateUrl: 'modules/core/client/views/create-topic.client.view.html',
+      templateUrl: 'modules/core/client/views/create-issue.client.view.html',
       data: {
-        title: 'Create Topic'
+        title: 'Create Issue'
       }
     })
-    .state('topics.view', {
-      url: '/:topicId',
-      templateUrl: 'modules/core/client/views/topic.client.view.html',
+    .state('issues.view', {
+      url: '/:issueId',
+      templateUrl: 'modules/core/client/views/issue.client.view.html',
       data: {
         title: 'Global Warming'
       }
     })
 
 
-    .state('ideas', {
-      url: '/ideas',
+    .state('solutions', {
+      url: '/solutions',
       abstract: true,
       template: '<ui-view/>'
     })
-    .state('ideas.list', {
+    .state('solutions.list', {
       url: '/',
-      templateUrl: 'modules/core/client/views/ideas.client.view.html',
+      templateUrl: 'modules/core/client/views/solutions.client.view.html',
       data: {
-        title: 'Ideas'
+        title: 'Solutions'
       }
     })
-    .state('ideas.create', {
+    .state('solutions.create', {
       url: '/create',
-      templateUrl: 'modules/core/client/views/create-idea.client.view.html',
+      templateUrl: 'modules/core/client/views/create-solution.client.view.html',
       data: {
-        title: 'Create Idea'
+        title: 'Create Solution'
       }
     })
-    .state('ideas.view', {
-      url: '/:ideaId',
-      templateUrl: 'modules/core/client/views/idea.client.view.html',
+    .state('solutions.view', {
+      url: '/:solutionId',
+      templateUrl: 'modules/core/client/views/solution.client.view.html',
       data: {
         title: 'We should do our part for global warming'
       }
