@@ -118,8 +118,8 @@ UserSchema.pre('save', function (next) {
 UserSchema.pre('validate', function (next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
     var result = owasp.test(this.password);
-    if (result.errors.length) {
-      var error = result.errors.join(' ');
+    if (result.requiredTestErrors.length) {
+      var error = result.requiredTestErrors.join(' ');
       this.invalidate('password', error);
     }
   }
@@ -177,7 +177,7 @@ UserSchema.statics.generateRandomPassphrase = function () {
     var password = '';
     var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
 
-    // iterate until the we have a valid passphrase. 
+    // iterate until the we have a valid passphrase.
     // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
     while (password.length < 20 || repeatingCharacters.test(password)) {
       // build the random password
@@ -194,7 +194,7 @@ UserSchema.statics.generateRandomPassphrase = function () {
     }
 
     // Send the rejection back if the passphrase fails to pass the strength test
-    if (owasp.test(password).errors.length) {
+    if (owasp.test(password).requiredTestErrors.length) {
       reject(new Error('An unexpected problem occured while generating the random passphrase'));
     } else {
       // resolve with the validated passphrase

@@ -20,7 +20,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
         return false;
       }
 
-      $http.post('/api/auth/forgot', $scope.credentials).success(function (response) {
+      $http.post('/api/auth/forgot', $scope.credentials).then(function (response) {
         // Show user success message and clear form
         $scope.credentials = null;
         $scope.success = response.message;
@@ -42,7 +42,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
         return false;
       }
 
-      $http.post('/api/auth/reset/' + $stateParams.token, $scope.passwordDetails).success(function (response) {
+      $http.post('/api/auth/reset/' + $stateParams.token, $scope.passwordDetails).then(function (response) {
         // If successful show success message and clear form
         $scope.passwordDetails = null;
 

@@ -1,4 +1,12 @@
+
+
 <section layout-padding layout="column" flex layout-align="center center" class="row" ng-controller="AuthenticationController">
-    <md-button class="md-raised md-primary signin-btn" ng-click="callOauthProvider('/api/auth/facebook')">Sign in with Facebook</md-button>
-    <ui-view></ui-view>
+  <h3 class="md-display-1">Sign in with</h3>
+  <md-button class="md-raised md-primary signin-btn" ng-click="callOauthProvider('/api/auth/facebook')">
+      Facebook
+  </md-button>
+  <md-button class="md-raised md-primary signin-btn" ng-click="callOauthProvider('/api/auth/google')">
+      Google
+  </md-button>
+  <ui-view></ui-view>
 </section>
