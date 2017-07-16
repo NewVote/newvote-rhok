@@ -10,6 +10,7 @@
 <md-menu ng-show="authentication.user">
   <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
     <md-icon>person</md-icon>
+    <md-tooltip md-direction="left">Signed in as {{::authentication.user.displayName}}</md-tooltip>
   </md-button>
   <md-menu-content width="4">
 

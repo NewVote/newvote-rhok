@@ -53,7 +53,7 @@
           <!-- ng-hide="$state.includes('home')" -->
           <div class="md-toolbar-tools" ng-include="'modules/core/client/views/header.client.view.html'"></div>
         </md-toolbar>
-        <md-progress-linear md-mode="query" class="md-primary md-hue-2" ng-if="requestsPending"></md-progress-linear>
+        <md-progress-linear md-mode="query" class="md-primary" ng-if="requestsPending"></md-progress-linear>
         <md-content flex>
           {% block content %}{% endblock %}
         </md-content>
@@ -67,7 +67,6 @@
   <script type="text/javascript">
     var user = {{ user | json | safe }};
   </script>
-  <script async='true' src='https://pol.is/embed.js'></script>
 
   <!--Load The Socket.io File-->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>

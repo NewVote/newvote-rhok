@@ -18,10 +18,20 @@ var VoteSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  solution: {
+  objectType: {
+    type: String,
+    required: true
+  },
+  object: {
     type: Schema.ObjectId,
-    ref: 'Solution'
+    refPath: 'objectType'
+  },
+  voteValue: {
+    type: Number,
+    enum: [0, 1, -1]
   }
 });
+
+VoteSchema.index({ object: 1, user: 1 }, { unique: true });
 
 mongoose.model('Vote', VoteSchema);

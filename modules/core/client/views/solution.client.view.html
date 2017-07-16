@@ -1,61 +1,91 @@
-<md-toolbar class="md-primary">
-  <div layout-padding>
-    <h2>Abstract</h2>
-    <p>
-Net zero or net negative Australian greenhouse gas emissions by 2050
-    </p>
-  </div>
-</md-toolbar>
-<div layout-padding>
-<div layout="row" ng-if="authentication.user">
-  <md-button class="md-primary md-raised create-btn"><md-icon>add</md-icon>Create Solution</md-button>
-</div>
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ng-repeat="">
-  <md-card-title>
-    <md-card-title-text>
-      <span class="md-headline">Solution</span>
-      <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-    </md-card-title-text>
-  </md-card-title>
-  <md-card-actions layout="row" layout-align="end right">
-    <md-button>Vote</md-button>
-  </md-card-actions>
-</md-card>
-
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-  <md-card-title>
-    <md-card-title-text>
-      <div layout="row">
-        <div layout="column" flex="1">
-          <md-button class="vote-button md-icon-button">
-            <md-icon>arrow_upward</md-icon>
-            <md-tooltip>Vote</md-tooltip>
-          </md-button>
-        </div>
-        <div layout="column" flex="3">
-          <span class="md-headline">Solution</span>
-          <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-        </div>
+<ng-controller ng-controller="SolutionController as vm">
+  <md-toolbar class="md-primary">
+    <div layout="row" layout-padding>
+      <div class="img-container">
+        <img ng-src="vm.solution.imageUrl" alt="Solution Image">
       </div>
+      <div layout-padding flex>
+        {{vm.solution.description}}
+      </div>
+      <md-button class="md-icon-button" ng-if="vm.canEdit" ng-click="vm.delete()">
+        <md-tooltip>Delete Solution</md-tooltip>
+        <md-icon>delete</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-if="vm.canEdit" ui-sref="solutions.edit({solutionId: vm.solution._id})">
+        <md-tooltip>Edit Solution</md-tooltip>
+        <md-icon>edit</md-icon>
+      </md-button>
+    </div>
 
-    </md-card-title-text>
-  </md-card-title>
-  <md-card-actions layout="row" layout-align="end right">
-    <md-button>Vote</md-button>
-  </md-card-actions>
-</md-card>
+  </md-toolbar>
 
-<md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-  <md-card-title>
-    <md-card-title-text>
-      <span class="md-headline">Solution</span>
-      <span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam velit lectus, feugiat et hendrerit eget, varius non lectus. Ut pharetra rutrum mollis. Suspendisse in sem in ligula fringilla bibendum ut nec purus.</span>
-    </md-card-title-text>
-  </md-card-title>
-  <md-card-actions layout="row" layout-align="end right">
-    <md-button>Vote</md-button>
-  </md-card-actions>
-</md-card>
+  <div layout="row" layout-padding>
+      <md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.currentUserVote.voteValue===1 }" ng-click="vm.vote('up')">
+        <md-icon>arrow_upward</md-icon> Vote Up
+        <md-tooltip ng-if="vm.solution.currentUserVote.voteValue===1">Undo</md-tooltip>
+      </md-button>
 
-<div class='polis' data-conversation_id='6vdjkikpra'></div>
+      <md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.currentUserVote.voteValue===-1 }" ng-click="vm.vote('down')">
+        <md-icon>arrow_downward</md-icon>Vote Down
+        <md-tooltip ng-if="vm.solution.currentUserVote.voteValue===-1">Undo</md-tooltip>
+      </md-button>
 </div>
+<div layout="row" ng-if="authentication.user" layout-padding>
+    <md-button class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
+      <md-icon>add</md-icon>Add an Action
+    </md-button>
+  </div>
+
+  <div layout="column" layout-padding ng-if="vm.creatingAction">
+    <md-input-container>
+      <label>Action Title</label>
+      <input ng-model="vm.newAction.title" autofocus>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <label>Action Description</label>
+      <textarea ng-model="vm.newAction.description"></textarea>
+    </md-input-container>
+
+    <div layout="row">
+      <md-button class="md-primary md-raised" ng-click="vm.createAction()">
+        Submit
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="vm.showCreateAction()">
+        Cancel
+      </md-button>
+    </div>
+  </div>
+
+
+  <div layout-padding>
+    <md-card class="action-card" md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ng-repeat="action in vm.actions">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{::action.title}}</span>
+          <span class="md-subhead">{{::action.description}}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-card-icon-actions>
+          <md-button class="md-icon-button vote-btn" ng-class="{ selected: action.currentUserVote.voteValue===1 }" ng-click="vm.voteAction(action, 'up', $event)">
+            <md-tooltip>
+              <span ng-if="action.currentUserVote.voteValue===1">Undo</span>
+              <span ng-if="action.currentUserVote.voteValue!==1">Vote Up</span>
+            </md-tooltip>
+            <md-icon>arrow_upward</md-icon>
+          </md-button>
+          <md-button class="md-icon-button vote-btn" ng-class="{ selected: action.currentUserVote.voteValue===-1 }" ng-click="vm.voteAction(action, 'down', $event)">
+            <span ng-if="action.currentUserVote.voteValue===-1">Undo</span>
+            <span ng-if="action.currentUserVote.voteValue!==-1">Vote Down</span>
+            <md-icon>arrow_downward</md-icon>
+          </md-button>
+          <md-button class="md-icon-button" ng-if="authentication.user._id===action.user._id" ng-click="vm.deleteAction(action)">
+            <md-tooltip>Delete</md-tooltip>
+            <md-icon>delete</md-icon>
+          </md-button>
+        </md-card-icon-actions>
+      </md-card-actions>
+    </md-card>
+  </div>
+</ng-controller>

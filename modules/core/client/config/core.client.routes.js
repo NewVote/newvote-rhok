@@ -63,11 +63,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/',
       templateUrl: 'modules/core/client/views/solutions.client.view.html',
       data: {
-        title: 'Solutions'
+        title: 'All Solutions'
       }
     })
     .state('solutions.create', {
-      url: '/create',
+      url: '/create?:issueId',
       templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
       data: {
         title: 'Create Solution'

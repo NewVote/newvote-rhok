@@ -1,0 +1,31 @@
+<div ng-controller="SolutionController as vm" ng-init="vm.getSolution()" layout-padding  layout="column" layout-align="top center" flex>
+
+  <md-input-container>
+    <label>Solution Title</label>
+    <input ng-model="vm.solution.title" autofocus>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Solution Description</label>
+    <textarea ng-model="vm.solution.description"></textarea>
+  </md-input-container>
+  <md-contact-chips
+    ng-model="vm.solution.issues"
+    md-contacts="vm.searchIssues($query)"
+    md-contact-name="name"
+    md-require-match="true"
+    md-highlight-flags="i"
+    md-delay="400"
+    placeholder="Issues Addressed"
+    secondary-placeholder="Add another issue">
+  </md-contact-chips>
+  <div layout="row">
+    <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
+      <span ng-if="vm.solution._id">Update</span>
+      <span ng-if="!vm.solution._id">Create</span>
+    </md-button>
+    <md-button  class="md-raised md-warn" ng-if="vm.solution._id" ng-click="vm.delete()">
+      Delete
+    </md-button>
+  </div>
+</div>

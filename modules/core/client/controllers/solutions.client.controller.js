@@ -1,49 +1,18 @@
 'use strict';
 
-angular.module('core').controller('SolutionsListController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state) {
-    // This provides Authentication context.
+angular.module('core').controller('SolutionsListController', ['$scope', '$stateParams', 'SolutionService', 'VoteService',
+  function ($scope, $stateParams, SolutionService, VoteService) {
     var vm = this;
+    vm.issueId = $stateParams.issueId;
 
-    vm.solutions = [{
-      id: 0,
-      name: 'Global Warming',
-      imageUrl: 'modules/core/client/img/1.png'
-    },
-    {
-      id: 1,
-      name: 'Global Warming',
-      imageUrl: 'modules/core/client/img/1.png'
-    },
-    {
-      id: 2,
-      name: 'Global Warming',
-      imageUrl: 'modules/core/client/img/1.png'
-    },
-    {
-      id: 3,
-      name: 'Global Warming',
-      imageUrl: 'modules/core/client/img/1.png'
-    },
-    {
-      id: 4,
-      name: 'Global Warming',
-      imageUrl: 'modules/core/client/img/1.png'
-    },
-    {
-      id: 5,
-      name: 'Global Warming',
-      imageUrl: 'modules/core/client/img/1.png'
-    },
-    {
-      id: 6,
-      name: 'Global Warming',
-      imageUrl: 'modules/core/client/img/1.png'
-    }
-    ];
+    SolutionService.list({ issueId: vm.issueId }).then(function(solutions) {
+      vm.solutions = solutions;
+    });
 
-    $scope.openMenu = function($mdMenu, ev) {
-      $mdMenu.open(ev);
+    vm.vote = function(solution, voteType, $event) {
+      $event.stopPropagation();
+      VoteService.vote(solution, 'Solution', voteType);
     };
+
   }
 ]);

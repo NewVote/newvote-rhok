@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var vote = new Vote(req.body);
-
+  vote.user = req.user;
   vote.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -23,6 +23,26 @@ exports.create = function (req, res) {
     } else {
       res.json(vote);
     }
+  });
+};
+
+
+exports.updateOrCreate = function(req, res) {
+  var user = req.user;
+  var object = req.body.object;
+  Vote.findOne({
+    user: user,
+    object: object
+  }).exec(function (err, vote) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else if (!vote) {
+      return exports.create(req, res);
+    }
+    req.vote = vote;
+    return exports.update(req, res);
   });
 };
 
@@ -107,5 +127,24 @@ exports.voteByID = function (req, res, next, id) {
     }
     req.vote = vote;
     next();
+  });
+};
+
+exports.attachCurrentUserVotes = function(objects, user) {
+  if(!user || !objects) return Promise.resolve(objects);
+  var objectIds = objects.map(function(object) {
+    return object._id;
+  });
+  return Vote.find({
+    user: user,
+    object: { $in: objectIds }
+  }).exec().then(function(votes) {
+    objects = objects.map(function(object) {
+      object = object.toObject(); //to be able to set props on the mongoose object
+      var vote = votes.find(function(vote) { return vote.object.toString()===object._id.toString(); });
+      if(vote) object.currentUserVote = vote;
+      return object;
+    });
+    return objects;
   });
 };

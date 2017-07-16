@@ -10,8 +10,8 @@ angular.module('core').service('IssueService', ['$resource', '$stateParams', '$q
       return Issue.get({ issueId: issueId }).$promise;
     };
 
-    svc.list = function() {
-      return Issue.query().$promise;
+    svc.list = function(params) {
+      return Issue.query(params).$promise;
     };
 
     svc.delete = function(issueId) {
@@ -22,6 +22,10 @@ angular.module('core').service('IssueService', ['$resource', '$stateParams', '$q
     svc.createOrUpdate = function(issueObj) {
       var issue = new Issue(issueObj);
       return issue._id ? issue.$update() : issue.$save();
+    };
+
+    svc.searchIssues = function(query) {
+      return svc.list({ search: query });
     };
   }
 ]);

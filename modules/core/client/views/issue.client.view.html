@@ -1,58 +1,17 @@
-<md-toolbar class="md-primary" ng-controller="IssueController as ctrl">
+<md-toolbar class="md-primary" ng-controller="IssueController as vm">
   <div layout="row" layout-padding>
     <div layout-padding flex>
-      {{ctrl.issue.description}}
+      {{vm.issue.description}}
     </div>
-    <md-button class="md-icon-button" ng-click="ctrl.delete()"><md-icon>delete</md-icon></md-button>
-    <md-button class="md-icon-button" ui-sref="issues.edit({issueId: ctrl.issue._id})"><md-icon>edit</md-icon></md-button>
+    <md-button class="md-icon-button" ng-click="vm.delete()">
+      <md-tooltip>Delete Issue</md-tooltip>
+      <md-icon>delete</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ui-sref="issues.edit({issueId: vm.issue._id})">
+      <md-tooltip>Edit Issue</md-tooltip>
+      <md-icon>edit</md-icon>
+    </md-button>
   </div>
 
 </md-toolbar>
-<md-content class="md-padding" layout-xs="column" onload="vm.issue = ctrl.issue" layout="column" layout-align="center" ng-controller="SolutionsListController as vm" ng-include="'modules/core/client/views/solutions-list.client.view.html'">
-
-</md-content>
-<!-- <md-toolbar class="md-primary">
-  <div layout-padding>
-    <h2>Description</h2>
-    <p>
-      Hello sakdjaskl djasl dlkasjd lksajd lkasj dklasjd klsaj dklasjd klasjd klasjdk ljasld lasjdlkas kld j
-
-    </p>
-  </div>
-</md-toolbar>
-<md-content class="md-padding" layout-xs="column" layout="row" layout-align="center">
-
-
-
-
-  <md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline">Solution Title</span>
-        <span class="md-subhead">Brief abstract about the issue content to introduce the user in a sentence or two.</span>
-      </md-card-title-text>
-      <md-card-title-media>
-        <div class="md-media-sm card-media">[icon]</div>
-      </md-card-title-media>
-    </md-card-title>
-    <md-card-actions layout="row" layout-align="end right">
-      <md-button>Read More</md-button>
-    </md-card-actions>
-  </md-card>
-
-  <md-card md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline">Solution Title</span>
-        <span class="md-subhead">Brief abstract about the issue content to introduce the user in a sentence or two.</span>
-      </md-card-title-text>
-      <md-card-title-media>
-        <div class="md-media-sm card-media">[icon]</div>
-      </md-card-title-media>
-    </md-card-title>
-    <md-card-actions layout="row" layout-align="end right">
-      <md-button>Read More</md-button>
-    </md-card-actions>
-  </md-card>
-
-</md-content> -->
+<div ng-include="'modules/core/client/views/solutions-list.client.view.html'"></div>

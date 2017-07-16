@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * Article Schema
  */
-var SolutionSchema = new Schema({
+var ActionSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
@@ -24,24 +24,14 @@ var SolutionSchema = new Schema({
     default: '',
     trim: true
   },
-  imageUrl: {
-    type: String,
-    default: '',
-    trim: true
-  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
   },
-  comments: [{
+  solution: {
     type: Schema.ObjectId,
-    ref: 'Comment'
-  }],
-  issues: [{
-    type: Schema.ObjectId,
-    ref: 'Issue',
-    required: true
-  }]
+    ref: 'Solution'
+  }
 });
 
-mongoose.model('Solution', SolutionSchema);
+mongoose.model('Action', ActionSchema);

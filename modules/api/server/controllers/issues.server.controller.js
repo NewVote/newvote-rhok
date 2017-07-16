@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var issue = new Issue(req.body);
-
+  issue.user = req.user;
   issue.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -75,7 +75,14 @@ exports.delete = function (req, res) {
  * List of Issues
  */
 exports.list = function (req, res) {
-  Issue.find().sort('-created').populate('user', 'displayName').exec(function (err, issues) {
+  var searchParams = req.query.search ? {
+    name: {
+      $regex: req.query.search,
+      $options: 'i'
+    }
+  } : null;
+
+  Issue.find(searchParams).sort('-created').populate('user', 'displayName').exec(function (err, issues) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

@@ -8,6 +8,8 @@ var config = require('../config'),
   path = require('path'),
   mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+
 // Load the mongoose models
 module.exports.loadModels = function (callback) {
   // Globbing model files

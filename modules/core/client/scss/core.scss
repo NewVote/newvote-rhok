@@ -38,7 +38,7 @@ a:hover .header-profile-image {
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   color: #00838F;
 }
 
@@ -120,4 +120,33 @@ md-progress-linear {
   overflow: visible;
   height: 0;
   z-index: 3;
+}
+
+md-tooltip {
+  font-size: 14px !important;
+
+  &.tooltip-wrap, &.tooltip-multiline {
+    height: auto;
+    white-space: normal;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 5px 10px;
+    font-weight: normal;
+  }
+
+  &.tooltip-wrap {
+    width: 200px;
+  }
+}
+
+.vote-btn {
+  &.selected {
+    &, md-icon {
+      color: #ff9800 !important;
+    }
+  }
+}
+
+.solution-card, .action-card {
+  cursor: pointer;
 }

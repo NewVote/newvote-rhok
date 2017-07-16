@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Solution = mongoose.model('Solution'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  votes = require('./votes.server.controller'),
   _ = require('lodash');
 
 /**
@@ -14,7 +15,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var solution = new Solution(req.body);
-
+  solution.user = req.user;
   solution.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -75,13 +76,23 @@ exports.delete = function (req, res) {
  * List of Solutions
  */
 exports.list = function (req, res) {
-  Solution.find().sort('-created').populate('user', 'displayName').exec(function (err, solutions) {
+  var issueId = req.query.issueId;
+  var query = issueId ? { issues: issueId } : null;
+
+  Solution.find(query).sort('-created').populate('user', 'displayName').exec(function (err, solutions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(solutions);
+      votes.attachCurrentUserVotes(solutions, req.user).then(function(solutions) {
+        res.json(solutions);
+      }).catch(function(err) {
+        console.log(err);
+        res.status(500).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      });
     }
   });
 };
@@ -97,15 +108,19 @@ exports.solutionByID = function (req, res, next, id) {
     });
   }
 
-  Solution.findById(id).populate('user', 'displayName').exec(function (err, solution) {
-    if (err) {
-      return next(err);
-    } else if (!solution) {
-      return res.status(404).send({
-        message: 'No solution with that identifier has been found'
-      });
-    }
-    req.solution = solution;
-    next();
-  });
+  Solution.findById(id)
+    .populate('user', 'displayName')
+    .populate('issues').exec(function (err, solution) {
+      if (err) {
+        return next(err);
+      } else if (!solution) {
+        return res.status(404).send({
+          message: 'No solution with that identifier has been found'
+        });
+      }
+      votes.attachCurrentUserVotes([solution], req.user).then(function() {
+        req.solution = solution;
+        next();
+      }).catch(next);
+    });
 };
