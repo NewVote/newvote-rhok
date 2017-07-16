@@ -8,6 +8,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
       issues: []
     };
     vm.newAction = {};
+    $scope.authentication = Authentication;
 
     if($stateParams.solutionId) {
       SolutionService.get($stateParams.solutionId).then(function(solutions) {

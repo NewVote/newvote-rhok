@@ -5,6 +5,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     // This provides Authentication context.
     var vm = this;
     vm.issue = {};
+    $scope.authentication = Authentication;
 
     if($stateParams.issueId) {
       IssueService.get($stateParams.issueId).then(function(issue) {

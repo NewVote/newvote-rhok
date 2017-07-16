@@ -66,6 +66,10 @@ exports.isAllowed = function (req, res, next) {
       if (isAllowed) {
         // Access granted! Invoke next middleware
         return next();
+      } else if(!req.user) {
+        return res.status(401).json({
+          message: 'User is not authenticated'
+        });
       } else {
         return res.status(403).json({
           message: 'User is not authorized'

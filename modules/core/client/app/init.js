@@ -37,7 +37,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   // Check authentication before changing state
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
     if(toState.data && toState.data.title) {
-      console.log('setting title', toState.data.title );
+      console.log('setting title', toState.data.title);
       $rootScope.pageTitle = toState.data.title;
     }
     if (toState.data && toState.data.roles && toState.data.roles.length > 0) {

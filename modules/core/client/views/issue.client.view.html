@@ -3,14 +3,16 @@
     <div layout-padding flex>
       {{vm.issue.description}}
     </div>
-    <md-button class="md-icon-button" ng-click="vm.delete()">
-      <md-tooltip>Delete Issue</md-tooltip>
-      <md-icon>delete</md-icon>
-    </md-button>
-    <md-button class="md-icon-button" ui-sref="issues.edit({issueId: vm.issue._id})">
-      <md-tooltip>Edit Issue</md-tooltip>
-      <md-icon>edit</md-icon>
-    </md-button>
+    <div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id===vm.issue.user._id">
+      <md-button class="md-icon-button" ng-click="vm.delete()">
+        <md-tooltip>Delete Issue</md-tooltip>
+        <md-icon>delete</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ui-sref="issues.edit({issueId: vm.issue._id})">
+        <md-tooltip>Edit Issue</md-tooltip>
+        <md-icon>edit</md-icon>
+      </md-button>
+    </div>
   </div>
 
 </md-toolbar>

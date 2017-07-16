@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('core').controller('SolutionsListController', ['$scope', '$stateParams', 'SolutionService', 'VoteService',
-  function ($scope, $stateParams, SolutionService, VoteService) {
+angular.module('core').controller('SolutionsListController', ['$scope', '$stateParams', 'SolutionService', 'VoteService', 'Authentication',
+  function ($scope, $stateParams, SolutionService, VoteService, Authentication) {
     var vm = this;
+    $scope.authentication = Authentication;
     vm.issueId = $stateParams.issueId;
 
     SolutionService.list({ issueId: vm.issueId }).then(function(solutions) {

@@ -38,13 +38,15 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/create',
       templateUrl: 'modules/core/client/views/edit-issue.client.view.html',
       data: {
-        title: 'Create Issue'
+        title: 'Create Issue',
+        roles: ['user', 'admin']
       }
     })
     .state('issues.edit', {
       url: '/:issueId/edit',
       templateUrl: 'modules/core/client/views/edit-issue.client.view.html',
       data: {
+        roles: ['user'],
         title: 'Edit Issue'
       }
     })
@@ -70,6 +72,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/create?:issueId',
       templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
       data: {
+        roles: ['user'],
         title: 'Create Solution'
       }
     })
@@ -77,6 +80,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/:solutionId/edit',
       templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
       data: {
+        roles: ['user'],
         title: 'Edit Solution'
       }
     })
