@@ -88,13 +88,13 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 
     function confirm(title, text) {
-      var confirm = $mdDialog.confirm()
+      var confirmDialog = $mdDialog.confirm()
         .title(title)
         .textContent(text)
         .ok('Yes')
         .cancel('No');
 
-      return $mdDialog.show(confirm);
+      return $mdDialog.show(confirmDialog);
     }
   }
 ]);

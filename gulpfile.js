@@ -5,6 +5,7 @@
  */
 var _ = require('lodash'),
   defaultAssets = require('./config/assets/default'),
+  prodAssets = require('./config/assets/production'),
   testAssets = require('./config/assets/test'),
   gulp = require('gulp'),
   gulpLoadPlugins = require('gulp-load-plugins'),
@@ -257,6 +258,12 @@ gulp.task('protractor', ['webdriver_update'], function () {
     });
 });
 
+gulp.task('concatLib', function() {
+  return gulp.src(prodAssets.client.lib.individualJs)
+    .pipe(plugins.concat('lib.min.js'))
+    .pipe(gulp.dest('public/dist'));
+});
+
 // Lint CSS and JavaScript files.
 gulp.task('lint', function (done) {
   runSequence('less', 'sass', ['csslint', 'eslint', 'jshint'], done);
@@ -264,7 +271,7 @@ gulp.task('lint', function (done) {
 
 // Lint project files and minify them into two production files.
 gulp.task('build', function (done) {
-  runSequence('env:dev', 'lint', ['uglify', 'cssmin'], done);
+  runSequence('env:dev', 'templatecache', 'lint', ['uglify', 'cssmin'], 'concatLib', done);
 });
 
 // Run the project tests

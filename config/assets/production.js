@@ -9,7 +9,8 @@ module.exports = {
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,700'
       ],
-      js: [
+      js: 'public/dist/lib.min.js',
+      individualJs: [
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',
@@ -20,8 +21,8 @@ module.exports = {
         // 'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/angular-file-upload/angular-file-upload.min.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
-        'public/lib/angular-material/angular-material.min.js'
-
+        'public/lib/angular-material/angular-material.min.js',
+        'public/lib/angular-aria/angular-aria.min.js'
       ]
     },
     css: 'public/dist/application.min.css',
