@@ -1,23 +1,19 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions) {
     // This provides Authentication context.
     var vm = this;
-    vm.solution = {
-      issues: []
-    };
+    vm.solution = solution;
     vm.newAction = {};
+    vm.actions = actions;
+
     $scope.authentication = Authentication;
 
-    if($stateParams.solutionId) {
-      SolutionService.get($stateParams.solutionId).then(function(solutions) {
-        vm.solution = solutions;
-        var title = vm.solution.title;
-        if($state.is('solutions.edit')) title = 'Edit Solution - ' + title;
-        $rootScope.pageTitle = title;
-      });
-      getActions();
+    if(vm.solution._id) {
+      var title = vm.solution.title;
+      if($state.is('solutions.edit')) title = 'Edit Solution - ' + title;
+      $rootScope.pageTitle = title;
     }
 
     if($stateParams.issueId) {

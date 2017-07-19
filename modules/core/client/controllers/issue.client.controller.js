@@ -1,21 +1,18 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions) {
     // This provides Authentication context.
     var vm = this;
-    vm.issue = {};
+    vm.issue = issue;
+    vm.issueId = issue._id;
+    vm.solutions = solutions;
     $scope.authentication = Authentication;
-
-    if($stateParams.issueId) {
-      IssueService.get($stateParams.issueId).then(function(issue) {
-        vm.issue = issue;
-        vm.solutions = vm.issue.solutions;
-        var title = vm.issue.name;
-        if($state.is('issues.edit')) title = 'Edit Issue - ' + title;
-        $rootScope.pageTitle = title;
-      });
-    }
+    if(vm.issue._id){
+      var title = vm.issue.name;
+      if($state.is('issues.edit')) title = 'Edit Issue - ' + title;
+      $rootScope.pageTitle = title;
+    } 
 
     vm.createOrUpdate = function() {
       return IssueService.createOrUpdate(vm.issue).then(function(issue) {
@@ -38,6 +35,9 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
       });
     };
 
-
+    vm.vote = function(solution, voteType, $event) {
+      $event.stopPropagation();
+      VoteService.vote(solution, 'Solution', voteType);
+    };
   }
 ]);

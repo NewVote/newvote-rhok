@@ -1,4 +1,4 @@
-<md-toolbar class="md-primary" ng-controller="IssueController as vm">
+<md-toolbar class="md-primary">
   <div layout="row" layout-padding>
     <div layout-padding flex>
       {{vm.issue.description}}
@@ -16,4 +16,4 @@
   </div>
 
 </md-toolbar>
-<div ng-include="'modules/core/client/views/solutions-list.client.view.html'"></div>
+<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>

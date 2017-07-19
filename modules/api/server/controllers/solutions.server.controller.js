@@ -118,8 +118,8 @@ exports.solutionByID = function (req, res, next, id) {
           message: 'No solution with that identifier has been found'
         });
       }
-      votes.attachCurrentUserVotes([solution], req.user).then(function() {
-        req.solution = solution;
+      votes.attachCurrentUserVotes([solution], req.user).then(function(solutionArr) {
+        req.solution = solutionArr[0];
         next();
       }).catch(next);
     });
