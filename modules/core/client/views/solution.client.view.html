@@ -30,22 +30,22 @@
 
 </md-toolbar>
 
-<div layout="row" ng-if="authentication.user" layout-padding>
+<div layout="row" layout-padding>
   <md-button class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
     <md-icon>add</md-icon>Add an Action
   </md-button>
 </div>
 
 <div layout="column" layout-padding ng-if="vm.creatingAction">
-  <md-input-container>
-    <label>Action Title</label>
-    <input ng-model="vm.newAction.title" autofocus>
+  <md-input-container class="md-block compact">
+    <label>Action Summary</label>
+    <input ng-model="vm.newAction.title" autofocus md-placeholder="">
   </md-input-container>
-
+<!--
   <md-input-container class="md-block">
-    <label>Action Description</label>
+    <label>Action Details</label>
     <textarea ng-model="vm.newAction.description"></textarea>
-  </md-input-container>
+  </md-input-container> -->
 
   <div layout="row">
     <md-button class="md-primary md-raised" ng-click="vm.createAction()">
@@ -63,7 +63,7 @@
     <md-card-title>
       <md-card-title-text>
         <span class="md-headline">{{::action.title}}</span>
-        <span class="md-subhead">{{::action.description}}</span>
+        <!-- <span class="md-subhead">{{::action.description}}</span> -->
       </md-card-title-text>
     </md-card-title>
     <md-card-actions layout="row" layout-align="end center">
