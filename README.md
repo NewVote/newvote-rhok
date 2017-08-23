@@ -59,4 +59,4 @@ To run your application with *production* environment configuration, execute gul
 $ gulp prod
 ```
 
-#check out the new mock ups of the Solution Page and New Issue Page
+##Check out the new mock ups of the Solution Page and New Issue Page
