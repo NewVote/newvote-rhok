@@ -1,6 +1,7 @@
-## Check out the new mock ups of the Solution and Issue Pages (above)
+## Some early mock ups of the Solution and Issue Pages
 
-
+![1](http://i.imgur.com/MjB2Waf.png)
+![2](http://i.imgur.com/jmyT9cR.png)
 
 ## Before You Begin
 
