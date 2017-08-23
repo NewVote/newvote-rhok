@@ -1,4 +1,6 @@
-## Check out the new mock ups of the new Solution and Issue Pages (above)
+## Check out the new mock ups of the Solution and Issue Pages (above)
+
+
 
 ## Before You Begin
 
