@@ -1,3 +1,5 @@
+## Check out the new mock ups of the new Solution and Issue Pages (above)
+
 ## Before You Begin
 
 Before you begin we recommend you read about the basic building blocks that assemble a MEAN.JS application:
@@ -59,4 +61,3 @@ To run your application with *production* environment configuration, execute gul
 $ gulp prod
 ```
 
-##Check out the new mock ups of the Solution Page and New Issue Page
