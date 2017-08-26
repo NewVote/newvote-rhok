@@ -13,6 +13,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 ]);
 
 var app = angular.module(ApplicationConfiguration.applicationModuleName);
+app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
+  ngQuillConfigProvider.set();
+}]);
 app.config(['$mdThemingProvider', function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
   .primaryPalette('cyan', {

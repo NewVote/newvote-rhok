@@ -160,3 +160,44 @@ md-input-container {
     }
   }
 }
+md-toolbar.app-header:not(.md-menu-toolbar) {
+.header-search-input {
+    margin: 0 60px;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+
+    md-autocomplete-wrap {
+      box-shadow: none;
+
+      button md-icon {
+        color: #adadad;
+        fill: #adadad;
+      }
+    }
+
+    input {
+      // @include placeholder(rgba(255, 255, 255, 0.7));
+      border-bottom: 0;
+      font-size: 18px;
+      // color: #fff;
+    }
+
+    &.simple {
+      padding: 0;
+
+      input {
+        font-weight: 500;
+        height: 40px;
+        padding: 0 15px;
+        color: #000;
+        border-color: #000;
+      }
+    }
+  }
+
+  .md-errors-spacer {
+    display: none;
+  }
+}
+
+[ng-quill-editor] { display: block; }

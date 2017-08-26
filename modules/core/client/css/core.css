@@ -119,3 +119,30 @@ md-input-container.compact {
   margin: 10px 0 0; }
   md-input-container.compact .md-errors-spacer {
     display: none; }
+
+md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input {
+  margin: 0 60px;
+  background: #fff;
+  border: 1px solid #e2e2e2; }
+  md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input md-autocomplete-wrap {
+    box-shadow: none; }
+    md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input md-autocomplete-wrap button md-icon {
+      color: #adadad;
+      fill: #adadad; }
+  md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input input {
+    border-bottom: 0;
+    font-size: 18px; }
+  md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input.simple {
+    padding: 0; }
+    md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input.simple input {
+      font-weight: 500;
+      height: 40px;
+      padding: 0 15px;
+      color: #000;
+      border-color: #000; }
+
+md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
+  display: none; }
+
+[ng-quill-editor] {
+  display: block; }
