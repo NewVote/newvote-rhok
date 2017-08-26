@@ -222,7 +222,14 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 
 .info-banner {
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
 }
+
+.hello {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+
 
 [ng-quill-editor] { display: block; }
