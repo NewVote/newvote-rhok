@@ -9,7 +9,9 @@
       <md-list-item ui-sref="home" ui-sref-active="active">
         <p class="item-content">Home</p>
       </md-list-item>
-
+      <div layout-padding></div>
+      <!-- <md-divider></md-divider> -->
+      <div layout-padding></div>
       <md-list-item ui-sref="issues.list" ui-sref-active="active" >
         <p class="item-content">Issues</p>
       </md-list-item>
@@ -22,13 +24,12 @@
         <p class="item-content">Results</p>
       </md-list-item> -->
 
-      <md-list-item href="http://newvote.org.au" target="_blank">
-        <p class="item-content">About</p>
-      </md-list-item>
 
       <div layout-padding></div>
       <!-- <md-divider></md-divider> -->
       <div layout-padding></div>
+    <md-list-item href="http://newvote.org.au" target="_blank">
+      <p class="item-content">About</p>
     </md-list-item>
     <md-list-item class="" ng-if="!authentication.user" ui-sref="authentication.signup" ui-sref-active="active" >
       <p class="item-content">Join</p>

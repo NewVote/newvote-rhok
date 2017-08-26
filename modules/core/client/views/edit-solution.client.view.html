@@ -5,10 +5,9 @@
     <input ng-model="vm.solution.title" autofocus>
   </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Solution Description</label>
-    <textarea ng-model="vm.solution.description"></textarea>
-  </md-input-container>
+  <label>Solution Description</label>
+  <ng-quill-editor ng-model="vm.solution.description"></ng-quill-editor>
+  
   <md-contact-chips
     ng-model="vm.solution.issues"
     md-contacts="vm.searchIssues($query)"
