@@ -120,6 +120,14 @@ md-input-container.compact {
   md-input-container.compact .md-errors-spacer {
     display: none; }
 
+.md-inline-form p {
+  font-size: 20px;
+  color: white;
+  background-color: grey;
+  padding: 15px;
+  text-align: center;
+  width: auto; }
+
 md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input {
   margin: 0 60px;
   background: #fff;
@@ -143,6 +151,10 @@ md-toolbar.app-header:not(.md-menu-toolbar) .header-search-input {
 
 md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
   display: none; }
+
+.info-banner {
+  border: 1px solid #ccc;
+  border-radius: 4px; }
 
 [ng-quill-editor] {
   display: block; }

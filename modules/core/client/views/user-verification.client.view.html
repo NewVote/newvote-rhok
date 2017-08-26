@@ -1,0 +1,39 @@
+<div layout="column" layout-padding>
+
+  <p layout="row" layout-align="center center" layout-padding class="info-banner">In the future, this page will verify your personal details using government issued ID.</p>
+
+  <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+
+  </md-content>
+
+  <md-content layout-padding>
+    <div>
+      <form name="userverification">
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Full Name</label>
+            <input ng-model="user.firstName">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Postal Code</label>
+            <input name="postalCode" ng-model="user.postalCode" placeholder="ie. 4000"
+                   required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+
+            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+              <div ng-message="required" class="my-message">You must supply a postal code.</div>
+              <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+                code.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+      </form>
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button class="md-raised md-primary">Submit</md-button>
+      </section>
+    </div>
+  </md-content>
+
+</div>
