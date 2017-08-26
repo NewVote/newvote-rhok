@@ -1,7 +1,6 @@
 <md-toolbar class="md-primary">
   <div layout="row" layout-padding>
-    <div layout-padding flex>
-      {{vm.issue.description}}
+    <div layout-padding flex ng-bind-html="vm.issue.description">
     </div>
     <div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id===vm.issue.user._id">
       <md-button class="md-icon-button" ng-click="vm.delete()">

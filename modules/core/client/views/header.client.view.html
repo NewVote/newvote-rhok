@@ -5,8 +5,15 @@
   <md-icon>menu</md-icon>
 </md-button>
 <div class="home-title">{{pageTitle}}</div>
-<div flex></div>
-
+<div flex="auto" layout="column">
+  <md-input-container md-no-float class="md-block header-search-input simple" md-no-asterisk>
+    <input type="text" flex
+    ng-model="ctrl.search.text"
+    ng-attr-placeholder="Search"
+    ng-change="ctrl.search.changed()"
+    ng-model-options="{debouce: 300}">
+  </md-input-container>
+</div>
 <md-menu ng-show="authentication.user">
   <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
     <md-icon>person</md-icon>

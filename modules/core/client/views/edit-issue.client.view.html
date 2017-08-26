@@ -6,10 +6,11 @@
   </md-input-container>
 
   <!-- TODO richtext editor -->
-  <md-input-container class="md-block">
+  <!-- <md-input-container class="md-block"> -->
     <label>Issue Description</label>
-    <textarea ng-model="vm.issue.description"></textarea>
-  </md-input-container>
+    <ng-quill-editor ng-model="vm.issue.description"></ng-quill-editor>
+    <!-- <textarea ng-model="vm.issue.description"></textarea> -->
+  <!-- </md-input-container> -->
   <div layout="row">
     <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
       <span ng-if="vm.issue._id">Update</span>
