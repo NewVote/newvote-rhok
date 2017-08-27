@@ -6,7 +6,7 @@
 </md-button>
 <div class="home-title">{{pageTitle}}</div>
 <div flex="auto" layout="column">
-  <md-input-container md-no-float class="md-block header-search-input simple" md-no-asterisk>
+  <md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
     <input type="text" flex
     ng-model="ctrl.search.text"
     ng-attr-placeholder="Search"
