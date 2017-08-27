@@ -160,6 +160,21 @@ md-input-container {
     }
   }
 }
+
+
+.md-inline-form {
+
+  p{
+    font-size: 20px;
+    color: white;
+    background-color: grey;
+    padding: 15px;
+    text-align: center;
+    width: auto;
+
+  }
+}
+
 md-toolbar.app-header:not(.md-menu-toolbar) {
 .header-search-input {
     margin: 0 60px;
@@ -199,5 +214,22 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
     display: none;
   }
 }
+
+.ui-view-container {
+  // max-width: 750px;
+//  margin: auto;
+}
+
+.info-banner {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.hello {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+
 
 [ng-quill-editor] { display: block; }
