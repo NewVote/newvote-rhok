@@ -18,12 +18,14 @@
     "angular-material": "^1.1.4",
     "lodash": "^4.17.4",
     "ngQuill": "ng-quill#^3.3.0",
-    "quill": "https://github.com/quilljs/quill/releases/download/v1.1.5/quill.tar.gz"
+    "quill": "https://github.com/quilljs/quill/releases/download/v1.1.5/quill.tar.gz",
+    "ng-file-upload": "^12.2.13"
   },
   "resolutions": {
     "angular": "~1.6.4",
     "angular-animate": "^1.4.8",
     "angular-messages": "^1.4.8",
-    "quill": "e-tag:41d86eee0"
+    "quill": "e-tag:41d86eee0",
+    "lodash": "^4.17.4"
   }
 }

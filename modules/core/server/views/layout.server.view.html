@@ -68,6 +68,11 @@
     var user = {{ user | json | safe }};
   </script>
 
+  <!--Embedding The User Object-->
+  <script type="text/javascript">
+    var config = {{ config | json | safe }};
+  </script>
+
   <!--Load The Socket.io File-->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <!-- <div class='polis' data-conversation_id='6vdjkikpra'></div>

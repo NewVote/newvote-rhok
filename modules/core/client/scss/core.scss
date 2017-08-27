@@ -272,4 +272,21 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
   }
 }
 
+.ui-view-container {
+  // max-width: 750px;
+//  margin: auto;
+}
+
+.info-banner {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.hello {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+
+
 [ng-quill-editor] { display: block; }

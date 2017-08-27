@@ -20,6 +20,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         title: 'NewVote'
       }
     })
+    .state('user-verification-dummy', {
+      url: '/userverification',
+      templateUrl: 'modules/core/client/views/user-verification.client.view.html',
+      data: {
+        title: 'NewVote'
+      }
+    })
 
     .state('issues', {
       url: '/issues',
