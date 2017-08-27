@@ -28,7 +28,8 @@ module.exports = {
         'public/lib/angular-material/angular-material.min.js',
         'public/lib/angular-aria/angular-aria.min.js',
         'public/lib/quill/quill.js',
-        'public/lib/ngQuill/src/ng-quill.js'
+        'public/lib/ngQuill/src/ng-quill.js',
+        'public/lib/ng-file-upload/ng-file-upload.min.js'
       ]
     },
     css: 'public/dist/application.min.css',

@@ -5,9 +5,13 @@
     <input ng-model="vm.solution.title" autofocus>
   </md-input-container>
 
+  <md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'"
+    ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
+  <img ngf-thumbnail="vm.imageFile || vm.solution.imageUrl">
+
   <label>Solution Description</label>
   <ng-quill-editor ng-model="vm.solution.description"></ng-quill-editor>
-  
+
   <md-contact-chips
     ng-model="vm.solution.issues"
     md-contacts="vm.searchIssues($query)"

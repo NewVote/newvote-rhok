@@ -4,9 +4,12 @@
     <label>Issue Title</label>
     <input ng-model="vm.issue.name" autofocus>
   </md-input-container>
+  <md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'"
+    ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
+  <img ngf-thumbnail="vm.imageFile || vm.issue.imageUrl">
+  <label>Issue Description</label>
+  <ng-quill-editor ng-model="vm.issue.description"></ng-quill-editor>
 
-    <label>Issue Description</label>
-    <ng-quill-editor ng-model="vm.issue.description"></ng-quill-editor>
   <div layout="row">
     <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
       <span ng-if="vm.issue._id">Update</span>

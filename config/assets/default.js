@@ -29,7 +29,8 @@ module.exports = {
         'public/lib/angular-material/angular-material.js',
         'public/lib/angular-aria/angular-aria.js',
         'public/lib/quill/quill.js',
-        'public/lib/ngQuill/src/ng-quill.js'
+        'public/lib/ngQuill/src/ng-quill.js',
+        'public/lib/ng-file-upload/ng-file-upload.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
