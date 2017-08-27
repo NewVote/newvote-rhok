@@ -32,6 +32,10 @@ var IssueSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  currentUserVote: {
+    type: Schema.ObjectId,
+    ref: 'Vote'
   }
 });
 

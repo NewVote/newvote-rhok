@@ -4,7 +4,7 @@
       <img ng-src="vm.solution.imageUrl" alt="Solution Image">
     </div>
     <div layout-padding flex>
-      {{vm.solution.description}}
+      <div class="description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.solution.description"></div>
     </div>
     <md-button class="md-icon-button" ng-if="authentication.user._id===vm.solution.user._id" ng-click="vm.delete()">
       <md-tooltip>Delete Solution</md-tooltip>
@@ -13,6 +13,12 @@
     <md-button class="md-icon-button" ng-if="authentication.user._id===vm.solution.user._id" ui-sref="solutions.edit({solutionId: vm.solution._id})">
       <md-tooltip>Edit Solution</md-tooltip>
       <md-icon>edit</md-icon>
+    </md-button>
+  </div>
+  <div layout="row" layout-align="end end">
+    <md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
+      <span ng-if="vm.showFullDesc">Show Less</span>
+      <span ng-if="!vm.showFullDesc">...Show More</span>
     </md-button>
   </div>
 

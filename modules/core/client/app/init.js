@@ -81,7 +81,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
       };
     }
   }
-});
+}).filter('htmlToPlaintext', function() {
+  return function(text) {
+    return text ? String(text).replace(/<[^>]+>/gm, ' ') : '';
+  };
+}
+);
 
 //Then define the init function for starting up the application
 angular.element(document).ready(function () {

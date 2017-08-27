@@ -287,6 +287,16 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
   margin: 0 auto;
 }
 
+.description {
+  max-height: 20vh;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  &.full {
+    max-height: none;
+    overflow: visible;
+  }
+}
 
 
 [ng-quill-editor] { display: block; }

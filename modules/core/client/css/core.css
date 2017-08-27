@@ -194,5 +194,13 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
   max-width: 750px;
   margin: 0 auto; }
 
+.description {
+  max-height: 20vh;
+  text-overflow: ellipsis;
+  overflow: hidden; }
+  .description.full {
+    max-height: none;
+    overflow: visible; }
+
 [ng-quill-editor] {
   display: block; }

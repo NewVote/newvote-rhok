@@ -140,7 +140,7 @@ exports.attachCurrentUserVotes = function(objects, user) {
     object: { $in: objectIds }
   }).exec().then(function(votes) {
     objects = objects.map(function(object) {
-      object = object.toObject(); //to be able to set props on the mongoose object
+      // object = object.toObject(); //to be able to set props on the mongoose object
       var vote = votes.find(function(vote) { return vote.object.toString()===object._id.toString(); });
       if(vote) object.currentUserVote = vote;
       return object;
