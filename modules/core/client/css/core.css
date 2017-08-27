@@ -119,6 +119,7 @@ md-tooltip {
   margin-top: 80px;
   margin-bottom: 80px; }
   .img-link-container a {
+    color: red;
     margin: 20px 10px;
     max-width: 300px;
     overflow: visible; }
