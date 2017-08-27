@@ -155,9 +155,11 @@ md-tooltip {
   margin-top: 80px;
   margin-bottom: 80px;
 
+.themed-link{
+  color: white;
+  text-decoration: underline;}
 
   a {
-    color: red;
     margin: 20px 10px;
     max-width: 300px;
     overflow: visible;
