@@ -83,7 +83,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   }
 }).filter('htmlToPlaintext', function() {
   return function(text) {
-    return text ? String(text).replace(/<[^>]+>/gm, ' ') : '';
+    return text ? String(text).replace(/<[^>]+>/gm, ' ').replace('&nbsp;', ' ') : '';
   };
 }
 );

@@ -6,11 +6,11 @@
     <md-card class="solution-card" md-rowspan="3" md-colspan="2" ng-repeat="solution in vm.solutions" ui-sref="solutions.view({solutionId:solution._id})">
       <md-card-header>
         <md-card-avatar>
-          <img ng-src="{{solution.imageUrl}}" alt="Solution Image" />
+          <img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
         </md-card-avatar>
         <md-card-header-text>
           <span class="md-title">{{::solution.title}}</span>
-          <span class="md-subhead">{{::solution.description | htmlToPlaintext}}</span>
+          <span class="md-subhead description-container"><div class="description" ng-bind="solution.description | htmlToPlaintext"></div></span>
         </md-card-header-text>
       </md-card-header>
       <md-card-actions layout="row" layout-align="end center">

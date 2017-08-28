@@ -1,11 +1,9 @@
 <md-toolbar class="md-primary">
   <div layout="row" layout-padding>
-    <div class="img-container">
-      <img ng-src="vm.solution.imageUrl" alt="Solution Image">
+    <div class="header-image-container">
+      <img ng-src="{{::vm.solution.imageUrl}}" alt="Solution Image">
     </div>
-    <div layout-padding flex>
-      <div class="description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.solution.description"></div>
-    </div>
+    <div flex></div>
     <md-button class="md-icon-button" ng-if="authentication.user._id===vm.solution.user._id" ng-click="vm.delete()">
       <md-tooltip>Delete Solution</md-tooltip>
       <md-icon>delete</md-icon>
@@ -14,6 +12,9 @@
       <md-tooltip>Edit Solution</md-tooltip>
       <md-icon>edit</md-icon>
     </md-button>
+  </div>
+  <div layout-padding layout="row">
+    <div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.solution.description"></div>
   </div>
   <div layout="row" layout-align="end end">
     <md-button ng-click="vm.showFullDesc=!vm.showFullDesc">

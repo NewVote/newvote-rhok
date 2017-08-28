@@ -1,14 +1,10 @@
 <md-toolbar class="md-primary">
+
   <div layout="row" layout-padding>
-    <div layout-padding flex>
-      <div class="description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.issue.description"></div>
+    <div class="header-image-container">
+      <img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image">
     </div>
-    <div layout="row" layout-align="end end">
-      <md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
-        <span ng-if="vm.showFullDesc">Show Less</span>
-        <span ng-if="!vm.showFullDesc">...Show More</span>
-      </md-button>
-    </div>
+    <div flex></div>
     <div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id===vm.issue.user._id">
       <md-button class="md-icon-button" ng-click="vm.delete()">
         <md-tooltip>Delete Issue</md-tooltip>
@@ -20,6 +16,17 @@
       </md-button>
     </div>
   </div>
+  <div layout-padding layout="row">
+    <div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.issue.description"></div>
+  </div>
+  <div layout="row" layout-align="end end">
+    <md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
+      <span ng-if="vm.showFullDesc">Show Less</span>
+      <span ng-if="!vm.showFullDesc">...Show More</span>
+    </md-button>
+  </div>
+
+
 
 </md-toolbar>
 <solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>

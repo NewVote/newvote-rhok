@@ -149,6 +149,19 @@ md-tooltip {
 
 .solution-card, .action-card {
   cursor: pointer;
+
+  .description-container {
+    .description {
+      overflow: hidden;
+      height: 20px;
+      float: left;
+    }
+
+    &::after {
+      content: '...';
+      float: left;
+    }
+  }
 }
 
 .img-link-container{
@@ -290,7 +303,7 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
   margin: 0 auto;
 }
 
-.description {
+.header-description {
   max-height: 20vh;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -298,6 +311,13 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
   &.full {
     max-height: none;
     overflow: visible;
+  }
+}
+
+.header-image-container {
+  img {
+    max-height: 200px;
+    width: auto;
   }
 }
 
