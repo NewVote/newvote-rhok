@@ -5,11 +5,19 @@
   <md-icon>menu</md-icon>
 </md-button>
 <div class="home-title">{{pageTitle}}</div>
-<div flex></div>
-
+<div flex="auto" layout="column">
+  <md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
+    <input type="text" flex
+    ng-model="ctrl.search.text"
+    ng-attr-placeholder="Search"
+    ng-change="ctrl.search.changed()"
+    ng-model-options="{debouce: 300}">
+  </md-input-container>
+</div>
 <md-menu ng-show="authentication.user">
   <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
     <md-icon>person</md-icon>
+    <md-tooltip md-direction="left">Signed in as {{::authentication.user.displayName}}</md-tooltip>
   </md-button>
   <md-menu-content width="4">
 

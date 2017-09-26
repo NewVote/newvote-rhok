@@ -13,6 +13,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 ]);
 
 var app = angular.module(ApplicationConfiguration.applicationModuleName);
+app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
+  ngQuillConfigProvider.set();
+}]);
 app.config(['$mdThemingProvider', function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
   .primaryPalette('cyan', {
@@ -37,7 +40,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   // Check authentication before changing state
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
     if(toState.data && toState.data.title) {
-      console.log('setting title', toState.data.title );
+      console.log('setting title', toState.data.title);
       $rootScope.pageTitle = toState.data.title;
     }
     if (toState.data && toState.data.roles && toState.data.roles.length > 0) {
@@ -78,7 +81,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
       };
     }
   }
-});
+}).filter('htmlToPlaintext', function() {
+  return function(text) {
+    return text ? String(text).replace(/<[^>]+>/gm, ' ').replace('&nbsp;', ' ') : '';
+  };
+}
+);
 
 //Then define the init function for starting up the application
 angular.element(document).ready(function () {

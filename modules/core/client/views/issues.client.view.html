@@ -1,15 +1,13 @@
-<div ng-controller="IssuesController as vm">
   <md-toolbar class="md-primary">
-    <div layout-padding class="md-toolbar-tools"
+    <div layout-padding class="md-toolbar-tools">
       <p>
-        Select a issue to view solutions.
+        Select an issue to view solutions
       </p>
-      <div flex></div>
-      <md-button class="md-icon-button" ui-sref="issues.create">
-        <md-icon>add</md-icon>
-      </md-button>
     </div>
   </md-toolbar>
+  <div layout="row" layout-padding>
+    <md-button class="md-primary md-raised create-btn" ui-sref="issues.create"><md-icon>add</md-icon>Add an Issue</md-button>
+  </div>
 
 
   <md-grid-list
@@ -18,13 +16,11 @@
     md-row-height="2:2"
     md-gutter="16px">
 
-    <md-grid-tile ng-repeat="issue in vm.issues" ui-sref="issues.view({ issueId: issue.id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">
+    <md-grid-tile ng-repeat="issue in vm.issues" ui-sref="issues.view({ issueId: issue._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">
       <img ng-src="{{issue.imageUrl}}" alt="Issue Image">
       <md-grid-tile-footer>
-        <h2 ng-bind="issue.name"></h2>
+        <h3 ng-bind="issue.name"></h3>
       </md-grid-tile-footer>
     </md-grid-tile>
 
   </md-grid-list>
-
-</div>

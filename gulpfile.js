@@ -5,6 +5,7 @@
  */
 var _ = require('lodash'),
   defaultAssets = require('./config/assets/default'),
+  prodAssets = require('./config/assets/production'),
   testAssets = require('./config/assets/test'),
   gulp = require('gulp'),
   gulpLoadPlugins = require('gulp-load-plugins'),
@@ -160,18 +161,13 @@ gulp.task('less', function () {
 
 // Angular template cache task
 gulp.task('templatecache', function () {
-  var re = new RegExp('\\' + path.sep + 'client\\' + path.sep, 'g');
-
   return gulp.src(defaultAssets.client.views)
     .pipe(plugins.templateCache('templates.js', {
       root: 'modules/',
       module: 'core',
       templateHeader: '(function () {' + endOfLine + '	\'use strict\';' + endOfLine + endOfLine + '	angular' + endOfLine + '		.module(\'<%= module %>\'<%= standalone %>)' + endOfLine + '		.run(templates);' + endOfLine + endOfLine + '	templates.$inject = [\'$templateCache\'];' + endOfLine + endOfLine + '	function templates($templateCache) {' + endOfLine,
       templateBody: '		$templateCache.put(\'<%= url %>\', \'<%= contents %>\');',
-      templateFooter: '	}' + endOfLine + '})();' + endOfLine,
-      transformUrl: function (url) {
-        return url.replace(re, path.sep);
-      }
+      templateFooter: '	}' + endOfLine + '})();' + endOfLine
     }))
     .pipe(gulp.dest('build'));
 });
@@ -257,6 +253,12 @@ gulp.task('protractor', ['webdriver_update'], function () {
     });
 });
 
+gulp.task('concatLib', function() {
+  return gulp.src(prodAssets.client.lib.individualJs)
+    .pipe(plugins.concat('lib.min.js'))
+    .pipe(gulp.dest('public/dist'));
+});
+
 // Lint CSS and JavaScript files.
 gulp.task('lint', function (done) {
   runSequence('less', 'sass', ['csslint', 'eslint', 'jshint'], done);
@@ -264,7 +266,7 @@ gulp.task('lint', function (done) {
 
 // Lint project files and minify them into two production files.
 gulp.task('build', function (done) {
-  runSequence('env:dev', 'lint', ['uglify', 'cssmin'], done);
+  runSequence('env:dev', 'templatecache', 'lint', ['uglify', 'cssmin'], 'concatLib', done);
 });
 
 // Run the project tests

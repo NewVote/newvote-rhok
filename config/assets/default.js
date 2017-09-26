@@ -5,22 +5,32 @@ module.exports = {
     lib: {
       css: [
         'public/lib/angular-material/angular-material.css',
+        'public/lib/angular-material/angular-material.css',
+        'public/lib/quill/quill.core.css',
+        'public/lib/quill/quill.bubble.css',
+        'public/lib/quill/quill.snow.css',
+
         'https://fonts.googleapis.com/icon?family=Material+Icons',
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,700'
       ],
       js: [
+        'public/lib/lodash/dist/lodash.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-messages/angular-messages.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/angular-ui-utils/ui-utils.js',
         // 'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/angular-file-upload/angular-file-upload.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-material/angular-material.js',
-        'public/lib/angular-aria/angular-aria.js'
+        'public/lib/angular-aria/angular-aria.js',
+        'public/lib/quill/quill.js',
+        'public/lib/ngQuill/src/ng-quill.js',
+        'public/lib/ng-file-upload/ng-file-upload.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

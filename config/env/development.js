@@ -4,19 +4,19 @@ var defaultEnvConfig = require('./default');
 
 module.exports = {
   db: {
-    uri: 'mongodb://newvote-admin:newvote2017@ds137882.mlab.com:37882/newvote-rhok',//'mongodb://newvote-admin:newvote2017@ds137882.mlab.com:37882/newvote-rhok',
+    uri: 'mongodb://localhost:27017/newvote-rhok',// mongodb://newvote-admin:newvote2017@ds137882.mlab.com:37882/newvote-rhok',
     options: {
-      user: 'newvote-admin',
-      pass: 'newvote2017'
+    //   user: 'newvote-admin',
+    //   pass: 'newvote2017'
     },
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
   },
-  // secure: {
-  //   ssl: true,
-  //   privateKey: './config/sslcerts/key.pem',
-  //   certificate: './config/sslcerts/cert.pem'
-  // },
+  secure: {
+    ssl: false,
+    privateKey: './config/local-sslcerts/key.pem',
+    certificate: './config/local-sslcerts/cert.pem'
+  },
   log: {
     // logging with Morgan - https://github.com/expressjs/morgan
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'

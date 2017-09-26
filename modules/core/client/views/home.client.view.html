@@ -1,3 +1,57 @@
 
 <!-- <md-button class="md-primary" href="asdaskldj">HOME PAGE</md-button> -->
-<div><img style="width:100%" src="modules/core/client/img/home.png"></div>
+<!-- <div><img style="width:100%" src="modules/core/client/img/home.png"></div> -->
+<div class="home-container">
+  <div class="home-search-banner" layout="column" layout-align="center center">
+
+    <h1 class="title-text">
+      What do you think?
+    </h1>
+
+    <md-input-container md-no-float class="md-block search-input home-search simple " md-no-asterisk>
+
+
+    <input type="text" flex
+    ng-model="ctrl.search.text"
+    ng-attr-placeholder="Search"
+    ng-change="ctrl.search.changed()"
+    ng-model-options="{debouce: 300}">
+
+    <md-icon type="submit">
+      search
+    </md-icon>
+
+    </md-input-container>
+
+  </div>
+  <div  class="img-link-container" layout-gt-xs="row" layout="column" layout-gt-xs="row" layout-align="center center">
+    <a ui-sref="issues.list">
+        <img src="modules/core/client/img/homelink.png">
+      </a>
+
+      <a ui-sref="authentication.signup">
+        <img src="modules/core/client/img/join.png">
+      </a>
+
+  </div>
+
+    <div class="footer-banner" layout="column" layout-align="">
+      <div class="footer-text-containter">
+        <h3> What is NewVote? </h3>
+        <p>NewVote is a dedicated online platform aimed at providing <b>balanced, unbiased information on the current federal political issues
+          and solutions in Australia</b>. This information is maintained by an independent panel and is presented
+          in a simplified and organised manner. It also allows people to vote on the solutions,
+          making people's opinion available to the decision makers.
+        </p>
+        <p>We are a not-for-profit, non-partisan organisation with one objective - to enhance democracy and bring it to the 21st century.
+          <h3> Connect with us:</h3>
+          <a class="social-link" href="http://facebook.com/newvoteaustralia/" target="_blank">
+            <img src="modules/core/client/img/facebook.png">
+          </a>
+          <a class="social-link twitter" href="http://twitter.com/realnewvote" target="_blank">
+            <img src="modules/core/client/img/twitter.png">
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
