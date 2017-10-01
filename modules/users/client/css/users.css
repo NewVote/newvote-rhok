@@ -34,3 +34,7 @@
   min-height: 150px;
   max-height: 150px;
 }
+.btn-min-height {
+  min-height: 50px;
+  line-height: 10px;
+}
