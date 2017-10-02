@@ -42,9 +42,14 @@ var SolutionSchema = new Schema({
     ref: 'Issue',
     required: true
   }],
-  currentUserVote: {
-    type: Schema.ObjectId,
-    ref: 'Vote'
+  votes: {
+    up: Number,
+    down: Number,
+    total: Number,
+    currentUser: {
+      type: Schema.ObjectId,
+      ref: 'Vote'
+    }
   }
 });
 

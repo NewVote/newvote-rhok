@@ -31,6 +31,15 @@ var ActionSchema = new Schema({
   solution: {
     type: Schema.ObjectId,
     ref: 'Solution'
+  },
+  votes: {
+    up: Number,
+    down: Number,
+    total: Number,
+    currentUser: {
+      type: Schema.ObjectId,
+      ref: 'Vote'
+    }
   }
 });
 
