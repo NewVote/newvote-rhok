@@ -33,9 +33,16 @@ var IssueSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  currentUserVote: {
-    type: Schema.ObjectId,
-    ref: 'Vote'
+  //TODO populate
+  solutionMetaData: {
+    votes: {
+      up: Number,
+      down: Number,
+      total: Number
+    },
+    solutionCount: Number,
+    totalTrendingScore: Number,
+    lastCreated: Date
   }
 });
 

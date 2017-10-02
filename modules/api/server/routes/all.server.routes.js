@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var articlesPolicy = require('../policies/generic.server.policy'),
+var policy = require('../policies/generic.server.policy'),
   issues = require('../controllers/issues.server.controller'),
   solutions = require('../controllers/solutions.server.controller'),
   actions = require('../controllers/actions.server.controller'),
@@ -12,48 +12,48 @@ var articlesPolicy = require('../policies/generic.server.policy'),
 
 module.exports = function (app) {
   // Articles collection routes
-  app.route('/api/issues').all(articlesPolicy.isAllowed)
+  app.route('/api/issues').all(policy.isAllowed)
     .get(issues.list)
     .post(issues.create);
 
-  app.route('/api/solutions').all(articlesPolicy.isAllowed)
+  app.route('/api/solutions').all(policy.isAllowed)
     .get(solutions.list)
     .post(solutions.create);
 
-  app.route('/api/comments').all(articlesPolicy.isAllowed)
+  app.route('/api/comments').all(policy.isAllowed)
     .get(comments.list)
     .post(comments.create);
 
-  app.route('/api/votes').all(articlesPolicy.isAllowed)
+  app.route('/api/votes').all(policy.isAllowed)
     .get(votes.list)
     .post(votes.updateOrCreate);
 
-  app.route('/api/actions').all(articlesPolicy.isAllowed)
+  app.route('/api/actions').all(policy.isAllowed)
     .get(actions.list)
     .post(actions.create);
 
   // Single article routes
-  app.route('/api/issues/:issueId').all(articlesPolicy.isAllowed)
+  app.route('/api/issues/:issueId').all(policy.isAllowed)
     .get(issues.read)
     .put(issues.update)
     .delete(issues.delete);
 
-  app.route('/api/solutions/:solutionId').all(articlesPolicy.isAllowed)
+  app.route('/api/solutions/:solutionId').all(policy.isAllowed)
     .get(solutions.read)
     .put(solutions.update)
     .delete(solutions.delete);
 
-  app.route('/api/comments/:commentId').all(articlesPolicy.isAllowed)
+  app.route('/api/comments/:commentId').all(policy.isAllowed)
     .get(comments.read)
     .put(comments.update)
     .delete(comments.delete);
 
-  app.route('/api/votes/:voteId').all(articlesPolicy.isAllowed)
+  app.route('/api/votes/:voteId').all(policy.isAllowed)
     .get(votes.read)
     .put(votes.update)
     .delete(votes.delete);
 
-  app.route('/api/actions/:actionId').all(articlesPolicy.isAllowed)
+  app.route('/api/actions/:actionId').all(policy.isAllowed)
     .get(actions.read)
     .put(actions.update)
     .delete(actions.delete);

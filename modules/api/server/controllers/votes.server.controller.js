@@ -130,19 +130,38 @@ exports.voteByID = function (req, res, next, id) {
   });
 };
 
-exports.attachCurrentUserVotes = function(objects, user) {
+exports.attachVotes = function(objects, user) {
   if(!user || !objects) return Promise.resolve(objects);
   var objectIds = objects.map(function(object) {
     return object._id;
   });
   return Vote.find({
-    user: user,
     object: { $in: objectIds }
   }).exec().then(function(votes) {
     objects = objects.map(function(object) {
       // object = object.toObject(); //to be able to set props on the mongoose object
-      var vote = votes.find(function(vote) { return vote.object.toString()===object._id.toString(); });
-      if(vote) object.currentUserVote = vote;
+      var objVotes = [];
+      var userVote, up = 0, down = 0;
+
+      votes.each(function(vote) {
+        if(vote.object.toString()===object._id.toString()) {
+          objVotes.push(vote);
+          if(vote.user.toString()===user._id.toString()) {
+            userVote = vote;
+          }
+          if(vote.voteValue) {
+            if(vote.voteValue>0) up++;
+            else down++;
+          }
+        }
+      });
+      object.votes = {
+        total: objVotes.length,
+        currentUser: userVote,
+        up: up,
+        down: down
+      };
+
       return object;
     });
     return objects;
