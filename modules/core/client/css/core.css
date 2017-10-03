@@ -112,6 +112,9 @@ md-tooltip {
 .vote-btn.selected, .vote-btn.selected md-icon {
   color: #ff9800 !important; }
 
+.vote-score {
+  line-height: normal !important; }
+
 .solution-card, .action-card {
   cursor: pointer; }
   .solution-card .description-container .description, .action-card .description-container .description {

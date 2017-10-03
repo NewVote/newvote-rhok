@@ -143,7 +143,7 @@ exports.attachVotes = function(objects, user) {
       var objVotes = [];
       var userVote, up = 0, down = 0;
 
-      votes.each(function(vote) {
+      votes.forEach(function(vote) {
         if(vote.object.toString()===object._id.toString()) {
           objVotes.push(vote);
           if(vote.user.toString()===user._id.toString()) {

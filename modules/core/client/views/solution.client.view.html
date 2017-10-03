@@ -24,14 +24,19 @@
   </div>
 
   <div layout="row" layout-padding>
-    <md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.currentUserVote.voteValue===1 }" ng-click="vm.vote('up')">
+    <md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote('up')">
       <md-icon>arrow_upward</md-icon> Vote Up
-      <md-tooltip ng-if="vm.solution.currentUserVote.voteValue===1">Undo</md-tooltip>
+      <md-tooltip ng-if="vm.solution.votes.currentUser.voteValue===1">Undo</md-tooltip>
     </md-button>
-
-    <md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.currentUserVote.voteValue===-1 }" ng-click="vm.vote('down')">
+    <md-button class="md-fab md-primary md-hue-2 vote-score" ng-class="" ng-click="">
+      <md-tooltip>
+        <span>For: {{vm.solution.votes.up}}, Against: {{vm.solution.votes.down}}</span>
+      </md-tooltip>
+      {{vm.solution.votes.total + vm.solution.votes.currentUser.voteValue}}
+    </md-button>
+    <md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote('down')">
       <md-icon>arrow_downward</md-icon>Vote Down
-      <md-tooltip ng-if="vm.solution.currentUserVote.voteValue===-1">Undo</md-tooltip>
+      <md-tooltip ng-if="vm.solution.votes.currentUser.voteValue===-1">Undo</md-tooltip>
     </md-button>
   </div>
 
@@ -75,17 +80,24 @@
     </md-card-title>
     <md-card-actions layout="row" layout-align="end center">
       <md-card-icon-actions>
-        <md-button class="md-icon-button vote-btn" ng-class="{ selected: action.currentUserVote.voteValue===1 }" ng-click="vm.voteAction(action, 'up', $event)">
+        <md-button class="md-icon-button vote-btn" ng-class="{ selected: action.votes.currentUser.voteValue===1 }" ng-click="vm.voteAction(action, 'up', $event)">
           <md-tooltip>
-            <span ng-if="action.currentUserVote.voteValue===1">Undo</span>
-            <span ng-if="action.currentUserVote.voteValue!==1">Vote Up</span>
+            <span ng-if="action.votes.currentUser.voteValue===1">Undo</span>
+            <span ng-if="action.votes.currentUser.voteValue!==1">Vote Up</span>
           </md-tooltip>
           <md-icon>arrow_upward</md-icon>
         </md-button>
-        <md-button class="md-icon-button vote-btn" ng-class="{ selected: action.currentUserVote.voteValue===-1 }" ng-click="vm.voteAction(action, 'down', $event)">
+        <!-- up: {{action.votes.up}}, down: {{action.votes.down}}, total: {{action.votes.total}}, currentUser: {{action.votes.currentUser.voteValue}}, score:  {{action.votes.up - action.votes.down + action.votes.currentUser.voteValue}} -->
+        <md-button class="md-icon-button" ng-class="" ng-click="">
           <md-tooltip>
-            <span ng-if="action.currentUserVote.voteValue===-1">Undo</span>
-            <span ng-if="action.currentUserVote.voteValue!==-1">Vote Down</span>
+            <span>For: {{action.votes.up}}, Against: {{action.votes.down}}</span>
+          </md-tooltip>
+          {{action.votes.up - action.votes.down + action.votes.currentUser.voteValue}}
+        </md-button>
+        <md-button class="md-icon-button vote-btn" ng-class="{ selected: action.votes.currentUser.voteValue===-1 }" ng-click="vm.voteAction(action, 'down', $event)">
+          <md-tooltip>
+            <span ng-if="action.votes.currentUser.voteValue===-1">Undo</span>
+            <span ng-if="action.votes.currentUser.voteValue!==-1">Vote Down</span>
           </md-tooltip>
           <md-icon>arrow_downward</md-icon>
         </md-button>

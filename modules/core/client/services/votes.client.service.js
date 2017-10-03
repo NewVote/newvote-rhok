@@ -13,7 +13,7 @@ angular.module('core').service('VoteService', ['$resource', '$stateParams', '$q'
 
     svc.vote = function(object, objectType, voteType) {
       var voteValue = VOTE_TYPES[voteType];
-      var existingVote = object.currentUserVote;
+      var existingVote = object.votes.currentUser;
       if(existingVote) {
         voteValue = existingVote.voteValue===voteValue ? VOTE_TYPES.cancel : voteValue;
       }
@@ -22,11 +22,11 @@ angular.module('core').service('VoteService', ['$resource', '$stateParams', '$q'
         objectType: objectType,
         voteValue: voteValue
       };
-      object.currentUserVote = vote;
+      object.votes.currentUser = vote;
 
       svc.createOrUpdate(vote).then(null, function(err) {
         console.log('Error saving vote', err);
-        object.currentUserVote = existingVote;
+        object.votes.currentUser = existingVote;
       });
     };
   }

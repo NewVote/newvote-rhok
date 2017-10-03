@@ -85,7 +85,7 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      votes.attachCurrentUserVotes(solutions, req.user).then(function(solutions) {
+      votes.attachVotes(solutions, req.user).then(function(solutions) {
         res.json(solutions);
       }).catch(function(err) {
         console.log(err);
@@ -118,7 +118,7 @@ exports.solutionByID = function (req, res, next, id) {
           message: 'No solution with that identifier has been found'
         });
       }
-      votes.attachCurrentUserVotes([solution], req.user).then(function(solutionArr) {
+      votes.attachVotes([solution], req.user).then(function(solutionArr) {
         req.solution = solutionArr[0];
         next();
       }).catch(next);
