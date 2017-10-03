@@ -7,7 +7,8 @@ angular.module('core')
     restrict: 'E',
     scope: {
       solutions: '=',
-      issueId: '='
+      issueId: '=',
+      sortParam: '='
     },
     templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
     bindToController: true,

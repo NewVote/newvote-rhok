@@ -26,7 +26,16 @@
     </md-button>
   </div>
 
-
-
 </md-toolbar>
-<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
+<solution-list solutions="vm.solutions" issue-id="vm.issueId" sort-param="vm.sortParam"></solution-list>
+
+<md-content layout="column" layout-align="center">
+    <div layout-padding>
+        <div
+          class="polis"
+          data-topic="What do you think?"
+          data-page_id="{{vm.issue._id}}"
+          data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+        </div>
+    </div>
+</md-content>

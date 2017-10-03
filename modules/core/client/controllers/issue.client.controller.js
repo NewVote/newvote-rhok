@@ -7,6 +7,9 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     vm.issue = issue;
     vm.issueId = issue._id;
     vm.solutions = solutions;
+    vm.sortParam = "-votes.up";
+    console.log(vm);
+
     $scope.authentication = Authentication;
     if(vm.issue._id){
       var title = vm.issue.name;
@@ -49,5 +52,8 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
       VoteService.vote(solution, 'Solution', voteType);
     };
 
+    angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
+    var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
+    angular.element(document).find('body').append(el);
   }
 ]);

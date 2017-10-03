@@ -7,6 +7,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
     vm.solution = solution;
     vm.newAction = {};
     vm.actions = actions;
+    vm.sortParam = "votes.up";
 
     $scope.authentication = Authentication;
 
@@ -101,5 +102,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
       return $mdDialog.show(confirmDialog);
     }
+
+    angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
+    var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
+    angular.element(document).find('body').append(el);
   }
 ]);
