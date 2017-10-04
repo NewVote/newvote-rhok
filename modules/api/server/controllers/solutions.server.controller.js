@@ -77,7 +77,18 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
   var issueId = req.query.issueId;
-  var query = issueId ? { issues: issueId } : null;
+  var searchParams = req.query.search;
+  var query;
+  if (issueId) {
+    query = { issues: issueId };
+  } else if (searchParams) {
+    query = { title: {
+      $regex: searchParams,
+      $options: 'i'
+    } };
+  } else {
+    query = null;
+  }
 
   Solution.find(query).sort('-created').populate('user', 'displayName').exec(function (err, solutions) {
     if (err) {
