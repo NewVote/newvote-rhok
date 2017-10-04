@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').service('SearchService', ['$resource', '$stateParams', '$q', '_',
-    function ($resource, $stateParams, $q, _) {
+angular.module('core').service('SearchService', ['$resource', '$stateParams', '$q', '_', '$location', '$window',
+    function ($resource, $stateParams, $q, _, $location, $window) {
         var Issue = $resource('api/issues/');
         var Solution = $resource('api/solutions/');
         var Action = $resource('api/actions/');    
@@ -54,12 +54,57 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                                     break;
 
                             }
-                            results.push(data[model][item])
+                            results.push(data[model][item]);
                         }
                     }
                 }
                 return results;
             });
         };
+
+        svc.getItemTitle = function(item) {
+            // Issues 
+            if (item.name !== undefined) {
+                return item.name; 
+
+            // Solutions and Actions
+            } else if (item.title !== undefined) {
+                return item.title; 
+            }
+        };
+
+        svc.getHyperLink = function(item) {
+            switch (item.model) {
+
+                case 'Issue':
+                    return getIssueLink(item);
+
+                case 'Solution':
+                    return getSolutionLink(item);
+
+                case 'Action':
+                    return getActionLink(item);
+
+            }       
+        };
+
+        function getIssueLink(item) {
+            var url = '/issues/' + item._id;
+            return getOriginURL() + url;
+        }
+
+        function getSolutionLink(item) {
+            var url = '/solutions/' + item._id;
+            return getOriginURL() + url;
+        }
+
+        function getActionLink(item) {
+            var url = '/solutions/' + item.solution;
+            return getOriginURL() + url;
+        }
+
+        function getOriginURL() {
+            return new $window.URL($location.absUrl()).origin;
+        }        
     }
 ]);

@@ -20,8 +20,10 @@
       md-min-length="1">
 
       <md-item-template>
-        <span><strong>{{item.model}}: </strong></span>
-        <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+        <a href="{{getHyperLink(item)}}">
+          <span><strong>{{item.model}}: </strong></span>
+          <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+        </a>
       </md-item-template>
       <md-not-found>
         No Issues, Solutions or Actions found.

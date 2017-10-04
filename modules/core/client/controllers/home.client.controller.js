@@ -21,14 +21,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
     $scope.getItemTitle = function(item) {
-      // Issues 
-      if (item.name !== undefined) {
-        return item.name; 
+      return SearchService.getItemTitle(item);
+    };
 
-      // Solutions and actions
-      } else if (item.title !== undefined) {
-        return item.title; 
-      }
+    $scope.getHyperLink = function(item) {
+      return SearchService.getHyperLink(item);
     };
   }
 ]);
