@@ -6,6 +6,12 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
         var Solution = $resource('api/solutions/');
         var Action = $resource('api/actions/');    
 
+        var modelEnum = {
+            issue: 0,
+            solution: 1,
+            action: 2
+        };
+
         var svc = this;
 
         svc.searchIssues = function(text) {
@@ -26,11 +32,33 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             var actions = svc.searchActions(text);
 
             return Promise.all([issues, solutions, actions]).then( function(data) {
-                var result = [];
-                for (let item in data) {
-                    result = result.concat(data[item]);
+                var results = [];
+                for (var model in data) {
+                    for (var item in data[model]) {
+
+                        // Valid objects have numbers as keys
+                        if (!isNaN(item)) {
+
+                            switch (parseInt(model)) {
+
+                                case modelEnum.issue: 
+                                    data[model][item].model = 'Issue';
+                                    break;
+
+                                case modelEnum.solution: 
+                                    data[model][item].model = 'Solution';
+                                    break;
+
+                                case modelEnum.action: 
+                                    data[model][item].model = 'Action';
+                                    break;
+
+                            }
+                            results.push(data[model][item])
+                        }
+                    }
                 }
-                return result;
+                return results;
             });
         };
     }

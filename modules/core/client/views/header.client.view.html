@@ -10,7 +10,7 @@
     <md-autocomplete
       md-no-cache="true"
       md-clear-button="false"
-      placeholder="Search for issues, solutions and actions"
+      placeholder="Search for Issues, Solutions and Actions"
       md-selected-item="selectedItem"
       md-search-text="searchText"
       md-items="item in results"
@@ -20,10 +20,11 @@
       md-min-length="1">
 
       <md-item-template>
+        <span><strong>{{item.model}}: </strong></span>
         <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
       </md-item-template>
       <md-not-found>
-        No matches found.
+        No Issues, Solutions or Actions found.
       </md-not-found>
 
     </md-autocomplete>
