@@ -1,14 +1,13 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService) {
     // This provides Authentication context.
     var vm = this;
     vm.issue = issue;
     vm.issueId = issue._id;
     vm.solutions = solutions;
-    vm.sortParam = "-votes.up";
-    console.log(vm);
+    // console.log(vm);
 
     $scope.authentication = Authentication;
     if(vm.issue._id){

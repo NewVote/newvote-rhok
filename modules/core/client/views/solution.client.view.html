@@ -46,6 +46,11 @@
   <md-button class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
     <md-icon>add</md-icon>Add an Action
   </md-button>
+
+  <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
+  <md-button class="md-primary" ng-click="vm.sort('controversial', 'desc', $event)">Controversial</md-button>
+  <md-button class="md-primary" ng-click="vm.sort('trending', 'desc', $event)">Trending</md-button>
+  <md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button>
 </div>
 
 <div layout="column" layout-padding ng-if="vm.creatingAction">
@@ -71,7 +76,7 @@
 
 
 <div layout-padding>
-  <md-card class="action-card" md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ng-repeat="action in vm.actions">
+  <md-card class="action-card" md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1" ng-repeat="action in vm.actions | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse">
     <md-card-title>
       <md-card-title-text>
         <span class="md-headline">{{::action.title}}</span>
@@ -110,9 +115,14 @@
   </md-card>
 </div>
 
-<div
-  class="polis"
-  data-topic="What do you think?"
-  data-page_id="{{vm.solution._id}}"
-  data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
-</div>
+
+<md-content layout="column" layout-align="center">
+    <div layout-padding>
+        <div
+          class="polis"
+          data-topic="What do you think?"
+          data-page_id="{{vm.solution._id}}"
+          data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+        </div>
+    </div>
+</md-content>
