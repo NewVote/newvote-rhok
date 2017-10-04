@@ -7,12 +7,26 @@
 <div class="home-title">{{pageTitle}}</div>
 <div flex="auto" layout="column">
   <md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
-    <input type="text" flex
-    ng-model="ctrl.search.text"
-    ng-attr-placeholder="Search"
-    ng-change="ctrl.search.changed()"
-    ng-model-options="{debouce: 300}">
+    <md-autocomplete
+      md-no-cache="true"
+      md-clear-button="false"
+      placeholder="Search for issues, solutions and actions"
+      md-selected-item="selectedItem"
+      md-search-text="searchText"
+      md-items="item in searchAll(searchText)"
+      md-item-text="item.name">
+
+      <md-item-template>
+        <span md-highlight-text="searchText" ng-if="item.name !== undefined">{{item.name}}</span>
+        <span md-highlight-text="searchText" ng-if="item.title !== undefined">{{item.title}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matches found.
+      </md-not-found>
+
+    </md-autocomplete>
   </md-input-container>
+
 </div>
 <md-menu ng-show="authentication.user">
   <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
