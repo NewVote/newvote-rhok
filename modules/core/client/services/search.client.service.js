@@ -30,7 +30,6 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                 for (let item in data) {
                     result = result.concat(data[item]);
                 }
-                console.log(result);
                 return result;
             });
         };

@@ -13,12 +13,14 @@
       placeholder="Search for issues, solutions and actions"
       md-selected-item="selectedItem"
       md-search-text="searchText"
-      md-items="item in searchAll(searchText)"
-      md-item-text="item.name">
+      md-items="item in results"
+      md-search-text-change="searchAll(searchText)"
+      md-item-text="getItemTitle(item)"
+      md-delay="300"
+      md-min-length="1">
 
       <md-item-template>
-        <span md-highlight-text="searchText" ng-if="item.name !== undefined">{{item.name}}</span>
-        <span md-highlight-text="searchText" ng-if="item.title !== undefined">{{item.title}}</span>
+        <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
       </md-item-template>
       <md-not-found>
         No matches found.

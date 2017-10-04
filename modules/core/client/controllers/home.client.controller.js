@@ -14,8 +14,21 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $mdMenu.open(ev);
     };
 
+    $scope.results = [];
+
     $scope.searchAll = function(text) {
-      return SearchService.searchAll(text);
+      $scope.results = SearchService.searchAll(text);
+    };
+
+    $scope.getItemTitle = function(item) {
+      // Issues 
+      if (item.name !== undefined) {
+        return item.name; 
+
+      // Solutions and actions
+      } else if (item.title !== undefined) {
+        return item.title; 
+      }
     };
   }
 ]);
