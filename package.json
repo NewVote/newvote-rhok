@@ -84,6 +84,7 @@
     "validator": "^3.41.2"
   },
   "devDependencies": {
+    "@angular/cli": "^1.4.4",
     "coveralls": "^2.11.4",
     "karma": "~0.12.37",
     "karma-chrome-launcher": "~0.2.0",

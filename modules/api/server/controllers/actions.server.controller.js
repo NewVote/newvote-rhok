@@ -95,7 +95,7 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      votes.attachCurrentUserVotes(actions, req.user).then(function(actions) {
+      votes.attachVotes(actions, req.user).then(function(actions) {
         res.json(actions);
       }).catch(function(err) {
         res.status(500).send({
@@ -127,7 +127,7 @@ exports.actionByID = function (req, res, next, id) {
         message: 'No action with that identifier has been found'
       });
     }
-    votes.attachCurrentUserVotes([action], req.user).then(function() {
+    votes.attachVotes([action], req.user).then(function() {
       req.action = action;
       next();
     }).catch(next);

@@ -5,11 +5,11 @@ angular.module('core').controller('SolutionsController', ['$scope', '$stateParam
     var vm = this;
     vm.issueId = $stateParams.issueId;
     vm.solutions = solutions;
+    vm.sortParam = "votes.up";
 
     vm.vote = function(solution, voteType, $event) {
       $event.stopPropagation();
       VoteService.vote(solution, 'Solution', voteType);
     };
-
   }
 ]);

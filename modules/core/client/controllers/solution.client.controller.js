@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService) {
     // This provides Authentication context.
     var vm = this;
     vm.solution = solution;
     vm.newAction = {};
     vm.actions = actions;
+    vm.sortSvc = SortService;
 
     $scope.authentication = Authentication;
 
@@ -91,6 +92,10 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
       VoteService.vote(vm.solution, 'Solution', voteType);
     };
 
+    vm.sort = function(sortParam, order, $event) {
+        $event.stopPropagation();
+        SortService.setSort("action", sortParam, order);
+    };
 
     function confirm(title, text) {
       var confirmDialog = $mdDialog.confirm()
@@ -101,5 +106,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
       return $mdDialog.show(confirmDialog);
     }
+
+    angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
+    var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
+    angular.element(document).find('body').append(el);
   }
 ]);

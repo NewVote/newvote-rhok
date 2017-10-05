@@ -1,12 +1,14 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService) {
     // This provides Authentication context.
     var vm = this;
     vm.issue = issue;
     vm.issueId = issue._id;
     vm.solutions = solutions;
+    // console.log(vm);
+
     $scope.authentication = Authentication;
     if(vm.issue._id){
       var title = vm.issue.name;
@@ -49,5 +51,8 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
       VoteService.vote(solution, 'Solution', voteType);
     };
 
+    angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
+    var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
+    angular.element(document).find('body').append(el);
   }
 ]);
