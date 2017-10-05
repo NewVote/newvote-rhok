@@ -9,17 +9,28 @@
     </h1>
 
     <md-input-container md-no-float class="md-block search-input home-search simple " md-no-asterisk>
+      <md-autocomplete
+      md-no-cache="true"
+      md-clear-button="false"
+      placeholder="Search"
+      md-selected-item="selectedItem"
+      md-search-text="searchText"
+      md-items="item in results"
+      md-search-text-change="searchAll(searchText)"
+      md-item-text="getItemTitle(item)"
+      md-delay="300"
+      md-min-length="1">
 
-
-    <input type="text" flex
-    ng-model="ctrl.search.text"
-    ng-attr-placeholder="Search"
-    ng-change="ctrl.search.changed()"
-    ng-model-options="{debouce: 300}">
-
-    <md-icon type="submit">
-      search
-    </md-icon>
+      <md-item-template>
+        <a class="search-item" href="{{getHyperLink(item)}}">
+          <span><strong>{{item.model}}: </strong></span>
+          <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+        </a>
+      </md-item-template>
+      <md-not-found>
+        No matches found.
+      </md-not-found>
+    </md-autocomplete>
 
     </md-input-container>
 
