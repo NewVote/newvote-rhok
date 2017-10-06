@@ -39,8 +39,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
                     $state.go('setup', {previous: $state.previous.state.name});
                 }
 
-			}).error(function (response) {
-				$scope.error = response.message;
+			},
+			function(response) {
+				console.log("error in sign up: ", response);
+				$scope.error = response.data.message;
 			});
 		};
 
@@ -64,8 +66,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
                 }else {
                     $state.go('setup', {previous: $state.previous.state.name});
                 }
-			}).error(function (response) {
-				$scope.error = response.message;
+			},
+			function(response) {
+				console.log("error in sign in: ", response);
+				$scope.error = response.data.message;
 			});
 		};
 
