@@ -1,3 +1,10 @@
+md-grid-tile-footer.ng-scope {
+  background: black;
+  background: rgba(0, 0, 0, 0.7); }
+
+h3.ng-binding.ng-scope {
+  font-weight: 600; }
+
 .search-item {
   text-decoration: none;
   display: block;
