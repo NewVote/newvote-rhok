@@ -4,7 +4,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 	function ($scope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users) {
 		$scope.authentication = Authentication;
 		$scope.popoverMsg = PasswordValidator.getPopoverMsg();
-        if($scope.authentication.user.data){
+        if($scope.authentication.user && $scope.authentication.user.data){
             $scope.user = $scope.authentication.user.data;
         }else {
             $scope.user = $scope.authentication.user;

@@ -23,15 +23,21 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: ['/api/*/*'],
       permissions: '*'
+    }, {
+      resources: collectionRoutes,
+      permissions: '*'
+    }, {
+      resources: objectRoutes,
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
       resources: collectionRoutes,
-      permissions: ['get', 'post']
+      permissions: ['get']
     }, {
       resources: objectRoutes,
-      permissions: ['get', 'put', 'delete']
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
