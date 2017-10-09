@@ -43,8 +43,11 @@
 </md-toolbar>
 
 <div layout="row" layout-padding>
-  <md-button class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
+  <md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
     <md-icon>add</md-icon>Add an Action
+  </md-button>
+  <md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ng-click="vm.suggestAction()">
+    <md-icon>add</md-icon>Suggest an Action
   </md-button>
 
   <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
