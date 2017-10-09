@@ -31,16 +31,6 @@ var SuggestionSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
-  },
-  issues: [{
-    type: Schema.ObjectId,
-    ref: 'Issue',
-    required: true
-  }],
-  solution: {
-      type: Schema.ObjectId,
-      ref: 'Solution',
-      required: true
   }
 });
 

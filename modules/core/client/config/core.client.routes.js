@@ -161,6 +161,16 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       }
     })
 
+    .state('suggestions', {
+      url: '/suggestions',
+      templateUrl: 'modules/core/client/views/edit-suggestion.client.view.html',
+      controller: 'SuggestionsController',
+      controllerAs: 'vm',
+      data: {
+        title: 'Create Suggestion'
+      }
+    })
+
     // .state('results', {
     //   url: '/results',
     //   templateUrl: 'modules/core/client/views/results.client.view.html',

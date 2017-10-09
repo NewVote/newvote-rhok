@@ -46,7 +46,7 @@
   <md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
     <md-icon>add</md-icon>Add an Action
   </md-button>
-  <md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ng-click="vm.suggestAction()">
+  <md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="suggestions">
     <md-icon>add</md-icon>Suggest an Action
   </md-button>
 

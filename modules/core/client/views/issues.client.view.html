@@ -7,7 +7,7 @@
   </md-toolbar>
   <div layout="row" layout-padding>
     <md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ui-sref="issues.create"><md-icon>add</md-icon>Add an Issue</md-button>
-    <md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="issues.suggest"><md-icon>add</md-icon>Suggest an Issue</md-button>
+    <md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="suggestions"><md-icon>add</md-icon>Suggest an Issue</md-button>
 
     <md-button class="md-primary" ng-click="vm.sort('alpha', 'asc', $event)">A-Z</md-button>
     <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
