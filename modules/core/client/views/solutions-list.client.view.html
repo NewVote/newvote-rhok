@@ -8,8 +8,8 @@
 		<md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button>
 	</div>
 	<div layout-padding>
-		<md-card class="solution-card" md-rowspan="3" md-colspan="2" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
-			<md-card-header>
+		<md-card class="solution-card" md-rowspan="3" md-colspan="2" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse">
+			<md-card-header ui-sref="solutions.view({solutionId:solution._id})">
 				<md-card-avatar>
 					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
 				</md-card-avatar>
@@ -40,28 +40,28 @@
 						</md-tooltip>
 						<md-icon>arrow_downward</md-icon>
           </md-button>
+          <md-fab-speed-dial md-direction="right" class="md-scale">
+            <md-fab-trigger>
+              <md-button aria-label="Share" class="md-icon-button">
+                <md-tooltip>Share</md-tooltip>
+                <md-icon>share</md-icon>
+              </md-button>
+            </md-fab-trigger>
+
+            <md-fab-actions>
+              <md-button aria-label="Share to Facebook" class="md-icon-button">
+                <md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
+                <md-tooltip>Facebook</md-tooltip>
+              </md-button>
+
+              <md-button aria-label="Share on Twitter" class="md-icon-button">
+                <md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
+                <md-tooltip>Twitter</md-tooltip>
+              </md-button>
+            </md-fab-actions>
+          </md-fab-speed-dial>
         </md-card-icon-actions>
 			</md-card-actions>
     </md-card>
-    <md-fab-speed-dial md-direction="right" class="md-scale">
-        <md-fab-trigger>
-          <md-button aria-label="Share" class="md-icon-button">
-            <md-tooltip>Share</md-tooltip>
-            <md-icon>share</md-icon>
-          </md-button>
-        </md-fab-trigger>
-
-        <md-fab-actions>
-          <md-button aria-label="Share to Facebook" class="md-icon-button">
-            <md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
-            <md-tooltip>Facebook</md-tooltip>
-          </md-button>
-
-          <md-button aria-label="Share on Twitter" class="md-icon-button">
-            <md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
-            <md-tooltip>Twitter</md-tooltip>
-          </md-button>
-        </md-fab-actions>
-      </md-fab-speed-dial>
 	</div>
 </md-content>
