@@ -8,6 +8,7 @@ var policy = require('../policies/generic.server.policy'),
 	solutions = require('../controllers/solutions.server.controller'),
 	actions = require('../controllers/actions.server.controller'),
     suggestions = require('../controllers/suggestions.server.controller'),
+	media = require('../controllers/media.server.controller'),
 	comments = require('../controllers/comments.server.controller'),
 	votes = require('../controllers/votes.server.controller');
 
@@ -36,6 +37,10 @@ module.exports = function (app) {
 	app.route('/api/suggestions').all(policy.isAllowed)
 		.get(suggestions.list)
 		.post(suggestions.create);
+
+	app.route('/api/media').all(policy.isAllowed)
+		.get(media.list)
+		.post(media.create);
 
 	// Single article routes
 	app.route('/api/issues/:issueId').all(policy.isAllowed)
@@ -67,6 +72,11 @@ module.exports = function (app) {
 		.get(suggestions.read)
 		.delete(suggestions.delete);
 
+	app.route('/api/media/:mediaId').all(policy.isAllowed)
+		.get(media.read)
+		.put(media.update)
+		.delete(media.delete);
+
 	// Finish by binding the article middleware
 	app.param('issueId', issues.issueByID);
 	app.param('solutionId', solutions.solutionByID);
@@ -74,4 +84,5 @@ module.exports = function (app) {
 	app.param('commentId', comments.commentByID);
 	app.param('voteId', votes.voteByID);
     app.param('suggestionId', suggestions.suggestionByID);
+	app.param('mediaId', media.mediaByID);
 };
