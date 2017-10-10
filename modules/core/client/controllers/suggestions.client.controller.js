@@ -10,7 +10,7 @@ angular.module('core').controller('SuggestionsController', ['$scope', '$state', 
 
 			return promise.then(function () {
 				return SuggestionsService.createOrUpdate(vm.suggestion).then(function (suggestion) {
-					$state.go('home', {});
+					$state.go('thanks', {});
 				});
 			});
 		};

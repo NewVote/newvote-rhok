@@ -21,6 +21,14 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       }
     })
 
+    .state('thanks', {
+      url: '/thanks',
+      templateUrl: 'modules/core/client/views/thanks.client.view.html',
+      data: {
+        title: 'Thank You'
+      }
+    })
+
     // .state('user-verification-dummy', {
     //   url: '/userverification',
     //   templateUrl: 'modules/core/client/views/user-verification.client.view.html',

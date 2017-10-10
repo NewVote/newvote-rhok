@@ -39,8 +39,8 @@ exports.invokeRolesPolicies = function () {
       resources: objectRoutes,
       permissions: ['get']
   }, {
-      resources: ['/api/votes'],
-      permissions: ['get', 'create', 'update', 'post']
+      resources: ['/api/votes', '/api/suggestions'],
+      permissions: ['get', 'post']
   }]
   }, {
     roles: ['guest'],
