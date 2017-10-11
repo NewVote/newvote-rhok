@@ -12,10 +12,11 @@ angular.module('core')
 			templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 			bindToController: true,
 			controllerAs: 'vm',
-			controller: ['$scope', 'VoteService', 'SortService',
-				function ($scope, VoteService, SortService) {
+			controller: ['$scope', 'VoteService', 'SortService', 'Authentication',
+				function ($scope, VoteService, SortService, Authentication) {
 					var vm = this;
                     vm.sortSvc = SortService;
+					$scope.authentication = Authentication;
 
 					vm.vote = function (solution, voteType, $event) {
 						$event.stopPropagation();

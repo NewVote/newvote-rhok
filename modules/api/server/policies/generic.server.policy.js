@@ -9,8 +9,8 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 
-var collectionRoutes = ['/api/issues', '/api/solutions', '/api/votes', '/api/comments', '/api/actions'];
-var objectRoutes = ['/api/issues/:issueId', '/api/solutions/:solutionId', '/api/votes/:voteId', '/api/comments/:commentId', '/api/actions/:actionId'];
+var collectionRoutes = ['/api/issues', '/api/solutions', '/api/votes', '/api/comments', '/api/actions', '/api/suggestions', '/api/media'];
+var objectRoutes = ['/api/issues/:issueId', '/api/solutions/:solutionId', '/api/votes/:voteId', '/api/comments/:commentId', '/api/actions/:actionId', '/api/suggestions/:suggestionId', '/api/mesia/:mediaId'];
 /**
  * Invoke Articles Permissions
  */
@@ -28,11 +28,14 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: collectionRoutes,
-      permissions: ['get', 'post']
+      permissions: ['get']
     }, {
       resources: objectRoutes,
-      permissions: ['get', 'put', 'delete']
-    }]
+      permissions: ['get']
+  }, {
+      resources: ['/api/votes', '/api/suggestions'],
+      permissions: ['get', 'post']
+  }]
   }, {
     roles: ['guest'],
     allows: [{
