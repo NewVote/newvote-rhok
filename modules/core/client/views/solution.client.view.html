@@ -40,6 +40,9 @@
 		</md-button>
 	</div>
 
+	<div md-colors="{background: 'orange'}" ng-if="vm.isSingleAction" layout-padding ui-sref="solutions.view({solutionId: '{{vm.solution._id}}'})">
+			You are viewing a single action, click here to view all actions for this solution.
+	</div>
 </md-toolbar>
 
 <div layout="row" layout-padding>

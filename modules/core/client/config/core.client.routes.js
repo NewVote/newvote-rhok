@@ -165,7 +165,24 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         }],
         actions: ['ActionService', '$stateParams', function(ActionService, $stateParams) {
           return ActionService.list({ solutionId: $stateParams.solutionId });
-        }]
+      }],
+      isSingleAction: ()=>{return false;}
+      }
+    })
+
+    .state('solutions.action', {
+      url: '/:solutionId/?:actionId',
+      templateUrl: 'modules/core/client/views/solution.client.view.html',
+      controller: 'SolutionController',
+      controllerAs: 'vm',
+      resolve: {
+        solution: ['SolutionService', '$stateParams', function(SolutionService, $stateParams) {
+          return SolutionService.get($stateParams.solutionId);
+        }],
+        actions: ['ActionService', '$stateParams', function(ActionService, $stateParams) {
+          return ActionService.get($stateParams.actionId);
+        }],
+        isSingleAction: ()=>{return true;}
       }
     })
 
