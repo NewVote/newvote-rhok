@@ -1,18 +1,35 @@
-<md-content layout="column" layout-align="center">
+<md-content layout="column">
 	<div layout="row" layout-padding>
 		<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"  class="md-primary md-raised create-btn" ui-sref="solutions.create({ issueId: vm.issueId })">
-			<md-icon>add</md-icon>Add a Solution
+			<md-icon>add</md-icon><span hide show-gt-sm>Add a Solution</span></md-button>
 		</md-button>
 		<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"  class="md-primary md-raised create-btn" ui-sref="suggestions">
-			<md-icon>add</md-icon>Suggest a Solution
+			<md-icon>add</md-icon><span hide show-gt-sm>Suggest a Solution</span></md-button>
 		</md-button>
-		<md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
+		<!-- <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
 		<md-button class="md-primary" ng-click="vm.sort('controversial', 'desc', $event)">Controversial</md-button>
 		<md-button class="md-primary" ng-click="vm.sort('trending', 'desc', $event)">Trending</md-button>
-		<md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button>
+		<md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button> -->
+
+		<div hide show-gt-sm>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest</md-button>
+		</div>
+
+		<div hide-gt-sm layout="row" layout-align="end center" flex="fill">
+			<span layout-padding>Sort By </span>
+			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
+				<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
+				<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
+				<md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
+				<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
+			</md-select>
+		</div>
 	</div>
 	<div layout-padding>
-		<md-card class="solution-card" md-rowspan="3" md-colspan="2" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
+		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
 			<md-card-header>
 				<md-card-avatar>
 					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />

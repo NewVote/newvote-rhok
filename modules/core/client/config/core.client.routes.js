@@ -65,8 +65,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       controller: 'IssueController',
       controllerAs: 'vm',
       data: {
-        title: 'Create Issue',
-        roles: ['admin']
+        title: 'Create Issue'
       },
       resolve: {
         issue: function(){ return {}; },
@@ -135,7 +134,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       },
       resolve: {
         solution: function() { return { issues: [] }; },
-        actions: function() { return []; }
+        actions: function() { return []; },
+        isSingleAction: ()=>{return false;}
       }
     })
     .state('solutions.edit', {
@@ -151,7 +151,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         solution: ['SolutionService', '$stateParams', function(SolutionService, $stateParams) {
           return SolutionService.get($stateParams.solutionId);
         }],
-        actions: function() { return []; }
+        actions: function() { return []; },
+        isSingleAction: ()=>{return false;}
       }
     })
     .state('solutions.view', {

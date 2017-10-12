@@ -51,7 +51,7 @@
       <md-content flex layout-fill layout="column">
         <md-toolbar class="md-primary md-hue-2 app-header" >
           <!-- ng-hide="$state.includes('home')" -->
-          <div class="md-toolbar-tools" ng-include="'modules/core/client/views/header.client.view.html'"></div>
+          <div class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" ng-include="'modules/core/client/views/header.client.view.html'"></div>
         </md-toolbar>
         <md-progress-linear md-mode="query" class="md-primary" ng-if="requestsPending"></md-progress-linear>
         <md-content flex>

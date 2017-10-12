@@ -95,9 +95,11 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
       VoteService.vote(vm.solution, 'Solution', voteType);
     };
 
-    vm.sort = function(sortParam, order, $event) {
-        $event.stopPropagation();
-        SortService.setSort("action", sortParam, order);
+    vm.sort = function(sortData, $event) {
+        console.log($event)
+        if($event) $event.stopPropagation();
+        console.log("sorting by: ", sortData.type, sortData.order);
+        SortService.setSort("action", sortData.type, sortData.order);
     };
 
     function confirm(title, text) {

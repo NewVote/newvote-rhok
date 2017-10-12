@@ -22,10 +22,11 @@ angular.module('core')
 						$event.stopPropagation();
 						VoteService.vote(solution, 'Solution', voteType);
 					};
-					vm.sort = function (sortParam, order, $event) {
-						$event.stopPropagation();
-						SortService.setSort("solution", sortParam, order);
-					};
+					vm.sort = function(sortData, $event) {
+				        if($event) $event.stopPropagation();
+				        console.log("sorting by: ", sortData.type, sortData.order);
+				        SortService.setSort("solution", sortData.type, sortData.order);
+				    };
 				}
 			]
 		};

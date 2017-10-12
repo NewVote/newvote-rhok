@@ -150,6 +150,9 @@ md-input-container.compact {
   md-input-container.compact .md-errors-spacer {
     display: none; }
 
+.sort-select {
+  margin: 0px; }
+
 .home-search-banner {
   background-image: url("/modules/core/client/img/head.png");
   background-position: center;

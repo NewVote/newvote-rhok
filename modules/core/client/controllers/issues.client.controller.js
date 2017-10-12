@@ -7,9 +7,10 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
     vm.issues = issues;
     vm.sortSvc = SortService;
 
-    vm.sort = function(sortParam, order, $event) {
-        $event.stopPropagation();
-        SortService.setSort("issue", sortParam, order);
+    vm.sort = function(sortData, $event) {
+        if($event) $event.stopPropagation();
+        console.log("sorting by: ", sortData.type, sortData.order);
+        SortService.setSort("issue", sortData.type, sortData.order);
     };
   }
 ]);
