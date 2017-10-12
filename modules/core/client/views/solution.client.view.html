@@ -1,3 +1,20 @@
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" content="{{ vm.url }}"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" content="{{ vm.url }}"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
+
 <md-toolbar class="md-primary">
   <div layout="row" layout-padding>
     <div class="header-image-container">

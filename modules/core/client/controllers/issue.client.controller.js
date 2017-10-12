@@ -10,11 +10,19 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     // console.log(vm);
 
     $scope.authentication = Authentication;
-    if(vm.issue._id){
-      var title = vm.issue.name;
-      if($state.is('issues.edit')) title = 'Edit Issue - ' + title;
-      $rootScope.pageTitle = title;
+
+    // Title
+    if(vm.issue._id && $state.is('issues.edit')) {
+      vm.title = 'Edit Issue - ' + vm.issue.name;
+    } else if ($state.is('issues.create')) {
+      vm.title = 'Add a Issue';
+    } else if ($state.is('issues.view')) {
+      vm.title = vm.issue.name;
     }
+
+    // Meta tags
+    vm.desc = vm.issue.description;
+    vm.image = vm.issue.imageUrl;
 
     vm.createOrUpdate = function() {
       var promise = $q.resolve();

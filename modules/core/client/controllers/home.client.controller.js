@@ -3,6 +3,7 @@
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService',
   function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService) {
     // This provides Authentication context.
+
     $scope.authentication = Authentication;
     $scope.$state = $state;
     $scope.toggleLeft = function() {
@@ -27,5 +28,13 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.redirectTo = function(item) {
       SearchService.redirectTo(item);
     };
+
+    // Title
+    $scope.title = 'Home';
+    
+    // Meta tags
+    $scope.desc = 'Home of NewVote';
+    // $scope.image = vm.solutions[0].imageUrl;
+    
   }
 ]);
