@@ -8,8 +8,8 @@
 		<md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button>
 	</div>
 	<div layout-padding>
-		<md-card class="solution-card" md-rowspan="3" md-colspan="2" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse">
-			<md-card-header ui-sref="solutions.view({solutionId:solution._id})">
+		<md-card class="solution-card" md-rowspan="3" md-colspan="2" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
+			<md-card-header>
 				<md-card-avatar>
 					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
 				</md-card-avatar>
@@ -40,7 +40,7 @@
 						</md-tooltip>
 						<md-icon>arrow_downward</md-icon>
           </md-button>
-          <md-fab-speed-dial md-direction="right" class="md-scale">
+          <md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation();">
             <md-fab-trigger>
               <md-button aria-label="Share" class="md-icon-button">
                 <md-tooltip>Share</md-tooltip>
