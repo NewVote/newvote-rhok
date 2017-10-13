@@ -4,7 +4,8 @@
 		<md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-sm>
 			<md-icon>menu</md-icon>
 		</md-button>
-		<div class="home-title">{{pageTitle}}</div>
+
+		<md-truncate flex class="home-title">{{pageTitle}}</md-truncate>
 		<div flex="auto" layout="column" hide show-gt-sm>
 			<md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
 				<md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
@@ -24,7 +25,7 @@
 			</md-input-container>
 		</div>
 
-        <span flex></span>
+        <!-- <span flex></span> -->
 
         <md-button hide show-sm show-xs aria-label="Show mobile search" class="md-icon-button" ng-click="openSearch()">
             <md-icon>search</md-icon>

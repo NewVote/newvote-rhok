@@ -1,10 +1,10 @@
 <md-toolbar class="md-primary">
 	<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 		<div layout="row" layout-padding>
-			<div class="header-image-container">
+			<div class="header-image-container" flex>
 				<img ng-src="{{::vm.solution.imageUrl}}" alt="Solution Image">
 			</div>
-			<div flex></div>
+			<!-- <div flex></div> -->
 			<md-button class="md-icon-button" ng-if="authentication.user._id===vm.solution.user._id" ng-click="vm.delete()">
 				<md-tooltip>Delete Solution</md-tooltip>
 				<md-icon>delete</md-icon>

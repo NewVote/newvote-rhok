@@ -1,10 +1,12 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$scope.$state = $state;
+		$scope.$mdMedia = $mdMedia;
+		
 		$scope.toggleLeft = function () {
 			$mdSidenav('left').toggle();
 		};
