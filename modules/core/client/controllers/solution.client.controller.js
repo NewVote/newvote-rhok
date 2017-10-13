@@ -14,18 +14,27 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
     $scope.authentication = Authentication;
 
-    if(vm.solution._id) {
-      var title = vm.solution.title;
-      if($state.is('solutions.edit')) title = 'Edit Solution - ' + title;
-      $rootScope.pageTitle = title;
-    }
-
     if($stateParams.issueId) {
       IssueService.get($stateParams.issueId).then(function(issue) {
         vm.solution.issues.push(issue);
       });
     }
 
+    // Title
+    vm.title = '';
+    if(vm.solution._id && $state.is('solutions.edit')) {
+      vm.title = 'Edit Solution - ' + vm.solution.title;
+    } else if ($state.is('solutions.create')) {
+      vm.title = 'Add a Solution';
+    } else if ($state.is('solutions.view')) {
+      vm.title = solution.title;
+    }
+
+    $rootScope.pageTitle = vm.title;
+
+    // Meta tags
+    vm.desc = vm.solution.description;
+    vm.image = vm.solution.imageUrl;
 
     function getActions() {
       ActionService.list({ solutionId: $stateParams.solutionId }).then(function(actions) {

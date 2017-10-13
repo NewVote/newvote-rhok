@@ -54,8 +54,12 @@
         <md-content flex>
           {% block content %}{% endblock %}
         </md-content>
+        <md-toolbar class="md-accent md-hue-1 md-scroll-shrink">
+          <div layout="row" layout-align="center center" flex>
+            This is a Prototype > link to disclaimer
+          </div>
+        </md-toolbar>
       </md-content>
-
     </section>
 
   </div>
@@ -78,6 +82,7 @@
 
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+  <script>window.prerenderReady = true;</script>
 
   {% if livereload %}
   <!--Livereload script rendered -->

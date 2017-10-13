@@ -1,3 +1,20 @@
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
+
 <md-toolbar class="md-primary">
 	<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 		<div layout="row" layout-padding>
@@ -25,6 +42,28 @@
 				<span ng-if="!vm.showFullDesc">...Show More</span>
 			</md-button>
 		</div>
+	</div>
+	<div layout="row" layout-padding>
+		<md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation();">
+			<md-fab-trigger>
+				<md-button aria-label="Share" class="md-icon-button">
+					<md-tooltip>Share</md-tooltip>
+					<md-icon>share</md-icon>
+				</md-button>
+			</md-fab-trigger>
+
+			<md-fab-actions>
+				<md-button aria-label="Share to Facebook" class="md-icon-button">
+					<md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
+					<md-tooltip>Facebook</md-tooltip>
+				</md-button>
+
+				<md-button aria-label="Share on Twitter" class="md-icon-button">
+					<md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
+					<md-tooltip>Twitter</md-tooltip>
+				</md-button>
+			</md-fab-actions>
+		</md-fab-speed-dial>
 	</div>
 </md-toolbar>
 
