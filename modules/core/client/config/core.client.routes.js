@@ -135,7 +135,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       resolve: {
         solution: function() { return { issues: [] }; },
         actions: function() { return []; },
-        isSingleAction: ()=>{return false;}
+        isSingleAction: function(){return false;}
       }
     })
     .state('solutions.edit', {
@@ -152,7 +152,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
           return SolutionService.get($stateParams.solutionId);
         }],
         actions: function() { return []; },
-        isSingleAction: ()=>{return false;}
+        isSingleAction: function(){return false;}
       }
     })
     .state('solutions.view', {
@@ -167,7 +167,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         actions: ['ActionService', '$stateParams', function(ActionService, $stateParams) {
           return ActionService.list({ solutionId: $stateParams.solutionId });
       }],
-      isSingleAction: ()=>{return false;}
+      isSingleAction: function(){return false;}
       }
     })
 
@@ -183,7 +183,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         actions: ['ActionService', '$stateParams', function(ActionService, $stateParams) {
           return ActionService.get($stateParams.actionId);
         }],
-        isSingleAction: ()=>{return true;}
+        isSingleAction: function(){return true;}
       }
     })
 
