@@ -28,11 +28,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			$mdMenu.open(ev);
 		};
 
-<<<<<<< HEAD
 		$scope.results = [];
 
-=======
->>>>>>> parent of ed17238... Using ui-router to redirect client to relevant issue, solution or action
     $scope.getHyperLink = function(item) {
       return SearchService.getHyperLink(item);
     };
