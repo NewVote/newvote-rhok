@@ -29,7 +29,8 @@ module.exports = {
         'public/lib/angular-aria/angular-aria.min.js',
         'public/lib/quill/quill.js',
         'public/lib/ngQuill/src/ng-quill.js',
-        'public/lib/ng-file-upload/ng-file-upload.min.js'
+        'public/lib/ng-file-upload/ng-file-upload.min.js',
+        'public/lib/angular-update-meta/dist/update-meta.js'
       ]
     },
     css: 'public/dist/application.min.css',
