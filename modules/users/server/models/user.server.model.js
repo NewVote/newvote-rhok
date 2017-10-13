@@ -59,6 +59,10 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true
   },
+  terms: {
+    type: Boolean,
+    default: false
+  },
   password: {
     type: String,
     default: ''

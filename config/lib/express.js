@@ -88,6 +88,10 @@ module.exports.initMiddleware = function (app) {
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
   app.use(flash());
+
+  // Server side prerender for non-js web crawlers
+  app.use(require('prerender-node'));
+  app.use(require('prerender-node').whitelisted(['/solution/']));
 };
 
 /**

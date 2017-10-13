@@ -1,21 +1,18 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService', 'isSingleAction',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService, isSingleAction) {
     // This provides Authentication context.
     var vm = this;
     vm.solution = solution;
     vm.newAction = {};
-    vm.actions = actions;
+    vm.actions = Array.isArray(actions) ? actions : [actions];
     vm.sortSvc = SortService;
+    vm.isSingleAction = isSingleAction;
+
+    console.log("state", $state.current);
 
     $scope.authentication = Authentication;
-
-    if(vm.solution._id) {
-      var title = vm.solution.title;
-      if($state.is('solutions.edit')) title = 'Edit Solution - ' + title;
-      $rootScope.pageTitle = title;
-    }
 
     if($stateParams.issueId) {
       IssueService.get($stateParams.issueId).then(function(issue) {
@@ -23,6 +20,21 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
       });
     }
 
+    // Title
+    vm.title = '';
+    if(vm.solution._id && $state.is('solutions.edit')) {
+      vm.title = 'Edit Solution - ' + vm.solution.title;
+    } else if ($state.is('solutions.create')) {
+      vm.title = 'Add a Solution';
+    } else if ($state.is('solutions.view')) {
+      vm.title = solution.title;
+    }
+
+    $rootScope.pageTitle = vm.title;
+
+    // Meta tags
+    vm.desc = vm.solution.description;
+    vm.image = vm.solution.imageUrl;
 
     function getActions() {
       ActionService.list({ solutionId: $stateParams.solutionId }).then(function(actions) {
@@ -92,9 +104,10 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
       VoteService.vote(vm.solution, 'Solution', voteType);
     };
 
-    vm.sort = function(sortParam, order, $event) {
-        $event.stopPropagation();
-        SortService.setSort("action", sortParam, order);
+    vm.sort = function(sortData, $event) {
+        if($event) $event.stopPropagation();
+        console.log("sorting by: ", sortData.type, sortData.order);
+        SortService.setSort("action", sortData.type, sortData.order);
     };
 
     function confirm(title, text) {

@@ -49,16 +49,17 @@
         </md-content>
       </md-sidenav>
       <md-content flex layout-fill layout="column">
-        <md-toolbar class="md-primary md-hue-2 app-header" >
-          <!-- ng-hide="$state.includes('home')" -->
-          <div class="md-toolbar-tools" ng-include="'modules/core/client/views/header.client.view.html'"></div>
-        </md-toolbar>
+        <div ng-include="'modules/core/client/views/header.client.view.html'"></div>
         <md-progress-linear md-mode="query" class="md-primary" ng-if="requestsPending"></md-progress-linear>
         <md-content flex>
           {% block content %}{% endblock %}
         </md-content>
+        <md-toolbar class="md-accent md-hue-1 md-scroll-shrink">
+          <div layout="row" layout-align="center center" flex>
+            This is a Prototype > link to disclaimer
+          </div>
+        </md-toolbar>
       </md-content>
-
     </section>
 
   </div>
@@ -81,6 +82,7 @@
 
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+  <script>window.prerenderReady = true;</script>
 
   {% if livereload %}
   <!--Livereload script rendered -->

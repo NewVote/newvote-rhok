@@ -1,126 +1,74 @@
-<!-- <md-button ng-click="toggleLeft()" class="md-icon-button">
-  <md-icon>keyboard_arrow_left</md-icon>
-</md-button> -->
-<md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-sm>
-  <md-icon>menu</md-icon>
-</md-button>
-<div class="home-title">{{pageTitle}}</div>
-<div flex="auto" layout="column">
-  <md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
-    <md-autocomplete
-      md-no-cache="true"
-      md-clear-button="false"
-      placeholder="Search"
-      md-selected-item="selectedItem"
-      md-search-text="searchText"
-      md-items="item in results"
-      md-search-text-change="searchAll(searchText)"
-      md-item-text="getItemTitle(item)"
-      md-delay="300"
-      md-min-length="1">
+<md-toolbar class="md-primary md-hue-2 app-header">
+	<div class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 
-      <md-item-template>
-        <a class="search-item" href="{{getHyperLink(item)}}">
-          <span><strong>{{item.model}}: </strong></span>
-          <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
-        </a>
-      </md-item-template>
-      <md-not-found>
-        No matches found.
-      </md-not-found>
+		<md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-sm>
+			<md-icon>menu</md-icon>
+		</md-button>
 
-    </md-autocomplete>
-  </md-input-container>
+		<md-truncate flex class="home-title">{{pageTitle}}</md-truncate>
+		<div flex="auto" layout="column" hide show-gt-sm>
+			<md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
+				<md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
+				    md-min-length="1">
 
-</div>
-<md-menu ng-show="authentication.user">
-  <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
-    <md-icon>person</md-icon>
-    <md-tooltip md-direction="left">Signed in as {{::authentication.user.displayName}}</md-tooltip>
-  </md-button>
-  <md-menu-content width="4">
+					<md-item-template>
+						<a class="search-item" href="{{getHyperLink(item)}}">
+                  <span><strong>{{item.model}}: </strong></span>
+                  <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+                </a>
+					</md-item-template>
+					<md-not-found>
+						No matches found.
+					</md-not-found>
 
-    <md-menu-item>
-      <md-button ui-sref="settings.profile">
-        My Profile
-      </md-button>
-    </md-menu-item>
+				</md-autocomplete>
+			</md-input-container>
+		</div>
 
+        <!-- <span flex></span> -->
 
+        <md-button hide show-sm show-xs aria-label="Show mobile search" class="md-icon-button" ng-click="openSearch()">
+            <md-icon>search</md-icon>
+        </md-button>
 
-    <md-menu-item>
-      <md-button href="/api/auth/signout" target="_self">
-        Sign Out
-      </md-button>
-    </md-menu-item>
+		<md-menu ng-show="authentication.user">
+			<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
+				<md-icon>person</md-icon>
+				<md-tooltip md-direction="left">Signed in as {{::authentication.user.displayName}}</md-tooltip>
+			</md-button>
+			<md-menu-content width="4">
 
+				<md-menu-item>
+					<md-button ui-sref="settings.profile">
+						My Profile
+					</md-button>
+				</md-menu-item>
 
+				<md-menu-item>
+					<md-button href="/api/auth/signout" target="_self">
+						Sign Out
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+</md-toolbar>
 
-  </md-menu-content>
+<md-toolbar class="md-primary" layout-padding ng-if="searchOpen">
+    <md-input-container flex="auto" md-no-float class="md-block search-input simple" md-no-asterisk>
+        <md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
+            md-min-length="1">
 
-</md-menu>
+						<md-item-template>
+			        <a class="search-item" ng-click="redirectTo(item)">
+			          <span><strong>{{item.model}}: </strong></span>
+			          <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+			        </a>
+			      </md-item-template>
+			      <md-not-found>
+			        No matches found.
+			      </md-not-found>
 
-<!-- <md-button class="md-icon-button">
-  <md-icon>person</md-icon>
-</md-button> -->
-
-<!--
-<div class="container" ng-controller="HeaderController">
-  <div class="navbar-header">
-    <button class="navbar-toggle" type="button" ng-click="toggleCollapsibleMenu()">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a ui-sref="home" class="navbar-brand">MEAN.JS</a>
-  </div>
-  <nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
-    <ul class="nav navbar-nav" ng-if="menu.shouldRender(authentication.user);">
-      <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" dropdown="item.type === 'dropdown'">
-        <a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
-        <ul ng-switch-when="dropdown" class="dropdown-menu">
-          <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);" ui-sref-active="active">
-            <a ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>
-          </li>
-        </ul>
-        <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
-      <li ui-sref-active="active">
-        <a ui-sref="authentication.signup">Sign Up</a>
-      </li>
-      <li class="divider-vertical"></li>
-      <li ui-sref-active="active">
-        <a ui-sref="authentication.signin">Sign In</a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
-      <li class="dropdown" dropdown>
-        <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
-          <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
-          <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li ui-sref-active="active">
-            <a ui-sref="settings.profile">Edit Profile</a>
-          </li>
-          <li ui-sref-active="active">
-            <a ui-sref="settings.picture">Change Profile Picture</a>
-          </li>
-          <li ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
-            <a ui-sref="settings.password">Change Password</a>
-          </li>
-          <li ui-sref-active="active">
-            <a ui-sref="settings.accounts">Manage Social Accounts</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="/api/auth/signout" target="_self">Signout</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</div> -->
+        </md-autocomplete>
+    </md-input-container>
+</md-toolbar>

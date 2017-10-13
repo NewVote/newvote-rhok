@@ -1,31 +1,63 @@
-  <md-toolbar class="md-primary">
-    <div layout-padding class="md-toolbar-tools">
-      <p>
-        Select an issue to view solutions
-      </p>
-    </div>
-  </md-toolbar>
-  <div layout="row" layout-padding>
-    <md-button class="md-primary md-raised create-btn" ui-sref="issues.create"><md-icon>add</md-icon>Add an Issue</md-button>
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
 
-    <md-button class="md-primary" ng-click="vm.sort('alpha', 'asc', $event)">A-Z</md-button>
-    <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
-    <md-button class="md-primary" ng-click="vm.sort('controversial', 'desc', $event)">Controversial</md-button>
-    <md-button class="md-primary" ng-click="vm.sort('trending', 'desc', $event)">Trending</md-button>
-    <md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button>
-  </div>
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
 
-  <md-grid-list
-    class="issues"
-    md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12"
-    md-row-height="2:2"
-    md-gutter="16px">
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
-    <md-grid-tile ng-repeat="issue in vm.issues | orderBy: vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="issues.view({ issueId: issue._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">
-      <img ng-src="{{issue.imageUrl}}" alt="Issue Image">
-      <md-grid-tile-footer>
-        <h3 ng-bind="issue.name"></h3>
-      </md-grid-tile-footer>
-    </md-grid-tile>
+<md-toolbar class="md-primary">
+	<div layout-padding class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+		<p>
+			Select an issue to view solutions
+		</p>
+	</div>
+</md-toolbar>
 
-  </md-grid-list>
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+	<div layout="row" layout-padding>
+		<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ui-sref="issues.create">
+			<md-icon>add</md-icon><span hide show-gt-sm>Add an Issue</span></md-button>
+		<md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="suggestions">
+			<md-icon>add</md-icon><span hide show-gt-sm>Suggest an Issue</span></md-button>
+
+		<div hide show-gt-sm>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'alpha', order: 'asc'}, $event)">A-Z</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest</md-button>
+		</div>
+
+		<div hide-gt-sm layout="row" layout-align="end center" flex="fill">
+            <span layout-padding>Sort By </span>
+			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
+				<md-option ng-value="{type: 'alpha', order: 'asc'}" ng-selected="true">A-Z</md-option>
+                <md-option ng-value="{type: 'top', order: 'desc'}">Top</md-option>
+                <md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
+                <md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
+                <md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
+			</md-select>
+		</div>
+	</div>
+
+	<md-grid-list class="issues" md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12" md-row-height="2:2" md-gutter="16px">
+
+		<md-grid-tile ng-repeat="issue in vm.issues | orderBy: vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="issues.view({ issueId: issue._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">
+			<img ng-src="{{issue.imageUrl}}" alt="Issue Image">
+			<md-grid-tile-footer>
+				<h3 ng-bind="issue.name"></h3>
+			</md-grid-tile-footer>
+		</md-grid-tile>
+
+	</md-grid-list>
+</div>

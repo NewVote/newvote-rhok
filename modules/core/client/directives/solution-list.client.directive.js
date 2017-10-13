@@ -12,19 +12,21 @@ angular.module('core')
 			templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 			bindToController: true,
 			controllerAs: 'vm',
-			controller: ['$scope', 'VoteService', 'SortService',
-				function ($scope, VoteService, SortService) {
+			controller: ['$scope', 'VoteService', 'SortService', 'Authentication',
+				function ($scope, VoteService, SortService, Authentication) {
 					var vm = this;
                     vm.sortSvc = SortService;
+					$scope.authentication = Authentication;
 
 					vm.vote = function (solution, voteType, $event) {
 						$event.stopPropagation();
 						VoteService.vote(solution, 'Solution', voteType);
 					};
-					vm.sort = function (sortParam, order, $event) {
-						$event.stopPropagation();
-						SortService.setSort("solution", sortParam, order);
-					};
+					vm.sort = function(sortData, $event) {
+				        if($event) $event.stopPropagation();
+				        console.log("sorting by: ", sortData.type, sortData.order);
+				        SortService.setSort("solution", sortData.type, sortData.order);
+				    };
 				}
 			]
 		};

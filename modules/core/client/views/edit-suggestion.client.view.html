@@ -1,0 +1,26 @@
+<div layout-padding  layout="column" layout-align="top center" flex>
+
+  <md-input-container>
+    <label>Suggestion Title</label>
+    <input ng-model="vm.suggestion.title" autofocus>
+  </md-input-container>
+
+  <label>Suggestion Description</label>
+  <ng-quill-editor ng-model="vm.suggestion.description"></ng-quill-editor>
+
+  <!-- <md-contact-chips
+    ng-model="vm.solution.issues"
+    md-contacts="vm.searchIssues($query)"
+    md-contact-name="name"
+    md-require-match="true"
+    md-highlight-flags="i"
+    md-delay="400"
+    placeholder="Issues Addressed"
+    secondary-placeholder="Add a related issue">
+  </md-contact-chips> -->
+  <div layout="row">
+    <md-button class="md-raised md-primary" ng-click="vm.create()">
+      <span>Create</span>
+    </md-button>
+  </div>
+</div>

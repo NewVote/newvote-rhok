@@ -13,8 +13,9 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
     };
 
     var controversialSort = function(a){
-        var aUp = a.votes.up===0 ? 1 : a.votes.up;
-        return (a.votes.down / aUp) * a.votes.total;
+        var votes = a.solutionMetaData ? a.solutionMetaData.votes : a.votes;
+        var aUp = votes.up===0 ? 1 : votes.up;
+        return (votes.down / aUp) * votes.total;
     };
 
     var trendingSort = function(a) {
@@ -44,7 +45,7 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
             }else if(sortParam === "top"){
                 return "solutionMetaData.votes.up";
             }else if(sortParam === "controversial"){
-                return controversialIssueSort;
+                return controversialSort;
             }else if(sortParam === "trending"){
                 return "solutionMetaData.totalTrendingScore";
             }else if(sortParam === "newest"){

@@ -1,43 +1,46 @@
+<div ng-controller="HomeController" ng-click="($mdMedia('sm') || $mdMedia('xs')) && toggleLeft()">
 
-    <div layout="row" layout-padding layout-align="center">
-      <a ui-sref="home">
-        <img class="logo" src="modules/core/client/img/brand/logo-gif.gif">
-      </a>
-    </div>
-    <md-list class="left-menu" ng-cloak>
+	<div layout="row" layout-align="center">
+		<a ui-sref="home">
+            <img class="logo" src="modules/core/client/img/brand/logo-gif.gif">
+        </a>
+	</div>
+	<md-list class="left-menu" ng-cloak>
 
-      <md-list-item ui-sref="home" ui-sref-active="active">
-        <p class="item-content">Home</p>
-      </md-list-item>
-      <div layout-padding></div>
-      <!-- <md-divider></md-divider> -->
-      <div layout-padding></div>
-      <md-list-item ui-sref="issues.list" ui-sref-active="active" >
-        <p class="item-content">Issues</p>
-      </md-list-item>
+		<md-list-item ui-sref="home" ui-sref-active="active">
+			<p class="item-content">Home</p>
+		</md-list-item>
+		<div layout-padding></div>
+		<!-- <md-divider></md-divider> -->
+		<div layout-padding></div>
+		<md-list-item ui-sref="issues.list" ui-sref-active="active">
+			<p class="item-content">Issues</p>
+		</md-list-item>
 
-      <md-list-item class="" ui-sref="solutions.list" ui-sref-active="active" >
-        <p class="item-content">Solutions</p>
-      </md-list-item>
+		<md-list-item class="" ui-sref="solutions.list" ui-sref-active="active">
+			<p class="item-content">Solutions</p>
+		</md-list-item>
 
-      <!-- <md-list-item class="" ui-sref="results" ui-sref-active="active" >
+		<!-- <md-list-item class="" ui-sref="results" ui-sref-active="active" >
         <p class="item-content">Results</p>
-      </md-list-item> -->
+    </md-list-item> -->
 
 
-      <div layout-padding></div>
-      <!-- <md-divider></md-divider> -->
-      <div layout-padding></div>
-    <md-list-item href="http://newvote.org.au" target="_blank">
-      <p class="item-content">About</p>
-    </md-list-item>
-    <md-list-item class="" ng-if="!authentication.user" ui-sref="authentication.signup" ui-sref-active="active" >
-      <p class="item-content">Join</p>
-    </md-list-item>
-    <md-list-item class="" ng-if="!authentication.user" ui-sref="authentication.signin" ui-sref-active="active" >
-      <p class="item-content">Log In</p>
-    </md-list-item>
-    <md-list-item class="" ng-if="authentication.user" href="/api/auth/signout" target="_self" ui-sref-active="active" >
-      <p class="item-content">Log Out</p>
-    </md-list-item>
-    </md-list>
+		<div layout-padding></div>
+
+		<div layout-padding></div>
+		<md-list-item href="http://newvote.org.au" target="_blank">
+			<p class="item-content">About</p>
+		</md-list-item>
+        <!-- <md-divider></md-divider> -->
+		<md-list-item class="" ng-if="!authentication.user" ui-sref="authentication.signup" ui-sref-active="active">
+			<p class="item-content">Join</p>
+		</md-list-item>
+		<md-list-item class="" ng-if="!authentication.user" ui-sref="authentication.signin" ui-sref-active="active">
+			<p class="item-content">Log In</p>
+		</md-list-item>
+		<md-list-item class="" ng-if="authentication.user" href="/api/auth/signout" target="_self" ui-sref-active="active">
+			<p class="item-content">Log Out</p>
+		</md-list-item>
+	</md-list>
+</div>
