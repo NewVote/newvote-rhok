@@ -30,16 +30,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		$scope.results = [];
 
-		$scope.searchAll = function (text) {
-			$scope.results = SearchService.searchAll(text);
-		};
-
-		$scope.getItemTitle = function (item) {
-			return SearchService.getItemTitle(item);
-		};
-
-		$scope.redirectTo = function(item) {
-      SearchService.redirectTo(item);
+    $scope.getHyperLink = function(item) {
+      return SearchService.getHyperLink(item);
     };
 
 		$scope.searchOpen = false;

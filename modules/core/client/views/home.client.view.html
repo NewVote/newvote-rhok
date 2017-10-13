@@ -27,7 +27,7 @@
 			    md-min-length="1">
 
       <md-item-template>
-        <a class="search-item" ng-click="redirectTo(item)">
+        <a class="search-item" href="{{getHyperLink(item)}}">
           <span><strong>{{item.model}}: </strong></span>
           <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
         </a>

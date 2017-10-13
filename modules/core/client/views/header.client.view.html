@@ -1,9 +1,15 @@
 <md-toolbar class="md-primary md-hue-2 app-header">
 	<div class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 
-		<md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-sm>
-			<md-icon>menu</md-icon>
-		</md-button>
+      <md-item-template>
+        <a class="search-item" href="{{getHyperLink(item)}}">
+          <span><strong>{{item.model}}: </strong></span>
+          <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+        </a>
+      </md-item-template>
+      <md-not-found>
+        No matches found.
+      </md-not-found>
 
 		<md-truncate flex class="home-title">{{pageTitle}}</md-truncate>
 		<div flex="auto" layout="column" hide show-gt-sm>
