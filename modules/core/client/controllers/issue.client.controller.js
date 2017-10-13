@@ -12,6 +12,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     $scope.authentication = Authentication;
 
     // Title
+    vm.title = '';
     if(vm.issue._id && $state.is('issues.edit')) {
       vm.title = 'Edit Issue - ' + vm.issue.name;
     } else if ($state.is('issues.create')) {
@@ -19,6 +20,8 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     } else if ($state.is('issues.view')) {
       vm.title = vm.issue.name;
     }
+
+    $rootScope.pageTitle = vm.title;
 
     // Meta tags
     vm.desc = vm.issue.description;

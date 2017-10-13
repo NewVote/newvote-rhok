@@ -85,6 +85,7 @@
 
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+  <script>window.prerenderReady = true;</script>
 
   {% if livereload %}
   <!--Livereload script rendered -->

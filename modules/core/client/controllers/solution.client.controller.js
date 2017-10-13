@@ -18,6 +18,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
     }
 
     // Title
+    vm.title = '';
     if(vm.solution._id && $state.is('solutions.edit')) {
       vm.title = 'Edit Solution - ' + vm.solution.title;
     } else if ($state.is('solutions.create')) {
@@ -25,6 +26,8 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
     } else if ($state.is('solutions.view')) {
       vm.title = solution.title;
     }
+
+    $rootScope.pageTitle = vm.title;
 
     // Meta tags
     vm.desc = vm.solution.description;
