@@ -90,8 +90,8 @@ module.exports.initMiddleware = function (app) {
   app.use(flash());
 
   // Server side prerender for non-js web crawlers
-  app.use(require('prerender-node'));
-  app.use(require('prerender-node').whitelisted(['/solution/']));
+  app.use(require('prerender-node').set('prerenderServiceUrl', 'http://localhost:1337/')
+  .blacklisted(['/admin', '/api/']));
 };
 
 /**
