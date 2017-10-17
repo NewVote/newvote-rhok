@@ -24,7 +24,8 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     $rootScope.pageTitle = vm.title;
 
     // Meta tags
-    vm.desc = vm.issue.description;
+    // vm.desc = vm.issue.description;
+    vm.desc = "This is a test description with not html in it."
     vm.image = vm.issue.imageUrl;
 
     vm.createOrUpdate = function() {
