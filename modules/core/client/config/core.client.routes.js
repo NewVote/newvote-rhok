@@ -29,16 +29,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       }
     })
 
-    // .state('user-verification-dummy', {
-    //   url: '/userverification',
-    //   templateUrl: 'modules/core/client/views/user-verification.client.view.html',
-    //   controller: 'UserVerification',
-    //   controllerAs: 'vm',
-    //   data: {
-    //     title: 'Verify'
-    //   }
-    // })
-
     .state('issues', {
       url: '/issues',
       abstract: true,

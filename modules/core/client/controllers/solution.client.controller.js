@@ -10,9 +10,8 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
     vm.sortSvc = SortService;
     vm.isSingleAction = isSingleAction;
 
-    console.log("state", $state.current);
-
     $scope.authentication = Authentication;
+    $scope.prerender = document.getElementById("prerender");
 
     if($stateParams.issueId) {
       IssueService.get($stateParams.issueId).then(function(issue) {

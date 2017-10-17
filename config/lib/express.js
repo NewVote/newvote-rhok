@@ -91,8 +91,10 @@ module.exports.initMiddleware = function (app) {
 
   // Server side prerender for non-js web crawlers
   // app.use(require('prerender-node').set('prerenderServiceUrl', 'https://prerender-newvote.herokuapp.com'));
-  // app.use(require('prerender-node').set('prerenderServiceUrl', 'http://localhost:3100'));
-  app.use(require('prerender-node').set('prerenderToken', 'Sp1xuBcejkoGhbvsTk5p'));
+  app.use(require('prerender-node')
+    .set('prerenderServiceUrl', 'https://prerender-newvote.herokuapp.com')
+    .set('forwardHeaders', true));
+  // app.use(require('prerender-node').set('prerenderToken', 'Sp1xuBcejkoGhbvsTk5p'));
   // app.use(require('prerender-node').whitelisted(['/solutions/']));
 };
 

@@ -39,6 +39,9 @@
 
   <div ng-controller="HomeController" flex layout="column" ng-cloak>
 
+      <div id="prerender" class="prerender" ng-if="{{isPrerender}}">
+      </div>
+
     <section layout="row" flex>
       <md-sidenav class="md-sidenav-left"
         md-component-id="left"
@@ -72,6 +75,11 @@
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var config = {{ config | json | safe }};
+  </script>
+
+  <!--Embedding The Prerender Flag-->
+  <script type="text/javascript">
+    window.isPrerender = {{ isPrerender | json | safe }};
   </script>
 
   <!--Load The Socket.io File-->
