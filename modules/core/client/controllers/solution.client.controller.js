@@ -32,7 +32,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
     $rootScope.pageTitle = vm.title;
 
     // Meta tags
-    vm.desc = vm.solution.description;
+    vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
     vm.image = vm.solution.imageUrl;
 
     function getActions() {
