@@ -9,11 +9,11 @@
 .undecorated-link:hover {
   text-decoration: none; }
 
-[ng\:cloak],
-[ng-cloak],
-[x-ng-cloak],
 .ng-cloak,
-.x-ng-cloak {
+.x-ng-cloak,
+[ng-cloak],
+[ng\:cloak],
+[x-ng-cloak] {
   display: none !important; }
 
 .header-profile-image {
@@ -50,7 +50,8 @@ body {
 
 md-sidenav {
   width: 250px; }
-  md-sidenav, md-sidenav md-content {
+  md-sidenav,
+  md-sidenav md-content {
     background-color: #eee; }
   md-sidenav .item-content {
     text-align: center;
@@ -70,16 +71,21 @@ md-sidenav {
 .left-menu .active .item-content {
   color: #009688; }
 
-.issues, .solutions {
+.issues,
+.solutions {
   margin: 16px; }
 
-.issue, .solution {
+.issue,
+.solution {
   cursor: pointer; }
-  .issue figcaption, .solution figcaption {
+  .issue figcaption,
+  .solution figcaption {
     width: 100%; }
-    .issue figcaption h2, .solution figcaption h2 {
+    .issue figcaption h2,
+    .solution figcaption h2 {
       text-align: center; }
-  .issue img, .solution img {
+  .issue img,
+  .solution img {
     width: 100%;
     height: 100%;
     -o-object-fit: cover;
@@ -104,7 +110,7 @@ md-progress-linear {
 
 md-tooltip {
   font-size: 14px !important; }
-  md-tooltip.tooltip-wrap, md-tooltip.tooltip-multiline {
+  md-tooltip.tooltip-multiline, md-tooltip.tooltip-wrap {
     height: auto;
     white-space: normal;
     font-size: 14px;
@@ -114,19 +120,23 @@ md-tooltip {
   md-tooltip.tooltip-wrap {
     width: 200px; }
 
-.vote-btn.selected, .vote-btn.selected md-icon {
+.vote-btn.selected,
+.vote-btn.selected md-icon {
   color: #ff9800 !important; }
 
 .vote-score {
   line-height: normal !important; }
 
-.solution-card, .action-card {
+.action-card,
+.solution-card {
   cursor: pointer; }
-  .solution-card .description-container .description, .action-card .description-container .description {
+  .action-card .description-container .description,
+  .solution-card .description-container .description {
     overflow: hidden;
     height: 20px;
     float: left; }
-  .solution-card .description-container::after, .action-card .description-container::after {
+  .action-card .description-container::after,
+  .solution-card .description-container::after {
     content: '...';
     float: left; }
 
@@ -151,7 +161,7 @@ md-input-container.compact {
     display: none; }
 
 .sort-select {
-  margin: 0px; }
+  margin: 0; }
 
 .home-search-banner {
   background-image: url("/modules/core/client/img/head.png");

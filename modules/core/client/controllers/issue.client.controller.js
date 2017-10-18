@@ -7,11 +7,6 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     vm.issue = issue;
     vm.issueId = issue._id;
     vm.solutions = solutions;
-    console.log(vm);
-    console.log($rootScope);
-    console.log($scope);
-    console.log($state);
-    console.log($stateParams);
 
     $scope.authentication = Authentication;
     $scope.prerender = document.getElementById("prerender");

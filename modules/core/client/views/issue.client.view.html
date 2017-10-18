@@ -33,17 +33,18 @@
 				</md-button>
 			</div>
 		</div>
+
 		<div layout-padding layout="row">
 			<div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.issue.description"></div>
 		</div>
+
 		<div layout="row" layout-align="start end">
 			<md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
 				<span ng-if="vm.showFullDesc">Show Less</span>
 				<span ng-if="!vm.showFullDesc">...Show More</span>
 			</md-button>
 		</div>
-	</div>
-	<div layout="row" layout-padding>
+
 		<md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation();">
 			<md-fab-trigger>
 				<md-button aria-label="Share" class="md-icon-button">
