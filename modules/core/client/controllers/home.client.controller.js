@@ -32,6 +32,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			return SearchService.getHyperLink(item);
 		};
 
+		$scope.searchAll = function (text) {
+			$scope.results = SearchService.searchAll(text);
+		};
+
+		$scope.getItemTitle = function (item) {
+			return SearchService.getItemTitle(item);
+		};
+
 		$scope.searchOpen = false;
 
 		$scope.openSearch = function () {

@@ -70,11 +70,66 @@
 
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 	<md-tabs md-dynamic-height md-border-bottom>
-	  <md-tab label="solutions">
-	    <solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
-	  </md-tab>
-	  <md-tab label="media">
-	  </md-tab>
+		<md-tab label="solutions">
+			<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
+		</md-tab>
+		<md-tab label="media">
+			<!--media content <media-list></media-list> or something-->
+			<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
+				<md-icon>add</md-icon><span hide show-gt-sm>Add Media</span>
+			</md-button>
+			<md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="suggestions">
+				<md-icon>add</md-icon><span hide show-gt-sm>Suggest Media</span>
+			</md-button>
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Media Title</span>
+						<span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at orci sit amet ligula sodales feugiat. Pellentesque eleifend ut nunc nec ornare. Nam risus enim, varius eu mi id, molestie pharetra magna.</span>
+						<a href="#">www.url.to.media.com</a>
+					</md-card-title-text>
+					<md-card-title-media>
+						<div class="md-media-lg card-media"><img src='http://lorempixel.com/400/400/city' /></div>
+					</md-card-title-media>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button class="md-icon-button"><md-icon>thumb_up</md-icon></md-button>
+					<md-button class="md-icon-button"><md-icon>share</md-icon></md-button>
+				</md-card-actions>
+			</md-card>
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Media Title</span>
+						<span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at orci sit amet ligula sodales feugiat. Pellentesque eleifend ut nunc nec ornare. Nam risus enim, varius eu mi id, molestie pharetra magna.</span>
+						<a href="#">www.url.to.media.com</a>
+					</md-card-title-text>
+					<md-card-title-media>
+						<div class="md-media-lg card-media"><img src='http://lorempixel.com/400/400/city' /></div>
+					</md-card-title-media>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button class="md-icon-button"><md-icon>thumb_up</md-icon></md-button>
+					<md-button class="md-icon-button"><md-icon>share</md-icon></md-button>
+				</md-card-actions>
+			</md-card>
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Media Title</span>
+						<span class="md-subhead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at orci sit amet ligula sodales feugiat. Pellentesque eleifend ut nunc nec ornare. Nam risus enim, varius eu mi id, molestie pharetra magna.</span>
+						<a href="#">www.url.to.media.com</a>
+					</md-card-title-text>
+					<md-card-title-media>
+						<div class="md-media-lg card-media"><img src='http://lorempixel.com/400/400/city' /></div>
+					</md-card-title-media>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button class="md-icon-button"><md-icon>thumb_up</md-icon></md-button>
+					<md-button class="md-icon-button"><md-icon>share</md-icon></md-button>
+				</md-card-actions>
+			</md-card>
+		</md-tab>
 	</md-tabs>
 
 	<md-content layout="column" ng-if="!prerender">
