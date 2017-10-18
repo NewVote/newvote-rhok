@@ -27,8 +27,14 @@
   </div>
 
 </md-toolbar>
-<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
 
+<md-tabs md-dynamic-height md-border-bottom>
+  <md-tab label="solutions">
+    <solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
+  </md-tab>
+  <md-tab label="media">
+  </md-tab>
+</md-tabs>
 <md-content layout="column" layout-align="center">
     <div layout-padding>
         <div
