@@ -2,13 +2,15 @@
 
 var path = require('path'),
   config = require(path.resolve('config/config'));
+  const util = require('util');
 /**
  * Render the main application page
  */
 exports.renderIndex = function (req, res) {
   res.render('modules/core/server/views/index', {
     user: req.user || null,
-    config: config.uiConfig
+    config: config.uiConfig,
+    isPrerender: req.headers['x-prerender'] || false
   });
 };
 

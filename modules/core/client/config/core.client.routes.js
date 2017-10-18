@@ -20,11 +20,12 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         title: 'NewVote'
       }
     })
-    .state('user-verification-dummy', {
-      url: '/userverification',
-      templateUrl: 'modules/core/client/views/user-verification.client.view.html',
+
+    .state('thanks', {
+      url: '/thanks',
+      templateUrl: 'modules/core/client/views/thanks.client.view.html',
       data: {
-        title: 'NewVote'
+        title: 'Thank You'
       }
     })
 
@@ -54,8 +55,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       controller: 'IssueController',
       controllerAs: 'vm',
       data: {
-        title: 'Create Issue',
-        roles: ['user', 'admin']
+        title: 'Create Issue'
       },
       resolve: {
         issue: function(){ return {}; },
@@ -68,7 +68,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       controller: 'IssueController',
       controllerAs: 'vm',
       data: {
-        roles: ['user'],
+        roles: ['admin'],
         title: 'Edit Issue'
       },
       resolve: {
@@ -119,12 +119,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       controller: 'SolutionController',
       controllerAs: 'vm',
       data: {
-        roles: ['user'],
+        roles: ['admin'],
         title: 'Create Solution'
       },
       resolve: {
         solution: function() { return { issues: [] }; },
-        actions: function() { return []; }
+        actions: function() { return []; },
+        isSingleAction: function(){return false;}
       }
     })
     .state('solutions.edit', {
@@ -133,14 +134,15 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       controller: 'SolutionController',
       controllerAs: 'vm',
       data: {
-        roles: ['user'],
+        roles: ['admin'],
         title: 'Edit Solution'
       },
       resolve: {
         solution: ['SolutionService', '$stateParams', function(SolutionService, $stateParams) {
           return SolutionService.get($stateParams.solutionId);
         }],
-        actions: function() { return []; }
+        actions: function() { return []; },
+        isSingleAction: function(){return false;}
       }
     })
     .state('solutions.view', {
@@ -154,7 +156,34 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         }],
         actions: ['ActionService', '$stateParams', function(ActionService, $stateParams) {
           return ActionService.list({ solutionId: $stateParams.solutionId });
-        }]
+      }],
+      isSingleAction: function(){return false;}
+      }
+    })
+
+    .state('solutions.action', {
+      url: '/:solutionId/?:actionId',
+      templateUrl: 'modules/core/client/views/solution.client.view.html',
+      controller: 'SolutionController',
+      controllerAs: 'vm',
+      resolve: {
+        solution: ['SolutionService', '$stateParams', function(SolutionService, $stateParams) {
+          return SolutionService.get($stateParams.solutionId);
+        }],
+        actions: ['ActionService', '$stateParams', function(ActionService, $stateParams) {
+          return ActionService.get($stateParams.actionId);
+        }],
+        isSingleAction: function(){return true;}
+      }
+    })
+
+    .state('suggestions', {
+      url: '/suggestions',
+      templateUrl: 'modules/core/client/views/edit-suggestion.client.view.html',
+      controller: 'SuggestionsController',
+      controllerAs: 'vm',
+      data: {
+        title: 'Create Suggestion'
       }
     })
 

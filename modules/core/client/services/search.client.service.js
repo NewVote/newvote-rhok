@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').service('SearchService', ['$resource', '$stateParams', '$q', '_', '$state',
-    function ($resource, $stateParams, $q, _, $state) {
+angular.module('core').service('SearchService', ['$resource', '$stateParams', '$q', '_', '$location', '$window',
+    function ($resource, $stateParams, $q, _, $location, $window) {
         var Issue = $resource('api/issues/');
         var Solution = $resource('api/solutions/');
         var Action = $resource('api/actions/');    
@@ -73,22 +73,39 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             }
         };
 
-        svc.redirectTo = function(item) {
+        svc.getHyperLink = function(item) {
             switch (item.model) {
 
                 case 'Issue':
-                    $state.go('issues.view', {issueId: item._id});
-                    break;
+                    return getIssueLink(item);
 
                 case 'Solution':
-                    $state.go('solutions.view', {solutionId: item._id});
-                    break;
+                    return getSolutionLink(item);
 
                 case 'Action':
-                    $state.go('solutions.view', {solutionId: item.solution});
-                    break;
+                    return getActionLink(item);
 
             }       
         };
+
+        function getIssueLink(item) {
+            var url = '/issues/' + item._id;
+            return getOriginURL() + url;
+        }
+
+        function getSolutionLink(item) {
+            var url = '/solutions/' + item._id;
+            return getOriginURL() + url;
+        }
+
+        function getActionLink(item) {
+            // Return a url to the parent solution
+            var url = '/solutions/' + item.solution;
+            return getOriginURL() + url;
+        }
+
+        function getOriginURL() {
+            return new $window.URL($location.absUrl()).origin;
+        }        
     }
 ]);

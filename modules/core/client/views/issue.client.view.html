@@ -16,65 +16,64 @@
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
 <md-toolbar class="md-primary">
+	<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+		<div layout="row" layout-padding>
+			<div class="header-image-container">
+				<img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image">
+			</div>
+			<div flex></div>
+			<div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id===vm.issue.user._id">
+				<md-button class="md-icon-button" ng-click="vm.delete()">
+					<md-tooltip>Delete Issue</md-tooltip>
+					<md-icon>delete</md-icon>
+				</md-button>
+				<md-button class="md-icon-button" ui-sref="issues.edit({issueId: vm.issue._id})">
+					<md-tooltip>Edit Issue</md-tooltip>
+					<md-icon>edit</md-icon>
+				</md-button>
+			</div>
+		</div>
+		<div layout-padding layout="row">
+			<div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.issue.description"></div>
+		</div>
+		<div layout="row" layout-align="start end">
+			<md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
+				<span ng-if="vm.showFullDesc">Show Less</span>
+				<span ng-if="!vm.showFullDesc">...Show More</span>
+			</md-button>
+		</div>
+	</div>
+	<div layout="row" layout-padding>
+		<md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation();">
+			<md-fab-trigger>
+				<md-button aria-label="Share" class="md-icon-button">
+					<md-tooltip>Share</md-tooltip>
+					<md-icon>share</md-icon>
+				</md-button>
+			</md-fab-trigger>
 
-  <div layout="row" layout-padding>
-    <div class="header-image-container">
-      <img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image">
-    </div>
-    <div flex></div>
-    <div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id===vm.issue.user._id">
-      <md-button class="md-icon-button" ng-click="vm.delete()">
-        <md-tooltip>Delete Issue</md-tooltip>
-        <md-icon>delete</md-icon>
-      </md-button>
-      <md-button class="md-icon-button" ui-sref="issues.edit({issueId: vm.issue._id})">
-        <md-tooltip>Edit Issue</md-tooltip>
-        <md-icon>edit</md-icon>
-      </md-button>
-    </div>
-  </div>
-  <div layout-padding layout="row">
-    <div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.issue.description"></div>
-  </div>
-  <div layout="row" layout-align="end end">
-    <md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
-      <span ng-if="vm.showFullDesc">Show Less</span>
-      <span ng-if="!vm.showFullDesc">...Show More</span>
-    </md-button>
-  </div>
-  <div layout="row" layout-padding>
-    <md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation();">
-      <md-fab-trigger>
-        <md-button aria-label="Share" class="md-icon-button">
-          <md-tooltip>Share</md-tooltip>
-          <md-icon>share</md-icon>
-        </md-button>
-      </md-fab-trigger>
+			<md-fab-actions>
+				<md-button aria-label="Share to Facebook" class="md-icon-button">
+					<md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
+					<md-tooltip>Facebook</md-tooltip>
+				</md-button>
 
-      <md-fab-actions>
-        <md-button aria-label="Share to Facebook" class="md-icon-button">
-          <md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
-          <md-tooltip>Facebook</md-tooltip>
-        </md-button>
-
-        <md-button aria-label="Share on Twitter" class="md-icon-button">
-          <md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
-          <md-tooltip>Twitter</md-tooltip>
-        </md-button>
-      </md-fab-actions>
-    </md-fab-speed-dial>
-  </div>
-
+				<md-button aria-label="Share on Twitter" class="md-icon-button">
+					<md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
+					<md-tooltip>Twitter</md-tooltip>
+				</md-button>
+			</md-fab-actions>
+		</md-fab-speed-dial>
+	</div>
 </md-toolbar>
-<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
 
-<md-content layout="column" layout-align="center">
-    <div layout-padding>
-        <div
-          class="polis"
-          data-topic="What do you think?"
-          data-page_id="{{vm.issue._id}}"
-          data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
-        </div>
-    </div>
-</md-content>
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+	<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
+
+	<md-content layout="column" ng-if="!prerender">
+		<div layout-padding>
+			<div class="polis" data-topic="What do you think?" data-page_id="{{vm.issue._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+			</div>
+		</div>
+	</md-content>
+</div>

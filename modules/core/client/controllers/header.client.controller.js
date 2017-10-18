@@ -20,5 +20,6 @@ angular.module('core').controller('HeaderController', ['$rootScope', '$scope', '
     $scope.$on('$stateChangeSuccess', function () {
       $scope.isCollapsed = false;
     });
+
   }
 ]);

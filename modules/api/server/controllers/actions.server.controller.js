@@ -78,6 +78,7 @@ exports.delete = function (req, res) {
 exports.list = function (req, res) {
   var solutionId = req.query.solutionId;
   var searchParams = req.query.search;
+  var actionId = req.query.actionId;
   var query;
   if (solutionId) {
     query = { solution: solutionId };

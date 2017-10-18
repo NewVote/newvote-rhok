@@ -10,14 +10,14 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
     // Title
     vm.title = 'Issues';
     $rootScope.pageTitle = vm.title;
-    
+
     // Meta tags
     vm.desc = 'A list of issues';
     vm.image = vm.issues[0].imageUrl;
 
-    vm.sort = function(sortParam, order, $event) {
-        $event.stopPropagation();
-        SortService.setSort("issue", sortParam, order);
+    vm.sort = function(sortData, $event) {
+        if($event) $event.stopPropagation();
+        SortService.setSort("issue", sortData.type, sortData.order);
     };
   }
 ]);

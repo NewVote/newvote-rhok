@@ -1,15 +1,17 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService', 'isSingleAction',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService, isSingleAction) {
     // This provides Authentication context.
     var vm = this;
     vm.solution = solution;
     vm.newAction = {};
-    vm.actions = actions;
+    vm.actions = Array.isArray(actions) ? actions : [actions];
     vm.sortSvc = SortService;
+    vm.isSingleAction = isSingleAction;
 
     $scope.authentication = Authentication;
+    $scope.prerender = document.getElementById("prerender");
 
     if($stateParams.issueId) {
       IssueService.get($stateParams.issueId).then(function(issue) {
@@ -101,9 +103,10 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
       VoteService.vote(vm.solution, 'Solution', voteType);
     };
 
-    vm.sort = function(sortParam, order, $event) {
-        $event.stopPropagation();
-        SortService.setSort("action", sortParam, order);
+    vm.sort = function(sortData, $event) {
+        if($event) $event.stopPropagation();
+        console.log("sorting by: ", sortData.type, sortData.order);
+        SortService.setSort("action", sortData.type, sortData.order);
     };
 
     function confirm(title, text) {
