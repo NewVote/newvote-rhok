@@ -58,7 +58,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         title: 'Create Issue'
       },
       resolve: {
-        issue: function(){ return {}; },
+        issue: function(){ return {tags:[]}; },
         solutions: function(){ return {}; }
       }
     })
@@ -123,7 +123,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         title: 'Create Solution'
       },
       resolve: {
-        solution: function() { return { issues: [] }; },
+        solution: function() { return { issues: [], tags: [] }; },
         actions: function() { return []; },
         isSingleAction: function(){return false;}
       }

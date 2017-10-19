@@ -39,6 +39,21 @@
     placeholder="Issues Addressed"
     secondary-placeholder="Add another issue">
   </md-contact-chips>
+
+  <form name="tagsForm">
+      <md-chips
+            ng-model="vm.solution.tags"
+            md-separator-keys="vm.customKeys"
+            name="tagsName"
+            md-removable="true"
+            md-max-chips="5"
+            placeholder="Enter a tag...">
+      </md-chips>
+
+      <div class="errors" ng-messages="tagsForm.tagsName.$error">
+          <div ng-message="md-max-chips">Maximum number of tags reached.</div>
+      </div>
+  </form>
   <div layout="row">
     <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
       <span ng-if="vm.solution._id">Update</span>

@@ -98,6 +98,9 @@ md-sidenav {
     -o-object-fit: cover;
        object-fit: cover; }
 
+.descriptionChips .md-chips {
+  box-shadow: 0 0px !important; }
+
 .create-btn {
   font-size: 18px; }
 

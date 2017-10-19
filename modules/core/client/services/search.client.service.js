@@ -4,7 +4,7 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
     function ($resource, $stateParams, $q, _, $location, $window) {
         var Issue = $resource('api/issues/');
         var Solution = $resource('api/solutions/');
-        var Action = $resource('api/actions/');    
+        var Action = $resource('api/actions/');
 
         var modelEnum = {
             issue: 0,
@@ -41,15 +41,15 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
 
                             switch (parseInt(model)) {
 
-                                case modelEnum.issue: 
+                                case modelEnum.issue:
                                     data[model][item].model = 'Issue';
                                     break;
 
-                                case modelEnum.solution: 
+                                case modelEnum.solution:
                                     data[model][item].model = 'Solution';
                                     break;
 
-                                case modelEnum.action: 
+                                case modelEnum.action:
                                     data[model][item].model = 'Action';
                                     break;
 
@@ -63,13 +63,13 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
         };
 
         svc.getItemTitle = function(item) {
-            // Issues 
+            // Issues
             if (item.name !== undefined) {
-                return item.name; 
+                return item.name;
 
             // Solutions and Actions
             } else if (item.title !== undefined) {
-                return item.title; 
+                return item.title;
             }
         };
 
@@ -85,7 +85,7 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                 case 'Action':
                     return getActionLink(item);
 
-            }       
+            }
         };
 
         function getIssueLink(item) {
@@ -106,6 +106,6 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
 
         function getOriginURL() {
             return new $window.URL($location.absUrl()).origin;
-        }        
+        }
     }
 ]);

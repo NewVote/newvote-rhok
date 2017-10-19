@@ -76,19 +76,35 @@ exports.delete = function (req, res) {
  * List of Solutions
  */
 exports.list = function (req, res) {
-  var issueId = req.query.issueId;
-  var searchParams = req.query.search;
-  var query;
-  if (issueId) {
-    query = { issues: issueId };
-  } else if (searchParams) {
-    query = { title: {
-      $regex: searchParams,
-      $options: 'i'
-    } };
-  } else {
-    query = null;
-  }
+	var issueId = req.query.issueId;
+	var searchParams = req.query.search;
+	var query;
+	if (issueId) {
+		query = {
+			issues: issueId
+		};
+	} else if (searchParams) {
+		query = {
+			$or: [{
+					title: {
+						$regex: req.query.search,
+						$options: 'i'
+					}
+				},
+				{
+					description: {
+						$regex: req.query.search,
+						$options: 'i'
+					}
+				},
+				{
+					tags: req.query.search
+				}
+			]
+		};
+	} else {
+		query = null;
+	}
 
 	Solution.find(query).sort('-created').populate('user', 'displayName').exec(function (err, solutions) {
 		if (err) {

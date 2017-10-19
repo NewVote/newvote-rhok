@@ -127,6 +127,12 @@ md-sidenav {
 	}
 }
 
+.descriptionChips {
+    .md-chips{
+        box-shadow: 0 0px !important;
+    }
+}
+
 .create-btn {
 	font-size: 18px;
 }
