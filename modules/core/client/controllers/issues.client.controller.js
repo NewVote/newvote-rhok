@@ -8,7 +8,47 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
     vm.sortSvc = SortService;
 
     
-    SocialshareService.openWindow('https://twitter.com/intent/tweet?text=Example+tweet&via=newvote');
+    // SocialshareService.share({
+    //   provider: 'facebook',
+    //   data: {
+    //     u: 'http://prototype.newvote.org.au/issues/59a238a4cb407514009a5fef'
+    //   }
+    // });
+    // Facebook only needs a url
+
+    // SocialshareService.share({
+    //   provider: 'twitter',
+    //   data: {
+    //     text: '',
+    //     url: 'http://prototype.newvote.org.au/issues/59a238a4cb407514009a5fef',
+    //     hashtags: 'one, two, three'
+    //   }
+    // });
+
+    // SocialshareService.share({
+    //   provider: 'google_plus',
+    //   data: {
+    //     url: 'http://prototype.newvote.org.au/issues/59a238a4cb407514009a5fef',
+    //     hl: 'en-GB'
+    //   }
+    // });
+
+    // SocialshareService.share({
+    //   provider: 'google_plus',
+    //   data: {
+    //     url: 'http://prototype.newvote.org.au/issues/59a238a4cb407514009a5fef',
+    //     hl: 'en-GB'
+    //   }
+    // });
+
+    SocialshareService.share({
+      provider: 'linkedin',
+      data: {
+        url: 'http://prototype.newvote.org.au/issues/59a238a4cb407514009a5fef'
+      }
+    });
+
+
 
     // Title
     vm.title = 'Issues';
