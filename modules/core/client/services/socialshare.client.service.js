@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').service('SocialshareService', ['$window', '$resource', '$httpParamSerializer',
-  function ($window, $resource, $httpParamSerializer) {
+angular.module('core').service('SocialshareService', ['$window', '$resource', '$httpParamSerializer', '$location',
+  function ($window, $resource, $httpParamSerializer, $location) {
     var svc = this;
 
     // Window settings
@@ -13,6 +13,8 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     var facebookURL = 'https://www.facebook.com/sharer/sharer.php?';
     var googlePlusURL = 'https://plus.google.com/share?';
     var linkedinURL = 'https://www.linkedin.com/shareArticle?';
+    var redditURL = 'http://www.reddit.com/submit?';
+    svc.baseURL = $location.absUrl();
     
     // Facebook
     svc.facebookID = '108325769791251';
@@ -20,34 +22,55 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     // Twitter
     svc.twitterVia = 'newvote';
 
+    
+
     svc.share = function(params) {
+
       switch(params.provider) {
 
         case 'facebook':
-          params.data.app_id = svc.facebookID;
-          openWindow(facebookURL, params.data);
+          openWindow(facebookURL, {
+            app_id: svc.facebookID,
+            u: svc.baseURL + params.rel_url
+          });
           break;
 
         case 'twitter':
-          params.data.via = svc.twitterVia;
-          openWindow(twitterURL, params.data);
+          openWindow(twitterURL, {
+            via: svc.twitterVia,
+            text: 'NewVote | ' + params.title,
+            url: svc.baseURL + params.rel_url,
+            hashtags: params.hashtags
+          });
           break;
 
         case 'google_plus':
-          openWindow(googlePlusURL, params.data);
+          openWindow(googlePlusURL, {
+            url: svc.baseURL + params.rel_url,
+            hl: 'en-GB'
+          });
           break;
 
         case 'linkedin':
-          openWindow(linkedinURL, params.data);
-          break;        
+          openWindow(linkedinURL, {
+            url: svc.baseURL + params.rel_url
+          });
+          break;   
+          
+        case 'reddit':
+          openWindow(redditURL, {
+            url: svc.baseURL + params.rel_url,
+            title: 'NewVote | ' + params.title
+          });
+          break;
       }
     };
     
     function openWindow(baseURL, params) {
       var queryStr = $httpParamSerializer(params);
 
-      var top = $window.innerHeight / 2 - svc.windowHeight / 2;
-      var left = $window.innerWidth / 2 - svc.windowWidth / 2;
+      var top = ($window.innerHeight / 2) - (svc.windowHeight / 2);
+      var left = ($window.innerWidth / 2) - (svc.windowWidth / 2);
 
       var win = $window.open(
         baseURL + queryStr, 

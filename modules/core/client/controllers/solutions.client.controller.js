@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SolutionsController', ['$scope', '$stateParams', 'SolutionService', 'VoteService', 'Authentication', 'solutions',
-  function ($scope, $stateParams, SolutionService, VoteService, Authentication, solutions) {
+angular.module('core').controller('SolutionsController', ['$scope', '$stateParams', 'SolutionService', 'VoteService', 'Authentication', 'solutions', 'SocialshareService', '$location',
+  function ($scope, $stateParams, SolutionService, VoteService, Authentication, solutions, SocialshareService, $location) {
     var vm = this;
     vm.issueId = $stateParams.issueId;
     vm.solutions = solutions;
@@ -13,11 +13,5 @@ angular.module('core').controller('SolutionsController', ['$scope', '$stateParam
     // Meta tags
     vm.desc = 'A list of solutions';
     vm.image = vm.solutions[0].imageUrl;
-
-    vm.vote = function(solution, voteType, $event) {
-      $event.stopPropagation();
-      VoteService.vote(solution, 'Solution', voteType);
-    };
-
   }
 ]);
