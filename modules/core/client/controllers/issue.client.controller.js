@@ -1,24 +1,20 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService', 'SocialshareService', 
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService, SocialshareService) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService', 'SocialshareService', '$mdConstant',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService, SocialshareService, $mdConstant) {
     // This provides Authentication context.
     var vm = this;
     vm.issue = issue;
     vm.issueId = issue._id;
     vm.solutions = solutions;
-    console.log(vm);
-    console.log($rootScope);
-    console.log($scope);
-    console.log($state);
-    console.log($stateParams);
 
-    $scope.authentication = Authentication;
-    $scope.prerender = document.getElementById("prerender");
+		// Meta tags
+    vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
+    vm.image = vm.issue.imageUrl;
 
     // Title
     vm.title = '';
-    if(vm.issue._id && $state.is('issues.edit')) {
+    if (vm.issue._id && $state.is('issues.edit')) {
       vm.title = 'Edit Issue - ' + vm.issue.name;
     } else if ($state.is('issues.create')) {
       vm.title = 'Add a Issue';
@@ -28,9 +24,11 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 
     $rootScope.pageTitle = vm.title;
 
-    // Meta tags
-    vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
-    vm.image = vm.issue.imageUrl;
+
+		$scope.authentication = Authentication;
+		$scope.prerender = document.getElementById("prerender");
+
+    vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
 
     vm.share = function(provider) {
       SocialshareService.share({
@@ -56,28 +54,28 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
       });
     };
 
-    vm.delete = function() {
-      if(!vm.issue._id) return;
-      var confirm = $mdDialog.confirm()
-        .title('Are you sure you want to delete this issue?')
-        .textContent('This cannot be undone. Please confirm your decision')
-        .ok('Yes, I\'m sure')
-        .cancel('No');
+		vm.delete = function () {
+			if (!vm.issue._id) return;
+			var confirm = $mdDialog.confirm()
+				.title('Are you sure you want to delete this issue?')
+				.textContent('This cannot be undone. Please confirm your decision')
+				.ok('Yes, I\'m sure')
+				.cancel('No');
 
-      $mdDialog.show(confirm).then(function() {
-        IssueService.delete(vm.issue._id).then(function() {
-          $state.go('issues.list');
-        });
-      });
-    };
+			$mdDialog.show(confirm).then(function () {
+				IssueService.delete(vm.issue._id).then(function () {
+					$state.go('issues.list');
+				});
+			});
+		};
 
-    vm.vote = function(solution, voteType, $event) {
-      $event.stopPropagation();
-      VoteService.vote(solution, 'Solution', voteType);
-    };
+		vm.vote = function (solution, voteType, $event) {
+			$event.stopPropagation();
+			VoteService.vote(solution, 'Solution', voteType);
+		};
 
-    angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
-    var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
-    angular.element(document).find('body').append(el);
-  }
+		angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
+		var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
+		angular.element(document).find('body').append(el);
+	}
 ]);

@@ -50,6 +50,23 @@
 		</div>
 	</div>
 
+	<!-- <div layout-padding layout="row">
+		<md-contact-chips
+			ng-model="vm.filterTags"
+			md-contacts="vm.searchTags($query)"
+			md-contact-name="name"
+			readonly="false"
+			md-removable="true"
+			placeholder="Filter by tags"
+			md-require-match="true"
+			md-highlight-flags="i"
+			filter-selected="true"
+			flex="50">
+		</md-contact-chips>
+	</div>
+
+	{{vm.allTags}} -->
+
 	<md-grid-list class="issues" md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12" md-row-height="2:2" md-gutter="16px">
 
 		<md-grid-tile ng-repeat="issue in vm.issues | orderBy: vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="issues.view({ issueId: issue._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">

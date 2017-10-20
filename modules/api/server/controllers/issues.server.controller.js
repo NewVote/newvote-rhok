@@ -6,8 +6,8 @@
 var path = require('path'),
 	mongoose = require('mongoose'),
 	Issue = mongoose.model('Issue'),
-    IssuesController = require('./issues.server.controller'),
-    votes = require('./votes.server.controller'),
+	IssuesController = require('./issues.server.controller'),
+	votes = require('./votes.server.controller'),
 	Solution = mongoose.model('Solution'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
 	_ = require('lodash');
@@ -78,11 +78,24 @@ exports.delete = function (req, res) {
  * List of Issues
  */
 exports.list = function (req, res) {
+	console.log("doing a list on server controller");
 	var searchParams = req.query.search ? {
-		name: {
-			$regex: req.query.search,
-			$options: 'i'
-		}
+		$or: [{
+				name: {
+					$regex: req.query.search,
+					$options: 'i'
+				}
+			},
+			{
+				description: {
+					$regex: req.query.search,
+					$options: 'i'
+				}
+			},
+			{
+				tags: req.query.search
+			}
+		]
 	} : null;
 
 	Issue.find(searchParams).sort('-created').populate('user', 'displayName').exec(function (err, issues) {
@@ -91,13 +104,13 @@ exports.list = function (req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-            IssuesController.attachMetaData(issues, req.user).then(function (issues) {
-                res.json(issues);
-            }).catch(function (err) {
-                res.status(500).send({
-                    message: errorHandler.getErrorMessage(err)
-                });
-            });
+			IssuesController.attachMetaData(issues, req.user).then(function (issues) {
+				res.json(issues);
+			}).catch(function (err) {
+				res.status(500).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			});
 		}
 	});
 };
@@ -121,10 +134,10 @@ exports.issueByID = function (req, res, next, id) {
 				message: 'No issue with that identifier has been found'
 			});
 		}
-        IssuesController.attachMetaData([issue], req.user).then(function (issueArr) {
-            req.issue = issueArr[0];
-            next();
-        }).catch(next);
+		IssuesController.attachMetaData([issue], req.user).then(function (issueArr) {
+			req.issue = issueArr[0];
+			next();
+		}).catch(next);
 	});
 };
 
@@ -140,53 +153,58 @@ exports.attachMetaData = function (issues, user) {
 				$in: issueIds
 			}
 		})
-        .sort('-created')
+		.sort('-created')
 		.exec()
 		.then(function (solutions) {
-            return votes.attachVotes(solutions, user).then(function (solutions) {
-                issues = issues.map(function (issue) {
+			return votes.attachVotes(solutions, user).then(function (solutions) {
+				issues = issues.map(function (issue) {
 
-                    var up = 0, down = 0, total = 0, solutionCount = 0, totalTrendingScore = 0, lastCreated = issue.created;
+					var up = 0,
+						down = 0,
+						total = 0,
+						solutionCount = 0,
+						totalTrendingScore = 0,
+						lastCreated = issue.created;
 
-                    //looping through each issue passed in to exported method
+					//looping through each issue passed in to exported method
 
-                    solutions.forEach(function (solution) {
-                        //loop through each solution found in the db
+					solutions.forEach(function (solution) {
+						//loop through each solution found in the db
 
-                        //must check that this solution belongs to the current issue being tested
-                        if (solution.issues.indexOf(issue._id.toString()) !== -1) {
-                            //found issue id inside solution issues array
-                            var currentDate = new Date(lastCreated);
-                            var date = new Date(solution.created);
-                            var nowDate = new Date();
-                            var age = (nowDate.getTime() - date.getTime()) / (1000 * 60 * 60);
+						//must check that this solution belongs to the current issue being tested
+						if (solution.issues.indexOf(issue._id.toString()) !== -1) {
+							//found issue id inside solution issues array
+							var currentDate = new Date(lastCreated);
+							var date = new Date(solution.created);
+							var nowDate = new Date();
+							var age = (nowDate.getTime() - date.getTime()) / (1000 * 60 * 60);
 
-                            up += solution.votes.up;
-                            down += solution.votes.down;
-                            total += solution.votes.total;
-                            solutionCount++;
-                            totalTrendingScore += (solution.votes.up / age);
-                            lastCreated = date > lastCreated ? date : lastCreated;
-                        }
-                    });
+							up += solution.votes.up;
+							down += solution.votes.down;
+							total += solution.votes.total;
+							solutionCount++;
+							totalTrendingScore += (solution.votes.up / age);
+							lastCreated = date > lastCreated ? date : lastCreated;
+						}
+					});
 
-                    issue.solutionMetaData = {
-                        votes: {
-                            up: up,
-                            down: down,
-                            total: total
-                        },
-                        solutionCount: solutionCount,
-                        totalTrendingScore: totalTrendingScore,
-                        lastCreated: lastCreated
-                    };
+					issue.solutionMetaData = {
+						votes: {
+							up: up,
+							down: down,
+							total: total
+						},
+						solutionCount: solutionCount,
+						totalTrendingScore: totalTrendingScore,
+						lastCreated: lastCreated
+					};
 
-                    console.log(issue.solutionMetaData);
-                    console.log("controversial score: ", (issue.solutionMetaData.votes.down/issue.solutionMetaData.votes.up)*issue.solutionMetaData.votes.total);
+					console.log(issue.solutionMetaData);
+					console.log("controversial score: ", (issue.solutionMetaData.votes.down / issue.solutionMetaData.votes.up) * issue.solutionMetaData.votes.total);
 
-                    return issue;
-                });
-                return issues;
+					return issue;
+				});
+				return issues;
 			});
 		});
 };
