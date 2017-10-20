@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService',
-  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService', 'SocialshareService', 
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService, SocialshareService) {
     // This provides Authentication context.
     var vm = this;
     vm.issue = issue;
@@ -31,6 +31,15 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     // Meta tags
     vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
     vm.image = vm.issue.imageUrl;
+
+    vm.share = function(provider) {
+      SocialshareService.share({
+        provider: provider,
+        rel_url: '',
+        title: vm.issue.title,
+        hashtags: ''
+      });
+    };
 
     vm.createOrUpdate = function() {
       var promise = $q.resolve();

@@ -20,7 +20,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     svc.facebookID = '108325769791251';
 
     // Twitter
-    svc.twitterVia = 'newvote';
+    svc.twitterVia = 'NewVoteAus';
 
     
 
