@@ -8,7 +8,7 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		vm.sortSvc = SortService;
 
 		// Title
-		vm.title = 'Issues';
+		vm.title = 'All Issues';
 		$rootScope.pageTitle = vm.title;
 
 		// Meta tags
