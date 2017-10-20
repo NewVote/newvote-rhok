@@ -29,7 +29,7 @@
 		</div>
 
 	</div>
-	<div layout-padding layout="row">
+	<!-- <div layout-padding layout="row">
 		<md-chips
 			ng-model="vm.issue.tags"
 			readonly="false"
@@ -37,7 +37,7 @@
 			placeholder="Filter by tags"
 			flex="50">
 		</md-chips>
-	</div>
+	</div> -->
 	<div layout-padding>
 		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
 			<md-card-header>
