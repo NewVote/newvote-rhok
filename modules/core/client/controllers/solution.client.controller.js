@@ -10,7 +10,6 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.sortSvc = SortService;
 		vm.isSingleAction = isSingleAction;
 
-
 		// Meta tags
 		vm.desc = vm.solution.description;
 		vm.image = vm.solution.imageUrl;
@@ -35,7 +34,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		} else if ($state.is('solutions.view')) {
 			vm.title = solution.title;
 		}
-		
+
 		$rootScope.pageTitle = vm.title;
 
 		function getActions() {

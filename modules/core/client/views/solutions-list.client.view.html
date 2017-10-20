@@ -27,6 +27,16 @@
 				<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
 			</md-select>
 		</div>
+
+	</div>
+	<div layout-padding layout="row">
+		<md-chips
+			ng-model="vm.issue.tags"
+			readonly="false"
+			md-removable="true"
+			placeholder="Filter by tags"
+			flex="50">
+		</md-chips>
 	</div>
 	<div layout-padding>
 		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
