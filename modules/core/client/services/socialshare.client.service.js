@@ -8,6 +8,10 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     svc.windowHeight = 450;
     svc.windowWidth = 600;
 
+    // Social media settings
+    var prefix = 'NewVote | ';
+    var suffix = '';
+
     // Social media URLs
     var twitterURL = 'http://twitter.com/share?';
     var facebookURL = 'https://www.facebook.com/sharer/sharer.php?';
@@ -38,7 +42,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
         case 'twitter':
           openWindow(twitterURL, {
             via: svc.twitterVia,
-            text: 'NewVote | ' + params.title,
+            text: prefix + params.title + suffix,
             url: url,
             hashtags: params.hashtags
           });
@@ -60,7 +64,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
         case 'reddit':
           openWindow(redditURL, {
             url: url,
-            title: 'NewVote | ' + params.title
+            title: prefix + params.title + suffix
           });
           break;
       }
