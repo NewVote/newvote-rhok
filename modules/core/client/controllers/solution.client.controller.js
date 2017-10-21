@@ -11,7 +11,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.isSingleAction = isSingleAction;
 
 		// Meta tags
-		vm.desc = vm.solution.description;
+		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
