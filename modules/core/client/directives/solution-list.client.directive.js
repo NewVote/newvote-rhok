@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('core')
-
-	.directive('solutionList', ['$timeout', function ($timeout) {
+angular.module('core').directive('solutionList', ['$timeout', function ($timeout) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -12,8 +10,8 @@ angular.module('core')
 			templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 			bindToController: true,
 			controllerAs: 'vm',
-			controller: ['$scope', 'VoteService', 'SortService', 'Authentication',
-				function ($scope, VoteService, SortService, Authentication) {
+			controller: ['$scope', 'VoteService', 'SortService', 'Authentication', 'SocialshareService',
+				function ($scope, VoteService, SortService, Authentication, SocialshareService) {
 					var vm = this;
                     vm.sortSvc = SortService;
 					$scope.authentication = Authentication;
@@ -26,7 +24,16 @@ angular.module('core')
 				        if($event) $event.stopPropagation();
 				        console.log("sorting by: ", sortData.type, sortData.order);
 				        SortService.setSort("solution", sortData.type, sortData.order);
-				    };
+					};
+					
+					vm.share = function(solution, provider) {
+						SocialshareService.share({
+							provider: provider,
+							rel_url: solution._id,
+							title: solution.title,
+							hashtags: ''
+						});
+					};
 				}
 			]
 		};

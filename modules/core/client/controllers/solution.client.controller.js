@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService', 'isSingleAction', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService, isSingleAction, $mdConstant) {
-		// This provides Authentication context.
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService', 'isSingleAction', 'SocialshareService', '$mdConstant',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService, isSingleAction, SocialshareService, $mdConstant) {
+    // This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
 		vm.newAction = {};
@@ -45,7 +45,16 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			}, function (err) {
 				console.log('Error getting actions for solution', $stateParams.solutionId, err);
 			});
-		}
+    }
+    
+    vm.share = function(provider) {
+      SocialshareService.share({
+        provider: provider,
+        rel_url: '',
+        title: vm.solution.title,
+        hashtags: ''
+      });
+    };
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();

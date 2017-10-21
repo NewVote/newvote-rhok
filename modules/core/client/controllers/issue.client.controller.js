@@ -1,51 +1,58 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService, $mdConstant) {
-		// This provides Authentication context.
-		var vm = this;
-		vm.issue = issue;
-		vm.issueId = issue._id;
-		vm.solutions = solutions;
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'UploadService', '$q', 'SortService', 'SocialshareService', '$mdConstant',
+  function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, UploadService, $q, SortService, SocialshareService, $mdConstant) {
+    // This provides Authentication context.
+    var vm = this;
+    vm.issue = issue;
+    vm.issueId = issue._id;
+    vm.solutions = solutions;
 
 		// Meta tags
-		vm.desc = vm.issue.description;
-		vm.image = vm.issue.imageUrl;
+    vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
+    vm.image = vm.issue.imageUrl;
+
+    // Title
+    vm.title = '';
+    if (vm.issue._id && $state.is('issues.edit')) {
+      vm.title = 'Edit Issue - ' + vm.issue.name;
+    } else if ($state.is('issues.create')) {
+      vm.title = 'Add a Issue';
+    } else if ($state.is('issues.view')) {
+      vm.title = vm.issue.name;
+    }
+
+    $rootScope.pageTitle = vm.title;
+
 
 		$scope.authentication = Authentication;
 		$scope.prerender = document.getElementById("prerender");
 
-        vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
+    vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
 
-		// Title
-		vm.title = '';
-		if (vm.issue._id && $state.is('issues.edit')) {
-			vm.title = 'Edit Issue - ' + vm.issue.name;
-		} else if ($state.is('issues.create')) {
-			vm.title = 'Add a Issue';
-		} else if ($state.is('issues.view')) {
-			vm.title = vm.issue.name;
-		}
+    vm.share = function(provider) {
+      SocialshareService.share({
+        provider: provider,
+        rel_url: '',
+        title: vm.issue.title,
+        hashtags: ''
+      });
+    };
 
-        $rootScope.pageTitle = vm.title;
-
-
-		vm.createOrUpdate = function () {
-			var promise = $q.resolve();
-			if (vm.imageFile) {
-				promise = UploadService.upload(vm.imageFile).then(function () {
-					console.log('uploaded file', vm.imageFile);
-					vm.issue.imageUrl = vm.imageFile.result.url;
-				});
-			}
-			return promise.then(function () {
-				return IssueService.createOrUpdate(vm.issue).then(function (issue) {
-					$state.go('issues.view', {
-						issueId: issue._id
-					});
-				});
-			});
-		};
+    vm.createOrUpdate = function() {
+      var promise = $q.resolve();
+      if(vm.imageFile) {
+        promise = UploadService.upload(vm.imageFile).then(function() {
+          console.log('uploaded file', vm.imageFile);
+          vm.issue.imageUrl = vm.imageFile.result.url;
+        });
+      }
+      return promise.then(function() {
+        return IssueService.createOrUpdate(vm.issue).then(function(issue) {
+          $state.go('issues.view', { issueId: issue._id });
+        });
+      });
+    };
 
 		vm.delete = function () {
 			if (!vm.issue._id) return;

@@ -93,7 +93,8 @@ module.exports.initMiddleware = function (app) {
   // app.use(require('prerender-node').set('prerenderServiceUrl', 'https://prerender-newvote.herokuapp.com'));
   app.use(require('prerender-node')
     .set('prerenderServiceUrl', 'https://prerender-newvote.herokuapp.com')
-    .set('forwardHeaders', true));
+    .set('forwardHeaders', true)
+    .blacklisted(['/admin', '/api/']));
   // app.use(require('prerender-node').set('prerenderToken', 'Sp1xuBcejkoGhbvsTk5p'));
   // app.use(require('prerender-node').whitelisted(['/solutions/']));
 };
