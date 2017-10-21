@@ -50,7 +50,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
     vm.share = function(provider) {
       SocialshareService.share({
         provider: provider,
-        rel_url: '',
+        rel_url: '/solutions/' + vm.solution._id,
         title: vm.solution.title,
         hashtags: ''
       });

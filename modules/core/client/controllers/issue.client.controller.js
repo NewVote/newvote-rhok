@@ -33,7 +33,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     vm.share = function(provider) {
       SocialshareService.share({
         provider: provider,
-        rel_url: '',
+        rel_url: '/issues/' + vm.issue._id,
         title: vm.issue.name,
         hashtags: ''
       });

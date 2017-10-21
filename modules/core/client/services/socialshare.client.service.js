@@ -24,7 +24,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
 
     svc.share = function(params) {
       
-      var url = getURL(params.rel_url);
+      var url = svc.hostURL + params.rel_url;
       
       switch(params.provider) {
 
@@ -68,14 +68,6 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
 
     function getHostURL() {
       return $location.protocol() + '://' + $location.host();
-    }
-
-    function getURL(relativeURL) {
-      if (relativeURL !== '') {
-        return svc.hostURL + relativeURL;
-      } else {
-        return '';
-      }
     }
     
     function openWindow(baseURL, params) {
