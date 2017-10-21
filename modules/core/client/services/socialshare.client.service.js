@@ -14,7 +14,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     var googlePlusURL = 'https://plus.google.com/share?';
     var linkedinURL = 'https://www.linkedin.com/shareArticle?';
     var redditURL = 'http://www.reddit.com/submit?';
-    svc.baseURL = $location.absUrl();
+    svc.hostURL = getHostURL();
     
     // Facebook
     svc.facebookID = '108325769791251';
@@ -22,16 +22,16 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     // Twitter
     svc.twitterVia = 'NewVoteAus';
 
-    
-
     svc.share = function(params) {
-
+      
+      var url = getURL(params.rel_url);
+      
       switch(params.provider) {
 
         case 'facebook':
           openWindow(facebookURL, {
             app_id: svc.facebookID,
-            u: svc.baseURL + params.rel_url
+            u: url
           });
           break;
 
@@ -39,32 +39,44 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
           openWindow(twitterURL, {
             via: svc.twitterVia,
             text: 'NewVote | ' + params.title,
-            url: svc.baseURL + params.rel_url,
+            url: url,
             hashtags: params.hashtags
           });
           break;
 
         case 'google_plus':
           openWindow(googlePlusURL, {
-            url: svc.baseURL + params.rel_url,
+            url: url,
             hl: 'en-GB'
           });
           break;
 
         case 'linkedin':
           openWindow(linkedinURL, {
-            url: svc.baseURL + params.rel_url
+            url: url
           });
           break;   
           
         case 'reddit':
           openWindow(redditURL, {
-            url: svc.baseURL + params.rel_url,
+            url: url,
             title: 'NewVote | ' + params.title
           });
           break;
       }
     };
+
+    function getHostURL() {
+      return $location.protocol() + '://' + $location.host();
+    }
+
+    function getURL(relativeURL) {
+      if (relativeURL !== '') {
+        return svc.hostURL + relativeURL;
+      } else {
+        return '';
+      }
+    }
     
     function openWindow(baseURL, params) {
       var queryStr = $httpParamSerializer(params);
