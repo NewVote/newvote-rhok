@@ -34,7 +34,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
       SocialshareService.share({
         provider: provider,
         rel_url: '',
-        title: vm.issue.title,
+        title: vm.issue.name,
         hashtags: ''
       });
     };
