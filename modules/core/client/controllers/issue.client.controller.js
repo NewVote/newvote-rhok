@@ -35,7 +35,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
         provider: provider,
         rel_url: '/issues/' + vm.issue._id,
         title: vm.issue.name,
-        hashtags: ''
+        hashtags: vm.issue.tags.join()
       });
     };
 
