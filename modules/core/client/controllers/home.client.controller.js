@@ -8,7 +8,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.$mdMedia = $mdMedia;
 		$rootScope.pageTitle = 'NewVote';
 		$rootScope.removeHtmlElements = function (text) {
-      return text.replace(/<.*?> ?/g, '');
+			if (text !== null) {
+				return text.replace(/<.*?> ?/g, '');
+			} else {
+				return '';
+			}
     };
 		// Title
 		$scope.title = 'NewVote';
