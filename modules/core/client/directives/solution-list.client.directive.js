@@ -31,7 +31,7 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 							provider: provider,
 							rel_url: '/solutions/' + solution._id,
 							title: solution.title,
-							hashtags: ''
+							hashtags: vm.solution.tags.join()
 						});
 					};
 				}
