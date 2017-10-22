@@ -3,7 +3,11 @@
 angular.module('core').controller('SuggestionsController', ['$scope', '$state', '$stateParams', 'Authentication', '$q', 'SuggestionsService',
 	function ($scope, $state, $stateParams, Authentication, $q, SuggestionsService) {
 		var vm = this;
-        vm.suggestion = {};
+		vm.suggestion = {};
+		
+		// Title
+		vm.title = 'NewVote | Create a Suggestion';		
+		vm.desc = 'Create and submit a suggestion';
 
 		vm.create = function () {
 			var promise = $q.resolve();

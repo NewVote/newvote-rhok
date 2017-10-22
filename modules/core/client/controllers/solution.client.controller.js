@@ -28,11 +28,13 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		// Title
 		vm.title = '';
 		if (vm.solution._id && $state.is('solutions.edit')) {
-			vm.title = 'Edit Solution - ' + vm.solution.title;
+			vm.title = 'NewVote | Edit Solution - ' + vm.solution.title;
 		} else if ($state.is('solutions.create')) {
-			vm.title = 'Add a Solution';
+			vm.title = 'NewVote | Add a Solution';
 		} else if ($state.is('solutions.view')) {
-			vm.title = solution.title;
+			vm.title = 'NewVote | ' + solution.title;
+		} else if ($state.is('solutions.action')) {
+			vm.title = 'NewVote | Action | ' + vm.actions[0].title;
 		}
 
 		$rootScope.pageTitle = vm.title;

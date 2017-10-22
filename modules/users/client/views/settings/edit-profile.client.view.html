@@ -1,4 +1,8 @@
 <section class="row" ng-controller="EditProfileController">
+
+  <!-- Basic meta tags -->
+  <update-title title="{{ title }}"></update-title>
+
   <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4">
     <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>

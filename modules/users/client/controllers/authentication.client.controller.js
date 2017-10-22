@@ -8,7 +8,17 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             $scope.user = $scope.authentication.user.data;
         }else {
             $scope.user = $scope.authentication.user;
-        }
+		}
+		
+		// Update Title
+		if ($state.is('authentication.signin')) {
+			$scope.title = 'NewVote | Sign In';
+		} else if ($state.is('authentication.signup')) {
+			$scope.title = 'NewVote | Join';
+		} else if ($state.is('setup')) {
+			$scope.title = 'NewVote | Setup Profile';
+		}
+
 
 		// Get an eventual error defined in the URL query string:
 		$scope.error = $location.search().err;

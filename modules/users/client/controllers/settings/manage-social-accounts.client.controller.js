@@ -4,6 +4,9 @@ angular.module('users').controller('SocialAccountsController', ['$scope', '$http
   function ($scope, $http, Authentication) {
     $scope.user = Authentication.user;
 
+    // Update title
+    $scope.title = 'NewVote | Manage Social Media';
+
     // Check if there are additional accounts
     $scope.hasConnectedAdditionalSocialAccounts = function (provider) {
       for (var i in $scope.user.additionalProvidersData) {

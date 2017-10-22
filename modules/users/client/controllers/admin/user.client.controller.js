@@ -5,6 +5,13 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 
+    // Update Title
+    if ($state.is('admin.user')) {
+			$scope.title = 'NewVote | Admin | ' + userResolve.username;
+		} else if ($state.is('admin.user-edit')) {
+      $scope.title = 'NewVote | Admin | Edit ' + userResolve.username;
+    }
+
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
         if (user) {

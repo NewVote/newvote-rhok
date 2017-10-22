@@ -15,11 +15,11 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
     // Title
     vm.title = '';
     if (vm.issue._id && $state.is('issues.edit')) {
-      vm.title = 'Edit Issue - ' + vm.issue.name;
+      vm.title = 'NewVote | Edit Issue - ' + vm.issue.name;
     } else if ($state.is('issues.create')) {
-      vm.title = 'Add a Issue';
+      vm.title = 'NewVote | Add a Issue';
     } else if ($state.is('issues.view')) {
-      vm.title = vm.issue.name;
+      vm.title = 'NewVote | ' + vm.issue.name;
     }
 
     $rootScope.pageTitle = vm.title;

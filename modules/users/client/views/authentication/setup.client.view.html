@@ -1,5 +1,17 @@
 <div layout="column" layout-padding class="user-verification" ng-controller="AuthenticationController">
 
+  <!-- Meta tags -->
+  <!-- Basic meta tags -->
+  <update-title title="{{ title }}"></update-title>
+
+  <!-- Facebook META -->
+  <update-meta property="og:title" content="{{ title }}"></update-meta>
+  <update-meta property="og:url" use-abs-url="true"></update-meta>
+
+  <!-- Twitter META -->
+  <update-meta name="twitter:title" content="{{ title }}"></update-meta>
+  <update-meta name="twitter:url" use-abs-url="true"></update-meta>
+
 	<p layout="row" layout-align="center center" layout-padding class="info-banner">In the future, this page will verify your personal details using government issued ID.</p>
 
 	<div layout-padding layout="row" layout-align="center center">
