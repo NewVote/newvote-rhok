@@ -13,7 +13,7 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 
     svc.vote = function(object, objectType, voteType) {
 
-      if (object.votes) {
+      if (object.votes && object.votes.currentUser) {
         var existingVote = object.votes.currentUser;
         var voteValue = VOTE_TYPES[voteType];
         if(existingVote) {
