@@ -8,7 +8,7 @@ angular.module('core').controller('SolutionsController', ['$scope', '$stateParam
     vm.sortParam = "votes.up";
 
     // Title
-    vm.title = 'All Solutions';
+    vm.title = 'NewVote | Solutions';
 
     // Meta tags
     vm.desc = 'A list of solutions';

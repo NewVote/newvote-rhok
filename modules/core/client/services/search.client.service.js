@@ -100,7 +100,7 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
 
         function getActionLink(item) {
             // Return a url to the parent solution
-            var url = '/solutions/' + item.solution;
+            var url = '/solutions/' + item.solution + '/?actionId=' + item._id;
             return getOriginURL() + url;
         }
 

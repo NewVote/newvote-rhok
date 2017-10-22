@@ -29,9 +29,9 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 					vm.share = function(solution, provider) {
 						SocialshareService.share({
 							provider: provider,
-							rel_url: solution._id,
+							rel_url: '/solutions/' + solution._id,
 							title: solution.title,
-							hashtags: ''
+							hashtags: vm.solution.tags.join()
 						});
 					};
 				}

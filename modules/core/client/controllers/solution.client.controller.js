@@ -11,7 +11,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.isSingleAction = isSingleAction;
 
 		// Meta tags
-		vm.desc = vm.solution.description;
+		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
@@ -28,11 +28,13 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		// Title
 		vm.title = '';
 		if (vm.solution._id && $state.is('solutions.edit')) {
-			vm.title = 'Edit Solution - ' + vm.solution.title;
+			vm.title = 'NewVote | Edit Solution - ' + vm.solution.title;
 		} else if ($state.is('solutions.create')) {
-			vm.title = 'Add a Solution';
+			vm.title = 'NewVote | Add a Solution';
 		} else if ($state.is('solutions.view')) {
-			vm.title = solution.title;
+			vm.title = 'NewVote | ' + solution.title;
+		} else if ($state.is('solutions.action')) {
+			vm.title = 'NewVote | Action | ' + vm.actions[0].title;
 		}
 
 		$rootScope.pageTitle = vm.title;
@@ -50,9 +52,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
     vm.share = function(provider) {
       SocialshareService.share({
         provider: provider,
-        rel_url: '',
+        rel_url: '/solutions/' + vm.solution._id,
         title: vm.solution.title,
-        hashtags: ''
+        hashtags: vm.solution.tags.join()
       });
     };
 

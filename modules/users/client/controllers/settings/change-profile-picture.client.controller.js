@@ -5,6 +5,9 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
     $scope.user = Authentication.user;
     $scope.imageURL = $scope.user.profileImageURL;
 
+    // Update title
+    $scope.title = 'NewVote | Change Profile Picture';
+
     // Create file uploader instance
     $scope.uploader = new FileUploader({
       url: 'api/users/picture',

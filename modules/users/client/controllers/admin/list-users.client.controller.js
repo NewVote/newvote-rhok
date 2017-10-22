@@ -7,6 +7,9 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       $scope.buildPager();
     });
 
+    // Update Title
+		$scope.title = 'NewVote | Admin | Users';
+
     $scope.buildPager = function () {
       $scope.pagedItems = [];
       $scope.itemsPerPage = 15;

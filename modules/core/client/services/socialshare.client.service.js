@@ -8,13 +8,17 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     svc.windowHeight = 450;
     svc.windowWidth = 600;
 
+    // Social media settings
+    var prefix = 'NewVote | ';
+    var suffix = '';
+
     // Social media URLs
     var twitterURL = 'http://twitter.com/share?';
     var facebookURL = 'https://www.facebook.com/sharer/sharer.php?';
     var googlePlusURL = 'https://plus.google.com/share?';
     var linkedinURL = 'https://www.linkedin.com/shareArticle?';
     var redditURL = 'http://www.reddit.com/submit?';
-    svc.baseURL = $location.absUrl();
+    svc.hostURL = getHostURL();
     
     // Facebook
     svc.facebookID = '108325769791251';
@@ -22,49 +26,53 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     // Twitter
     svc.twitterVia = 'NewVoteAus';
 
-    
-
     svc.share = function(params) {
-
+      
+      var url = svc.hostURL + params.rel_url;
+      
       switch(params.provider) {
 
         case 'facebook':
           openWindow(facebookURL, {
             app_id: svc.facebookID,
-            u: svc.baseURL + params.rel_url
+            u: url
           });
           break;
 
         case 'twitter':
           openWindow(twitterURL, {
             via: svc.twitterVia,
-            text: 'NewVote | ' + params.title,
-            url: svc.baseURL + params.rel_url,
+            text: prefix + params.title + suffix,
+            url: url,
             hashtags: params.hashtags
           });
           break;
 
         case 'google_plus':
           openWindow(googlePlusURL, {
-            url: svc.baseURL + params.rel_url,
+            url: url,
             hl: 'en-GB'
           });
           break;
 
         case 'linkedin':
           openWindow(linkedinURL, {
-            url: svc.baseURL + params.rel_url
+            url: url
           });
           break;   
           
         case 'reddit':
           openWindow(redditURL, {
-            url: svc.baseURL + params.rel_url,
-            title: 'NewVote | ' + params.title
+            url: url,
+            title: prefix + params.title + suffix
           });
           break;
       }
     };
+
+    function getHostURL() {
+      return $location.protocol() + '://' + $location.host();
+    }
     
     function openWindow(baseURL, params) {
       var queryStr = $httpParamSerializer(params);

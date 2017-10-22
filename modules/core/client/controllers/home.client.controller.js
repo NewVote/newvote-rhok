@@ -8,10 +8,15 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.$mdMedia = $mdMedia;
 		$rootScope.pageTitle = 'NewVote';
 		$rootScope.removeHtmlElements = function (text) {
-      return text.replace(/<.*?> ?/g, '');
+			if (text !== null) {
+				return text.replace(/<.*?> ?/g, '');
+			} else {
+				return '';
+			}
     };
 		// Title
-		$scope.title = 'NewVote';
+		$scope.title = 'NewVote | Home';
+		$scope.thanksTitle = 'NewVote | Thank You';
 
 		// Meta tags
 		$scope.desc = 'NewVote is a dedicated online platform aimed at providing' +
@@ -20,6 +25,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			'pendent panel and is presented in a simplified and organised manner. It' +
 			' also allows people to vote on the solutions, making people\'s opinion ' +
 			'available to the decision makers.';
+		$scope.thanksDesc = 'Our team of curators are busy going through all of th' +
+			'e great suggestions from our community, and will get to yours as soon a' +
+			's they can!';
 
 		$scope.toggleLeft = function () {
 			$mdSidenav('left').toggle();
