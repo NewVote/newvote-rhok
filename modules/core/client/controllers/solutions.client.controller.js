@@ -11,7 +11,7 @@ angular.module('core').controller('SolutionsController', ['$scope', '$stateParam
     vm.title = 'NewVote | Solutions';
 
     // Meta tags
-    vm.desc = 'A list of solutions';
+    vm.desc = vm.desc = 'A collection of the current solutions being discussed on the NewVote platform.';
     vm.image = vm.solutions[0].imageUrl;
   }
 ]);

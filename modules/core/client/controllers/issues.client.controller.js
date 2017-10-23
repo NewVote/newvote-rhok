@@ -12,7 +12,7 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		$rootScope.pageTitle = vm.title;
 
 		// Meta tags
-		vm.desc = 'A list of issues';
+		vm.desc = 'A collection of the current issues being discussed on the NewVote platform.';
 		vm.image = vm.issues[0].imageUrl;
 
         // vm.filterTags = [];

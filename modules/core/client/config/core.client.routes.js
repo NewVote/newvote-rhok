@@ -103,7 +103,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/',
       templateUrl: 'modules/core/client/views/solutions.client.view.html',
       data: {
-        title: 'All Solutions'
+        title: 'NewVote | Solutions'
       },
       controller: 'SolutionsController',
       controllerAs: 'vm',
