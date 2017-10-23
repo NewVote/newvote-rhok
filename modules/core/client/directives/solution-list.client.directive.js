@@ -25,13 +25,14 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 				        console.log("sorting by: ", sortData.type, sortData.order);
 				        SortService.setSort("solution", sortData.type, sortData.order);
 					};
-					
+
 					vm.share = function(solution, provider) {
+						console.log(solution)
 						SocialshareService.share({
 							provider: provider,
 							rel_url: '/solutions/' + solution._id,
 							title: solution.title,
-							hashtags: vm.solution.tags.join()
+							hashtags: solution.tags.join()
 						});
 					};
 				}
