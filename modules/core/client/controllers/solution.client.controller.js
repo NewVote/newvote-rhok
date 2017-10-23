@@ -14,7 +14,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
         if($state.is('solutions.action')){
-            vm.desc = "Proposed action for " + vm.solution.title + ": " + vm.actions[0].title;
+            vm.desc = "Proposed action for the solution '" + vm.solution.title + "': " + vm.actions[0].title;
         }
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
