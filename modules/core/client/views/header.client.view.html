@@ -1,11 +1,11 @@
 <md-toolbar class="md-primary md-hue-2 app-header">
 	<div class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+			<md-truncate flex class="home-title">{{pageTitle}}<md-tooltip>{{pageTitle}}</md-tooltip></md-truncate>
 
-		<md-truncate flex class="home-title">{{pageTitle}}</md-truncate>
 		<div flex="auto" layout="column" hide show-gt-sm>
 			<md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
 				<md-autocomplete
-					md-no-cache="true" 
+					md-no-cache="true"
 					md-clear-button="false"
 					placeholder="Search"
 					md-selected-item="selectedItem"
