@@ -1,13 +1,14 @@
 'use strict';
 
-angular.module('core').controller('SuggestionsController', ['$scope', '$state', '$stateParams', 'Authentication', '$q', 'SuggestionsService',
-	function ($scope, $state, $stateParams, Authentication, $q, SuggestionsService) {
+angular.module('core').controller('SuggestionsController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'SuggestionsService',
+	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, SuggestionsService) {
 		var vm = this;
 		vm.suggestion = {};
 		
 		// Title
-		vm.title = 'NewVote | Create a Suggestion';		
+		vm.title = $rootScope.titlePrefix + 'Create a Suggestion' + $rootScope.titleSuffix;		
 		vm.desc = 'Create and submit a suggestion';
+		$rootScope.headerTitle = 'Create a Suggestion';
 
 		vm.create = function () {
 			var promise = $q.resolve();

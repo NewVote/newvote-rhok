@@ -1,16 +1,19 @@
 'use strict';
 
-angular.module('users').controller('PasswordController', ['$scope', '$state', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
-  function ($scope, $state, $stateParams, $http, $location, Authentication, PasswordValidator) {
+angular.module('users').controller('PasswordController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
+  function ($scope, $rootScope, $state, $stateParams, $http, $location, Authentication, PasswordValidator) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
     // Update Title
+    var titleText = '';
 		if ($state.is('password.forgot')) {
-			$scope.title = 'NewVote | Forgot Password';
+			titleText = 'Forgot Password';
 		} else if ($state.is('password.reset.form')) {
-			$scope.title = 'NewVote | Password Reset';
-		}
+			titleText = 'Password Reset';
+    }
+    $scope.title = $rootScope.titlePrefix + titleText + $rootScope.titleSuffix;
+		$rootScope.headerTitle = titleText;
 
     //If user is signed in then redirect back home
     if ($scope.authentication.user) {

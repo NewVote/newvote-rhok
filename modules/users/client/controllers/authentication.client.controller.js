@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users',
-	function ($scope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users',
+	function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users) {
 		$scope.authentication = Authentication;
 		$scope.popoverMsg = PasswordValidator.getPopoverMsg();
         if($scope.authentication.user && $scope.authentication.user.data){
@@ -11,13 +11,16 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 		}
 		
 		// Update Title
+		var titleText = '';
 		if ($state.is('authentication.signin')) {
-			$scope.title = 'NewVote | Sign In';
+			titleText = 'Sign In';
 		} else if ($state.is('authentication.signup')) {
-			$scope.title = 'NewVote | Join';
+			titleText = 'Join';
 		} else if ($state.is('setup')) {
-			$scope.title = 'NewVote | Setup Profile';
+			titleText = 'Setup Profile';
 		}
+		$scope.title = $rootScope.titlePrefix + titleText + $rootScope.titleSuffix;
+		$rootScope.headerTitle = titleText;
 
 
 		// Get an eventual error defined in the URL query string:

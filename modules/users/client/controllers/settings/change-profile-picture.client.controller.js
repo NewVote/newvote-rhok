@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$timeout', '$window', 'Authentication', 'FileUploader',
-  function ($scope, $timeout, $window, Authentication, FileUploader) {
+angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$rootScope', '$timeout', '$window', 'Authentication', 'FileUploader',
+  function ($scope, $rootScope, $timeout, $window, Authentication, FileUploader) {
     $scope.user = Authentication.user;
     $scope.imageURL = $scope.user.profileImageURL;
 
     // Update title
-    $scope.title = 'NewVote | Change Profile Picture';
+    $scope.title = $rootScope.titlePrefix + 'Change Profile Picture' + $rootScope.titleSuffix;
+    $rootScope.headerTitle = 'Change Profile Picture';
 
     // Create file uploader instance
     $scope.uploader = new FileUploader({

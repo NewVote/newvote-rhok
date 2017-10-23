@@ -13,16 +13,19 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		vm.image = vm.issue.imageUrl;
 
 		// Title
-		vm.title = '';
-		if (vm.issue._id && $state.is('issues.edit')) {
-			vm.title = 'NewVote | Edit Issue - ' + vm.issue.name;
+		vm.titleText = '';
+		if (vm.issue._id && $state.is('issues.edit')) { 
+			vm.titleText = 'Edit Issue - ' + vm.issue.name;
+			$rootScope.headerTitle = vm.issue.name + ' (editing)';
 		} else if ($state.is('issues.create')) {
-			vm.title = 'NewVote | Add a Issue';
+			vm.titleText = 'Add an Issue';
+			$rootScope.headerTitle = 'Add Issue';
 		} else if ($state.is('issues.view')) {
-			vm.title = 'NewVote | ' + vm.issue.name;
+			vm.titleText = vm.issue.name;
+			$rootScope.headerTitle = vm.issue.name;
 		}
 
-		$rootScope.pageTitle = vm.title;
+		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
 
 		$scope.authentication = Authentication;
 		$scope.prerender = document.getElementById("prerender");

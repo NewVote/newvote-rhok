@@ -13,9 +13,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
-        if($state.is('solutions.action')){
-            vm.desc = "Proposed action for the solution '" + vm.solution.title + "': " + vm.actions[0].title;
-        }
+		if($state.is('solutions.action')){
+				vm.desc = "Proposed action for the solution '" + vm.solution.title + "': " + vm.actions[0].title;
+		}
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
 
@@ -29,18 +29,22 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		}
 
 		// Title
-		vm.title = '';
+		vm.titleText = '';
 		if (vm.solution._id && $state.is('solutions.edit')) {
-			vm.title = 'NewVote | Edit Solution - ' + vm.solution.title;
+			vm.titleText = 'Edit Solution - ' + vm.solution.title;
+			$rootScope.headerTitle = vm.solution.title + ' (editing)';
 		} else if ($state.is('solutions.create')) {
-			vm.title = 'NewVote | Add a Solution';
+			vm.titleText = 'Add a Solution';
+			$rootScope.headerTitle = 'Add Solution';
 		} else if ($state.is('solutions.view')) {
-			vm.title = 'NewVote | ' + solution.title;
+			vm.titleText = solution.title;
+			$rootScope.headerTitle = solution.title;
 		} else if ($state.is('solutions.action')) {
-			vm.title = 'NewVote | ' + solution.title + ' | Proposed Action';
+			vm.titleText = solution.title + ' | Proposed Action';
+			$rootScope.headerTitle = 'Proposed Action';
 		}
-
-		$rootScope.pageTitle = vm.title;
+		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
+		
 
 		function getActions() {
 			ActionService.list({
