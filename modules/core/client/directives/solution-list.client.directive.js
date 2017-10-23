@@ -27,7 +27,6 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 					};
 
 					vm.share = function(solution, provider) {
-						console.log(solution)
 						SocialshareService.share({
 							provider: provider,
 							rel_url: '/solutions/' + solution._id,
