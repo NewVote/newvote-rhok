@@ -14,7 +14,7 @@ angular.module('users').config(['$httpProvider',
                 Authentication.user = null;
 
                 // Redirect to signin page
-                $location.path('signin');
+                $location.path('authentication/signin');
                 break;
               case 403:
                 // Add unauthorized behaviour

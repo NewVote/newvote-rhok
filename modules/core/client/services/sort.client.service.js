@@ -7,15 +7,17 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
     svc.expression = "-votes.up";
     svc.reverse = false;
 
-    var controversialIssueSort = function(a){
-        var aUp = a.solutionMetaData.votes.up===0 ? 1 : a.solutionMetaData.votes.up;
-        return (a.solutionMetaData.votes.down / aUp) * a.solutionMetaData.votes.total;
-    };
-
     var controversialSort = function(a){
         var votes = a.solutionMetaData ? a.solutionMetaData.votes : a.votes;
-        var aUp = votes.up===0 ? 1 : votes.up;
-        return (votes.down / aUp) * votes.total;
+        // var aUp = votes.up===0 ? 1 : votes.up;
+        // return (votes.down / aUp) * votes.total;
+        var diff = Math.abs(votes.up - votes.down);
+        diff = diff ? diff : 1;
+        var sum = votes.up + votes.down;
+        sum = sum ? sum : 1;
+        var percentDiff = Math.pow((diff / sum), -1);
+        var multiplier = 0.5;
+        return percentDiff * (votes.total * multiplier);
     };
 
     var trendingSort = function(a) {

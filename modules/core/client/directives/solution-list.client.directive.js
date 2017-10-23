@@ -34,6 +34,19 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 							hashtags: solution.tags.join()
 						});
 					};
+
+					vm.controversialSort = function(a){
+						var votes = a.solutionMetaData ? a.solutionMetaData.votes : a.votes;
+						// var aUp = votes.up===0 ? 1 : votes.up;
+						// return (votes.down / aUp) * votes.total;
+						var diff = Math.abs(votes.up - votes.down);
+						diff = diff ? diff : 1;
+						var sum = votes.up + votes.down;
+						sum = sum ? sum : 1;
+						var percentDiff = Math.pow((diff / sum), -1);
+						var multiplier = 0.5;
+						return percentDiff * (votes.total * multiplier);
+					};
 				}
 			]
 		};

@@ -78,7 +78,6 @@ exports.delete = function (req, res) {
  * List of Issues
  */
 exports.list = function (req, res) {
-	console.log("doing a list on server controller");
 	var searchParams = req.query.search ? {
 		$or: [{
 				name: {
@@ -142,20 +141,13 @@ exports.issueByID = function (req, res, next, id) {
 };
 
 exports.attachMetaData = function (issues, user) {
-	if (!issues || !user) return Promise.resolve(issues, user);
+	if (!issues) return Promise.resolve(issues);
 
 	var issueIds = issues.map(function (issue) {
 		return issue._id;
 	});
 
-	return Solution.find({
-			issues: {
-				$in: issueIds
-			}
-		})
-		.sort('-created')
-		.exec()
-		.then(function (solutions) {
+	return Solution.find({issues: {$in: issueIds}}).sort('-created').exec().then(function (solutions) {
 			return votes.attachVotes(solutions, user).then(function (solutions) {
 				issues = issues.map(function (issue) {
 
@@ -200,7 +192,6 @@ exports.attachMetaData = function (issues, user) {
 					};
 
 					console.log(issue.solutionMetaData);
-					console.log("controversial score: ", (issue.solutionMetaData.votes.down / issue.solutionMetaData.votes.up) * issue.solutionMetaData.votes.total);
 
 					return issue;
 				});
