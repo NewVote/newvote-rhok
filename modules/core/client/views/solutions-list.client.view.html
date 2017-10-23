@@ -1,9 +1,9 @@
 <md-content layout="column">
 	<div layout="row" layout-padding>
-		<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"  class="md-primary md-raised create-btn" ui-sref="solutions.create({ issueId: vm.issueId })">
+		<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ui-sref="solutions.create({ issueId: vm.issueId })">
 			<md-icon>add</md-icon><span hide show-gt-sm>Add a Solution</span></md-button>
 		</md-button>
-		<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"  class="md-primary md-raised create-btn" ui-sref="suggestions">
+		<md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="suggestions">
 			<md-icon>add</md-icon><span hide show-gt-sm>Suggest a Solution</span></md-button>
 		</md-button>
 		<!-- <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
@@ -70,44 +70,44 @@
 							<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
 						</md-tooltip>
 						<md-icon>arrow_downward</md-icon>
-          </md-button>
-          <md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation()">
-            <md-fab-trigger>
-              <md-button aria-label="Share" class="md-icon-button">
-                <md-tooltip>Share</md-tooltip>
-                <md-icon>share</md-icon>
-              </md-button>
-            </md-fab-trigger>
+					</md-button>
+					<md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation()">
+						<md-fab-trigger>
+							<md-button aria-label="Share" class="md-icon-button">
+								<md-tooltip>Share</md-tooltip>
+								<md-icon>share</md-icon>
+							</md-button>
+						</md-fab-trigger>
 
-            <md-fab-actions>
-              <md-button aria-label="Share to Facebook" class="md-icon-button" ng-click="vm.share(solution, 'facebook')">
-                <md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
-                <md-tooltip>Facebook</md-tooltip>
-              </md-button>
+						<md-fab-actions>
+							<md-button aria-label="Share to Facebook" class="md-icon-button" ng-click="vm.share(solution, 'facebook')">
+								<md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
+								<md-tooltip>Facebook</md-tooltip>
+							</md-button>
 
-              <md-button aria-label="Share on Twitter" class="md-icon-button" ng-click="vm.share(solution, 'twitter')">
-                <md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
-                <md-tooltip>Twitter</md-tooltip>
-              </md-button>
+							<md-button aria-label="Share on Twitter" class="md-icon-button" ng-click="vm.share(solution, 'twitter')">
+								<md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
+								<md-tooltip>Twitter</md-tooltip>
+							</md-button>
 
-              <md-button aria-label="Share on Google+" class="md-icon-button" ng-click="vm.share(solution, 'google_plus')">
-                <md-icon md-svg-src="/modules/core/client/img/google-plus.svg"></md-icon>
-                <md-tooltip>Google+</md-tooltip>
-              </md-button>
+							<md-button aria-label="Share on Google+" class="md-icon-button" ng-click="vm.share(solution, 'google_plus')">
+								<md-icon md-svg-src="/modules/core/client/img/google-plus.svg"></md-icon>
+								<md-tooltip>Google+</md-tooltip>
+							</md-button>
 
-              <md-button aria-label="Share on LinkedIn" class="md-icon-button" ng-click="vm.share(solution, 'linkedin')">
-                <md-icon md-svg-src="/modules/core/client/img/linkedin.svg"></md-icon>
-                <md-tooltip>LinkedIn</md-tooltip>
-              </md-button>
+							<md-button aria-label="Share on LinkedIn" class="md-icon-button" ng-click="vm.share(solution, 'linkedin')">
+								<md-icon md-svg-src="/modules/core/client/img/linkedin.svg"></md-icon>
+								<md-tooltip>LinkedIn</md-tooltip>
+							</md-button>
 
-              <md-button aria-label="Share on Reddit" class="md-icon-button" ng-click="vm.share(solution, 'reddit')">
-                <md-icon md-svg-src="/modules/core/client/img/reddit.svg"></md-icon>
-                <md-tooltip>Reddit</md-tooltip>
-              </md-button>
-            </md-fab-actions>
-          </md-fab-speed-dial>
-        </md-card-icon-actions>
+							<md-button aria-label="Share on Reddit" class="md-icon-button" ng-click="vm.share(solution, 'reddit')">
+								<md-icon md-svg-src="/modules/core/client/img/reddit.svg"></md-icon>
+								<md-tooltip>Reddit</md-tooltip>
+							</md-button>
+						</md-fab-actions>
+					</md-fab-speed-dial>
+				</md-card-icon-actions>
 			</md-card-actions>
-    </md-card>
+		</md-card>
 	</div>
 </md-content>
