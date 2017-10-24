@@ -8,7 +8,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.$mdMedia = $mdMedia;
 		$rootScope.pageTitle = 'NewVote';
 		$rootScope.removeHtmlElements = function (text) {
-			if (text !== null) {
+			if (text != null) {
+				//ignore this lint warning we need to test for undefined as well
 				return text.replace(/<.*?> ?/g, '');
 			} else {
 				return '';

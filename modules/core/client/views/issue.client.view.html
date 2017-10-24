@@ -95,7 +95,7 @@
 		</md-tab>
 		<md-tab label="media">
 			<!--media content <media-list></media-list> or something-->
-			<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ng-click="vm.showCreateAction()">
+			<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ui-sref="media.create({ objectId: vm.issueId, objectType: 'issue' })">
 				<md-icon>add</md-icon><span hide show-gt-sm>Add Media</span>
 			</md-button>
 			<md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="suggestions">

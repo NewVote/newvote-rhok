@@ -187,6 +187,41 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       }
     })
 
+    .state('media', {
+      url: '/media',
+      abstract: true,
+      template: '<ui-view/>'
+    })
+
+    .state('media.create', {
+      url: '/create?:objectId',
+      templateUrl: 'modules/core/client/views/edit-media.client.view.html',
+      controller: 'MediaController',
+      controllerAs: 'vm',
+      data: {
+        roles: ['admin'],
+        title: 'Create Media'
+      },
+      resolve: {
+        media: function() { return { issues: [], solutions: []}; }
+      }
+    })
+    .state('media.edit', {
+      url: '/edit?:objectId',
+      templateUrl: 'modules/core/client/views/edit-media.client.view.html',
+      controller: 'MediaController',
+      controllerAs: 'vm',
+      data: {
+        roles: ['admin'],
+        title: 'Edit Media'
+      },
+      resolve: {
+        media: ['MediaService', '$stateParams', function(MediaService, $stateParams) {
+          return MediaService.get($stateParams.mediaId);
+        }]
+      }
+    })
+
     // .state('results', {
     //   url: '/results',
     //   templateUrl: 'modules/core/client/views/results.client.view.html',
