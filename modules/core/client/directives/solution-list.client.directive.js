@@ -18,7 +18,9 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 
 					vm.vote = function (solution, voteType, $event) {
 						$event.stopPropagation();
-						VoteService.vote(solution, 'Solution', voteType);
+						VoteService.vote(solution, 'Solution', voteType).then(function(data) {
+							solution.$get();
+						});
 					};
 					vm.sort = function(sortData, $event) {
 				        if($event) $event.stopPropagation();

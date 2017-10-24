@@ -31,7 +31,10 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 				};
 				object.votes.currentUser = vote;
 
-				svc.createOrUpdate(vote).then(null, function (err) {
+				return svc.createOrUpdate(vote).then(function(data) {
+					console.log("vote data: ", data);
+					return data;
+				}, function (err) {
 					console.log('Error saving vote: ', err.data.message);
 					object.votes.currentUser = existingVote;
 				});

@@ -63,7 +63,7 @@
 						<md-tooltip>
 							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
 						</md-tooltip>
-						{{solution.votes.up - solution.votes.down + solution.votes.currentUser.voteValue}}
+						{{solution.votes.up - solution.votes.down}}
 					</md-button>
 					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'down', $event)">
 						<md-tooltip>

@@ -125,11 +125,15 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 		vm.voteAction = function (action, voteType, $event) {
 			$event.stopPropagation();
-			VoteService.vote(action, 'Action', voteType);
+			VoteService.vote(action, 'Action', voteType).then(function(data) {
+				action.$get();
+			});
 		};
 
 		vm.vote = function (voteType) {
-			VoteService.vote(vm.solution, 'Solution', voteType);
+			VoteService.vote(vm.solution, 'Solution', voteType).then(function(data) {
+				vm.solution.$get();
+			});
 		};
 
 		vm.sort = function (sortData, $event) {
