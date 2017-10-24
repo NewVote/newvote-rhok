@@ -42,6 +42,9 @@ module.exports = function (app) {
 		.get(media.list)
 		.post(media.create);
 
+	app.route('/api/meta').all(policy.isAllowed)
+		.get(media.getMeta);
+
 	// Single article routes
 	app.route('/api/issues/:issueId').all(policy.isAllowed)
 		.get(issues.read)

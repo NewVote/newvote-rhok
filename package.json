@@ -59,6 +59,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "helmet": "~0.9.1",
+    "html-metadata": "^1.6.3",
     "jasmine-core": "^2.3.4",
     "lodash": "^3.10.1",
     "method-override": "^2.3.3",
