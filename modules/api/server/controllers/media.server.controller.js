@@ -6,10 +6,10 @@
 var path = require('path'),
 	mongoose = require('mongoose'),
 	Media = mongoose.model('Media'),
+	votes = require('./votes.server.controller'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
 	_ = require('lodash'),
 	scrape = require('html-metadata');
-
 
 /**
  * Create a media
@@ -28,24 +28,24 @@ exports.create = function (req, res) {
 	});
 };
 
-exports.updateOrCreate = function (req, res) {
-	var user = req.user;
-	var object = req.body.object;
-	Media.findOne({
-		user: user,
-		object: object
-	}).exec(function (err, media) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else if (!media) {
-			return exports.create(req, res);
-		}
-		req.media = media;
-		return exports.update(req, res);
-	});
-};
+// exports.updateOrCreate = function (req, res) {
+// 	var user = req.user;
+// 	var object = req.body.object;
+// 	Media.findOne({
+// 		user: user,
+// 		object: object
+// 	}).exec(function (err, media) {
+// 		if (err) {
+// 			return res.status(400).send({
+// 				message: errorHandler.getErrorMessage(err)
+// 			});
+// 		} else if (!media) {
+// 			return exports.create(req, res);
+// 		}
+// 		req.media = media;
+// 		return exports.update(req, res);
+// 	});
+// };
 
 /**
  * Show the current media
@@ -93,13 +93,44 @@ exports.delete = function (req, res) {
  * List of Medias
  */
 exports.list = function (req, res) {
-	Media.find().sort('-created').populate('user', 'displayName').exec(function (err, medias) {
+	var solutionId = req.query.solutionId,
+		issueId = req.query.issueId,
+		searchParams = req.query.search,
+		mediaId = req.query.mediaId,
+		query;
+
+	if (solutionId) {
+		query = {
+			solutions: solutionId
+		};
+	} else if(issueId) {
+		query = {
+			issues: issueId
+		};
+	}else if (searchParams) {
+		query = {
+			title: {
+				$regex: searchParams,
+				$options: 'i'
+			}
+		};
+	} else {
+		query = null;
+	}
+	Media.find(query).sort('-created').populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err, medias) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(medias);
+			votes.attachVotes(medias, req.user).then(function (mediaArr) {
+				// console.log(mediaArr);
+				res.json(mediaArr);
+			}).catch(function (err) {
+				res.status(500).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			});
 		}
 	});
 };
@@ -115,7 +146,7 @@ exports.mediaByID = function (req, res, next, id) {
 		});
 	}
 
-	Media.findById(id).populate('user', 'displayName').exec(function (err, media) {
+	Media.findById(id).populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err, media) {
 		if (err) {
 			return next(err);
 		} else if (!media) {
@@ -123,43 +154,21 @@ exports.mediaByID = function (req, res, next, id) {
 				message: 'No media with that identifier has been found'
 			});
 		}
-		req.media = media;
-		next();
+		votes.attachVotes([media], req.user).then(function (mediaArr) {
+			req.media = mediaArr[0];
+			next();
+		}).catch(next);
 	});
 };
 
-exports.attachMedia = function (objects, user) {
-	if (!user || !objects) return Promise.resolve(objects);
-	var objectIds = objects.map(function (object) {
-		return object._id;
-	});
-	return Media.find({
-		object: {
-			$in: objectIds
-		}
-	}).exec().then(function (foundMedia) {
-		objects = objects.map(function (object) {
-			// object = object.toObject(); //to be able to set props on the mongoose object
-			var objMedia = [];
-
-			foundMedia.forEach(function (media) {
-				if (media.object.toString() === object._id.toString()) {
-					objMedia.push(media);
-				}
-			});
-
-			object.media = objMedia;
-
-			return object;
-		});
-		return objects;
-	});
-};
-
-exports.getMeta = function(req, res) {
-	var media = req.media;
-	return scrape(media.url).then(function(meta) {
-		console.log(meta);
-		return meta;
+exports.getMeta = function (req, res) {
+	var url = req.params.uri;
+	// console.log(url);
+	return scrape(url).then(function (meta) {
+		// console.log(meta);
+		return res.json(meta);
+	}, function (error) {
+		console.log('Error scraping: ', error.message);
+		return res.json(error);
 	});
 };

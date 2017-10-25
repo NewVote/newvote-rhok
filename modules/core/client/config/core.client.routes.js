@@ -65,6 +65,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					},
 					solutions: function () {
 						return {};
+					},
+					media: function () {
+						return [];
 					}
 				}
 			})
@@ -83,6 +86,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					}],
 					solutions: function () {
 						return {};
+					},
+					media: function () {
+						return [];
 					}
 				}
 			})
@@ -97,6 +103,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					}],
 					solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
 						return SolutionService.list({
+							issueId: $stateParams.issueId
+						});
+					}],
+					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+						return MediaService.list({
 							issueId: $stateParams.issueId
 						});
 					}]
@@ -141,6 +152,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					actions: function () {
 						return [];
 					},
+					media: function () {
+						return [];
+					},
 					isSingleAction: function () {
 						return false;
 					}
@@ -162,6 +176,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					actions: function () {
 						return [];
 					},
+					media: function () {
+						return [];
+					},
 					isSingleAction: function () {
 						return false;
 					}
@@ -178,6 +195,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					}],
 					actions: ['ActionService', '$stateParams', function (ActionService, $stateParams) {
 						return ActionService.list({
+							solutionId: $stateParams.solutionId
+						});
+					}],
+					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+						return MediaService.list({
 							solutionId: $stateParams.solutionId
 						});
 					}],
@@ -222,7 +244,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			})
 
 			.state('media.create', {
-				url: '/create?:objectId',
+				url: '/create?:objectId&:objectType',
 				templateUrl: 'modules/core/client/views/edit-media.client.view.html',
 				controller: 'MediaController',
 				controllerAs: 'vm',
@@ -240,7 +262,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				}
 			})
 			.state('media.edit', {
-				url: '/edit?:objectId',
+				url: '/edit?:mediaId&:previousObjectId&:objectType',
 				templateUrl: 'modules/core/client/views/edit-media.client.view.html',
 				controller: 'MediaController',
 				controllerAs: 'vm',

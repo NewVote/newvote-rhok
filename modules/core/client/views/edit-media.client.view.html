@@ -15,15 +15,20 @@
 <update-meta name="twitter:url" use-abs-url="true"></update-meta>
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
-<div layout-padding layout="column" layout-align="top center" flex>
+<div layout-padding layout="column" layout-align="top start" flex flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 
 	<md-input-container>
 		<label>Media Title</label>
-		<input ng-model="vm.media.name" autofocus>
+		<input
+			ng-model="vm.media.title">
 	</md-input-container>
+
 	<md-input-container>
 		<label>Media Link</label>
-		<input ng-model="vm.media.url" autofocus>
+		<input ng-model="vm.media.url"
+			autofocus
+			ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
+			ng-change="vm.getMeta()">
 	</md-input-container>
 
 	<md-contact-chips
@@ -48,12 +53,37 @@
 	  secondary-placeholder="Add another solution">
 	</md-contact-chips>
 
+	<div layout="column" layout-padding>
+		<span>Media Preview</span>
+		<md-card>
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline">{{vm.media.title}}</span>
+					<span class="md-subhead">{{vm.previewData.openGraph.description}}</span>
+					<a href="#">{{vm.previewData.openGraph.url}}</a>
+				</md-card-title-text>
+				<md-card-title-media>
+					<div class="md-media-sm card-media"><img src='{{vm.previewData.openGraph.image.url}}' /></div>
+				</md-card-title-media>
+			</md-card-title>
+			<md-card-actions layout="row" layout-align="start center">
+				<md-button class="md-icon-button">
+					<md-icon>thumb_up</md-icon>
+				</md-button>
+				<md-button class="md-icon-button">
+					<md-icon>share</md-icon>
+				</md-button>
+			</md-card-actions>
+		</md-card>
+		<!-- {{vm.previewData}} -->
+	</div>
+
 	<div layout="row">
 		<md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
-			<span ng-if="vm.issue._id">Update</span>
-			<span ng-if="!vm.issue._id">Create</span>
+			<span ng-if="vm.media._id">Update</span>
+			<span ng-if="!vm.media._id">Create</span>
 		</md-button>
-		<md-button class="md-raised md-warn" ng-if="vm.issue._id" ng-click="vm.delete()">
+		<md-button class="md-raised md-warn" ng-if="vm.media._id" ng-click="vm.delete()">
 			Delete
 		</md-button>
 	</div>

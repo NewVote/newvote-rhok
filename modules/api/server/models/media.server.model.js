@@ -32,8 +32,17 @@ var MediaSchema = new Schema({
 	}],
 	solutions: [{
 		type: Schema.ObjectId,
-		refPath: 'Solution'
-	}]
+		ref: 'Solution'
+	}],
+	votes: {
+		up: Number,
+		down: Number,
+		total: Number,
+		currentUser: {
+			type: Schema.ObjectId,
+			ref: 'Vote'
+		}
+	},
 });
 
 mongoose.model('Media', MediaSchema);

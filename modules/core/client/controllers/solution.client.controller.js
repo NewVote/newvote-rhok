@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'UploadService', 'SortService', 'isSingleAction', 'SocialshareService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, UploadService, SortService, isSingleAction, SocialshareService, $mdConstant) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'media', 'UploadService', 'SortService', 'isSingleAction', 'SocialshareService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, media, UploadService, SortService, isSingleAction, SocialshareService, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
@@ -9,6 +9,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.actions = Array.isArray(actions) ? actions : [actions];
 		vm.sortSvc = SortService;
 		vm.isSingleAction = isSingleAction;
+		vm.media = media;
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
@@ -112,7 +113,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		};
 
 		vm.searchIssues = function (query) {
-			return IssueService.searchIssues(query);
+			return IssueService.searchIssues({search: query});
 		};
 
 		vm.deleteAction = function (action) {

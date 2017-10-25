@@ -4,46 +4,45 @@
  * Module dependencies.
  */
 var path = require('path'),
-  mongoose = require('mongoose'),
-  Vote = mongoose.model('Vote'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+	mongoose = require('mongoose'),
+	Vote = mongoose.model('Vote'),
+	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+	_ = require('lodash');
 
 /**
  * Create a vote
  */
 exports.create = function (req, res) {
-  var vote = new Vote(req.body);
-  vote.user = req.user;
-  vote.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(vote);
-    }
-  });
+	var vote = new Vote(req.body);
+	vote.user = req.user;
+	vote.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(vote);
+		}
+	});
 };
 
-
-exports.updateOrCreate = function(req, res) {
-  var user = req.user;
-  var object = req.body.object;
-  Vote.findOne({
-    user: user,
-    object: object
-  }).exec(function (err, vote) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else if (!vote) {
-      return exports.create(req, res);
-    }
-    req.vote = vote;
-    return exports.update(req, res);
-  });
+exports.updateOrCreate = function (req, res) {
+	var user = req.user;
+	var object = req.body.object;
+	Vote.findOne({
+		user: user,
+		object: object
+	}).exec(function (err, vote) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else if (!vote) {
+			return exports.create(req, res);
+		}
+		req.vote = vote;
+		return exports.update(req, res);
+	});
 };
 
 /**
@@ -51,59 +50,59 @@ exports.updateOrCreate = function(req, res) {
  */
 exports.read = function (req, res) {
 
-  res.json(req.vote);
+	res.json(req.vote);
 };
 
 /**
  * Update a vote
  */
 exports.update = function (req, res) {
-  var vote = req.vote;
-  _.extend(vote, req.body);
-  // vote.title = req.body.title;
-  // vote.content = req.body.content;
+	var vote = req.vote;
+	_.extend(vote, req.body);
+	// vote.title = req.body.title;
+	// vote.content = req.body.content;
 
-  vote.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(vote);
-    }
-  });
+	vote.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(vote);
+		}
+	});
 };
 
 /**
  * Delete an vote
  */
 exports.delete = function (req, res) {
-  var vote = req.vote;
+	var vote = req.vote;
 
-  vote.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(vote);
-    }
-  });
+	vote.remove(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(vote);
+		}
+	});
 };
 
 /**
  * List of Votes
  */
 exports.list = function (req, res) {
-  Vote.find().sort('-created').populate('user', 'displayName').exec(function (err, votes) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(votes);
-    }
-  });
+	Vote.find().sort('-created').populate('user', 'displayName').exec(function (err, votes) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(votes);
+		}
+	});
 };
 
 /**
@@ -111,59 +110,67 @@ exports.list = function (req, res) {
  */
 exports.voteByID = function (req, res, next, id) {
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Vote is invalid'
-    });
-  }
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400).send({
+			message: 'Vote is invalid'
+		});
+	}
 
-  Vote.findById(id).populate('user', 'displayName').exec(function (err, vote) {
-    if (err) {
-      return next(err);
-    } else if (!vote) {
-      return res.status(404).send({
-        message: 'No vote with that identifier has been found'
-      });
-    }
-    req.vote = vote;
-    next();
-  });
+	Vote.findById(id).populate('user', 'displayName').exec(function (err, vote) {
+		if (err) {
+			return next(err);
+		} else if (!vote) {
+			return res.status(404).send({
+				message: 'No vote with that identifier has been found'
+			});
+		}
+		req.vote = vote;
+		next();
+	});
 };
 
-exports.attachVotes = function(objects, user) {
-  if(!objects) return Promise.resolve(objects);
-  var objectIds = objects.map(function(object) {
-    return object._id;
-  });
-  return Vote.find({
-    object: { $in: objectIds }
-  }).exec().then(function(votes) {
-    objects = objects.map(function(object) {
-      // object = object.toObject(); //to be able to set props on the mongoose object
-      var objVotes = [];
-      var userVote = null, up = 0, down = 0;
+exports.attachVotes = function (objects, user) {
+    // console.log('votes got object for attaching: ', objects)
+	if (!objects) return Promise.resolve(objects);
+	var objectIds = objects.map(function (object) {
+		return object._id;
+	});
+	return Vote.find({
+		object: {
+			$in: objectIds
+		}
+	}).exec().then(function (votes) {
+		objects = objects.map(function (object) {
+			// object = object.toObject(); //to be able to set props on the mongoose object
+			var objVotes = [];
+			var userVote = null,
+				up = 0,
+				down = 0;
+            object.votes = {};
 
-      votes.forEach(function(vote) {
-        if(vote.object.toString()===object._id.toString()) {
-          objVotes.push(vote);
-          if(user && vote.user.toString()===user._id.toString()) {
-            userVote = vote;
-          }
-          if(vote.voteValue) {
-            if(vote.voteValue>0) up++;
-            else down++;
-          }
-        }
-      });
-      object.votes = {
-        total: objVotes.length,
-        currentUser: userVote,
-        up: up,
-        down: down
-      };
+			votes.forEach(function (vote) {
+				if (vote.object.toString() === object._id.toString()) {
+					objVotes.push(vote);
+					if (user && vote.user.toString() === user._id.toString()) {
+						userVote = vote;
+					}
+					if (vote.voteValue) {
+						if (vote.voteValue > 0) up++;
+						else down++;
+					}
+				}
+			});
 
-      return object;
-    });
-    return objects;
-  });
+			object.votes = {
+				total: objVotes.length,
+				currentUser: userVote,
+				up: up,
+				down: down
+			};
+
+			return object;
+		});
+
+		return objects;
+	});
 };
