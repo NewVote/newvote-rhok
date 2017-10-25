@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('users').controller('ChangePasswordController', ['$scope', '$http', 'Authentication', 'PasswordValidator',
-  function ($scope, $http, Authentication, PasswordValidator) {
+angular.module('users').controller('ChangePasswordController', ['$scope', '$rootScope', '$http', 'Authentication', 'PasswordValidator',
+  function ($scope, $rootScope, $http, Authentication, PasswordValidator) {
     $scope.user = Authentication.user;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
     // Update title
-    $scope.title = 'NewVote | Change Password';
+    $scope.title = $rootScope.titlePrefix + 'Change Password' + $rootScope.titleSuffix;
+    $rootScope.headerTitle = 'Change Password';
 
     // Change user password
     $scope.changeUserPassword = function (isValid) {
