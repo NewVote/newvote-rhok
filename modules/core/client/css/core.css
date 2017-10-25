@@ -1,4 +1,5 @@
 md-grid-tile-footer.ng-scope {
+  background: #006064;
   background: rgba(0, 96, 100, 0.8); }
 
 h3.ng-binding.ng-scope {
@@ -98,7 +99,7 @@ md-sidenav {
        object-fit: cover; }
 
 .descriptionChips .md-chips {
-  box-shadow: 0 0px !important; }
+  box-shadow: 0 0 !important; }
 
 .create-btn {
   font-size: 18px; }

@@ -14,13 +14,13 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
         if($state.is('solutions.action')){
-            vm.desc = "Proposed action for the solution '" + vm.solution.title + "': " + vm.actions[0].title;
+            vm.desc = 'Proposed action for the solution "' + vm.solution.title + '": ' + vm.actions[0].title;
         }
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
 
 		$scope.authentication = Authentication;
-		$scope.prerender = document.getElementById("prerender");
+		$scope.prerender = document.getElementById('prerender');
 
 		if ($stateParams.issueId) {
 			IssueService.get($stateParams.issueId).then(function (issue) {
@@ -64,7 +64,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
         vm.shareAction = function(action, provider) {
             SocialshareService.share({
 				provider: provider,
-				rel_url: '/solutions/' + vm.solution._id + "/?actionId=" + action._id,
+				rel_url: '/solutions/' + vm.solution._id + '/?actionId=' + action._id,
 				title: action.title,
 				hashtags: vm.solution.tags.join()
 			});
@@ -138,8 +138,8 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 		vm.sort = function (sortData, $event) {
 			if ($event) $event.stopPropagation();
-			console.log("sorting by: ", sortData.type, sortData.order);
-			SortService.setSort("action", sortData.type, sortData.order);
+			console.log('sorting by: ', sortData.type, sortData.order);
+			SortService.setSort('action', sortData.type, sortData.order);
 		};
 
 		function confirm(title, text) {

@@ -1,6 +1,6 @@
 {
   rules: {
-    indent: [2, 2, {"SwitchCase": 1}],
+    indent: [0, 2, {"SwitchCase": 1}],
     no-multi-spaces: 2,
     no-underscore-dangle: 0,
     no-use-before-define: [1, "nofunc"],

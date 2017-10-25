@@ -31,7 +31,7 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             var solutions = svc.searchSolutions(text);
             var actions = svc.searchActions(text);
 
-            return Promise.all([issues, solutions, actions]).then( function(data) {
+            return Promise.all([issues, solutions, actions]).then(function(data) {
                 var results = [];
                 for (var model in data) {
                     for (var item in data[model]) {

@@ -56,7 +56,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		$scope.openSearch = function () {
 			$scope.searchOpen = !$scope.searchOpen;
-			console.log($scope.searchOpen);
 		};
 	}
 ]);

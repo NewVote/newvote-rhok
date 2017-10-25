@@ -25,7 +25,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		$rootScope.pageTitle = vm.title;
 
 		$scope.authentication = Authentication;
-		$scope.prerender = document.getElementById("prerender");
+		$scope.prerender = document.getElementById('prerender');
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
 

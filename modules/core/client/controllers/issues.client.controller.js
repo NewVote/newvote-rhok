@@ -15,8 +15,8 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		vm.desc = 'A collection of the current issues being discussed on the NewVote platform.';
 		vm.image = vm.issues[0].imageUrl;
 
-        // vm.filterTags = [];
-        //
+		// vm.filterTags = [];
+		//
 		// var tagPromise = issues.map(function (issue) {
 		// 	return SolutionService.list({issueId: issue._id}).then(function (solutions) {
 		// 		var tags = [];
@@ -29,32 +29,32 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		// 		return tags;
 		// 	});
 		// });
-        //
+		//
 		// Promise.all(tagPromise).then(function (results) {
 		// 	console.log(results);
-        //     var merged = [].concat.apply([], results);
+		//     var merged = [].concat.apply([], results);
 		// 	vm.allTags = merged;
-        //     addIssueTags();
+		//     addIssueTags();
 		// });
-        //
-        // function addIssueTags(){
-        //     issues.map(function(issue) {
-        //         issue.tags.map(function(tag) {
-        //             vm.allTags.push({name: tag});
-        //         });
-        //     });
-        // }
-        //
+		//
+		// function addIssueTags(){
+		//     issues.map(function(issue) {
+		//         issue.tags.map(function(tag) {
+		//             vm.allTags.push({name: tag});
+		//         });
+		//     });
+		// }
+		//
 		// vm.searchTags = function (criteria) {
-        //     console.log("searching for: ", criteria);
+		//     console.log('searching for: ', criteria);
 		// 	return criteria ? vm.allTags.filter(function(tag){
-        //         return (tag.name.indexOf(angular.lowercase(criteria)) !== -1);
-        //     }) : [];
+		//         return (tag.name.indexOf(angular.lowercase(criteria)) !== -1);
+		//     }) : [];
 		// };
-        //
+		//
 		// function createFilterFor(query) {
 		// 	var lowercaseQuery = angular.lowercase(query);
-        //
+		//
 		// 	return function filterFn(tag) {
 		// 		return (tag.indexOf(lowercaseQuery) !== -1);
 		// 	};
@@ -62,7 +62,7 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 
 		vm.sort = function (sortData, $event) {
 			if ($event) $event.stopPropagation();
-			SortService.setSort("issue", sortData.type, sortData.order);
+			SortService.setSort('issue', sortData.type, sortData.order);
 		};
 	}
 ]);

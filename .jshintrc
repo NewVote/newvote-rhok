@@ -6,7 +6,7 @@
   "esnext": true, // Allow ES.next specific features such as `const` and `let`.
   "bitwise": false, // Prohibit bitwise operators (&, |, ^, etc.).
   "curly": false, // Require {} for every new block or scope.
-  "eqeqeq": true, // Require triple equals i.e. `===`.
+  "eqeqeq": false, // Require triple equals i.e. `===`.
   "latedef": "nofunc", // Prohibit variable use before definition.
   "noarg": true, // Prohibit use of `arguments.caller` and `arguments.callee`.
   "undef": true, // Require all non-global variables be declared before they are used.

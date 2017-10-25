@@ -5,7 +5,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 		$scope.user = Authentication.user;
 
 		// Update title
-    $scope.title = 'NewVote | Edit Profile';
+		$scope.title = 'NewVote | Edit Profile';
 
 		// Update a user profile
 		$scope.updateUserProfile = function (isValid) {

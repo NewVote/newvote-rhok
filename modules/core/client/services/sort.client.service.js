@@ -4,7 +4,7 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
   function ($resource, $stateParams, $q, _) {
 
     var svc = this;
-    svc.expression = "-votes.up";
+    svc.expression = '-votes.up';
     svc.reverse = false;
 
     var controversialSort = function(a){
@@ -28,30 +28,30 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
     };
 
     var buildExpression = function(objectType, sortParam, order){
-        svc.reverse = order === "asc" ? false : true;
+        svc.reverse = order === 'asc' ? false : true;
 
-        if(objectType === "solution" || objectType === "action"){
-            if(sortParam === "top"){
-                return "votes.up";
-            }else if(sortParam === "controversial"){
+        if(objectType === 'solution' || objectType === 'action'){
+            if(sortParam === 'top'){
+                return 'votes.up';
+            }else if(sortParam === 'controversial'){
                 return controversialSort;
-            }else if(sortParam === "trending"){
+            }else if(sortParam === 'trending'){
                 return trendingSort;
-            }else if(sortParam === "newest"){
-                return "created";
+            }else if(sortParam === 'newest'){
+                return 'created';
             }
         }
-        else if(objectType === "issue") {
-            if(sortParam === "alpha") {
-                return "name";
-            }else if(sortParam === "top"){
-                return "solutionMetaData.votes.up";
-            }else if(sortParam === "controversial"){
+        else if(objectType === 'issue') {
+            if(sortParam === 'alpha') {
+                return 'name';
+            }else if(sortParam === 'top'){
+                return 'solutionMetaData.votes.up';
+            }else if(sortParam === 'controversial'){
                 return controversialSort;
-            }else if(sortParam === "trending"){
-                return "solutionMetaData.totalTrendingScore";
-            }else if(sortParam === "newest"){
-                return "solutionMetaData.lastCreated";
+            }else if(sortParam === 'trending'){
+                return 'solutionMetaData.totalTrendingScore';
+            }else if(sortParam === 'newest'){
+                return 'solutionMetaData.lastCreated';
             }
         }
     };

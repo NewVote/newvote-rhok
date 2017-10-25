@@ -4,12 +4,12 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 	function ($scope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users) {
 		$scope.authentication = Authentication;
 		$scope.popoverMsg = PasswordValidator.getPopoverMsg();
-        if($scope.authentication.user && $scope.authentication.user.data){
-            $scope.user = $scope.authentication.user.data;
-        }else {
-            $scope.user = $scope.authentication.user;
+		if ($scope.authentication.user && $scope.authentication.user.data) {
+			$scope.user = $scope.authentication.user.data;
+		} else {
+			$scope.user = $scope.authentication.user;
 		}
-		
+
 		// Update Title
 		if ($state.is('authentication.signin')) {
 			$scope.title = 'NewVote | Sign In';
@@ -18,7 +18,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 		} else if ($state.is('setup')) {
 			$scope.title = 'NewVote | Setup Profile';
 		}
-
 
 		// Get an eventual error defined in the URL query string:
 		$scope.error = $location.search().err;
@@ -38,22 +37,24 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 			}
 
 			$http.post('/api/auth/signup', $scope.credentials).then(function (response) {
-				// If successful we assign the response to the global user model
-				$scope.authentication.user = response.data;
-                $window.user = response.data;
+					// If successful we assign the response to the global user model
+					$scope.authentication.user = response.data;
+					$window.user = response.data;
 
-				// And redirect to the previous or home page
-                if($scope.user.terms){
-                    $state.go($state.previous.state.name || 'home', $state.previous.params);
-                }else {
-                    $state.go('setup', {previous: $state.previous.state.name});
-                }
+					// And redirect to the previous or home page
+					if ($scope.user.terms) {
+						$state.go($state.previous.state.name || 'home', $state.previous.params);
+					} else {
+						$state.go('setup', {
+							previous: $state.previous.state.name
+						});
+					}
 
-			},
-			function(response) {
-				console.log("error in sign up: ", response);
-				$scope.error = response.data.message;
-			});
+				},
+				function (response) {
+					console.log('error in sign up: ', response);
+					$scope.error = response.data.message;
+				});
 		};
 
 		$scope.signin = function (isValid) {
@@ -66,58 +67,59 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 			}
 
 			$http.post('/api/auth/signin', $scope.credentials).then(function (response) {
-				// If successful we assign the response to the global user model
-				$scope.authentication.user = response.data;
-				$window.user = response.data;
+					// If successful we assign the response to the global user model
+					$scope.authentication.user = response.data;
+					$window.user = response.data;
 
-				// And redirect to the previous or home page
-                if($scope.user.terms){
-                    $state.go($state.previous.state.name || 'home', $state.previous.params);
-                }else {
-                    $state.go('setup', {previous: $state.previous.state.name});
-                }
-			},
-			function(response) {
-				console.log("error in sign in: ", response);
+					// And redirect to the previous or home page
+					if ($scope.user.terms) {
+						$state.go($state.previous.state.name || 'home', $state.previous.params);
+					} else {
+						$state.go('setup', {
+							previous: $state.previous.state.name
+						});
+					}
+				},
+				function (response) {
+					console.log('error in sign in: ', response);
+					$scope.error = response.data.message;
+				});
+		};
+
+		$scope.update = function (isValid) {
+			$scope.success = $scope.error = null;
+
+			if (!isValid) {
+				$scope.$broadcast('show-errors-check-validity', 'userForm');
+
+				return false;
+			}
+
+			var user = new Users($scope.user);
+
+			user.$update(function (response) {
+				$scope.$broadcast('show-errors-reset', 'userForm');
+
+				$scope.success = true;
+				$scope.authentication.user = response;
+				$window.user = response;
+
+				if ($stateParams.previous) {
+					$state.go($stateParams.previous, $state.previous.params);
+				} else {
+					$state.go('home', $state.previous.params);
+				}
+
+			}, function (response) {
 				$scope.error = response.data.message;
 			});
 		};
-
-        $scope.update = function (isValid) {
-            $scope.success = $scope.error = null;
-
-            if (!isValid) {
-                $scope.$broadcast('show-errors-check-validity', 'userForm');
-
-                return false;
-            }
-
-            var user = new Users($scope.user);
-
-            user.$update(function (response) {
-                $scope.$broadcast('show-errors-reset', 'userForm');
-
-                $scope.success = true;
-                $scope.authentication.user = response;
-                $window.user = response;
-
-
-                if($stateParams.previous){
-                    $state.go($stateParams.previous, $state.previous.params);
-                }else {
-                    $state.go('home', $state.previous.params);
-                }
-
-            }, function (response) {
-                $scope.error = response.data.message;
-            });
-        };
 
 		// OAuth provider request
 		$scope.callOauthProvider = function (url) {
 			if ($state.previous && $state.previous.href) {
 				// url += '?redirect_to=' + encodeURIComponent($state.previous.href);
-                url += '?redirect_to=' + encodeURIComponent($state.href('setup')) + encodeURIComponent($state.previous.state.name);
+				url += '?redirect_to=' + encodeURIComponent($state.href('setup')) + encodeURIComponent($state.previous.state.name);
 			}
 
 			// Effectively call OAuth authentication route:

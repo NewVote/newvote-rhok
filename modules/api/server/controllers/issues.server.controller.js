@@ -147,55 +147,59 @@ exports.attachMetaData = function (issues, user) {
 		return issue._id;
 	});
 
-	return Solution.find({issues: {$in: issueIds}}).sort('-created').exec().then(function (solutions) {
-			return votes.attachVotes(solutions, user).then(function (solutions) {
-				issues = issues.map(function (issue) {
+	return Solution.find({
+		issues: {
+			$in: issueIds
+		}
+	}).sort('-created').exec().then(function (solutions) {
+		return votes.attachVotes(solutions, user).then(function (solutions) {
+			issues = issues.map(function (issue) {
 
-					var up = 0,
-						down = 0,
-						total = 0,
-						solutionCount = 0,
-						totalTrendingScore = 0,
-						lastCreated = issue.created;
+				var up = 0,
+					down = 0,
+					total = 0,
+					solutionCount = 0,
+					totalTrendingScore = 0,
+					lastCreated = issue.created;
 
-					//looping through each issue passed in to exported method
+				//looping through each issue passed in to exported method
 
-					solutions.forEach(function (solution) {
-						//loop through each solution found in the db
+				solutions.forEach(function (solution) {
+					//loop through each solution found in the db
 
-						//must check that this solution belongs to the current issue being tested
-						if (solution.issues.indexOf(issue._id.toString()) !== -1) {
-							//found issue id inside solution issues array
-							var currentDate = new Date(lastCreated);
-							var date = new Date(solution.created);
-							var nowDate = new Date();
-							var age = (nowDate.getTime() - date.getTime()) / (1000 * 60 * 60);
+					//must check that this solution belongs to the current issue being tested
+					if (solution.issues.indexOf(issue._id.toString()) !== -1) {
+						//found issue id inside solution issues array
+						var currentDate = new Date(lastCreated);
+						var date = new Date(solution.created);
+						var nowDate = new Date();
+						var age = (nowDate.getTime() - date.getTime()) / (1000 * 60 * 60);
 
-							up += solution.votes.up;
-							down += solution.votes.down;
-							total += solution.votes.total;
-							solutionCount++;
-							totalTrendingScore += (solution.votes.up / age);
-							lastCreated = date > lastCreated ? date : lastCreated;
-						}
-					});
-
-					issue.solutionMetaData = {
-						votes: {
-							up: up,
-							down: down,
-							total: total
-						},
-						solutionCount: solutionCount,
-						totalTrendingScore: totalTrendingScore,
-						lastCreated: lastCreated
-					};
-
-					console.log(issue.solutionMetaData);
-
-					return issue;
+						up += solution.votes.up;
+						down += solution.votes.down;
+						total += solution.votes.total;
+						solutionCount++;
+						totalTrendingScore += (solution.votes.up / age);
+						lastCreated = date > lastCreated ? date : lastCreated;
+					}
 				});
-				return issues;
+
+				issue.solutionMetaData = {
+					votes: {
+						up: up,
+						down: down,
+						total: total
+					},
+					solutionCount: solutionCount,
+					totalTrendingScore: totalTrendingScore,
+					lastCreated: lastCreated
+				};
+
+				console.log(issue.solutionMetaData);
+
+				return issue;
 			});
+			return issues;
 		});
+	});
 };

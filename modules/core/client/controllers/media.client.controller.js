@@ -8,14 +8,14 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 		// Title
 		vm.title = 'NewVote | Create Media';
 		vm.desc = 'Create and submit Media';
-		$rootScope.pageTitle = "Create Media";
+		$rootScope.pageTitle = 'Create Media';
 
 		if ($stateParams.objectId && $stateParams.objectType) {
-			if($stateParams.objectType === "issue"){
+			if ($stateParams.objectType === 'issue') {
 				IssueService.get($stateParams.objectId).then(function (issue) {
 					vm.media.issues.push(issue);
 				});
-			}else if($stateParams.objectType === "solution"){
+			} else if ($stateParams.objectType === 'solution') {
 				SolutionService.get($stateParams.objectId).then(function (issue) {
 					vm.media.solutions.push(issue);
 				});
@@ -32,7 +32,7 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 		};
 
 		vm.createOrUpdate = function () {
-			console.log("creating new media now");
+			console.log('creating new media now');
 			// var promise = $q.resolve();
 			//
 			// return promise.then(function () {

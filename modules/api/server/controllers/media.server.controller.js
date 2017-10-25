@@ -51,9 +51,7 @@ exports.updateOrCreate = function (req, res) {
  * Show the current media
  */
 exports.read = function (req, res) {
-	req.media.getMeta(req, res).then(function(media){
-		res.json(media);
-	})
+	res.json(req.media);
 };
 
 /**
@@ -161,7 +159,7 @@ exports.attachMedia = function (objects, user) {
 exports.getMeta = function(req, res) {
 	var media = req.media;
 	return scrape(media.url).then(function(meta) {
-		media.meta = meta;
-		return media;
+		console.log(meta);
+		return meta;
 	});
 };
