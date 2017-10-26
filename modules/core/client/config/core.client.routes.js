@@ -16,6 +16,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			.state('home', {
 				url: '/',
 				templateUrl: 'modules/core/client/views/home.client.view.html',
+				controller: 'HomeController',
+				controllerAs: 'vm',
 				data: {
 					title: 'NewVote'
 				}

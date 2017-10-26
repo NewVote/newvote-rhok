@@ -17,7 +17,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		// Page title config
 		$rootScope.titlePrefix = '';
-    $rootScope.titleSuffix = ' | NewVote';	
+    	$rootScope.titleSuffix = ' | NewVote';
 
 		// Update title and description
 		$scope.title = $rootScope.titlePrefix + 'Home' + $rootScope.titleSuffix;
