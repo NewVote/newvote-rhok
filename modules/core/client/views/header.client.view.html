@@ -1,19 +1,12 @@
 <md-toolbar class="md-primary md-hue-2 app-header">
 	<div class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
-			<md-truncate flex class="home-title">{{pageTitle}}<md-tooltip>{{pageTitle}}</md-tooltip></md-truncate>
+		<md-truncate flex class="home-title">{{headerTitle}}
+			<md-tooltip>{{headerTitle}}</md-tooltip>
+		</md-truncate>
 
 		<div flex="auto" layout="column" hide show-gt-sm>
 			<md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
-				<md-autocomplete
-					md-no-cache="true"
-					md-clear-button="false"
-					placeholder="Search"
-					md-selected-item="selectedItem"
-					md-search-text="searchText"
-					md-items="item in results"
-					md-search-text-change="searchAll(searchText)"
-					md-item-text="getItemTitle(item)"
-					md-delay="300"
+				<md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
 				    md-min-length="1">
 
 					<md-item-template>
@@ -30,11 +23,11 @@
 			</md-input-container>
 		</div>
 
-        <!-- <span flex></span> -->
+		<!-- <span flex></span> -->
 
-        <md-button hide show-sm show-xs aria-label="Show mobile search" class="md-icon-button" ng-click="openSearch()">
-            <md-icon>search</md-icon>
-        </md-button>
+		<md-button hide show-sm show-xs aria-label="Show mobile search" class="md-icon-button" ng-click="openSearch()">
+			<md-icon>search</md-icon>
+		</md-button>
 
 		<md-menu ng-show="authentication.user">
 			<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
@@ -60,20 +53,20 @@
 </md-toolbar>
 
 <md-toolbar class="md-primary" layout-padding ng-if="searchOpen">
-    <md-input-container flex="auto" md-no-float class="md-block search-input simple" md-no-asterisk>
-        <md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
-            md-min-length="1">
+	<md-input-container flex="auto" md-no-float class="md-block search-input simple" md-no-asterisk>
+		<md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
+		    md-min-length="1">
 
-						<md-item-template>
-			        <a class="search-item" ng-click="redirectTo(item)">
+			<md-item-template>
+				<a class="search-item" ng-click="redirectTo(item)">
 			          <span><strong>{{item.model}}: </strong></span>
 			          <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
 			        </a>
-			      </md-item-template>
-			      <md-not-found>
-			        No matches found.
-			      </md-not-found>
+			</md-item-template>
+			<md-not-found>
+				No matches found.
+			</md-not-found>
 
-        </md-autocomplete>
-    </md-input-container>
+		</md-autocomplete>
+	</md-input-container>
 </md-toolbar>

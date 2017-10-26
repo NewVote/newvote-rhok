@@ -1,14 +1,15 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
-  function ($scope, $filter, Admin) {
+angular.module('users.admin').controller('UserListController', ['$scope', '$rootScope', '$filter', 'Admin',
+  function ($scope, $rootScope, $filter, Admin) {
     Admin.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
     });
 
-    // Update Title
-		$scope.title = 'NewVote | Admin | Users';
+    // Update title
+    $scope.title = $rootScope.titlePrefix + 'Admin | Users' + $rootScope.titleSuffix;
+    $rootScope.headerTitle = 'Admin | Users';
 
     $scope.buildPager = function () {
       $scope.pagedItems = [];

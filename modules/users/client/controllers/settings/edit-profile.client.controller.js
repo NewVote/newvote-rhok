@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function ($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('EditProfileController', ['$scope', '$rootScope', '$http', '$location', 'Users', 'Authentication',
+	function ($scope, $rootScope, $http, $location, Users, Authentication) {
 		$scope.user = Authentication.user;
 
 		// Update title
-		$scope.title = 'NewVote | Edit Profile';
+    $scope.title = $rootScope.titlePrefix + 'Edit Profile' + $rootScope.titleSuffix;
+    $rootScope.headerTitle = 'Edit Profile';
 
 		// Update a user profile
 		$scope.updateUserProfile = function (isValid) {

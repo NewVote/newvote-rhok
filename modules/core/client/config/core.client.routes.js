@@ -24,6 +24,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			.state('thanks', {
 				url: '/thanks',
 				templateUrl: 'modules/core/client/views/thanks.client.view.html',
+				controller: 'ThanksController',
 				data: {
 					title: 'Thank You'
 				}

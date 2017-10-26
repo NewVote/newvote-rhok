@@ -6,7 +6,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.authentication = Authentication;
 		$scope.$state = $state;
 		$scope.$mdMedia = $mdMedia;
-		$rootScope.pageTitle = 'NewVote';
 		$rootScope.removeHtmlElements = function (text) {
 			if (text != null) {
 				//ignore this lint warning we need to test for undefined as well
@@ -14,21 +13,21 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			} else {
 				return '';
 			}
-    };
-		// Title
-		$scope.title = 'NewVote | Home';
-		$scope.thanksTitle = 'NewVote | Thank You';
+		};
 
-		// Meta tags
+		// Page title config
+		$rootScope.titlePrefix = '';
+    $rootScope.titleSuffix = ' | NewVote';	
+
+		// Update title and description
+		$scope.title = $rootScope.titlePrefix + 'Home' + $rootScope.titleSuffix;
 		$scope.desc = 'NewVote is a dedicated online platform aimed at providing' +
-			' balanced, unbiased information on the current federal political issues' +
-			' and solutions in Australia. This information is maintained by an in de' +
-			'pendent panel and is presented in a simplified and organised manner. It' +
-			' also allows people to vote on the solutions, making people\'s opinion ' +
-			'available to the decision makers.';
-		$scope.thanksDesc = 'Our team of curators are busy going through all of th' +
-			'e great suggestions from our community, and will get to yours as soon a' +
-			's they can!';
+		' balanced, unbiased information on the current federal political issues' +
+		' and solutions in Australia. This information is maintained by an in de' +
+		'pendent panel and is presented in a simplified and organised manner. It' +
+		' also allows people to vote on the solutions, making people\'s opinion ' +
+		'available to the decision makers.';
+		$rootScope.headerTitle = 'Home';
 
 		$scope.toggleLeft = function () {
 			$mdSidenav('left').toggle();

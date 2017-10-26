@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('users').controller('SocialAccountsController', ['$scope', '$http', 'Authentication',
-  function ($scope, $http, Authentication) {
+angular.module('users').controller('SocialAccountsController', ['$scope', '$rootScope', '$http', 'Authentication',
+  function ($scope, $rootScope, $http, Authentication) {
     $scope.user = Authentication.user;
 
     // Update title
-    $scope.title = 'NewVote | Manage Social Media';
+    $scope.title = $rootScope.titlePrefix + 'Manage Social Media' + $rootScope.titleSuffix;
+    $rootScope.headerTitle = 'Manage Social Media';
+    
 
     // Check if there are additional accounts
     $scope.hasConnectedAdditionalSocialAccounts = function (provider) {

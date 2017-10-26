@@ -8,8 +8,8 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		vm.sortSvc = SortService;
 
 		// Title
-		vm.title = 'NewVote | Issues';
-		$rootScope.pageTitle = vm.title;
+		vm.title = $rootScope.titlePrefix + 'Issues' + $rootScope.titleSuffix;
+		$rootScope.headerTitle = 'Issues';
 
 		// Meta tags
 		vm.desc = 'A collection of the current issues being discussed on the NewVote platform.';

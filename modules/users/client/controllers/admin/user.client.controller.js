@@ -1,16 +1,19 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, Authentication, userResolve) {
+angular.module('users.admin').controller('UserController', ['$scope', '$rootScope', '$state', 'Authentication', 'userResolve',
+  function ($scope, $rootScope, $state, Authentication, userResolve) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 
-    // Update Title
+    // Update title
+    var titleText = '';
     if ($state.is('admin.user')) {
-			$scope.title = 'NewVote | Admin | ' + userResolve.username;
+			titleText = 'Admin | ' + userResolve.username;
 		} else if ($state.is('admin.user-edit')) {
-      $scope.title = 'NewVote | Admin | Edit ' + userResolve.username;
+      titleText = 'Admin | Edit ' + userResolve.username;
     }
+    $scope.title = $rootScope.titlePrefix + titleText + $rootScope.titleSuffix;
+    $rootScope.headerTitle = titleText;
 
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
