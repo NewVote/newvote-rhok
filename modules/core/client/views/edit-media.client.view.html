@@ -56,26 +56,24 @@
 	<div layout="column" layout-padding>
 		<span>Media Preview</span>
 		<md-card>
+			<img hide-gt-sm class="md-card-image" src='{{vm.previewData.openGraph.image.url}}' />
 			<md-card-title>
 				<md-card-title-text>
+					<!-- <span>votes object:{{media.votes.currentUser.voteValue}}</span> -->
 					<span class="md-headline">{{vm.media.title}}</span>
 					<span class="md-subhead">{{vm.previewData.openGraph.description}}</span>
-					<a href="#">{{vm.previewData.openGraph.url}}</a>
+					<a href="media.url">{{vm.media.url}}</a>
 				</md-card-title-text>
-				<md-card-title-media>
+				<md-card-title-media hide show-gt-sm>
 					<div class="md-media-sm card-media"><img src='{{vm.previewData.openGraph.image.url}}' /></div>
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-actions layout="row" layout-align="start center">
-				<md-button class="md-icon-button">
+				<md-button class="md-icon-button vote-btn">
 					<md-icon>thumb_up</md-icon>
-				</md-button>
-				<md-button class="md-icon-button">
-					<md-icon>share</md-icon>
 				</md-button>
 			</md-card-actions>
 		</md-card>
-		<!-- {{vm.previewData}} -->
 	</div>
 
 	<div layout="row">

@@ -10,6 +10,7 @@
 	</div>
 	<div layout-padding>
 		<md-card class="media-card" ng-repeat="media in vm.media | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse">
+			<img hide-gt-sm class="md-card-image" src='{{media.meta.openGraph.image.url}}' />
 			<md-card-title>
 				<md-card-title-text>
 					<!-- <span>votes object:{{media.votes.currentUser.voteValue}}</span> -->
@@ -17,7 +18,7 @@
 					<span class="md-subhead">{{media.meta.openGraph.description}}</span>
 					<a href="media.url">{{media.url}}</a>
 				</md-card-title-text>
-				<md-card-title-media>
+				<md-card-title-media hide show-gt-sm>
 					<div class="md-media-sm card-media"><img src='{{media.meta.openGraph.image.url}}' /></div>
 				</md-card-title-media>
 			</md-card-title>
