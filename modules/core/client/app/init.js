@@ -38,7 +38,8 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
 	$rootScope.title = window.title;
 	// Check authentication before changing state
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if(!Authentication.user.terms && toState.name !== "setup"){
+        if(Authentication.user && !Authentication.user.terms && toState.name !== "setup"){
+            console.log(Authentication.user);
             event.preventDefault();
             console.log('user has not accepted terms');
             $state.go('setup');
