@@ -41,6 +41,9 @@ a:hover .header-profile-image {
 .error-text {
   display: none; }
 
+.text-danger {
+  color: #ff9800 !important; }
+
 .has-error .help-block.error-text {
   display: block; }
 
