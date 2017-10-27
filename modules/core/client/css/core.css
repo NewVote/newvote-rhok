@@ -252,3 +252,11 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
 
 [ng-quill-editor] {
   display: block; }
+
+@media screen and (min-width: 320px) {
+  .share-button {
+    margin: 1px !important; } }
+
+@media screen and (min-width: 425px) {
+  .share-button {
+    margin: 7px !important; } }

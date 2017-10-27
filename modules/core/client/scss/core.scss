@@ -368,3 +368,13 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 [ng-quill-editor] {
 	display: block;
 }
+
+// Share buttons
+.share-button {
+	@media screen and (min-width: 320px) {
+		margin: 1px !important;
+	}
+	@media screen and (min-width: 425px) {
+		margin: 7px !important;
+	}
+}

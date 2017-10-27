@@ -50,64 +50,68 @@
 					<span class="md-subhead description-container"><div class="description" ng-bind="solution.description | htmlToPlaintext"></div></span>
 				</md-card-header-text>
 			</md-card-header>
-			<md-card-actions layout="row" layout-align="end center">
-				<md-card-icon-actions>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'up', $event)">
-						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
-						</md-tooltip>
-						<md-icon>arrow_upward</md-icon>
-					</md-button>
-					<md-button class="md-icon-button" ng-class="" ng-click="">
-						<md-tooltip>
-							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
-						</md-tooltip>
-						{{solution.votes.up - solution.votes.down}}
-					</md-button>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'down', $event)">
-						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
-						</md-tooltip>
-						<md-icon>arrow_downward</md-icon>
-					</md-button>
+			<md-card-actions layout-xs="column" layout-gt-xs="row" layout-align="end center">
+        <div>
+          <md-card-icon-actions>
+            <md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'up', $event)">
+              <md-tooltip>
+                <span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
+                <span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
+              </md-tooltip>
+              <md-icon>arrow_upward</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-class="" ng-click="">
+              <md-tooltip>
+                <span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
+              </md-tooltip>
+              {{solution.votes.up - solution.votes.down}}
+            </md-button>
+            <md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'down', $event)">
+              <md-tooltip>
+                <span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
+                <span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
+              </md-tooltip>
+              <md-icon>arrow_downward</md-icon>
+            </md-button>
+          </md-card-icon-actions>
+        </div>
+        <div flex>
 					<md-fab-speed-dial md-direction="right" class="md-scale" ng-click="$event.stopPropagation()">
 						<md-fab-trigger>
-							<md-button aria-label="Share" class="md-icon-button">
+							<md-button aria-label="Share" class="md-icon-button share-button">
 								<md-tooltip>Share</md-tooltip>
 								<md-icon>share</md-icon>
 							</md-button>
 						</md-fab-trigger>
 
 						<md-fab-actions>
-							<md-button aria-label="Share to Facebook" class="md-icon-button" ng-click="vm.share(solution, 'facebook')">
+							<md-button aria-label="Share to Facebook" class="md-icon-button share-button" ng-click="vm.share(solution, 'facebook')">
 								<md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
 								<md-tooltip>Facebook</md-tooltip>
 							</md-button>
 
-							<md-button aria-label="Share on Twitter" class="md-icon-button" ng-click="vm.share(solution, 'twitter')">
+							<md-button aria-label="Share on Twitter" class="md-icon-button share-button" ng-click="vm.share(solution, 'twitter')">
 								<md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
 								<md-tooltip>Twitter</md-tooltip>
 							</md-button>
 
-							<md-button aria-label="Share on Google+" class="md-icon-button" ng-click="vm.share(solution, 'google_plus')">
+							<md-button aria-label="Share on Google+" class="md-icon-button share-button" ng-click="vm.share(solution, 'google_plus')">
 								<md-icon md-svg-src="/modules/core/client/img/google-plus.svg"></md-icon>
 								<md-tooltip>Google+</md-tooltip>
 							</md-button>
 
-							<md-button aria-label="Share on LinkedIn" class="md-icon-button" ng-click="vm.share(solution, 'linkedin')">
+							<md-button aria-label="Share on LinkedIn" class="md-icon-button share-button" ng-click="vm.share(solution, 'linkedin')">
 								<md-icon md-svg-src="/modules/core/client/img/linkedin.svg"></md-icon>
 								<md-tooltip>LinkedIn</md-tooltip>
 							</md-button>
 
-							<md-button aria-label="Share on Reddit" class="md-icon-button" ng-click="vm.share(solution, 'reddit')">
+							<md-button aria-label="Share on Reddit" class="md-icon-button share-button" ng-click="vm.share(solution, 'reddit')">
 								<md-icon md-svg-src="/modules/core/client/img/reddit.svg"></md-icon>
 								<md-tooltip>Reddit</md-tooltip>
 							</md-button>
 						</md-fab-actions>
 					</md-fab-speed-dial>
-				</md-card-icon-actions>
+				</div>
 			</md-card-actions>
 		</md-card>
 	</div>
