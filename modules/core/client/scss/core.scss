@@ -371,16 +371,32 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 
 // Share buttons
 .share-button {
-	@media screen and (min-width: 200px) {
-		margin-left: 0px !important;
-		margin-right: 0px !important;
+	@media screen and (max-width: 480px) {
+		margin-top: 1px !important;
+		margin-bottom: 1px !important;
 	}
-	@media screen and (min-width: 320px) {
+	@media screen and (max-width: 600px) {
 		margin-left: 1px !important;
 		margin-right: 1px !important;
 	}
-	@media screen and (min-width: 425px) {
-		margin-left: 7px !important;
-		margin-right: 7px !important;
+}
+
+.share-button-horizontal {
+	@media screen and (max-width: 480px) {
+		margin-left: 1px !important;
+		margin-right: 1px !important;
+	}
+}
+
+.left-align {
+	float: left;
+}
+
+.share-button-config {
+	position: relative;
+	@media screen and (max-width: 480px) {
+		position: absolute;
+		top: -115px; 
+		left: 50px;
 	}
 }
