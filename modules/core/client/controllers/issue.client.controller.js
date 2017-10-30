@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'media', 'UploadService', '$q', 'SortService', 'SocialshareService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, media, UploadService, $q, SortService, SocialshareService, $mdConstant) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, media, UploadService, $q, SortService, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.issue = issue;
@@ -32,15 +32,6 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		$scope.prerender = document.getElementById('prerender');
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
-
-		vm.share = function (provider) {
-			SocialshareService.share({
-				provider: provider,
-				rel_url: '/issues/' + vm.issue._id,
-				title: vm.issue.name,
-				hashtags: vm.issue.tags.join()
-			});
-		};
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();
