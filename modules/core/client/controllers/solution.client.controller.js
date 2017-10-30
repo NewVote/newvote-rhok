@@ -11,6 +11,35 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.isSingleAction = isSingleAction;
 		vm.media = media;
 
+		vm.chartLabels = ['Against', 'For'];
+		vm.chartOptions = {
+		    elements: {
+		        arc: {
+		            borderWidth: 0
+		        }
+		    },
+		    responsive: true,
+		    legend: {
+		        display: false
+		    }
+		};
+		vm.chartColors = [{
+		    backgroundColor: 'rgba(255,0,0,0.8)',
+		    pointBackgroundColor: 'rgba(255,0,0,0.5)',
+		    pointHoverBackgroundColor: 'rgba(255,0,0,0.6)',
+		    borderColor: 'rgba(255,0,0,0.6)',
+		    pointBorderColor: 'rgba(255,0,0,0.6)',
+		    pointHoverBorderColor: 'rgba(255,0,0,0.6)'
+		},
+		{
+		    backgroundColor: 'rgba(0,255,0,0.8)',
+		    pointBackgroundColor: 'rgba(0,255,0,0.5)',
+		    pointHoverBackgroundColor: 'rgba(77,83,96,1)',
+		    borderColor: 'rgba(77,83,96,1)',
+		    pointBorderColor: '#fff',
+		    pointHoverBorderColor: 'rgba(77,83,96,0.8)'
+		}];
+
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;

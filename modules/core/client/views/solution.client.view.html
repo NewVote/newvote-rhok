@@ -43,12 +43,24 @@
 					<md-icon>arrow_upward</md-icon> Vote Up
 					<md-tooltip ng-if="vm.solution.votes.currentUser.voteValue===1">Undo</md-tooltip>
 				</md-button>
-				<md-button class="md-fab md-primary md-hue-2 vote-score" ng-class="" ng-click="">
+				<div class="chart-container">
+				    <div class="chart-score">
+				        <span>{{vm.solution.votes.up - vm.solution.votes.down}}</span>
+				    </div>
+				    <canvas id="doughnut"
+				        class="chart chart-doughnut"
+				        chart-data="[vm.solution.votes.down, vm.solution.votes.up]"
+				        chart-labels="vm.chartLabels"
+				        chart-options="vm.chartOptions"
+				        chart-colors="vm.chartColors">
+				    </canvas>
+				</div>
+				<!-- <md-button class="md-fab md-primary md-hue-2 vote-score" ng-class="" ng-click="">
 					<md-tooltip>
 						<span>For: {{vm.solution.votes.up}}, Against: {{vm.solution.votes.down}}</span>
 					</md-tooltip>
 					{{vm.solution.votes.up - vm.solution.votes.down}}
-				</md-button>
+				</md-button> -->
 				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote('down')">
 					<md-icon>arrow_downward</md-icon>Vote Down
 					<md-tooltip ng-if="vm.solution.votes.currentUser.voteValue===-1">Undo</md-tooltip>

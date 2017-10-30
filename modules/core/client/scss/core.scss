@@ -368,3 +368,24 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 [ng-quill-editor] {
 	display: block;
 }
+
+.chart-container {
+    position: relative;
+	height: 70px !important;
+	width: 140px !important;
+    z-index: 100;
+}
+
+.chart-score {
+	position: absolute;
+    top: 0px;
+    left: 0px;
+	height: 70px;
+	width: 140px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+    z-index: -100;
+}
