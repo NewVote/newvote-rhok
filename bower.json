@@ -19,7 +19,9 @@
     "ngQuill": "ng-quill#^3.3.0",
     "quill": "https://github.com/quilljs/quill/releases/download/v1.1.5/quill.tar.gz",
     "ng-file-upload": "^12.2.13",
-    "angular-update-meta": "~2.0.1"
+    "angular-update-meta": "~2.0.1",
+    "angular-chart.js": "^1.1.1",
+    "chart.js": "^2.7.1"    
   },
   "resolutions": {
     "angular": "~1.6.4",

@@ -30,7 +30,9 @@ module.exports = {
         'public/lib/quill/quill.js',
         'public/lib/ngQuill/src/ng-quill.js',
         'public/lib/ng-file-upload/ng-file-upload.min.js',
-        'public/lib/angular-update-meta/dist/update-meta.js'
+        'public/lib/angular-update-meta/dist/update-meta.js',
+        'public/lib/angular-chart/dist/angular-chart.min.js',
+        'public/lib/chart.js/dist/Chart.min.js'
       ]
     },
     css: 'public/dist/application.min.css',
