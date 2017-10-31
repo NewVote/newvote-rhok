@@ -10,8 +10,8 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 		templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
-		controller: ['$scope', 'VoteService', 'SortService', 'Authentication', 'SocialshareService',
-			function ($scope, VoteService, SortService, Authentication, SocialshareService) {
+		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService',
+			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService) {
 				var vm = this;
 				vm.sortSvc = SortService;
 				$scope.authentication = Authentication;

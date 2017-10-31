@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'media', 'UploadService', 'SortService', 'isSingleAction', 'SocialshareService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, media, UploadService, SortService, isSingleAction, SocialshareService, $mdConstant) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'media', 'UploadService', 'SortService', 'isSingleAction', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, media, UploadService, SortService, isSingleAction, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
@@ -86,24 +86,6 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 				console.log('Error getting actions for solution', $stateParams.solutionId, err);
 			});
 		}
-
-		vm.share = function (provider) {
-			SocialshareService.share({
-				provider: provider,
-				rel_url: '/solutions/' + vm.solution._id,
-				title: vm.solution.title,
-				hashtags: vm.solution.tags.join()
-			});
-		};
-
-		vm.shareAction = function (action, provider) {
-			SocialshareService.share({
-				provider: provider,
-				rel_url: '/solutions/' + vm.solution._id + '/?actionId=' + action._id,
-				title: action.title,
-				hashtags: vm.solution.tags.join()
-			});
-		};
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();
