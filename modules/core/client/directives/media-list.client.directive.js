@@ -17,9 +17,9 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 				vm.sortSvc = SortService;
 				$scope.authentication = Authentication;
 
-				vm.$onInit = function() {
+				vm.$onInit = function () {
 					console.log(vm.objectType);
-					vm.media.map(function(media){
+					vm.media.map(function (media) {
 						//attaching the meta to all media in list
 						media.meta = MediaService.getMeta(media.url);
 						return media;
@@ -59,10 +59,16 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 
 					$mdDialog.show(confirm).then(function () {
 						MediaService.delete(media._id).then(function () {
-							if($state.is('issues.view')){
-								$state.go('issues.view', {issueId: vm.objectId}, {reload: true});
-							}else if($state.is('solutions.view')){
-								$state.go('issues.view', {solutionId: vm.objectId});
+							if ($state.is('issues.view')) {
+								$state.go('issues.view', {
+									issueId: vm.objectId
+								}, {
+									reload: true
+								});
+							} else if ($state.is('solutions.view')) {
+								$state.go('issues.view', {
+									solutionId: vm.objectId
+								});
 							}
 
 						});

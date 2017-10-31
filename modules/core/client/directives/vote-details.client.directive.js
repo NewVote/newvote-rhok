@@ -16,7 +16,9 @@ angular.module('core').directive('voteDetails', ['$timeout', function ($timeout)
 
 				vm.showAdvanced = function (ev) {
 					$mdDialog.show({
-							locals:{object: vm.object},
+							locals: {
+								object: vm.object
+							},
 							controllerAs: 'vm',
 							bindToController: true,
 							controller: DialogController,
@@ -36,7 +38,6 @@ angular.module('core').directive('voteDetails', ['$timeout', function ($timeout)
 				function DialogController($scope, $mdDialog, object) {
 					var vm = this;
 					vm.object = object;
-
 
 					$scope.hide = function () {
 						$mdDialog.hide();

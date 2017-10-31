@@ -38,8 +38,10 @@ angular.module('core').service('MediaService', ['$resource', '$stateParams', '$q
 			return media._id ? media.$update() : media.$save();
 		};
 
-		svc.getMeta = function(url) {
-			return Meta.get({uri: url});
+		svc.getMeta = function (url) {
+			return Meta.get({
+				uri: url
+			});
 		};
 	}
 ]);
