@@ -15,7 +15,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 
 		// Title
 		vm.titleText = '';
-		if (vm.issue._id && $state.is('issues.edit')) { 
+		if (vm.issue._id && $state.is('issues.edit')) {
 			vm.titleText = 'Edit Issue - ' + vm.issue.name;
 			$rootScope.headerTitle = vm.issue.name + ' (editing)';
 		} else if ($state.is('issues.create')) {
@@ -23,7 +23,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 			$rootScope.headerTitle = 'Add Issue';
 		} else if ($state.is('issues.view')) {
 			vm.titleText = vm.issue.name;
-			$rootScope.headerTitle = vm.issue.name;
+			$rootScope.headerTitle = "Issue";
 		}
 
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
