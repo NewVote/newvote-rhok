@@ -1,0 +1,18 @@
+<div class="chart-container">
+	<div class="chart-score">
+		<span>{{vm.object.votes.up - vm.object.votes.down}}</span>
+	</div>
+	<canvas
+		ng-click="vm.showAdvanced($event)"
+		id="doughnut"
+		class="chart chart-doughnut"
+		chart-data="[vm.object.votes.down, vm.object.votes.up]"
+		chart-labels="vm.chartLabels"
+		chart-options="vm.chartOptions"
+		chart-colors="vm.chartColors"
+		height="100%" width="100%">
+	</canvas>
+	<md-tooltip>
+		<span>Click for details</span>
+	</md-tooltip>
+</div>

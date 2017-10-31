@@ -13,39 +13,41 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 		vm.chartLabels = ['Against', 'For'];
 		vm.chartOptions = {
-		    elements: {
-		        arc: {
-		            borderWidth: 0
-		        }
-		    },
-		    responsive: true,
-		    legend: {
-		        display: false
-		    }
+			elements: {
+				arc: {
+					borderWidth: 0
+				}
+			},
+			responsive: true,
+			legend: {
+				display: false
+			}
 		};
+
 		vm.chartColors = [{
-		    backgroundColor: 'rgba(255,0,0,0.8)',
-		    pointBackgroundColor: 'rgba(255,0,0,0.5)',
-		    pointHoverBackgroundColor: 'rgba(255,0,0,0.6)',
-		    borderColor: 'rgba(255,0,0,0.6)',
-		    pointBorderColor: 'rgba(255,0,0,0.6)',
-		    pointHoverBorderColor: 'rgba(255,0,0,0.6)'
-		},
-		{
-		    backgroundColor: 'rgba(0,255,0,0.8)',
-		    pointBackgroundColor: 'rgba(0,255,0,0.5)',
-		    pointHoverBackgroundColor: 'rgba(77,83,96,1)',
-		    borderColor: 'rgba(77,83,96,1)',
-		    pointBorderColor: '#fff',
-		    pointHoverBorderColor: 'rgba(77,83,96,0.8)'
-		}];
+				backgroundColor: 'rgba(255,0,0,0.8)',
+				pointBackgroundColor: 'rgba(255,0,0,0.5)',
+				pointHoverBackgroundColor: 'rgba(255,0,0,0.6)',
+				borderColor: 'rgba(255,0,0,0.6)',
+				pointBorderColor: 'rgba(255,0,0,0.6)',
+				pointHoverBorderColor: 'rgba(255,0,0,0.6)'
+			},
+			{
+				backgroundColor: 'rgba(0,255,0,0.8)',
+				pointBackgroundColor: 'rgba(0,255,0,0.5)',
+				pointHoverBackgroundColor: 'rgba(77,83,96,1)',
+				borderColor: 'rgba(77,83,96,1)',
+				pointBorderColor: '#fff',
+				pointHoverBorderColor: 'rgba(77,83,96,0.8)'
+			}
+		];
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
-        if($state.is('solutions.action')){
-            vm.desc = 'Proposed action for the solution "' + vm.solution.title + '": ' + vm.actions[0].title;
-        }
+		if ($state.is('solutions.action')) {
+			vm.desc = 'Proposed action for the solution "' + vm.solution.title + '": ' + vm.actions[0].title;
+		}
 
 		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
 
@@ -75,7 +77,6 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		}
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
 
-
 		function getActions() {
 			ActionService.list({
 				solutionId: $stateParams.solutionId
@@ -95,14 +96,14 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			});
 		};
 
-        vm.shareAction = function(action, provider) {
-            SocialshareService.share({
+		vm.shareAction = function (action, provider) {
+			SocialshareService.share({
 				provider: provider,
 				rel_url: '/solutions/' + vm.solution._id + '/?actionId=' + action._id,
 				title: action.title,
 				hashtags: vm.solution.tags.join()
 			});
-        };
+		};
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();
@@ -146,7 +147,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		};
 
 		vm.searchIssues = function (query) {
-			return IssueService.searchIssues({search: query});
+			return IssueService.searchIssues({
+				search: query
+			});
 		};
 
 		vm.deleteAction = function (action) {
@@ -159,13 +162,13 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 		vm.voteAction = function (action, voteType, $event) {
 			$event.stopPropagation();
-			VoteService.vote(action, 'Action', voteType).then(function(data) {
+			VoteService.vote(action, 'Action', voteType).then(function (data) {
 				action.$get();
 			});
 		};
 
 		vm.vote = function (voteType) {
-			VoteService.vote(vm.solution, 'Solution', voteType).then(function(data) {
+			VoteService.vote(vm.solution, 'Solution', voteType).then(function (data) {
 				vm.solution.$get();
 			});
 		};

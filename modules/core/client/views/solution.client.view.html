@@ -38,22 +38,17 @@
 		</div>
 
 		<div layout="column" layout-gt-sm="row" layout-padding layout-align="start start" layout-align-gt-sm="start center">
-			<div layout="row" >
+
+			<div layout="row">
 				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote('up')">
 					<md-icon>arrow_upward</md-icon> Vote Up
 					<md-tooltip ng-if="vm.solution.votes.currentUser.voteValue===1">Undo</md-tooltip>
 				</md-button>
 				<div class="chart-container">
-				    <div class="chart-score">
-				        <span>{{vm.solution.votes.up - vm.solution.votes.down}}</span>
-				    </div>
-				    <canvas id="doughnut"
-				        class="chart chart-doughnut"
-				        chart-data="[vm.solution.votes.down, vm.solution.votes.up]"
-				        chart-labels="vm.chartLabels"
-				        chart-options="vm.chartOptions"
-				        chart-colors="vm.chartColors">
-				    </canvas>
+					<div class="chart-score">
+						<span>{{vm.solution.votes.up - vm.solution.votes.down}}</span>
+					</div>
+					<vote-details object="vm.solution"></vote-details>
 				</div>
 				<!-- <md-button class="md-fab md-primary md-hue-2 vote-score" ng-class="" ng-click="">
 					<md-tooltip>
@@ -85,32 +80,32 @@
 					</md-fab-trigger>
 
 					<md-fab-actions>
-            <md-button aria-label="Share to Facebook" class="md-icon-button" ng-click="vm.share('facebook')">
-              <md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
-              <md-tooltip>Facebook</md-tooltip>
-            </md-button>
+						<md-button aria-label="Share to Facebook" class="md-icon-button" ng-click="vm.share('facebook')">
+							<md-icon md-svg-src="/modules/core/client/img/facebook.svg"></md-icon>
+							<md-tooltip>Facebook</md-tooltip>
+						</md-button>
 
-            <md-button aria-label="Share on Twitter" class="md-icon-button" ng-click="vm.share('twitter')">
-              <md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
-              <md-tooltip>Twitter</md-tooltip>
-            </md-button>
+						<md-button aria-label="Share on Twitter" class="md-icon-button" ng-click="vm.share('twitter')">
+							<md-icon md-svg-src="/modules/core/client/img/twitter.svg"></md-icon>
+							<md-tooltip>Twitter</md-tooltip>
+						</md-button>
 
-            <md-button aria-label="Share on Google+" class="md-icon-button" ng-click="vm.share('google_plus')">
-              <md-icon md-svg-src="/modules/core/client/img/google-plus.svg"></md-icon>
-              <md-tooltip>Google+</md-tooltip>
-            </md-button>
+						<md-button aria-label="Share on Google+" class="md-icon-button" ng-click="vm.share('google_plus')">
+							<md-icon md-svg-src="/modules/core/client/img/google-plus.svg"></md-icon>
+							<md-tooltip>Google+</md-tooltip>
+						</md-button>
 
-            <md-button aria-label="Share on LinkedIn" class="md-icon-button" ng-click="vm.share('linkedin')">
-              <md-icon md-svg-src="/modules/core/client/img/linkedin.svg"></md-icon>
-              <md-tooltip>LinkedIn</md-tooltip>
-            </md-button>
+						<md-button aria-label="Share on LinkedIn" class="md-icon-button" ng-click="vm.share('linkedin')">
+							<md-icon md-svg-src="/modules/core/client/img/linkedin.svg"></md-icon>
+							<md-tooltip>LinkedIn</md-tooltip>
+						</md-button>
 
-            <md-button aria-label="Share on Reddit" class="md-icon-button" ng-click="vm.share('reddit')">
-              <md-icon md-svg-src="/modules/core/client/img/reddit.svg"></md-icon>
-              <md-tooltip>Reddit</md-tooltip>
-            </md-button>
-          </md-fab-actions>
-        </md-fab-speed-dial>
+						<md-button aria-label="Share on Reddit" class="md-icon-button" ng-click="vm.share('reddit')">
+							<md-icon md-svg-src="/modules/core/client/img/reddit.svg"></md-icon>
+							<md-tooltip>Reddit</md-tooltip>
+						</md-button>
+					</md-fab-actions>
+				</md-fab-speed-dial>
 			</div>
 		</div>
 	</div>
@@ -201,12 +196,28 @@
 								<md-icon>arrow_upward</md-icon>
 							</md-button>
 							<!-- up: {{action.votes.up}}, down: {{action.votes.down}}, total: {{action.votes.total}}, currentUser: {{action.votes.currentUser.voteValue}}, score:  {{action.votes.up - action.votes.down + action.votes.currentUser.voteValue}} -->
-							<md-button class="md-icon-button" ng-class="" ng-click="">
+							<!-- <md-button class="md-icon-button" ng-class="" ng-click="">
 								<md-tooltip>
 									<span>For: {{action.votes.up}}, Against: {{action.votes.down}}</span>
 								</md-tooltip>
 								{{action.votes.up - action.votes.down}}
-							</md-button>
+							</md-button> -->
+							<div class="card-chart-container">
+								<div class="card-chart-score">
+									<span>{{action.votes.up - action.votes.down}}</span>
+								</div>
+								<canvas id="card-pie"
+									class="chart chart-pie"
+									chart-data="[action.votes.down, action.votes.up]"
+									chart-labels="vm.chartLabels"
+									chart-options="vm.chartOptions"
+									chart-colors="vm.chartColors"
+									height="100%" width="100%">
+								</canvas>
+								<md-tooltip>
+									<span>For: {{action.votes.up}}, Against: {{action.votes.down}}</span>
+								</md-tooltip>
+							</div>
 							<md-button class="md-icon-button vote-btn" ng-class="{ selected: action.votes.currentUser.voteValue===-1 }" ng-click="vm.voteAction(action, 'down', $event)">
 								<md-tooltip>
 									<span ng-if="action.votes.currentUser.voteValue===-1">Undo</span>
@@ -259,7 +270,7 @@
 			</div>
 		</md-tab>
 		<md-tab label="media">
-			<media-list media="vm.media" object-id="vm.solution._id", object-type="'solution'"></media-list>
+			<media-list media="vm.media" object-id="vm.solution._id" , object-type="'solution'"></media-list>
 		</md-tab>
 	</md-tabs>
 

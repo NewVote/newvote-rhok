@@ -1,0 +1,57 @@
+
+
+<md-dialog aria-label="Mango (Fruit)">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Vote Data</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content layout="row" layout-padding>
+			<div flex>
+				<canvas id="detail-pie" class="chart chart-pie" chart-data="[vm.object.votes.down, vm.object.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" width="100%" height="100%">
+			</canvas>
+			</div>
+			<div layout="row" layout-padding>
+				<div layout="column" layout-align="center start">
+					<span>Total:</span>
+					<span>Score:</span>
+					<span>Up:</span>
+					<span>Down:</span>
+				</div>
+				<div flex layout="column" layout-align="center end">
+					<span>{{vm.object.votes.up + vm.object.votes.down}}</span>
+					<span>{{vm.object.votes.up - vm.object.votes.down}}</span>
+					<span>{{vm.object.votes.up}}</span>
+					<span>{{vm.object.votes.down}}</span>
+				</div>
+			</div>
+    </md-dialog-content>
+
+    <!-- <md-dialog-actions layout="row">
+      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        More on Wikipedia
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('not useful')">
+       Not Useful
+      </md-button>
+      <md-button ng-click="answer('useful')">
+        Useful
+      </md-button>
+    </md-dialog-actions> -->
+  </form>
+</md-dialog>
+
+
+
+<!-- <md-dialog layout-padding layout="row" class="vote-details" ng-if="vm.showDetails">
+	<md-dialog-content>
+
+	</md-dialog-content>
+</md-dialog> -->
