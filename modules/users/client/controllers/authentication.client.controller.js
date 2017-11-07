@@ -10,6 +10,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 			$scope.user = $scope.authentication.user;
 		}
 
+		console.log($state);
+
 		// Update Title
 		var titleText = '';
 		if ($state.is('authentication.signin')) {

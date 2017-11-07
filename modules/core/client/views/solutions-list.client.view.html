@@ -12,10 +12,10 @@
 		<md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button> -->
 
 		<div hide show-gt-sm>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top</md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial</md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending</md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest</md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top<md-tooltip>Total score of votes</md-tooltip></md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial<md-tooltip>Greatest difference in opinion</md-tooltip></md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending<md-tooltip>Recently popular</md-tooltip></md-button>
+			<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest<md-tooltip>Most recently updated or created</md-tooltip></md-button>
 		</div>
 
 		<div hide-gt-sm layout="row" layout-align="end center" flex="fill">

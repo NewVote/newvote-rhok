@@ -70,7 +70,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			$rootScope.headerTitle = 'Add Solution';
 		} else if ($state.is('solutions.view')) {
 			vm.titleText = solution.title;
-			$rootScope.headerTitle = "Solution";
+			$rootScope.headerTitle = 'Solution';
 		} else if ($state.is('solutions.action')) {
 			vm.titleText = solution.title + ' | Proposed Action';
 			$rootScope.headerTitle = 'Proposed Action';

@@ -8,7 +8,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		vm.media = media;
 		vm.issueId = issue._id;
 		vm.solutions = solutions;
-
+		
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
 		vm.image = vm.issue.imageUrl;
@@ -23,7 +23,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 			$rootScope.headerTitle = 'Add Issue';
 		} else if ($state.is('issues.view')) {
 			vm.titleText = vm.issue.name;
-			$rootScope.headerTitle = "Issue";
+			$rootScope.headerTitle = 'Issue';
 		}
 
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;

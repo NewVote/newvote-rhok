@@ -58,6 +58,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				controller: 'IssueController',
 				controllerAs: 'vm',
 				data: {
+					roles: ['admin'],
 					title: 'Create Issue'
 				},
 				resolve: {
@@ -236,6 +237,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				controller: 'SuggestionsController',
 				controllerAs: 'vm',
 				data: {
+					roles: ['admin'],
 					title: 'Create Suggestion'
 				}
 			})

@@ -3,6 +3,10 @@ md-grid-tile-footer.ng-scope {
   background: rgba(0, 96, 100, .8);
 }
 
+a:link, a:visited, a:active {
+    color: white;
+}
+
 h3.ng-binding.ng-scope {
   font-weight: 600;
 }
@@ -378,8 +382,8 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 
 .chart-score {
 	position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 	height: 60px;
 	width: 60px;
 	display: flex;
@@ -398,8 +402,8 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 
 .card-chart-score {
 	position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 	height: 40px;
 	width: 40px;
 	display: flex;

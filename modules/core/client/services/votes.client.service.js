@@ -37,6 +37,7 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 					return data;
 				}, function (err) {
 					console.log('Error saving vote: ', err.data.message);
+					console.log('req: ', err.data.req);
 					object.votes.currentUser = existingVote;
 				});
 			}else {
