@@ -9,9 +9,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 		} else {
 			$scope.user = $scope.authentication.user;
 		}
-
-		console.log($state);
-
 		// Update Title
 		var titleText = '';
 		if ($state.is('authentication.signin')) {
@@ -77,13 +74,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 					$window.user = response.data;
 
 					// And redirect to the previous or home page
-					if ($scope.user.terms) {
+					if ($scope.authentication.user.terms) {
 						$state.go($state.previous.state.name || 'home', $state.previous.params);
 					} else {
 						$state.go('setup', {
 							previous: $state.previous.state.name
 						});
 					}
+					$rootScope.$emit('login:success', $scope.authentication.user);
 				},
 				function (response) {
 					console.log('error in sign in: ', response);
@@ -122,6 +120,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 
 		// OAuth provider request
 		$scope.callOauthProvider = function (url) {
+			console.log('oauth url:', url);
 			if ($state.previous && $state.previous.href) {
 				url += '?redirect_to=' + encodeURIComponent($state.previous.href);
 			}

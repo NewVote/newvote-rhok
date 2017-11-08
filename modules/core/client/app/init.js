@@ -87,6 +87,18 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
 			};
 		}
 	}
+}).run(function($rootScope, $state, Authentication, $localStorage, $http, VoteService) {
+	console.log('auth object: ', Authentication);
+	if(Authentication.user.roles){
+		var pending = $localStorage.pendingVotes? $localStorage.pendingVotes : [];
+		console.log('pending votes: ', pending);
+		for (var i = 0; i < pending.length; i++) {
+			var vote = pending[i];
+			console.log('sending vote: ', vote);
+			VoteService.vote(vote.object, vote.objectType, vote.voteType);
+		}
+		delete $localStorage.pendingVotes;
+	}
 }).filter('htmlToPlaintext', function () {
 	return function (text) {
 		return text ? String(text).replace(/<[^>]+>/gm, ' ').replace('&nbsp;', ' ') : '';

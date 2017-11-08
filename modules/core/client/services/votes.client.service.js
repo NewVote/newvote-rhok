@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').service('VoteService', ['$resource', '$state', '$stateParams', '$q', '_', 'VOTE_TYPES',
-	function ($resource, $state, $stateParams, $q, _, VOTE_TYPES) {
+angular.module('core').service('VoteService', ['$resource', '$state', '$stateParams', '$q', '_', 'VOTE_TYPES', '$localStorage',
+	function ($resource, $state, $stateParams, $q, _, VOTE_TYPES, $localStorage) {
 		var Vote = $resource('api/votes/:voteId', {
 			voteId: '@_id'
 		}, {
@@ -18,7 +18,8 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 		};
 
 		svc.vote = function (object, objectType, voteType) {
-			console.log(object);
+			console.log('new vote from vote service');
+			console.log('vote object: ', object);
 			if (object.votes) {
 				var existingVote = object.votes.currentUser;
 				var voteValue = VOTE_TYPES[voteType];
@@ -37,7 +38,18 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 					return data;
 				}, function (err) {
 					console.log('Error saving vote: ', err.data.message);
-					console.log('req: ', err.data.req);
+					console.log(err);
+					if(err.status === 401){
+						if(!$localStorage.pendingVotes){
+							$localStorage.pendingVotes = [];
+						}
+						$localStorage.pendingVotes.push({
+							object: object,
+							objectType: objectType,
+							voteType: voteType
+						});
+						console.log($localStorage);
+					}
 					object.votes.currentUser = existingVote;
 				});
 			}else {

@@ -2,7 +2,7 @@ md-grid-tile-footer.ng-scope {
   background: #006064;
   background: rgba(0, 96, 100, 0.8); }
 
-a:link, a:visited, a:active {
+md-toolbar a:link, md-toolbar a:visited, md-toolbar a:active {
   color: white; }
 
 h3.ng-binding.ng-scope {
