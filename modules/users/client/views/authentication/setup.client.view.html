@@ -27,7 +27,7 @@
 			<md-input-container class="md-block" flex-gt-sm>
 				<label>Last Name</label>
 				<input required ng-model="user.lastName" name="lastName">
-				<div ng-messages="userForm.postalCode.$error" role="alert">
+				<div ng-messages="userForm.lastName.$error" role="alert">
 					<div ng-message="required" class="my-message">This is required.</div>
 				</div>
 			</md-input-container>
@@ -36,7 +36,7 @@
 				<label>Postal Code</label>
 				<input name="postalCode" ng-model="user.postalCode" placeholder="e.g 4000" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
 
-				<div ng-messages="userForm.lastName.$error" role="alert" multiple>
+				<div ng-messages="userForm.postalCode.$error" role="alert" multiple>
 					<div ng-message="required" class="my-message">You must supply a postal code.</div>
 					<div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
 					</div>

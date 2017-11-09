@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
 var RegionSchema = new Schema({
   name: {
     type: String,
+    unique: true,
     required: true
   },
   postcodes: [{
