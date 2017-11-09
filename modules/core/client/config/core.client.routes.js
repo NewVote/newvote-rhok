@@ -280,8 +280,16 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				controller: 'SuggestionsController',
 				controllerAs: 'vm',
 				data: {
-					roles: ['admin'],
+					roles: ['admin', 'user'],
 					title: 'Create Suggestion'
+				},
+				resolve: {
+					suggestion: function() {
+						return {
+							issues: [],
+							solutions: []
+						};
+					}
 				}
 			})
 
