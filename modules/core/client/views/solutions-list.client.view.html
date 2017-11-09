@@ -45,7 +45,7 @@
 					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
 				</md-card-avatar>
 				<md-card-header-text>
-					<span ng-if="authentication.user.roles.indexOf('admin')>-1">cont: {{vm.controversialSort(solution)}}</span>
+					<!-- <span ng-if="authentication.user.roles.indexOf('admin')>-1">cont: {{vm.controversialSort(solution)}}</span> -->
 					<span class="md-title">{{::solution.title}}</span>
 					<span class="md-subhead description-container"><div class="description" ng-bind="solution.description | htmlToPlaintext"></div></span>
 				</md-card-header-text>

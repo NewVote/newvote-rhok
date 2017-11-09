@@ -81,7 +81,11 @@ exports.list = function (req, res) {
   var actionId = req.query.actionId;
   var query;
   if (solutionId) {
-    query = { solution: solutionId };
+    // query = { solutions: solutionId };
+    query = {
+        $or: [{ solutions: solutionId },
+            { solution: solutionId }]
+    };
   } else if (searchParams) {
     query = { title: {
       $regex: searchParams,
@@ -119,7 +123,7 @@ exports.actionByID = function (req, res, next, id) {
   }
 
   Action.findById(id).populate('user', 'displayName')
-  .populate('solution')
+  .populate('solutions').populate('solution')
   .exec(function (err, action) {
     if (err) {
       return next(err);

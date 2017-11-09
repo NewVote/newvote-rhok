@@ -11,6 +11,8 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.isSingleAction = isSingleAction;
 		vm.media = media;
 
+		console.log('actions: ', vm.actions);
+
 		vm.chartLabels = ['Against', 'For'];
 		vm.chartOptions = {
 			elements: {
@@ -129,7 +131,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		};
 
 		vm.searchIssues = function (query) {
-			return IssueService.searchIssues({
+			return IssueService.list({
 				search: query
 			});
 		};

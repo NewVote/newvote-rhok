@@ -33,5 +33,12 @@ angular.module('core').service('SolutionService', ['$resource', '$stateParams', 
 			var solution = new Solution(solutionObj);
 			return solution._id ? solution.$update() : solution.$save();
 		};
+
+		svc.searchSolutions = function (query) {
+			// console.log('svc searching: ', query);
+			return svc.list({
+				search: query
+			});
+		};
 	}
 ]);

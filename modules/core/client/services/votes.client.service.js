@@ -18,8 +18,6 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 		};
 
 		svc.vote = function (object, objectType, voteType) {
-			console.log('new vote from vote service');
-			console.log('vote object: ', object);
 			if (object.votes) {
 				var existingVote = object.votes.currentUser;
 				var voteValue = VOTE_TYPES[voteType];
@@ -34,11 +32,8 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 				object.votes.currentUser = vote;
 
 				return svc.createOrUpdate(vote).then(function(data) {
-					console.log('vote data: ', data);
 					return data;
 				}, function (err) {
-					console.log('Error saving vote: ', err.data.message);
-					console.log(err);
 					if(err.status === 401){
 						if(!$localStorage.pendingVotes){
 							$localStorage.pendingVotes = [];
@@ -48,7 +43,6 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 							objectType: objectType,
 							voteType: voteType
 						});
-						console.log($localStorage);
 					}
 					object.votes.currentUser = existingVote;
 				});
