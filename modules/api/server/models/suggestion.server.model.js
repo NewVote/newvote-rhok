@@ -24,6 +24,16 @@ var SuggestionSchema = new Schema({
     default: '',
     trim: true
   },
+  issues: [{
+      type: Schema.ObjectId,
+      ref: 'Issue',
+      required: false
+  }],
+  solutions: [{
+      type: Schema.ObjectId,
+      ref: 'Solution',
+      required: false
+  }],
   type: {
       type: String,
       default: '',

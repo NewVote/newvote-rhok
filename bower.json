@@ -21,7 +21,9 @@
     "ng-file-upload": "^12.2.13",
     "angular-update-meta": "~2.0.1",
     "angular-chart.js": "^1.1.1",
-    "chart.js": "^2.7.1"
+    "chart.js": "^2.7.1",
+    "angular-material-icons": "^0.7.1",
+    "ngstorage": "^0.3.11"
   },
   "resolutions": {
     "angular": "~1.6.4",

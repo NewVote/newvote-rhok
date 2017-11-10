@@ -68,6 +68,9 @@ var UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  postalCode: {
+      type: String
+  },
   password: {
     type: String,
     default: ''

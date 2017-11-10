@@ -23,7 +23,7 @@
 			<div flex></div>
 
 			<div layout="row" layout-align="center center">
-				<div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id===vm.issue.user._id">
+				<div ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.issue.user._id)">
 					<md-button class="md-icon-button" ng-click="vm.delete()">
 						<md-tooltip>Delete Issue</md-tooltip>
 						<md-icon>delete</md-icon>
@@ -58,12 +58,11 @@
 
 			<div flex></div>
 
-			<md-button  ng-click="vm.showFullDesc=!vm.showFullDesc">
+			<md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
 				<span ng-if="vm.showFullDesc">Show Less</span>
 				<span ng-if="!vm.showFullDesc">...Show More</span>
 			</md-button>
 		</div>
-
 
 
 		<share-buttons object="vm.issue" object-type="'issue'" vertical-resize="false"></share-buttons>
@@ -76,7 +75,7 @@
 			<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
 		</md-tab>
 		<md-tab label="media">
-			<media-list media="vm.media" object-id="vm.issueId", object-type="'issue'"></media-list>
+			<media-list media="vm.media" object-id="vm.issueId" , object-type="'issue'"></media-list>
 		</md-tab>
 		<md-tab label="discuss">
 			<md-content layout="column" ng-if="!prerender">
@@ -85,6 +84,11 @@
 					</div>
 				</div>
 			</md-content>
+		</md-tab>
+		<md-tab label="endorsements">
+			<div layout-padding>
+				<span>In the future this section will provide endorsements from reputable organisations.</span>
+			</div>			
 		</md-tab>
 	</md-tabs>
 </div>

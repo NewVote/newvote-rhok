@@ -4,7 +4,7 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
   function ($resource, $stateParams, $q, _) {
 
     var svc = this;
-    svc.expression = '-votes.up';
+    svc.expression = '-votes.up-votes.down';
     svc.reverse = false;
 
     var controversialSort = function(a){
@@ -32,7 +32,7 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
 
         if(objectType === 'solution' || objectType === 'action'){
             if(sortParam === 'top'){
-                return 'votes.up';
+                return 'votes.up-votes.down';
             }else if(sortParam === 'controversial'){
                 return controversialSort;
             }else if(sortParam === 'trending'){
@@ -45,7 +45,7 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
             if(sortParam === 'alpha') {
                 return 'name';
             }else if(sortParam === 'top'){
-                return 'solutionMetaData.votes.up';
+                return 'solutionMetaData.votes.up-solutionMetaData.votes.down';
             }else if(sortParam === 'controversial'){
                 return controversialSort;
             }else if(sortParam === 'trending'){

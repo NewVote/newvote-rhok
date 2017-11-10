@@ -109,7 +109,6 @@ exports.oauthCallback = function (strategy) {
 
     passport.authenticate(strategy, function (err, user, redirectURL) {
       if (err) {
-        console.log('err', err, arguments);
         return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
       }
       if (!user) {
@@ -119,7 +118,7 @@ exports.oauthCallback = function (strategy) {
         if (err) {
           return res.redirect('/authentication/signin');
         }
-
+        res.locals.oauthLoginSuccess = true;
         return res.redirect(sessionRedirectURL || '/');
       });
     })(req, res, next);

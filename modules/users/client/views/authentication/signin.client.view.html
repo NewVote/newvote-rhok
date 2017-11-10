@@ -11,8 +11,6 @@
   <!-- Twitter META -->
   <update-meta name="twitter:title" content="{{ title }}"></update-meta>
   <update-meta name="twitter:url" use-abs-url="true"></update-meta>
-
-	<h3 class="col-md-12 text-center">Or with your account</h3>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
 		<form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
 			<fieldset>
@@ -39,7 +37,7 @@
 
 				<div class="text-center form-group">
 					<md-button type="submit" class="md-raised md-primary">Sign In</md-button> or
-					<md-button ui-sref="authentication.signup" class="md-secondary">Sign Up</md-button>
+					<md-button ui-sref="authentication.signup" class="md-raised md-secondary">Sign Up</md-button>
 				</div>
 
 				<div class="text-center forgot-password">

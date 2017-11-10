@@ -23,19 +23,33 @@
   <label>Suggestion Description</label>
   <ng-quill-editor ng-model="vm.suggestion.description"></ng-quill-editor>
 
-  <!-- <md-contact-chips
-    ng-model="vm.solution.issues"
+  <md-contact-chips
+    ng-model="vm.suggestion.issues"
     md-contacts="vm.searchIssues($query)"
     md-contact-name="name"
     md-require-match="true"
     md-highlight-flags="i"
     md-delay="400"
-    placeholder="Issues Addressed"
-    secondary-placeholder="Add a related issue">
-  </md-contact-chips> -->
+    placeholder="Linked Issues"
+    secondary-placeholder="Add another issue">
+  </md-contact-chips>
+
+  <md-contact-chips
+    ng-model="vm.suggestion.solutions"
+    md-contacts="vm.searchSolutions($query)"
+    md-contact-name="title"
+    md-require-match="true"
+    md-highlight-flags="i"
+    md-delay="400"
+    placeholder="Linked Solutions"
+    secondary-placeholder="Add another solution">
+  </md-contact-chips>
+
   <div layout="row">
     <md-button class="md-raised md-primary" ng-click="vm.create()">
-      <span>Create</span>
+      <span>Send</span>
     </md-button>
   </div>
+
+  <!-- <span ng-bind-html="vm.suggestion.mailText"></span> -->
 </div>

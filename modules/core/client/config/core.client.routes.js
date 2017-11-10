@@ -58,6 +58,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				controller: 'IssueController',
 				controllerAs: 'vm',
 				data: {
+					roles: ['admin'],
 					title: 'Create Issue'
 				},
 				resolve: {
@@ -230,13 +231,65 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				}
 			})
 
+			.state('actions', {
+				url: '/actions',
+				abstract: true,
+				template: '<ui-view/>'
+			})
+
+			.state('actions.create', {
+				url: '/create?:solutionId',
+				templateUrl: 'modules/core/client/views/edit-action.client.view.html',
+				controller: 'ActionController',
+				controllerAs: 'vm',
+				data: {
+					roles: ['admin'],
+					title: 'Create Action'
+				},
+				resolve: {
+					action: function () {
+						return {
+							solutions: []
+						};
+					}
+				}
+			})
+			.state('actions.edit', {
+				url: '/:actionId/edit',
+				templateUrl: 'modules/core/client/views/edit-action.client.view.html',
+				controller: 'ActionController',
+				controllerAs: 'vm',
+				params: {
+					actionId: null,
+					solutionId: null
+				},
+				data: {
+					roles: ['admin'],
+					title: 'Edit Action'
+				},
+				resolve: {
+					action: ['ActionService', '$stateParams', function (ActionService, $stateParams) {
+						return ActionService.get($stateParams.actionId);
+					}]
+				}
+			})
+
 			.state('suggestions', {
 				url: '/suggestions',
 				templateUrl: 'modules/core/client/views/edit-suggestion.client.view.html',
 				controller: 'SuggestionsController',
 				controllerAs: 'vm',
 				data: {
+					roles: ['admin', 'user'],
 					title: 'Create Suggestion'
+				},
+				resolve: {
+					suggestion: function() {
+						return {
+							issues: [],
+							solutions: []
+						};
+					}
 				}
 			})
 
@@ -247,13 +300,17 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			})
 
 			.state('media.create', {
-				url: '/create?:objectId&:objectType',
+				url: '/create',
 				templateUrl: 'modules/core/client/views/edit-media.client.view.html',
 				controller: 'MediaController',
 				controllerAs: 'vm',
 				data: {
 					roles: ['admin'],
 					title: 'Create Media'
+				},
+				params: {
+					objectId: null,
+					objectType: null
 				},
 				resolve: {
 					media: function () {

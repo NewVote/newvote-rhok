@@ -6,8 +6,40 @@
 var path = require('path'),
 	mongoose = require('mongoose'),
 	Suggestion = mongoose.model('Suggestion'),
+	Issue = mongoose.model('Issue'),
+	Solution = mongoose.model('Solution'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+	nodemailer = require('nodemailer'),
+	transporter = nodemailer.createTransport(),
 	_ = require('lodash');
+
+
+var buildMessage = function(suggestion, req) {
+	var messageString = '';
+	var url = req.protocol + '://' + req.get('host');
+	messageString += '<h3>' + suggestion.title + '</h3>';
+	if(suggestion.issues) {
+		messageString += '<p>Related issues: ';
+		for (var i = 0; i < suggestion.issues.length; i++) {
+			var issue = suggestion.issues[i];
+			messageString += '<a target="_blank" href="' + url + '/issues/' + issue._id + '">' + issue.name + '</a> ';
+		}
+		messageString += '</p>';
+	}
+	if(suggestion.solutions) {
+		messageString += '<p>Related Solutions: ';
+		for (var x = 0; x < suggestion.solutions.length; x++) {
+			var solution = suggestion.solutions[x];
+			messageString += '<a target="_blank" href="' + url + '/solutions/' + solution._id + '">' + solution.title + '</a> ';
+		}
+		messageString += '</p>';
+	}
+
+	messageString += '<p>User: ' + suggestion.user.firstName + ' ' + suggestion.user.lastName + '</p>';
+	messageString += 'Message: ' + suggestion.description;
+
+	return messageString;
+};
 
 /**
  * Create a suggestion
@@ -21,6 +53,15 @@ exports.create = function (req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			Suggestion.populate(suggestion, { path: 'issues solutions user' }).then(function(suggestion) {
+				// console.log(buildMessage(suggestion, req));
+				transporter.sendMail({
+					from: req.user.email,
+					to: 'rohan.m.richards@gmail.com',
+					subject: 'NewVote Suggestion',
+					html: buildMessage(suggestion, req)
+				});
+			});
 			res.json(suggestion);
 		}
 	});
@@ -122,7 +163,7 @@ exports.suggestionByID = function (req, res, next, id) {
 
 	Suggestion.findById(id)
 		.populate('user', 'displayName')
-		.populate('issues').exec(function (err, suggestion) {
+		.populate('issues').populate('solutions').exec(function (err, suggestion) {
 			if (err) {
 				return next(err);
 			} else if (!suggestion) {

@@ -39,14 +39,14 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
 	// Check authentication before changing state
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if(Authentication.user && !Authentication.user.terms && toState.name !== 'setup'){
-            console.log(Authentication.user);
+            // console.log(Authentication.user);
             event.preventDefault();
-            console.log('user has not accepted terms');
+            // console.log('user has not accepted terms');
             $state.go('setup');
         }
 
 		if (toState.data && toState.data.title) {
-			console.log('setting title', toState.data.title);
+			// console.log('setting title', toState.data.title);
 			$rootScope.pageTitle = toState.data.title;
 		}
 		if (toState.data && toState.data.roles && toState.data.roles.length > 0) {
@@ -86,6 +86,18 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
 				href: $state.href(state, params)
 			};
 		}
+	}
+}).run(function($rootScope, $state, Authentication, $localStorage, $http, VoteService) {
+	// console.log('auth object: ', Authentication);
+	if(Authentication.user.roles){
+		var pending = $localStorage.pendingVotes? $localStorage.pendingVotes : [];
+		// console.log('pending votes: ', pending);
+		for (var i = 0; i < pending.length; i++) {
+			var vote = pending[i];
+			// console.log('sending vote: ', vote);
+			VoteService.vote(vote.object, vote.objectType, vote.voteType);
+		}
+		delete $localStorage.pendingVotes;
 	}
 }).filter('htmlToPlaintext', function () {
 	return function (text) {

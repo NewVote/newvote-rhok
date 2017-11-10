@@ -1,61 +1,120 @@
-<div layout="column" layout-padding class="user-verification" ng-controller="AuthenticationController">
+<md-content layout-padding class="user-verification" ng-controller="AuthenticationController">
 
-  <!-- Meta tags -->
-  <!-- Basic meta tags -->
-  <update-title title="{{ title }}"></update-title>
+	<!-- Meta tags -->
+	<!-- Basic meta tags -->
+	<update-title title="{{ title }}"></update-title>
 
-  <!-- Facebook META -->
-  <update-meta property="og:title" content="{{ title }}"></update-meta>
-  <update-meta property="og:url" use-abs-url="true"></update-meta>
+	<!-- Facebook META -->
+	<update-meta property="og:title" content="{{ title }}"></update-meta>
+	<update-meta property="og:url" use-abs-url="true"></update-meta>
 
-  <!-- Twitter META -->
-  <update-meta name="twitter:title" content="{{ title }}"></update-meta>
-  <update-meta name="twitter:url" use-abs-url="true"></update-meta>
+	<!-- Twitter META -->
+	<update-meta name="twitter:title" content="{{ title }}"></update-meta>
+	<update-meta name="twitter:url" use-abs-url="true"></update-meta>
 
 	<p layout="row" layout-align="center center" layout-padding class="info-banner">In the future, this page will verify your personal details using government issued ID.</p>
 
-	<div layout-padding layout="row" layout-align="center center">
-		<form name="userForm" ng-submit="update(userForm.$valid)">
-			<md-input-container class="md-block" flex-gt-sm>
-				<label>First Name</label>
-				<input required ng-model="user.firstName" name="firstName">
-				<div ng-messages="userForm.firstName.$error" role="alert">
-					<div ng-message="required" class="my-message">This is required.</div>
-				</div>
-			</md-input-container>
+	<div layout-padding layout="column" flex-offset-lg="15" flex-lg="75" flex-offset-xl="25" flex-xl="50">
+        <md-tabs md-dynamic-height class="md-primary" md-selected="data.selectedIndex" md-align-tabs="top" flex>
+            <md-tab id="tab1" ng-disabled="data.setupLocked">
+                <md-tab-label>Verification</md-tab-label>
+                <md-tab-body>
+                    <form name="userForm" ng-submit="setup(userForm.$valid)" >
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm="50">
+                                <label>First Name</label>
+                                <input required ng-model="user.firstName" name="firstName">
+                                <div ng-messages="userForm.firstName.$error" role="alert">
+                                    <div ng-message="required" class="my-message">This is required.</div>
+                                </div>
+                            </md-input-container>
 
-			<md-input-container class="md-block" flex-gt-sm>
-				<label>Last Name</label>
-				<input required ng-model="user.lastName" name="lastName">
-				<div ng-messages="userForm.lastName.$error" role="alert">
-					<div ng-message="required" class="my-message">This is required.</div>
-				</div>
-			</md-input-container>
-
-			<md-input-container class="md-block" flex-gt-sm>
-				<label>Postal Code</label>
-				<input name="postalCode" ng-model="user.postalCode" placeholder="e.g 4000" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
-
-				<div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-					<div ng-message="required" class="my-message">You must supply a postal code.</div>
-					<div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
-					</div>
-				</div>
-			</md-input-container>
-
-			<md-input-container class="md-block" flex-gt-sm>
-				<md-checkbox ng-model="user.terms" aria-label="I accept the terms and conditions" required name="terms">
-					I accept the <a href="#">terms and conditions</a>
-				</md-checkbox>
-				<div ng-messages="userForm.terms.$error" md-auto-hide="false">
-					<div ng-message="required">
-						You must accept the terms of service before you can proceed.
-					</div>
-				</div>
-			</md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="50">
+                                <label>Last Name</label>
+                                <input required ng-model="user.lastName" name="lastName">
+                                <div ng-messages="userForm.lastName.$error" role="alert">
+                                    <div ng-message="required" class="my-message">This is required.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
 
 
-			<md-button type="submit" class="md-raised md-primary">Submit</md-button>
-		</form>
+                        <md-input-container class="md-block">
+                            <label>Postal Code</label>
+                            <input name="postalCode" ng-model="user.postalCode" placeholder="e.g 4000" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+
+                            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                                <div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
+                                </div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <md-checkbox ng-model="user.terms" aria-label="I accept the terms and conditions" required name="terms">
+                                I accept the <a href="#">terms and conditions</a>
+                            </md-checkbox>
+                            <div ng-messages="userForm.terms.$error" md-auto-hide="false">
+                                <div ng-message="required">
+                                    You must accept the terms of service before you can proceed.
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-button type="submit" class="md-raised md-primary">Next</md-button>
+                    </form>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="tab2" ng-disabled="data.profileLocked">
+                <md-tab-label>Profile</md-tab-label>
+                <md-tab-body>
+                    <form name="profileForm" ng-submit="update(profileForm.$valid)">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>User Name</label>
+                            <input required ng-model="user.username" name="userName">
+                            <div ng-messages="profileForm.userName.$error" role="alert">
+                                <div ng-message="required" class="my-message">This is required.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>E-mail</label>
+                            <input required ng-model="user.email" name="email">
+                            <div ng-messages="profileForm.email.$error" role="alert">
+                                <div ng-message="required" class="my-message">This is required.</div>
+                            </div>
+                        </md-input-container>
+
+                        <label>Profile Picture</label>
+                        <div layout-padding ng-controller="ChangeProfilePictureController">
+                            <div layout="row">
+                                <div class="form-group text-center" layout-padding>
+                                    <img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture">
+                                </div>
+                                <div layout="column" layout-padding>
+                                    <div class="text-center form-group" ng-hide="uploader.queue.length">
+                                        <span class="md-button md-raised md-primary btn-file">
+                                            Select Image <input type="file" nv-file-select uploader="uploader">
+                                        </span>
+                                    </div>
+                                    <div ng-show="uploader.queue.length" layout="column">
+                                        <md-button type="button" class="md-raised md-primary" ng-click="uploadProfilePicture();">Upload</md-button>
+                                        <md-button type="button" class="md-secondary" ng-click="cancelUpload();">Cancel</md-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="success" class="text-center text-success">
+                                <strong>Profile Picture Changed Successfully</strong>
+                            </div>
+                            <div ng-show="error" class="text-center text-danger">
+                                <strong ng-bind="error"></strong>
+                            </div>
+                        </div>
+
+                        <md-button type="submit" class="md-raised md-primary">Finish</md-button>
+                        <md-button class="md-secondary" ng-click="skip()">Skip</md-button>
+                    </form>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
 	</div>
-</div>
+</md-content>
