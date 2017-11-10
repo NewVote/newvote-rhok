@@ -5,6 +5,9 @@ md-grid-tile-footer.ng-scope {
 md-toolbar a:link, md-toolbar a:visited, md-toolbar a:active {
   color: white; }
 
+.footer a:link, .footer a:visited, .footer a:active {
+  color: black; }
+
 h3.ng-binding.ng-scope {
   font-weight: 600; }
 
@@ -118,6 +121,9 @@ md-sidenav {
     min-height: 35px;
     min-width: 35px;
     font-size: 35px; }
+
+.btn-min-height {
+  min-height: 104px !important; }
 
 md-progress-linear {
   overflow: visible;

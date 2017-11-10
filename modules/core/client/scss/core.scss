@@ -9,6 +9,12 @@ md-toolbar{
     }
 }
 
+.footer{
+    a:link, a:visited, a:active {
+        color: black;
+    }
+}
+
 h3.ng-binding.ng-scope {
   font-weight: 600;
 }
@@ -160,6 +166,10 @@ md-sidenav {
 	md-icon {
 		@include md-icon-size(35px);
 	}
+}
+
+.btn-min-height {
+    min-height: 104px !important;
 }
 
 md-progress-linear {

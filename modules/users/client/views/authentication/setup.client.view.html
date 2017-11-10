@@ -50,16 +50,21 @@
                             </div>
                         </md-input-container>
 
+
+
                         <md-input-container class="md-block" flex-gt-sm>
                             <md-checkbox ng-model="user.terms" aria-label="I accept the terms and conditions" required name="terms">
                                 I accept the <a href="#">terms and conditions</a>
                             </md-checkbox>
+
                             <div ng-messages="userForm.terms.$error" md-auto-hide="false">
                                 <div ng-message="required">
                                     You must accept the terms of service before you can proceed.
                                 </div>
                             </div>
                         </md-input-container>
+						<div layout-padding>View our <a href="#">Privacy Policy</a></div>
+
                         <md-button type="submit" class="md-raised md-primary">Next</md-button>
                     </form>
                 </md-tab-body>
