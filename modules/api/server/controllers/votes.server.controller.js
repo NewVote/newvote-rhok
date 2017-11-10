@@ -6,6 +6,7 @@
 var path = require('path'),
 	mongoose = require('mongoose'),
 	Vote = mongoose.model('Vote'),
+	Region = mongoose.model('Region'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
 	_ = require('lodash');
 
@@ -94,15 +95,63 @@ exports.delete = function (req, res) {
  * List of Votes
  */
 exports.list = function (req, res) {
-	Vote.find().sort('-created').populate('user', 'displayName').exec(function (err, votes) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.json(votes);
-		}
-	});
+	var regionId = req.query.regionId;
+	var query = null;
+
+	if (regionId) {
+		query = { _id: regionId };
+		Region.findOne(query).exec(function (err, region) {
+
+			if (err) {
+				
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+
+			} else {
+
+				console.log(region.postcodes);
+
+				Vote.find().sort('-created').populate({
+					path: 'user',
+					match: {
+						postalCode: {
+							$in: region.postcodes
+						}
+					},
+					select: 'postalCode -_id'
+				}).exec(function (err, votes) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						votes = votes.filter(function (vote) {
+							if (vote.user) return vote;
+						});
+						res.json(votes);
+					}
+				});
+
+			}
+
+		});
+
+	} else {
+
+		query = null;
+
+		Vote.find().sort('-created').populate('user', 'postalCode -_id').exec(function (err, votes) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.json(votes);
+			}
+		});
+
+	}	
 };
 
 /**

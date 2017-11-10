@@ -54,6 +54,7 @@ var UserSchema = new Schema({
   },
   postalCode: {
     type: String,
+    trim: true,
     default: '',
   },
   username: {
