@@ -9,7 +9,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 		} else {
 			$scope.user = $scope.authentication.user;
 		}
-
 		// Update Title
 		var titleText = '';
 		if ($state.is('authentication.signin')) {
@@ -29,6 +28,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 		if ($scope.authentication.user && $scope.authentication.user.terms) {
 			$location.path('/');
 		}
+
+		//set up required variables for tabs
+		if(!$scope.data) $scope.data = {};
+		$scope.data.selectedIndex = 0;
+		$scope.data.setupLocked = false;
+		$scope.data.profileLocked = true;
+
 
 		$scope.signup = function (isValid) {
 			$scope.error = null;
@@ -75,13 +81,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 					$window.user = response.data;
 
 					// And redirect to the previous or home page
-					if ($scope.user.terms) {
+					if ($scope.authentication.user.terms) {
 						$state.go($state.previous.state.name || 'home', $state.previous.params);
 					} else {
 						$state.go('setup', {
 							previous: $state.previous.state.name
 						});
 					}
+					$rootScope.$emit('login:success', $scope.authentication.user);
 				},
 				function (response) {
 					console.log('error in sign in: ', response);
@@ -103,6 +110,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 			user.$update(function (response) {
 				$scope.$broadcast('show-errors-reset', 'userForm');
 
+				if(response.profileImageURL !== $scope.authentication.user.profileImageURL){
+					response.profileImageURL = $scope.authentication.user.profileImageURL;
+				}
+
 				$scope.success = true;
 				$scope.authentication.user = response;
 				$window.user = response;
@@ -118,8 +129,44 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 			});
 		};
 
+		$scope.setup = function (isValid) {
+			$scope.success = $scope.error = null;
+
+			if (!isValid) {
+				$scope.$broadcast('show-errors-check-validity', 'userForm');
+
+				return false;
+			}
+
+			var user = new Users($scope.user);
+
+			user.$update(function (response) {
+
+				$scope.$broadcast('show-errors-reset', 'userForm');
+
+				$scope.success = true;
+				$scope.authentication.user = response;
+				$window.user = response;
+
+				$scope.data.profileLocked = false;
+				$scope.data.selectedIndex = 1;
+
+			}, function (response) {
+				$scope.error = response.data.message;
+			});
+		};
+
+		$scope.skip = function() {
+			if ($stateParams.previous) {
+				$state.go($stateParams.previous, $state.previous.params);
+			} else {
+				$state.go('home', $state.previous.params);
+			}
+		};
+
 		// OAuth provider request
 		$scope.callOauthProvider = function (url) {
+			console.log('oauth url:', url);
 			if ($state.previous && $state.previous.href) {
 				url += '?redirect_to=' + encodeURIComponent($state.previous.href);
 			}

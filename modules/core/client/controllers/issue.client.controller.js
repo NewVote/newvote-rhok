@@ -23,7 +23,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 			$rootScope.headerTitle = 'Add Issue';
 		} else if ($state.is('issues.view')) {
 			vm.titleText = vm.issue.name;
-			$rootScope.headerTitle = "Issue";
+			$rootScope.headerTitle = 'Issue';
 		}
 
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
@@ -37,7 +37,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 			var promise = $q.resolve();
 			if (vm.imageFile) {
 				promise = UploadService.upload(vm.imageFile).then(function () {
-					console.log('uploaded file', vm.imageFile);
+					// console.log('uploaded file', vm.imageFile);
 					vm.issue.imageUrl = vm.imageFile.result.url;
 				});
 			}

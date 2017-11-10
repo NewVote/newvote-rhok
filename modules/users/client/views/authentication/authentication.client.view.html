@@ -2,11 +2,14 @@
 
 <section layout-padding layout="column" flex layout-align="center center" class="row" ng-controller="AuthenticationController">
   <h3 class="md-display-1">Sign in with</h3>
-  <md-button class="md-raised md-primary signin-btn btn-min-height" ng-click="callOauthProvider('/api/auth/facebook')">
-      Facebook
-  </md-button>
-  <md-button class="md-raised md-primary signin-btn btn-min-height" ng-click="callOauthProvider('/api/auth/google')">
-      Google
-  </md-button>
+  <div layout="row">
+      <md-button class="md-raised md-primary signin-btn btn-min-height" ng-click="callOauthProvider('/api/auth/facebook')">
+          <ng-md-icon icon="facebook" size="64" style="fill:white"></ng-md-icon>
+      </md-button>
+      <md-button class="md-raised md-primary signin-btn btn-min-height" ng-click="callOauthProvider('/api/auth/google')">
+          <ng-md-icon icon="google-plus" size="64" style="fill:white"></ng-md-icon>
+      </md-button>
+  </div>
+  <h3 class="md-display-1">Or with</h3>
   <ui-view></ui-view>
 </section>

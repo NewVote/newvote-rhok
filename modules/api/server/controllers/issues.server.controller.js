@@ -97,6 +97,8 @@ exports.list = function (req, res) {
 		]
 	} : null;
 
+	// console.log('query is: ', searchParams.$or[0].name.$regex);
+
 	Issue.find(searchParams).sort('-created').populate('user', 'displayName').exec(function (err, issues) {
 		if (err) {
 			return res.status(400).send({
@@ -195,7 +197,7 @@ exports.attachMetaData = function (issues, user) {
 					lastCreated: lastCreated
 				};
 
-				console.log(issue.solutionMetaData);
+				// console.log(issue.solutionMetaData);
 
 				return issue;
 			});

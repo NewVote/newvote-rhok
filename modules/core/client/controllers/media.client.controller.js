@@ -13,8 +13,6 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 		$rootScope.pageTitle = 'Create Media';
 		vm.previewData = {};
 
-		console.log(media.issues);
-
 		if ($stateParams.objectId && $stateParams.objectType) {
 			if ($stateParams.objectType === 'issue') {
 				IssueService.get($stateParams.objectId).then(function (issue) {

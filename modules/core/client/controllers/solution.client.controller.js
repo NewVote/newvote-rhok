@@ -70,7 +70,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			$rootScope.headerTitle = 'Add Solution';
 		} else if ($state.is('solutions.view')) {
 			vm.titleText = solution.title;
-			$rootScope.headerTitle = "Solution";
+			$rootScope.headerTitle = 'Solution';
 		} else if ($state.is('solutions.action')) {
 			vm.titleText = solution.title + ' | Proposed Action';
 			$rootScope.headerTitle = 'Proposed Action';
@@ -129,7 +129,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		};
 
 		vm.searchIssues = function (query) {
-			return IssueService.searchIssues({
+			return IssueService.list({
 				search: query
 			});
 		};
@@ -157,7 +157,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 		vm.sort = function (sortData, $event) {
 			if ($event) $event.stopPropagation();
-			console.log('sorting by: ', sortData.type, sortData.order);
+			// console.log('sorting by: ', sortData.type, sortData.order);
 			SortService.setSort('action', sortData.type, sortData.order);
 		};
 

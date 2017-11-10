@@ -32,8 +32,10 @@ module.exports = {
         'public/lib/ngQuill/src/ng-quill.js',
         'public/lib/ng-file-upload/ng-file-upload.js',
         'public/lib/angular-update-meta/dist/update-meta.js',
-        'public/lib/angular-chart/dist/angular-chart.min.js',
-        'public/lib/chart.js/dist/Chart.min.js'
+        'public/lib/chart.js/dist/Chart.js',
+        'public/lib/angular-chart.js/dist/angular-chart.js',
+        'public/lib/angular-material-icons/angular-material-icons.js',
+        'public/lib/ngstorage/ngStorage.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

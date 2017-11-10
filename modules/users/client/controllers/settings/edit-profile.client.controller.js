@@ -5,8 +5,8 @@ angular.module('users').controller('EditProfileController', ['$scope', '$rootSco
 		$scope.user = Authentication.user;
 
 		// Update title
-    $scope.title = $rootScope.titlePrefix + 'Edit Profile' + $rootScope.titleSuffix;
-    $rootScope.headerTitle = 'Edit Profile';
+		$scope.title = $rootScope.titlePrefix + 'Edit Profile' + $rootScope.titleSuffix;
+		$rootScope.headerTitle = 'Edit Profile';
 
 		// Update a user profile
 		$scope.updateUserProfile = function (isValid) {
@@ -19,6 +19,10 @@ angular.module('users').controller('EditProfileController', ['$scope', '$rootSco
 			}
 
 			var user = new Users($scope.user);
+
+			if (user.profileImageURL !== Authentication.user.profileImageURL) {
+				user.profileImageURL = Authentication.user.profileImageURL;
+			}
 
 			user.$update(function (response) {
 				$scope.$broadcast('show-errors-reset', 'userForm');

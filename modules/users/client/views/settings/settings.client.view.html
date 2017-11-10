@@ -1,10 +1,10 @@
-<div layout="row" flex="50" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
-    <section ng-controller="SettingsController">
+<div layout="row" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+	<section ng-controller="SettingsController">
 
-      <!-- Basic meta tags -->
-      <update-title title="{{ title }}"></update-title>
+		<!-- Basic meta tags -->
+		<update-title title="{{ title }}"></update-title>
 
-        <div class="page-header">
+		<!-- <div class="page-header">
             <h1>Settings</h1>
         </div>
         <div class="row">
@@ -27,6 +27,89 @@
             <div class="col-sm-9 col-md-8 settings-view">
                 <div ui-view></div>
             </div>
-        </div>
-    </section>
+        </div> -->
+		<md-content flex layout-padding class="user-verification" ng-controller="EditProfileController">
+				<form name="userForm" ng-submit="updateUserProfile(userForm.$valid)">
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block">
+							<label>First Name</label>
+							<input required ng-model="user.firstName" name="firstName">
+							<div ng-messages="userForm.firstName.$error" role="alert">
+								<div ng-message="required" class="my-message">This is required.</div>
+							</div>
+						</md-input-container>
+
+						<md-input-container class="md-block">
+							<label>Last Name</label>
+							<input required ng-model="user.lastName" name="lastName">
+							<div ng-messages="userForm.lastName.$error" role="alert">
+								<div ng-message="required" class="my-message">This is required.</div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<md-input-container class="md-block">
+						<label>Postal Code</label>
+						<input name="postalCode" ng-model="user.postalCode" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+
+						<div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+							<div ng-message="required" class="my-message">You must supply a postal code.</div>
+							<div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
+							</div>
+						</div>
+					</md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>User Name</label>
+                        <input required ng-model="user.username" name="userName">
+                        <div ng-messages="userForm.userName.$error" role="alert">
+                            <div ng-message="required" class="my-message">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>E-mail</label>
+                        <input required ng-model="user.email" name="email">
+                        <div ng-messages="userForm.email.$error" role="alert">
+                            <div ng-message="required" class="my-message">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <label>Profile Picture</label>
+                    <div layout-padding ng-controller="ChangeProfilePictureController">
+                        <div layout="row">
+                            <div class="form-group text-center" layout-padding>
+                                <img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture">
+                            </div>
+                            <div layout="column" layout-padding>
+                                <div class="text-center form-group" ng-hide="uploader.queue.length">
+                                    <span class="md-button md-raised md-primary btn-file">
+                                                    Select Image <input type="file" nv-file-select uploader="uploader">
+                                                </span>
+                                </div>
+                                <div ng-show="uploader.queue.length" layout="column">
+                                    <md-button type="button" class="md-raised md-primary" ng-click="uploadProfilePicture();">Upload</md-button>
+                                    <md-button type="button" class="md-secondary" ng-click="cancelUpload();">Cancel</md-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="success" class="text-center text-success">
+                            <strong>Profile Picture Changed Successfully</strong>
+                        </div>
+                        <div ng-show="error" class="text-center text-danger">
+                            <strong ng-bind="error"></strong>
+                        </div>
+                    </div>
+
+                    <div ng-show="success" class="text-center text-success">
+                      <strong>Profile Saved Successfully</strong>
+                    </div>
+                    <div ng-show="error" class="text-center text-danger">
+                      <strong ng-bind="error"></strong>
+                    </div>
+
+                    <md-button type="submit" class="md-raised md-primary">Update</md-button>
+				</form>
+		</md-content>
+	</section>
 </div>

@@ -115,7 +115,7 @@ exports.list = function (req, res) {
 			votes.attachVotes(solutions, req.user).then(function (solutions) {
 				res.json(solutions);
 			}).catch(function (err) {
-				console.log(err);
+				// console.log(err);
 				res.status(500).send({
 					message: errorHandler.getErrorMessage(err)
 				});

@@ -6,8 +6,8 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
     $scope.imageURL = $scope.user.profileImageURL;
 
     // Update title
-    $scope.title = $rootScope.titlePrefix + 'Change Profile Picture' + $rootScope.titleSuffix;
-    $rootScope.headerTitle = 'Change Profile Picture';
+    // $scope.title = $rootScope.titlePrefix + 'Change Profile Picture' + $rootScope.titleSuffix;
+    // $rootScope.headerTitle = 'Change Profile Picture';
 
     // Create file uploader instance
     $scope.uploader = new FileUploader({
@@ -45,6 +45,8 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
 
       // Populate user object
       $scope.user = Authentication.user = response;
+
+    //   console.log('profile picture upload success: ', response);
 
       // Clear upload buttons
       $scope.cancelUpload();

@@ -63,6 +63,11 @@ var UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  postalCode: {
+      type: String,
+      required: 'You must enter a postcode',
+      default: false
+  },
   password: {
     type: String,
     default: ''
