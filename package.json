@@ -11,8 +11,8 @@
     "url": "https://github.com/meanjs/mean.git"
   },
   "engines": {
-    "node": ">=0.10.28",
-    "npm": ">=1.4.28"
+    "node": "8.9.x",
+    "npm": "5.5.x"
   },
   "scripts": {
     "start": "npm install --only=dev && npm install -g gulp && npm install -g gulp-cli && gulp prod",
