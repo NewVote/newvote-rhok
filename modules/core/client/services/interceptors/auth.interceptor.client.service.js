@@ -21,7 +21,7 @@ angular.module('core').factory('authInterceptor', ['$q', '$injector', '$rootScop
 						$localStorage = $injector.get('$localStorage');
 
                         $rootScope.$on('login:success', function(event, data) {
-                            console.log('user has now logged in, re-sending previous request: ', prev);
+                            // console.log('user has now logged in, re-sending previous request: ', prev);
 							//have to clear out pendingVotes because that is only used with oAuth logins
 							delete $localStorage.pendingVotes;
                             $http(prev);

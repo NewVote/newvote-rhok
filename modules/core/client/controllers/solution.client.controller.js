@@ -11,8 +11,6 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.isSingleAction = isSingleAction;
 		vm.media = media;
 
-		console.log('actions: ', vm.actions);
-
 		vm.chartLabels = ['Against', 'For'];
 		vm.chartOptions = {
 			elements: {
@@ -159,7 +157,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 		vm.sort = function (sortData, $event) {
 			if ($event) $event.stopPropagation();
-			console.log('sorting by: ', sortData.type, sortData.order);
+			// console.log('sorting by: ', sortData.type, sortData.order);
 			SortService.setSort('action', sortData.type, sortData.order);
 		};
 

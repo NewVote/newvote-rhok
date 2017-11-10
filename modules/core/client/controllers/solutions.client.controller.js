@@ -5,7 +5,7 @@ angular.module('core').controller('SolutionsController', ['$scope', '$rootScope'
     var vm = this;
     vm.issueId = $stateParams.issueId;
     vm.solutions = solutions;
-    vm.sortParam = 'votes.up';
+    // vm.sortParam = 'votes.up-';
 
     // Title
     vm.title = $rootScope.titlePrefix + 'Solutions' + $rootScope.titleSuffix;

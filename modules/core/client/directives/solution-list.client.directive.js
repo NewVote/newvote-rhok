@@ -24,7 +24,6 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 				};
 				vm.sort = function (sortData, $event) {
 					if ($event) $event.stopPropagation();
-					console.log('sorting by: ', sortData.type, sortData.order);
 					SortService.setSort('solution', sortData.type, sortData.order);
 				};
 

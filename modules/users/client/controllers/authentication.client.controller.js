@@ -29,6 +29,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 			$location.path('/');
 		}
 
+		//set up required variables for tabs
+		if(!$scope.data) $scope.data = {};
+		$scope.data.selectedIndex = 0;
+		$scope.data.setupLocked = false;
+		$scope.data.profileLocked = true;
+
+
 		$scope.signup = function (isValid) {
 			$scope.error = null;
 
@@ -103,6 +110,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 			user.$update(function (response) {
 				$scope.$broadcast('show-errors-reset', 'userForm');
 
+				if(response.profileImageURL !== $scope.authentication.user.profileImageURL){
+					response.profileImageURL = $scope.authentication.user.profileImageURL;
+				}
+
 				$scope.success = true;
 				$scope.authentication.user = response;
 				$window.user = response;
@@ -116,6 +127,41 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 			}, function (response) {
 				$scope.error = response.data.message;
 			});
+		};
+
+		$scope.setup = function (isValid) {
+			$scope.success = $scope.error = null;
+
+			if (!isValid) {
+				$scope.$broadcast('show-errors-check-validity', 'userForm');
+
+				return false;
+			}
+
+			var user = new Users($scope.user);
+
+			user.$update(function (response) {
+
+				$scope.$broadcast('show-errors-reset', 'userForm');
+
+				$scope.success = true;
+				$scope.authentication.user = response;
+				$window.user = response;
+
+				$scope.data.profileLocked = false;
+				$scope.data.selectedIndex = 1;
+
+			}, function (response) {
+				$scope.error = response.data.message;
+			});
+		};
+
+		$scope.skip = function() {
+			if ($stateParams.previous) {
+				$state.go($stateParams.previous, $state.previous.params);
+			} else {
+				$state.go('home', $state.previous.params);
+			}
 		};
 
 		// OAuth provider request

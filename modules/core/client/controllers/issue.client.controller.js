@@ -8,7 +8,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		vm.media = media;
 		vm.issueId = issue._id;
 		vm.solutions = solutions;
-		
+
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
 		vm.image = vm.issue.imageUrl;
@@ -37,7 +37,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 			var promise = $q.resolve();
 			if (vm.imageFile) {
 				promise = UploadService.upload(vm.imageFile).then(function () {
-					console.log('uploaded file', vm.imageFile);
+					// console.log('uploaded file', vm.imageFile);
 					vm.issue.imageUrl = vm.imageFile.result.url;
 				});
 			}

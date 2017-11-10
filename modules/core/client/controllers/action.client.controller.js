@@ -6,7 +6,7 @@ angular.module('core').controller('ActionController', ['$scope', 'Authentication
 		var vm = this;
 		vm.action = action;
 
-		console.log($stateParams);
+		// console.log($stateParams);
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.action.description);
@@ -41,7 +41,7 @@ angular.module('core').controller('ActionController', ['$scope', 'Authentication
 			var promise = $q.resolve();
 			if (vm.imageFile) {
 				promise = UploadService.upload(vm.imageFile).then(function () {
-					console.log('uploaded file', vm.imageFile);
+					// console.log('uploaded file', vm.imageFile);
 					vm.action.imageUrl = vm.imageFile.result.url;
 				});
 			}

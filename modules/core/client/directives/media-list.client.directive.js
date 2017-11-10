@@ -36,7 +36,6 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 
 				vm.sort = function (sortData, $event) {
 					if ($event) $event.stopPropagation();
-					console.log('sorting by: ', sortData.type, sortData.order);
 					SortService.setSort('media', sortData.type, sortData.order);
 				};
 
