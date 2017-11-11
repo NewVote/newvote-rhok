@@ -79,7 +79,7 @@ exports.list = function (req, res) {
   } else {
     query = {};
   }
-  Region.find(query).exec(function (err, regions) {
+  Region.find(query, { postcodes: 0 }).exec(function (err, regions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
