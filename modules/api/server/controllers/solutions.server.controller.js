@@ -31,7 +31,6 @@ exports.create = function (req, res) {
  * Show the current solution
  */
 exports.read = function (req, res) {
-
 	res.json(req.solution);
 };
 
