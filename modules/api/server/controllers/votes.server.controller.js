@@ -95,12 +95,12 @@ exports.delete = function (req, res) {
  * List of Votes
  */
 exports.list = function (req, res) {
-	var regionId = req.query.regionId;
+	var regionIds = req.query.regionId;
 	var query = null;
 
-	if (regionId) {
-		query = { _id: regionId };
-		Region.findOne(query).exec(function (err, region) {
+	if (regionIds) {
+		query = { _id: { $in: regionIds } };
+		Region.find(query).exec(function (err, regions) {
 
 			if (err) {
 				
@@ -110,13 +110,19 @@ exports.list = function (req, res) {
 
 			} else {
 
-				console.log(region.postcodes);
+				// Get postcodes from all regions
+				var postCodes = [];
+				var region;
+				for (region in regions) {
+					postCodes = postCodes.concat(regions[region].postcodes);
+				}
 
+				// Find votes submitted from users with those postcodes
 				Vote.find().sort('-created').populate({
 					path: 'user',
 					match: {
 						postalCode: {
-							$in: region.postcodes
+							$in: postCodes
 						}
 					},
 					select: 'postalCode -_id'
