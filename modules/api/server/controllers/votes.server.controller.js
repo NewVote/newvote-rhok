@@ -150,20 +150,48 @@ exports.voteByID = function (req, res, next, id) {
 	});
 };
 
-exports.attachVotes = function (objects, user, regionIds) {
+exports.attachVotes = function (objects, user, regions) {
   // console.log('votes got object for attaching: ', objects)
 	if (!objects) return Promise.resolve(objects);
 	var objectIds = objects.map(function (object) {
 		return object._id;
 	});
+
+	return Promise.resolve(regions).then(function (regionString) {
+		if (regionString) {
+			var regionIds = [];
+
+			if (isString(regionString)) {
+				var region = JSON.parse(regionString);
+				regionIds.push(region._id);
+			} else {
+				regionIds = regionString.map(function (regionObj) {
+					var region = JSON.parse(regionObj);
+					return region._id;
+				});
+			}
+
+			return getPostcodes(regionIds).then(function (postCodes) {
+				// Find votes submitted from users with those postcodes
+				return getVotes({
+					object: {
+						$in: objectIds
+					}
+				}, {
+					path: 'user',
+					match: {
+						postalCode: {
+							$in: postCodes
+						}
+					},
+					select: 'postalCode -_id'
+				}).then(function (votes) {
+					return mapObjectWithVotes(objects, user, votes);
+				});
+			});
 	
-	// For testing
-	// var regionIds = ['5a042d2b98db3f7b13069598'];
-
-	if (regionIds) {
-
-		return getPostcodes(regionIds).then(function (postCodes) {
-			// Find votes submitted from users with those postcodes
+		} else {
+	
 			return getVotes({
 				object: {
 					$in: objectIds
@@ -171,19 +199,9 @@ exports.attachVotes = function (objects, user, regionIds) {
 			}, null).then(function (votes) {
 				return mapObjectWithVotes(objects, user, votes);
 			});
-		});
-
-	} else {
-
-		return getVotes({
-			object: {
-				$in: objectIds
-			}
-		}, null).then(function (votes) {
-			return mapObjectWithVotes(objects, user, votes);
-		});
-
-	}	
+	
+		}
+	});
 };
 
 // Local functions
@@ -217,7 +235,7 @@ function getVotes(findQuery, populateQuery) {
 
 function getPostcodes(regionIds) {
 	return Region.find({
-			_id: {
+		_id: {
 			$in: regionIds
 		}
 	}).exec().then(function (regions) {
@@ -264,5 +282,9 @@ function mapObjectWithVotes(objects, user, votes) {
 	});
 
 	return objects;
+}
+
+function isString(value) {
+	return typeof value === 'string' || value instanceof String;
 }
 
