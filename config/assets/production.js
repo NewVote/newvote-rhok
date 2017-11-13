@@ -5,12 +5,13 @@ module.exports = {
     lib: {
       css: [
         'public/lib/angular-material/angular-material.min.css',
-        'https://fonts.googleapis.com/icon?family=Material+Icons',
-        'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
-        'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,700',
         'public/lib/quill/quill.core.css',
         'public/lib/quill/quill.bubble.css',
-        'public/lib/quill/quill.snow.css'
+        'public/lib/quill/quill.snow.css',
+
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
+        'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,700'
       ],
       js: 'public/dist/lib.min.js',
       individualJs: [
@@ -25,12 +26,12 @@ module.exports = {
         // 'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/angular-file-upload/angular-file-upload.min.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
-        'public/lib/anguniplar-material/angular-material.min.js',
+        'public/lib/angular-material/angular-material.min.js',
         'public/lib/angular-aria/angular-aria.min.js',
         'public/lib/quill/quill.js',
         'public/lib/ngQuill/src/ng-quill.js',
         'public/lib/ng-file-upload/ng-file-upload.min.js',
-        'public/lib/angular-update-meta/dist/update-meta.js',
+        'public/lib/angular-update-meta/dist/update-meta.min.js',
         'public/lib/chart.js/dist/Chart.min.js',
         'public/lib/angular-chart.js/dist/angular-chart.min.js',
         'public/lib/angular-material-icons/angular-material-icons.min.js',
