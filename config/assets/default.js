@@ -5,7 +5,6 @@ module.exports = {
     lib: {
       css: [
         'public/lib/angular-material/angular-material.css',
-        'public/lib/angular-material/angular-material.css',
         'public/lib/quill/quill.core.css',
         'public/lib/quill/quill.bubble.css',
         'public/lib/quill/quill.snow.css',

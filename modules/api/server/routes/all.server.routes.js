@@ -7,10 +7,11 @@ var policy = require('../policies/generic.server.policy'),
 	issues = require('../controllers/issues.server.controller'),
 	solutions = require('../controllers/solutions.server.controller'),
 	actions = require('../controllers/actions.server.controller'),
-    suggestions = require('../controllers/suggestions.server.controller'),
+  suggestions = require('../controllers/suggestions.server.controller'),
 	media = require('../controllers/media.server.controller'),
 	comments = require('../controllers/comments.server.controller'),
-	votes = require('../controllers/votes.server.controller');
+	votes = require('../controllers/votes.server.controller'),
+	regions = require('../controllers/regions.server.controller');
 
 module.exports = function (app) {
 	// Articles collection routes
@@ -41,6 +42,10 @@ module.exports = function (app) {
 	app.route('/api/media').all(policy.isAllowed)
 		.get(media.list)
 		.post(media.create);
+	
+	app.route('/api/regions').all(policy.isAllowed)
+		.get(regions.list)
+		.post(regions.create);
 
 	app.route('/api/meta/:uri').all(policy.isAllowed)
 		.get(media.getMeta);
@@ -79,6 +84,11 @@ module.exports = function (app) {
 		.get(media.read)
 		.put(media.update)
 		.delete(media.delete);
+	
+	app.route('/api/regions/:regionId').all(policy.isAllowed)
+		.get(regions.read)
+		.put(regions.update)
+		.delete(regions.delete);
 
 	// Finish by binding the article middleware
 	app.param('issueId', issues.issueByID);
@@ -86,6 +96,7 @@ module.exports = function (app) {
 	app.param('actionId', actions.actionByID);
 	app.param('commentId', comments.commentByID);
 	app.param('voteId', votes.voteByID);
-    app.param('suggestionId', suggestions.suggestionByID);
+	app.param('suggestionId', suggestions.suggestionByID);
 	app.param('mediaId', media.mediaByID);
+	app.param('regionId', regions.regionByID);
 };
