@@ -72,14 +72,19 @@ exports.delete = function (req, res) {
  * List of Regions
  */
 exports.list = function (req, res) {
-  var regionName = req.query.name;
+  var searchParams = req.query.search;
   var query;
-  if (regionName) {
-    query = { name: regionName };
+  if (searchParams) {
+    query = { 
+      name: {
+        $regex: searchParams,
+        $options: 'i'
+      }
+    };
   } else {
-    query = {};
+    query = null;
   }
-  Region.find(query).exec(function (err, regions) {
+  Region.find(query, { postcodes: 0 }).exec(function (err, regions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

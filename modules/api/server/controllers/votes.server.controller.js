@@ -96,66 +96,32 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
 	var regionIds = req.query.regionId;
-	var query = null;
 
 	if (regionIds) {
-		query = { _id: { $in: regionIds } };
-		Region.find(query).exec(function (err, regions) {
-
-			if (err) {
-				
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-
-			} else {
-
-				// Get postcodes from all regions
-				var postCodes = [];
-				var region;
-				for (region in regions) {
-					postCodes = postCodes.concat(regions[region].postcodes);
-				}
-
-				// Find votes submitted from users with those postcodes
-				Vote.find().sort('-created').populate({
-					path: 'user',
-					match: {
-						postalCode: {
-							$in: postCodes
-						}
-					},
-					select: 'postalCode -_id'
-				}).exec(function (err, votes) {
-					if (err) {
-						return res.status(400).send({
-							message: errorHandler.getErrorMessage(err)
-						});
-					} else {
-						votes = votes.filter(function (vote) {
-							if (vote.user) return vote;
-						});
-						res.json(votes);
+		getPostcodes(regionIds).then(function (postCodes) {
+			console.log(postCodes);
+			// Find votes submitted from users with those postcodes
+			getVotesResponse({}, {
+				path: 'user',
+				match: {
+					postalCode: {
+						$in: postCodes
 					}
-				});
-
-			}
-
+				},
+				select: 'postalCode -_id'
+			}, res);
+		}, function (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
 		});
 
 	} else {
 
-		query = null;
-
-		Vote.find().sort('-created').populate('user', 'postalCode -_id').exec(function (err, votes) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				res.json(votes);
-			}
-		});
+		getVotesResponse({}, {
+			path: 'user',
+			select: 'postalCode -_id'
+		}, res);
 
 	}	
 };
@@ -184,48 +150,141 @@ exports.voteByID = function (req, res, next, id) {
 	});
 };
 
-exports.attachVotes = function (objects, user) {
-    // console.log('votes got object for attaching: ', objects)
+exports.attachVotes = function (objects, user, regions) {
+  // console.log('votes got object for attaching: ', objects)
 	if (!objects) return Promise.resolve(objects);
 	var objectIds = objects.map(function (object) {
 		return object._id;
 	});
-	return Vote.find({
-		object: {
-			$in: objectIds
-		}
-	}).exec().then(function (votes) {
-		objects = objects.map(function (object) {
-			// object = object.toObject(); //to be able to set props on the mongoose object
-			var objVotes = [];
-			var userVote = null,
-				up = 0,
-				down = 0;
-            object.votes = {};
 
-			votes.forEach(function (vote) {
-				if (vote.object.toString() === object._id.toString()) {
-					objVotes.push(vote);
-					if (user && vote.user.toString() === user._id.toString()) {
-						userVote = vote;
+	return Promise.resolve(regions).then(function (regionString) {
+		if (regionString) {
+			var regionIds = [];
+
+			if (isString(regionString)) {
+				var region = JSON.parse(regionString);
+				regionIds.push(region._id);
+			} else {
+				regionIds = regionString.map(function (regionObj) {
+					var region = JSON.parse(regionObj);
+					return region._id;
+				});
+			}
+
+			return getPostcodes(regionIds).then(function (postCodes) {
+				// Find votes submitted from users with those postcodes
+				return getVotes({
+					object: {
+						$in: objectIds
 					}
-					if (vote.voteValue) {
-						if (vote.voteValue > 0) up++;
-						else down++;
-					}
-				}
+				}, {
+					path: 'user',
+					match: {
+						postalCode: {
+							$in: postCodes
+						}
+					},
+					select: 'postalCode -_id'
+				}).then(function (votes) {
+					return mapObjectWithVotes(objects, user, votes);
+				});
 			});
-
-			object.votes = {
-				total: objVotes.length,
-				currentUser: userVote,
-				up: up,
-				down: down
-			};
-
-			return object;
-		});
-
-		return objects;
+	
+		} else {
+	
+			return getVotes({
+				object: {
+					$in: objectIds
+				}
+			}, null).then(function (votes) {
+				return mapObjectWithVotes(objects, user, votes);
+			});
+	
+		}
 	});
 };
+
+// Local functions
+function getVotesResponse(findQuery, populateQuery, res) {
+	getVotes(findQuery, populateQuery).then(function (votes) {
+		res.json(votes);
+	}, function (err) {
+		return res.status(400).send({
+			message: errorHandler.getErrorMessage(err)
+		});
+	});
+}
+
+function getVotes(findQuery, populateQuery) {
+	if (populateQuery != null) {
+		return Vote.find(findQuery).populate(populateQuery).exec().then(function (votes) {
+			votes = votes.filter(function (vote) {
+				if (vote.user) return vote;
+			});
+			return votes;
+		});
+	} else {
+		return Vote.find(findQuery).exec().then(function (votes) {
+			votes = votes.filter(function (vote) {
+				if (vote.user) return vote;
+			});
+			return votes;
+		});
+	}
+}
+
+function getPostcodes(regionIds) {
+	return Region.find({
+		_id: {
+			$in: regionIds
+		}
+	}).exec().then(function (regions) {
+		// Get postcodes from all regions
+		var postCodes = [];
+		var region;
+		for (region in regions) {
+			postCodes = postCodes.concat(regions[region].postcodes);
+		}
+		return postCodes;
+	});
+}
+
+function mapObjectWithVotes(objects, user, votes) {
+	objects = objects.map(function (object) {
+		// object = object.toObject(); //to be able to set props on the mongoose object
+		var objVotes = [];
+		var userVote = null;
+		var up = 0;
+		var down = 0;
+		object.votes = {};
+
+		votes.forEach(function (vote) {
+			if (vote.object.toString() === object._id.toString()) {
+				objVotes.push(vote);
+				if (user && vote.user.toString() === user._id.toString()) {
+					userVote = vote;
+				}
+				if (vote.voteValue) {
+					if (vote.voteValue > 0) up++;
+					else down++;
+				}
+			}
+		});
+
+		object.votes = {
+			total: objVotes.length,
+			currentUser: userVote,
+			up: up,
+			down: down
+		};
+
+		return object;
+	});
+
+	return objects;
+}
+
+function isString(value) {
+	return typeof value === 'string' || value instanceof String;
+}
+
