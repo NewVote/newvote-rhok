@@ -41,21 +41,36 @@
   <div layout-padding layout="column">
     <div layout="column">
       Filter votes by region:
-      <md-contact-chips
+      <md-chips
         ng-model="vm.regions"
-        md-contacts="vm.searchRegions($query)"
-        md-contact-name="name"
         md-require-match="true"
-        md-highlight-flags="i"
+        md-on-add="vm.updateVotes(vm.regions)"
+        md-on-remove="vm.updateVotes(vm.regions)"
         md-delay="400"
         placeholder="All regions"
         secondary-placeholder="Add another region">
-      </md-contact-chips>
-    </div>
-    <div layout="row">
-      <md-button class="md-raised md-primary" ng-click="vm.updateVotes(vm.regions, $event)">
-        Filter
-      </md-button>
+          <md-chip-template>
+            <span>{{ $chip.name }}</span>
+          </md-chip-template>
+          <md-autocomplete
+            md-no-cache="true"
+            md-items="region in vm.searchRegions(regionName)"
+            md-dropdown-items="5"
+            md-search-text="regionName"
+            placeholder="Add regions"
+            md-item-text="region.name">
+            <md-item-template>
+              <span
+                md-highlight-text="regionName"
+                md-highlight-flags="i">
+                  {{ region.name }}
+              </span>
+            </md-item-template>
+            <md-not-found>
+              No regions found.
+            </md-not-found>
+          </md-autocomplete>
+      </md-chips>
     </div>
   </div>
 	<div layout-padding>

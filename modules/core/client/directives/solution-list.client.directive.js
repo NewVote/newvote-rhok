@@ -68,8 +68,7 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 					return RegionService.searchRegions(query);
 				};
 
-				vm.updateVotes = function (regions, $event) {
-					$event.stopPropagation();
+				vm.updateVotes = function (regions) {
 					SolutionService.list({
 						regions: regions
 					}).then(function (solutions) {
