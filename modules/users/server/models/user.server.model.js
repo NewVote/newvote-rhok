@@ -59,6 +59,21 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true
   },
+  gender: {
+      type: String
+  },
+  birthYear: {
+      type: String
+  },
+  income: {
+      type: String
+  },
+  housing: {
+      type: String
+  },
+  party: {
+      type: String
+  },
   terms: {
     type: Boolean,
     default: false
