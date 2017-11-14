@@ -31,7 +31,6 @@ exports.create = function (req, res) {
  * Show the current solution
  */
 exports.read = function (req, res) {
-
 	res.json(req.solution);
 };
 
@@ -105,14 +104,14 @@ exports.list = function (req, res) {
 	} else {
 		query = null;
 	}
-
+	
 	Solution.find(query).sort('-created').populate('user', 'displayName').exec(function (err, solutions) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			votes.attachVotes(solutions, req.user).then(function (solutions) {
+			votes.attachVotes(solutions, req.user, req.query.regions).then(function (solutions) {
 				res.json(solutions);
 			}).catch(function (err) {
 				// console.log(err);
@@ -145,7 +144,7 @@ exports.solutionByID = function (req, res, next, id) {
 					message: 'No solution with that identifier has been found'
 				});
 			}
-			votes.attachVotes([solution], req.user).then(function (solutionArr) {
+			votes.attachVotes([solution], req.user, req.query.regions).then(function (solutionArr) {
 				req.solution = solutionArr[0];
 				next();
 			}).catch(next);

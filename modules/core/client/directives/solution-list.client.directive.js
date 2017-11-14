@@ -10,10 +10,11 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 		templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
-		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService',
-			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService) {
+		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'SolutionService',
+			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, SolutionService) {
 				var vm = this;
 				vm.sortSvc = SortService;
+				vm.regions = [];
 				$scope.authentication = Authentication;
 
 				vm.vote = function (solution, voteType, $event) {
@@ -61,6 +62,19 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 					legend: {
 						display: false
 					}
+				};
+
+				vm.searchRegions = function (query) {
+					return RegionService.searchRegions(query);
+				};
+
+				vm.updateVotes = function (regions) {
+					SolutionService.list({
+						regions: regions
+					}).then(function (solutions) {
+						console.log(solutions);
+						vm.solutions = solutions;
+					});
 				};
 
 				vm.chartColors = [{
