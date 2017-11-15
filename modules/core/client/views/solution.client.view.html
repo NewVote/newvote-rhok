@@ -107,27 +107,43 @@
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 	<md-tabs md-dynamic-height md-border-bottom>
 		<md-tab label="actions">
-			<div layout="row" layout-padding>
-				<!-- <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
-				<md-button class="md-primary" ng-click="vm.sort('controversial', 'desc', $event)">Controversial</md-button>
-				<md-button class="md-primary" ng-click="vm.sort('trending', 'desc', $event)">Trending</md-button>
-				<md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button> -->
 
-				<div hide show-gt-sm>
-					<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top<md-tooltip>Total score of votes</md-tooltip></md-button>
-					<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial<md-tooltip>Greatest difference in opinion</md-tooltip></md-button>
-					<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending<md-tooltip>Recently popular</md-tooltip></md-button>
-					<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest<md-tooltip>Most recently updated or created</md-tooltip></md-button>
-				</div>
-
-				<div hide-gt-sm layout="row" layout-align="end center" flex="fill">
-					<span layout-padding>Sort By </span>
+			<div layout-gt-sm="row" layout-align-gt-sm="start center" layout-padding>
+				<span>Sort</span>
+				<div>
 					<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
 						<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
 						<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
 						<md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
 						<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
 					</md-select>
+
+					<md-tooltip ng-if="vm.sortSelectState.type === 'top'">Total score of votes</md-tooltip>
+					<md-tooltip ng-if="vm.sortSelectState.type === 'controversial'">Greatest difference in opinion</md-tooltip>
+					<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
+					<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
+				</div>
+				<div flex>
+
+				</div>
+				<span>Filter</span>
+				<div layout-align="start center">
+
+					<md-chips ng-model="vm.regions" md-require-match="true" md-on-add="vm.updateVotes(vm.regions)" md-on-remove="vm.updateVotes(vm.regions)" md-delay="400" placeholder="All regions" secondary-placeholder="Add another region">
+						<md-chip-template>
+							<span>{{ $chip.name }}</span>
+						</md-chip-template>
+						<md-autocomplete md-no-cache="true" md-items="region in vm.searchRegions(regionName)" md-dropdown-items="5" md-search-text="regionName" placeholder="Add regions" md-item-text="region.name">
+							<md-item-template>
+								<span md-highlight-text="regionName" md-highlight-flags="i">
+							  {{ region.name }}
+						  </span>
+							</md-item-template>
+							<md-not-found>
+								No regions found.
+							</md-not-found>
+						</md-autocomplete>
+					</md-chips>
 				</div>
 			</div>
 

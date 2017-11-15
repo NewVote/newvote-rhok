@@ -1,49 +1,33 @@
 <div ng-controller="AuthenticationController">
-
-  <!-- Meta tags -->
-  <!-- Basic meta tags -->
-  <update-title title="{{ title }}"></update-title>
-
-  <!-- Facebook META -->
-  <update-meta property="og:title" content="{{ title }}"></update-meta>
-  <update-meta property="og:url" use-abs-url="true"></update-meta>
-
-  <!-- Twitter META -->
-  <update-meta name="twitter:title" content="{{ title }}"></update-meta>
-  <update-meta name="twitter:url" use-abs-url="true"></update-meta>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
-		<form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
-			<fieldset>
-                <alert type="danger" ng-show="error" class="text-center text-danger">
-                    <span ng-bind="error"></span>
-                </alert>
-				<div layout="row">
-					<md-input-container class="md-block" flex-gt-sm>
-						<label>Username</label>
-						<input required ng-model="credentials.username" type="text" id="username" name="username">
-						<div ng-messages="userForm.username.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-
-					<md-input-container class="md-block" flex-gt-sm>
-						<label>Password</label>
-						<input required ng-model="credentials.password" type="password" id="password" name="password">
-						<div ng-messages="userForm.password.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
+	<form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
+		<alert type="danger" ng-show="error" class="text-center text-danger">
+			<span ng-bind="error"></span>
+		</alert>
+		<div layout="row">
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Username</label>
+				<input required ng-model="credentials.username" type="text" id="username" name="username">
+				<div ng-messages="userForm.username.$error">
+					<div ng-message="required">This is required.</div>
 				</div>
+			</md-input-container>
 
-				<div class="text-center form-group">
-					<md-button type="submit" class="md-raised md-primary">Sign In</md-button> or
-					<md-button ui-sref="authentication.signup" class="md-raised md-secondary">Sign Up</md-button>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Password</label>
+				<input required ng-model="credentials.password" type="password" id="password" name="password">
+				<div ng-messages="userForm.password.$error">
+					<div ng-message="required">This is required.</div>
 				</div>
+			</md-input-container>
+		</div>
 
-				<div class="text-center forgot-password">
-					<a ui-sref="password.forgot">Forgot your password?</a>
-				</div>
-			</fieldset>
-		</form>
-	</div>
+		<div class="text-center form-group">
+			<md-button type="submit" class="md-raised md-primary">Sign In</md-button> or
+			<md-button ui-sref="authentication.signup" class="md-raised md-secondary">Sign Up</md-button>
+		</div>
+
+		<div class="text-center forgot-password">
+			<a ui-sref="password.forgot">Forgot your password?</a>
+		</div>
+	</form>
 </div>

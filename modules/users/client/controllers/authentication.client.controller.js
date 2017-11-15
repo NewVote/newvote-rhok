@@ -31,10 +31,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 
 		//set up required variables for tabs
 		if(!$scope.data) $scope.data = {};
-		$scope.data.selectedIndex = 0;
+		$scope.data.selectedIndex = 1;
 		$scope.data.setupLocked = false;
-		$scope.data.profileLocked = true;
+		$scope.data.profileLocked = false;
 
+		$scope.birthYears = [];
+		var year = (new Date()).getFullYear();
+		for (var i = 100;i--;) {
+			$scope.birthYears.unshift(year - i);
+		}
 
 		$scope.signup = function (isValid) {
 			$scope.error = null;

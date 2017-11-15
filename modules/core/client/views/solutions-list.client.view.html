@@ -1,78 +1,42 @@
 <md-content layout="column">
-	<div layout="row" layout-padding>
-		<!-- <md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-primary md-raised create-btn" ui-sref="solutions.create({ issueId: vm.issueId })">
-			<md-icon>add</md-icon><span hide show-gt-sm>Add a Solution</span></md-button>
-		</md-button>
-		<md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-primary md-raised create-btn" ui-sref="suggestions">
-			<md-icon>add</md-icon><span hide show-gt-sm>Suggest a Solution</span></md-button>
-		</md-button> -->
-		<!-- <md-button class="md-primary" ng-click="vm.sort('top', 'desc', $event)">Top</md-button>
-		<md-button class="md-primary" ng-click="vm.sort('controversial', 'desc', $event)">Controversial</md-button>
-		<md-button class="md-primary" ng-click="vm.sort('trending', 'desc', $event)">Trending</md-button>
-		<md-button class="md-primary" ng-click="vm.sort('newest', 'desc', $event)">Newest</md-button> -->
-
-		<div hide show-gt-sm>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top<md-tooltip>Total score of votes</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial<md-tooltip>Greatest difference in opinion</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending<md-tooltip>Recently popular</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest<md-tooltip>Most recently updated or created</md-tooltip></md-button>
-		</div>
-
-		<div hide-gt-sm layout="row" layout-align="end center" flex="fill">
-			<span layout-padding>Sort By </span>
+	<div layout-gt-sm="row" layout-align-gt-sm="start center" layout-padding>
+		<span>Sort</span>
+		<div>
 			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
 				<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
 				<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
 				<md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
 				<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
 			</md-select>
-		</div>
 
+			<md-tooltip ng-if="vm.sortSelectState.type === 'top'">Total score of votes</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'controversial'">Greatest difference in opinion</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
+		</div>
+		<div flex>
+
+		</div>
+		<span>Filter</span>
+		<div layout-align="start center">
+
+			<md-chips ng-model="vm.regions" md-require-match="true" md-on-add="vm.updateVotes(vm.regions)" md-on-remove="vm.updateVotes(vm.regions)" md-delay="400" placeholder="All regions" secondary-placeholder="Add another region">
+				<md-chip-template>
+					<span>{{ $chip.name }}</span>
+				</md-chip-template>
+				<md-autocomplete md-no-cache="true" md-items="region in vm.searchRegions(regionName)" md-dropdown-items="5" md-search-text="regionName" placeholder="Add regions" md-item-text="region.name">
+					<md-item-template>
+						<span md-highlight-text="regionName" md-highlight-flags="i">
+					  {{ region.name }}
+				  </span>
+					</md-item-template>
+					<md-not-found>
+						No regions found.
+					</md-not-found>
+				</md-autocomplete>
+			</md-chips>
+		</div>
 	</div>
-	<!-- <div layout-padding layout="row">
-		<md-chips
-			ng-model="vm.issue.tags"
-			readonly="false"
-			md-removable="true"
-			placeholder="Filter by tags"
-			flex="50">
-		</md-chips>
-  </div> -->
-  <div layout-padding layout="column">
-    <div layout="column">
-      Filter votes by region:
-      <md-chips
-        ng-model="vm.regions"
-        md-require-match="true"
-        md-on-add="vm.updateVotes(vm.regions)"
-        md-on-remove="vm.updateVotes(vm.regions)"
-        md-delay="400"
-        placeholder="All regions"
-        secondary-placeholder="Add another region">
-          <md-chip-template>
-            <span>{{ $chip.name }}</span>
-          </md-chip-template>
-          <md-autocomplete
-            md-no-cache="true"
-            md-items="region in vm.searchRegions(regionName)"
-            md-dropdown-items="5"
-            md-search-text="regionName"
-            placeholder="Add regions"
-            md-item-text="region.name">
-            <md-item-template>
-              <span
-                md-highlight-text="regionName"
-                md-highlight-flags="i">
-                  {{ region.name }}
-              </span>
-            </md-item-template>
-            <md-not-found>
-              No regions found.
-            </md-not-found>
-          </md-autocomplete>
-      </md-chips>
-    </div>
-  </div>
 	<div layout-padding>
 		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
 			<md-card-header>
@@ -104,13 +68,7 @@
 						<div class="card-chart-score">
 							<span>{{solution.votes.up - solution.votes.down}}</span>
 						</div>
-						<canvas id="card-pie"
-							class="chart chart-pie"
-							chart-data="[solution.votes.down, solution.votes.up]"
-							chart-labels="vm.chartLabels"
-							chart-options="vm.chartOptions"
-							chart-colors="vm.chartColors"
-							height="100%" width="100%">
+						<canvas id="card-pie" class="chart chart-pie" chart-data="[solution.votes.down, solution.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" height="100%" width="100%">
 						</canvas>
 						<md-tooltip>
 							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>

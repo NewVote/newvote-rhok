@@ -12,9 +12,11 @@ angular.module('core').service('SolutionService', ['$resource', '$stateParams', 
 
 		var svc = this;
 
-		svc.get = function (solutionId) {
+		svc.get = function (solutionId, regions) {
+			console.log('getting by ID');
 			return Solution.get({
-				solutionId: solutionId
+				solutionId: solutionId,
+				regions: regions
 			}).$promise;
 		};
 
@@ -35,7 +37,7 @@ angular.module('core').service('SolutionService', ['$resource', '$stateParams', 
 		};
 
 		svc.searchSolutions = function (query) {
-			// console.log('svc searching: ', query);
+			console.log('solution svc searching: ', query);
 			return svc.list({
 				search: query
 			});

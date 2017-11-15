@@ -20,37 +20,44 @@
 		<p>
 			Select an issue to view solutions
 		</p>
+		<div flex>
+
+		</div>
+		<div>			
+			<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="issues.create">
+				<md-icon>add</md-icon><span hide show-gt-sm>New</span>
+				<md-tooltip>Create a new issue</md-tooltip>
+			</md-button>
+			<md-button ng-hide="authentication.user.roles.indexOf('admin')==1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="suggestions">
+				<md-icon>add</md-icon><span hide show-gt-sm>New</span>
+				<md-tooltip>Suggest a new issue</md-tooltip>
+			</md-button>
+		</div>
 	</div>
 </md-toolbar>
 
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 	<div layout="row" layout-padding layout-wrap>
-		<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="issues.create">
-			<md-icon>add</md-icon><span hide show-gt-sm>New</span>
-			<md-tooltip>Create a new issue</md-tooltip>
-		</md-button>
-		<md-button ng-hide="authentication.user.roles.indexOf('admin')==1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="suggestions">
-			<md-icon>add</md-icon><span hide show-gt-sm>New</span>
-			<md-tooltip>Suggest a new issue</md-tooltip>
-		</md-button>
+		<div layout-gt-sm="row" layout-align-gt-sm="start center" layout-padding>
+			<span>Sort</span>
+			<div>
+				<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
+					<md-option ng-value="{type: 'alpha', order: 'asc'}" ng-selected="true">A-Z</md-option>
+	                <md-option ng-value="{type: 'top', order: 'desc'}">Top</md-option>
+	                <md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
+	                <md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
+	                <md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
+				</md-select>
 
-		<div hide show-gt-sm>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'alpha', order: 'asc'}, $event)">A-Z<md-tooltip>Alphabetical sorting</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top<md-tooltip>Total score of solution votes</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial<md-tooltip>Greatest difference in opinion of solutions</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending<md-tooltip>Recently popular</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest<md-tooltip>Most recently updated or created</md-tooltip></md-button>
-		</div>
+				<md-tooltip ng-if="vm.sortSelectState.type === 'alpha'">Simple alphabetical sorting</md-tooltip>
+				<md-tooltip ng-if="vm.sortSelectState.type === 'top'">Total score of votes</md-tooltip>
+				<md-tooltip ng-if="vm.sortSelectState.type === 'controversial'">Greatest difference in opinion</md-tooltip>
+				<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
+				<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
+			</div>
+			<div flex>
 
-		<div hide-gt-sm layout="row" layout-align="end center" flex="fill">
-            <span layout-padding>Sort By </span>
-			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
-				<md-option ng-value="{type: 'alpha', order: 'asc'}" ng-selected="true">A-Z</md-option>
-                <md-option ng-value="{type: 'top', order: 'desc'}">Top</md-option>
-                <md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
-                <md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
-                <md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
-			</md-select>
+			</div>
 		</div>
 	</div>
 
