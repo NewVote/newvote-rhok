@@ -1,13 +1,7 @@
 <md-content layout="column">
-	<!-- <div hide show-gt-sm>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'top', order: 'desc'}, $event)">Top<md-tooltip>Total score of votes</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'controversial', order: 'desc'}, $event)">Controversial<md-tooltip>Greatest difference in opinion</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'trending', order: 'desc'}, $event)">Trending<md-tooltip>Recently popular</md-tooltip></md-button>
-			<md-button class="md-primary" ng-click="vm.sort({type: 'newest', order: 'desc'}, $event)">Newest<md-tooltip>Most recently updated or created</md-tooltip></md-button>
-		</div> -->
 	<div layout-gt-sm="row" layout-align-gt-sm="start center" layout-padding>
 		<span>Sort</span>
-		<div>			
+		<div>
 			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
 				<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
 				<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
@@ -20,9 +14,6 @@
 			<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
 			<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
 		</div>
-
-		<!-- {{vm.sortSelectState}} -->
-
 		<div flex>
 
 		</div>
