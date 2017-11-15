@@ -70,6 +70,7 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 
 				vm.updateVotes = function (regions) {
 					SolutionService.list({
+						issueId: vm.issueId ? vm.issueId : null,
 						regions: regions
 					}).then(function (solutions) {
 						console.log(solutions);

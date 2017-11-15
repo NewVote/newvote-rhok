@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'media', 'UploadService', 'SortService', 'isSingleAction', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, media, UploadService, SortService, isSingleAction, $mdConstant) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', 'RegionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'media', 'UploadService', 'SortService', 'isSingleAction', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, RegionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, media, UploadService, SortService, isSingleAction, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
@@ -10,6 +10,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.sortSvc = SortService;
 		vm.isSingleAction = isSingleAction;
 		vm.media = media;
+		vm.regions = [];
 
 		vm.chartLabels = ['Against', 'For'];
 		vm.chartOptions = {
@@ -76,6 +77,25 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			$rootScope.headerTitle = 'Proposed Action';
 		}
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
+
+		vm.searchRegions = function (query) {
+			return RegionService.searchRegions(query);
+		};
+
+		vm.updateVotes = function (regions) {
+			// console.log(vm.solution);
+			SolutionService.get($stateParams.solutionId, vm.regions).then(function (solution) {
+				vm.solution = solution;
+				console.log("new solution set");
+			});
+			ActionService.list({
+				solutionId: vm.solution._id,
+				regions: regions
+			}).then(function (actions) {
+				console.log(actions);
+				vm.actions = actions;
+			});
+		};
 
 		function getActions() {
 			ActionService.list({

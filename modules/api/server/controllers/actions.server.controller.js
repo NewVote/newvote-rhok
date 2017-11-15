@@ -100,7 +100,7 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      votes.attachVotes(actions, req.user).then(function(actions) {
+      votes.attachVotes(actions, req.user, req.query.regions).then(function(actions) {
         res.json(actions);
       }).catch(function(err) {
         res.status(500).send({
@@ -132,8 +132,8 @@ exports.actionByID = function (req, res, next, id) {
         message: 'No action with that identifier has been found'
       });
     }
-    votes.attachVotes([action], req.user).then(function() {
-      req.action = action;
+    votes.attachVotes([action], req.user, req.query.regions).then(function(actionArr) {
+      req.action = actionArr[0];
       next();
     }).catch(next);
   });
