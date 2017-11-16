@@ -61,6 +61,8 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			});
 		}
 
+		console.log('state: ', $state);
+
 		// Title
 		vm.titleText = '';
 		if (vm.solution._id && $state.is('solutions.edit')) {
@@ -86,13 +88,11 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			// console.log(vm.solution);
 			SolutionService.get($stateParams.solutionId, vm.regions).then(function (solution) {
 				vm.solution = solution;
-				console.log("new solution set");
 			});
 			ActionService.list({
 				solutionId: vm.solution._id,
 				regions: regions
 			}).then(function (actions) {
-				console.log(actions);
 				vm.actions = actions;
 			});
 		};
