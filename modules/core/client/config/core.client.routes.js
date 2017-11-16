@@ -225,6 +225,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					actions: ['ActionService', '$stateParams', function (ActionService, $stateParams) {
 						return ActionService.get($stateParams.actionId);
 					}],
+					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+						return MediaService.list({
+							solutionId: $stateParams.solutionId
+						});
+					}],
 					isSingleAction: function () {
 						return true;
 					}
