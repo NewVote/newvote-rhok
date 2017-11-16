@@ -75,11 +75,26 @@ exports.list = function (req, res) {
   var searchParams = req.query.search;
   var query;
   if (searchParams) {
-    query = { 
-      name: {
-        $regex: searchParams,
-        $options: 'i'
-      }
+    query = {
+        $or: [{
+                name: {
+                    $regex: req.query.search,
+                    $options: 'i'
+                }
+            },
+            {
+                postcodes: {
+                    $regex: req.query.search,
+                    $options: 'i'
+                }
+            },
+            {
+                suburbs: {
+                    $regex: req.query.search,
+                    $options: 'i'
+                }
+            }
+        ]
     };
   } else {
     query = null;

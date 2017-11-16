@@ -136,7 +136,7 @@
 						<md-autocomplete md-no-cache="true" md-items="region in vm.searchRegions(regionName)" md-dropdown-items="5" md-search-text="regionName" placeholder="Add regions" md-item-text="region.name">
 							<md-item-template>
 								<span md-highlight-text="regionName" md-highlight-flags="i">
-							  {{ region.name }}
+							  {{ region.name }} ({{region.type}})
 						  </span>
 							</md-item-template>
 							<md-not-found>

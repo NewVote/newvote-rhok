@@ -15,6 +15,14 @@ var RegionSchema = new Schema({
     unique: true,
     required: true
   },
+  type: {
+      type: String,
+      required: true
+  },
+  suburbs: [{
+      type: String,
+      required: true
+  }],
   postcodes: [{
     type: String,
     required: true
