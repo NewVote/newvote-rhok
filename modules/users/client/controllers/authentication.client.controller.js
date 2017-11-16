@@ -31,9 +31,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 
 		//set up required variables for tabs
 		if(!$scope.data) $scope.data = {};
-		$scope.data.selectedIndex = 1;
+		$scope.data.selectedIndex = 0;
 		$scope.data.setupLocked = false;
-		$scope.data.profileLocked = false;
+		$scope.data.profileLocked = true;
 
 		$scope.birthYears = [];
 		var year = (new Date()).getFullYear();

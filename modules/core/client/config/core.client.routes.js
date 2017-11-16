@@ -350,6 +350,25 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			//   }
 			// })
 
+			.state('privacy', {
+				url: '/privacy',
+				templateUrl: 'modules/core/client/views/privacy.client.view.html',
+				bindToController: true,
+				controllerAs: 'vm',
+				controller: ['$scope', '$rootScope', '$state',
+					function ($scope, $rootScope, $state) {
+						var vm = this;
+						// Meta tags
+						vm.desc = 'The privacy policy for the NewVote platform.';
+						// Title
+						vm.titleText = '';
+						vm.titleText = 'Privacy Policy';
+						$rootScope.headerTitle = 'Privacy Policy';
+						vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
+					}
+				]
+			})
+
 			.state('not-found', {
 				url: '/not-found',
 				templateUrl: 'modules/core/client/views/404.client.view.html',
