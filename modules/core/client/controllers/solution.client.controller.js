@@ -61,8 +61,6 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			});
 		}
 
-		console.log('state: ', $state);
-
 		// Title
 		vm.titleText = '';
 		if (vm.solution._id && $state.is('solutions.edit')) {
