@@ -40,8 +40,7 @@ var ActionSchema = new Schema({
 	}],
 	solution: {
 		type: Schema.ObjectId,
-		ref: 'Solution',
-        required: true
+		ref: 'Solution'
 	},
 	votes: {
 		up: Number,

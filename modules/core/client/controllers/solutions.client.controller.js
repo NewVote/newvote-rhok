@@ -13,6 +13,6 @@ angular.module('core').controller('SolutionsController', ['$scope', '$rootScope'
 
 		// Meta tags
 		vm.desc = vm.desc = 'A collection of the current solutions being discussed on the NewVote platform.';
-		vm.image = vm.solutions[0].imageUrl;
+		vm.image = vm.solutions[0] ? vm.solutions[0].imageUrl : null;
 	}
 ]);
