@@ -142,16 +142,16 @@ exports.solutionByID = function (req, res, next, id) {
 };
 
 function updateSchema(solutions) {
-  console.log('schema update called');
+  // console.log('schema update called');
   for (var i = 0; i < solutions.length; i++) {
     var sol = solutions[i];
-    console.log('testing: ', sol);
+    // console.log('testing: ', sol);
     if((sol.solutions && sol.solutions.length > 0) || sol.solution) {
       if(sol.solution){
-        console.log('found single solution: ', sol.solution);
+        // console.log('found single solution: ', sol.solution);
         sol.goals = [sol.solution];
       }else{
-        console.log('found solution array: ', sol.solutions);
+        // console.log('found solution array: ', sol.solutions);
         sol.goals = sol.solutions;
       }
 
