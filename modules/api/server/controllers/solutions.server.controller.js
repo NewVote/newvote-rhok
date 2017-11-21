@@ -158,6 +158,9 @@ function updateSchema(solutions) {
       sol.solution = undefined;
       sol.solutions = undefined;
 
+      delete sol.solution;
+      delete sol.solutions;
+
       sol.save();
     }
   }

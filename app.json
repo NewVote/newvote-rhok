@@ -1,0 +1,47 @@
+{
+  "name": "newvote-rhok",
+  "scripts": {
+  },
+  "env": {
+    "FACEBOOK_ID": {
+      "required": true
+    },
+    "FACEBOOK_SECRET": {
+      "required": true
+    },
+    "GOOGLE_ID": {
+      "required": true
+    },
+    "GOOGLE_SECRET": {
+      "required": true
+    },
+    "MAILER_EMAIL_ID": {
+      "required": true
+    },
+    "MAILER_PASSWORD": {
+      "required": true
+    },
+    "MAILER_SERVICE_PROVIDER": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+  "web": {
+    "quantity": 1,
+    "size": "free"
+  }
+}
+}
