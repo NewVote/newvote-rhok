@@ -33,15 +33,23 @@ var SolutionSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	comments: [{
+	goals: [{
 		type: Schema.ObjectId,
-		ref: 'Comment'
+		ref: 'Goal',
+        required: true
 	}],
-	issues: [{
+	goal: {
 		type: Schema.ObjectId,
-		ref: 'Issue',
-		required: true
+		ref: 'Goal'
+	},
+	solutions: [{
+		type: Schema.ObjectId,
+		ref: 'Goal'
 	}],
+	solution: {
+		type: Schema.ObjectId,
+		ref: 'Goal'
+	},
 	votes: {
 		up: Number,
 		down: Number,
@@ -50,11 +58,7 @@ var SolutionSchema = new Schema({
 			type: Schema.ObjectId,
 			ref: 'Vote'
 		}
-	},
-	tags: [{
-		type: String,
-		trim: true
-	}]
+	}
 });
 
 mongoose.model('Solution', SolutionSchema);

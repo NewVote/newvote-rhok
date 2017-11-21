@@ -30,30 +30,16 @@
   <ng-quill-editor ng-model="vm.solution.description"></ng-quill-editor>
 
   <md-contact-chips
-    ng-model="vm.solution.issues"
-    md-contacts="vm.searchIssues($query)"
-    md-contact-name="name"
+    ng-model="vm.solution.goals"
+    md-contacts="vm.searchGoals($query)"
+    md-contact-name="title"
     md-require-match="true"
     md-highlight-flags="i"
     md-delay="400"
-    placeholder="Issues Addressed"
-    secondary-placeholder="Add another issue">
+    placeholder="Goals Solutioned"
+    secondary-placeholder="Add another goal">
   </md-contact-chips>
 
-  <form name="tagsForm">
-      <md-chips
-            ng-model="vm.solution.tags"
-            md-separator-keys="vm.customKeys"
-            name="tagsName"
-            md-removable="true"
-            md-max-chips="5"
-            placeholder="Enter a tag...">
-      </md-chips>
-
-      <div class="errors" ng-messages="tagsForm.tagsName.$error">
-          <div ng-message="md-max-chips">Maximum number of tags reached.</div>
-      </div>
-  </form>
   <div layout="row">
     <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
       <span ng-if="vm.solution._id">Update</span>

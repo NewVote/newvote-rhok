@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SuggestionsController', ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'Authentication', '$q', 'SuggestionsService', 'IssueService', 'SolutionService', 'suggestion',
-	function ($scope, $rootScope, $state, $stateParams, $location, Authentication, $q, SuggestionsService, IssueService, SolutionService, suggestion) {
+angular.module('core').controller('SuggestionsController', ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'Authentication', '$q', 'SuggestionsService', 'IssueService', 'GoalService', 'suggestion',
+	function ($scope, $rootScope, $state, $stateParams, $location, Authentication, $q, SuggestionsService, IssueService, GoalService, suggestion) {
 		var vm = this;
 		vm.suggestion = suggestion;
 
@@ -16,8 +16,8 @@ angular.module('core').controller('SuggestionsController', ['$scope', '$rootScop
 			});
 		};
 
-		vm.searchSolutions = function (query) {
-			return SolutionService.list({
+		vm.searchGoals = function (query) {
+			return GoalService.list({
 				search: query
 			});
 		};

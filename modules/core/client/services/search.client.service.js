@@ -3,13 +3,13 @@
 angular.module('core').service('SearchService', ['$resource', '$stateParams', '$q', '_', '$location', '$window',
     function ($resource, $stateParams, $q, _, $location, $window) {
         var Issue = $resource('api/issues/');
+        var Goal = $resource('api/goals/');
         var Solution = $resource('api/solutions/');
-        var Action = $resource('api/actions/');
 
         var modelEnum = {
             issue: 0,
-            solution: 1,
-            action: 2
+            goal: 1,
+            solution: 2
         };
 
         var svc = this;
@@ -18,20 +18,20 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             return Issue.query({ search: text }).$promise;
         };
 
+        svc.searchGoals = function(text) {
+            return Goal.query({ search: text }).$promise;
+        };
+
         svc.searchSolutions = function(text) {
             return Solution.query({ search: text }).$promise;
         };
 
-        svc.searchActions = function(text) {
-            return Action.query({ search: text }).$promise;
-        };
-
         svc.searchAll = function(text) {
             var issues = svc.searchIssues(text);
+            var goals = svc.searchGoals(text);
             var solutions = svc.searchSolutions(text);
-            var actions = svc.searchActions(text);
 
-            return Promise.all([issues, solutions, actions]).then(function(data) {
+            return Promise.all([issues, goals, solutions]).then(function(data) {
                 var results = [];
                 for (var model in data) {
                     for (var item in data[model]) {
@@ -45,12 +45,12 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                                     data[model][item].model = 'Issue';
                                     break;
 
-                                case modelEnum.solution:
-                                    data[model][item].model = 'Solution';
+                                case modelEnum.goal:
+                                    data[model][item].model = 'Goal';
                                     break;
 
-                                case modelEnum.action:
-                                    data[model][item].model = 'Action';
+                                case modelEnum.solution:
+                                    data[model][item].model = 'Solution';
                                     break;
 
                             }
@@ -67,7 +67,7 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             if (item.name !== undefined) {
                 return item.name;
 
-            // Solutions and Actions
+            // Goals and Solutions
             } else if (item.title !== undefined) {
                 return item.title;
             }
@@ -79,11 +79,11 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                 case 'Issue':
                     return getIssueLink(item);
 
+                case 'Goal':
+                    return getGoalLink(item);
+
                 case 'Solution':
                     return getSolutionLink(item);
-
-                case 'Action':
-                    return getActionLink(item);
 
             }
         };
@@ -93,14 +93,14 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             return getOriginURL() + url;
         }
 
-        function getSolutionLink(item) {
-            var url = '/solutions/' + item._id;
+        function getGoalLink(item) {
+            var url = '/goals/' + item._id;
             return getOriginURL() + url;
         }
 
-        function getActionLink(item) {
-            // Return a url to the parent solution
-            var url = '/solutions/' + item.solution + '/?actionId=' + item._id;
+        function getSolutionLink(item) {
+            // Return a url to the parent goal
+            var url = '/goals/' + item.goal + '/?solutionId=' + item._id;
             return getOriginURL() + url;
         }
 

@@ -8,7 +8,7 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
     svc.reverse = false;
 
     var controversialSort = function(a){
-        var votes = a.solutionMetaData ? a.solutionMetaData.votes : a.votes;
+        var votes = a.goalMetaData ? a.goalMetaData.votes : a.votes;
         // var aUp = votes.up===0 ? 1 : votes.up;
         // return (votes.down / aUp) * votes.total;
         var diff = Math.abs(votes.up - votes.down);
@@ -30,7 +30,7 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
     var buildExpression = function(objectType, sortParam, order){
         svc.reverse = order === 'asc' ? false : true;
 
-        if(objectType === 'solution' || objectType === 'action'){
+        if(objectType === 'goal' || objectType === 'solution'){
             if(sortParam === 'top'){
                 return 'votes.up-votes.down';
             }else if(sortParam === 'controversial'){
@@ -45,13 +45,13 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
             if(sortParam === 'alpha') {
                 return 'name';
             }else if(sortParam === 'top'){
-                return 'solutionMetaData.votes.up-solutionMetaData.votes.down';
+                return 'goalMetaData.votes.up-goalMetaData.votes.down';
             }else if(sortParam === 'controversial'){
                 return controversialSort;
             }else if(sortParam === 'trending'){
-                return 'solutionMetaData.totalTrendingScore';
+                return 'goalMetaData.totalTrendingScore';
             }else if(sortParam === 'newest'){
-                return 'solutionMetaData.lastCreated';
+                return 'goalMetaData.lastCreated';
             }
         }
     };

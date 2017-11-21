@@ -18,12 +18,12 @@
 <md-toolbar class="md-primary">
 	<div layout-padding class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 		<p>
-			Select an issue to view solutions
+			Select an issue to learn more about it
 		</p>
 		<div flex>
 
 		</div>
-		<div>			
+		<div>
 			<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="issues.create">
 				<md-icon>add</md-icon><span hide show-gt-sm>New</span>
 				<md-tooltip>Create a new issue</md-tooltip>

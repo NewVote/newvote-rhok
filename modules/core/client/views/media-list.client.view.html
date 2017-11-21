@@ -48,36 +48,36 @@
 				</div>
 			</md-card-actions>
 		</md-card>
-		<!-- <md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
+		<!-- <md-card class="goal-card" ng-repeat="goal in vm.goals | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="goals.view({goalId:goal._id})">
 			<md-card-header>
 				<md-card-avatar>
-					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
+					<img ng-src="{{::goal.imageUrl}}" alt="Goal Image" />
 				</md-card-avatar>
 				<md-card-header-text>
-					<span ng-if="authentication.user.roles.indexOf('admin')>-1">cont: {{vm.controversialSort(solution)}}</span>
-					<span class="md-title">{{::solution.title}}</span>
-					<span class="md-subhead description-container"><div class="description" ng-bind="solution.description | htmlToPlaintext"></div></span>
+					<span ng-if="authentication.user.roles.indexOf('admin')>-1">cont: {{vm.controversialSort(goal)}}</span>
+					<span class="md-title">{{::goal.title}}</span>
+					<span class="md-subhead description-container"><div class="description" ng-bind="goal.description | htmlToPlaintext"></div></span>
 				</md-card-header-text>
 			</md-card-header>
 			<md-card-actions layout="row" layout-align="end center">
 				<md-card-icon-actions>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'up', $event)">
+					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'up', $event)">
 						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
+							<span ng-if="goal.votes.currentUser.voteValue===1">Undo</span>
+							<span ng-if="goal.votes.currentUser.voteValue!==1">Vote Up</span>
 						</md-tooltip>
 						<md-icon>arrow_upward</md-icon>
 					</md-button>
 					<md-button class="md-icon-button" ng-class="" ng-click="">
 						<md-tooltip>
-							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
+							<span>For: {{goal.votes.up}}, Against: {{goal.votes.down}}</span>
 						</md-tooltip>
-						{{solution.votes.up - solution.votes.down}}
+						{{goal.votes.up - goal.votes.down}}
 					</md-button>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'down', $event)">
+					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(goal, 'down', $event)">
 						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
+							<span ng-if="goal.votes.currentUser.voteValue===-1">Undo</span>
+							<span ng-if="goal.votes.currentUser.voteValue!==-1">Vote Down</span>
 						</md-tooltip>
 						<md-icon>arrow_downward</md-icon>
 					</md-button>

@@ -120,12 +120,12 @@ md-sidenav {
 }
 
 .issues,
-.solutions {
+.goals {
 	margin: 16px;
 }
 
 .issue,
-.solution {
+.goal {
 	cursor: pointer;
 
 	figcaption {
@@ -209,8 +209,8 @@ md-tooltip {
 	line-height: normal !important;
 }
 
-.action-card,
-.solution-card {
+.solution-card,
+.goal-card {
 	cursor: pointer;
 
 	.description-container {

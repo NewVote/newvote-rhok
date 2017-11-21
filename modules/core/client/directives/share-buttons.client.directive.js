@@ -12,8 +12,8 @@ angular.module('core').directive('shareButtons', ['$timeout', function ($timeout
 		templateUrl: 'modules/core/client/views/share-buttons.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
-		controller: ['$scope', '$window', '$state', 'SocialshareService', 'SolutionService',
-			function ($scope, $window, $state, SocialshareService, SolutionService) {
+		controller: ['$scope', '$window', '$state', 'SocialshareService', 'GoalService',
+			function ($scope, $window, $state, SocialshareService, GoalService) {
         var vm = this;
 
         vm.shareItems = [
@@ -36,21 +36,21 @@ angular.module('core').directive('shareButtons', ['$timeout', function ($timeout
         vm.$onDestroy = function () {
           angular.element($window).off('resize');
         };
-        
-        
+
+
         vm.share = function (provider) {
 
           switch (vm.objectType) {
 
-            case 'solution':
+            case 'goal':
               SocialshareService.share({
                 provider: provider,
-                rel_url: '/solutions/' + vm.object._id,
+                rel_url: '/goals/' + vm.object._id,
                 title: vm.object.title,
                 hashtags: vm.object.tags.join()
               });
               break;
-            
+
             case 'issue':
               SocialshareService.share({
                 provider: provider,
@@ -69,19 +69,19 @@ angular.module('core').directive('shareButtons', ['$timeout', function ($timeout
               });
               break;
 
-            case 'action':
+            case 'solution':
               SocialshareService.share({
                 provider: provider,
-                rel_url: '/solutions/' + vm.reqObject._id + '/?actionId=' + vm.object._id,
+                rel_url: '/goals/' + vm.reqObject._id + '/?solutionId=' + vm.object._id,
                 title: vm.object.title,
                 hashtags: vm.reqObject.tags.join()
               });
               break;
-            
+
             default:
               console.log('Unknown object type', vm.objectType);
               break;
-            
+
           }
         };
 			}

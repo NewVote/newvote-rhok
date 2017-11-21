@@ -30,9 +30,9 @@ var MediaSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Issue'
 	}],
-	solutions: [{
+	goals: [{
 		type: Schema.ObjectId,
-		ref: 'Solution'
+		ref: 'Goal'
 	}],
 	votes: {
 		up: Number,

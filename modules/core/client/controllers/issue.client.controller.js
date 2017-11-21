@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, media, UploadService, $q, SortService, $mdConstant) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'goals', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, goals, media, UploadService, $q, SortService, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.issue = issue;
 		vm.media = media;
 		vm.issueId = issue._id;
-		vm.solutions = solutions;
+		vm.goals = goals;
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
@@ -65,9 +65,9 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 			});
 		};
 
-		vm.vote = function (solution, voteType, $event) {
+		vm.vote = function (goal, voteType, $event) {
 			$event.stopPropagation();
-			VoteService.vote(solution, 'Solution', voteType);
+			VoteService.vote(goal, 'Goal', voteType);
 		};
 
 		angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();

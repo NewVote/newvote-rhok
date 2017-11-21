@@ -1,45 +1,45 @@
 'use strict';
 
-angular.module('core').directive('solutionList', ['$timeout', function ($timeout) {
+angular.module('core').directive('goalList', ['$timeout', function ($timeout) {
 	return {
 		restrict: 'E',
 		scope: {
-			solutions: '=',
+			goals: '=',
 			issueId: '='
 		},
-		templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
+		templateUrl: 'modules/core/client/views/goals-list.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
-		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'SolutionService',
-			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, SolutionService) {
+		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'GoalService',
+			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, GoalService) {
 				var vm = this;
 				vm.sortSvc = SortService;
 				vm.regions = [];
 				$scope.authentication = Authentication;
 
-				vm.vote = function (solution, voteType, $event) {
+				vm.vote = function (goal, voteType, $event) {
 					$event.stopPropagation();
-					VoteService.vote(solution, 'Solution', voteType).then(function (data) {
-						solution.$get();
+					VoteService.vote(goal, 'Goal', voteType).then(function (data) {
+						goal.$get();
 					});
 				};
 				vm.sort = function (sortData, $event) {
 					if ($event) $event.stopPropagation();
-					SortService.setSort('solution', sortData.type, sortData.order);
+					SortService.setSort('goal', sortData.type, sortData.order);
 				};
 
-				vm.share = function (solution, provider) {
+				vm.share = function (goal, provider) {
 					SocialshareService.share({
 						provider: provider,
-						rel_url: '/solutions/' + solution._id,
-						title: solution.title,
-						hashtags: solution.tags.join()
+						rel_url: '/goals/' + goal._id,
+						title: goal.title,
+						hashtags: goal.tags.join()
 					});
 				};
 
 				//this is just to show the controversial score in the UI
 				vm.controversialSort = function (a) {
-					var votes = a.solutionMetaData ? a.solutionMetaData.votes : a.votes;
+					var votes = a.goalMetaData ? a.goalMetaData.votes : a.votes;
 					// var aUp = votes.up===0 ? 1 : votes.up;
 					// return (votes.down / aUp) * votes.total;
 					var diff = Math.abs(votes.up - votes.down);
@@ -69,12 +69,12 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 				};
 
 				vm.updateVotes = function (regions) {
-					SolutionService.list({
+					GoalService.list({
 						issueId: vm.issueId ? vm.issueId : null,
 						regions: regions
-					}).then(function (solutions) {
-						console.log(solutions);
-						vm.solutions = solutions;
+					}).then(function (goals) {
+						console.log(goals);
+						vm.goals = goals;
 					});
 				};
 

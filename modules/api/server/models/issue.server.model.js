@@ -33,13 +33,13 @@ var IssueSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	solutionMetaData: {
+	goalMetaData: {
 		votes: {
 			up: Number,
 			down: Number,
 			total: Number
 		},
-		solutionCount: Number,
+		goalCount: Number,
 		totalTrendingScore: Number,
 		lastCreated: Date
 	},

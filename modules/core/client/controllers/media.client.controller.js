@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'SolutionService', 'MediaService',
-	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, SolutionService, MediaService) {
+angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'GoalService', 'MediaService',
+	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, GoalService, MediaService) {
 		var vm = this;
 		vm.media = media;
 
@@ -22,12 +22,12 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 						issueId: issue._id
 					};
 				});
-			} else if ($stateParams.objectType === 'solution') {
-				SolutionService.get($stateParams.objectId).then(function (solution) {
-					previousState = 'solutions.view';
-					vm.media.solutions.push(solution);
+			} else if ($stateParams.objectType === 'goal') {
+				GoalService.get($stateParams.objectId).then(function (goal) {
+					previousState = 'goals.view';
+					vm.media.goals.push(goal);
 					stateData = {
-						solutionId: solution._id
+						goalId: goal._id
 					};
 				});
 			}
@@ -38,10 +38,10 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 				stateData = {
 					issueId: $stateParams.previousObjectId
 				};
-			} else if ($stateParams.objectType === 'solution') {
-				previousState = 'solutions.view';
+			} else if ($stateParams.objectType === 'goal') {
+				previousState = 'goals.view';
 				stateData = {
-					solutionId: $stateParams.previousObjectId
+					goalId: $stateParams.previousObjectId
 				};
 			}
 		}
@@ -60,8 +60,8 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 			});
 		};
 
-		vm.searchSolutions = function (query) {
-			return SolutionService.list({
+		vm.searchGoals = function (query) {
+			return GoalService.list({
 				search: query
 			});
 		};

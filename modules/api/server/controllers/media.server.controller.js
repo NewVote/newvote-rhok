@@ -93,15 +93,15 @@ exports.delete = function (req, res) {
  * List of Medias
  */
 exports.list = function (req, res) {
-	var solutionId = req.query.solutionId,
+	var goalId = req.query.goalId,
 		issueId = req.query.issueId,
 		searchParams = req.query.search,
 		mediaId = req.query.mediaId,
 		query;
 
-	if (solutionId) {
+	if (goalId) {
 		query = {
-			solutions: solutionId
+			goals: goalId
 		};
 	} else if(issueId) {
 		query = {
@@ -117,7 +117,7 @@ exports.list = function (req, res) {
 	} else {
 		query = null;
 	}
-	Media.find(query).sort('-created').populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err, medias) {
+	Media.find(query).sort('-created').populate('user', 'displayName').populate('issues').populate('goals').exec(function (err, medias) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -146,7 +146,7 @@ exports.mediaByID = function (req, res, next, id) {
 		});
 	}
 
-	Media.findById(id).populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err, media) {
+	Media.findById(id).populate('user', 'displayName').populate('issues').populate('goals').exec(function (err, media) {
 		if (err) {
 			return next(err);
 		} else if (!media) {
