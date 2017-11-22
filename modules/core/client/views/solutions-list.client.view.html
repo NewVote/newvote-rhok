@@ -1,0 +1,164 @@
+<md-content layout="column">
+	<div layout-gt-sm="row" layout-align-gt-sm="start center" layout-padding>
+		<span>Sort</span>
+		<div>
+			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
+				<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
+				<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
+				<md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
+				<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
+			</md-select>
+
+			<md-tooltip ng-if="vm.sortSelectState.type === 'top'">Total score of votes</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'controversial'">Greatest difference in opinion</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
+		</div>
+		<div flex>
+
+		</div>
+		<span>Filter</span>
+		<div layout-align="start center">
+			<md-chips ng-model="vm.regions" md-require-match="true" md-on-add="vm.updateVotes(vm.regions)" md-on-remove="vm.updateVotes(vm.regions)" md-delay="400" placeholder="All regions" secondary-placeholder="Add another region">
+				<md-chip-template>
+					<span>{{ $chip.name }}</span>
+				</md-chip-template>
+				<md-autocomplete md-no-cache="true" md-items="region in vm.searchRegions(regionName)" md-dropdown-items="5" md-search-text="regionName" placeholder="Add regions" md-item-text="region.name">
+					<md-item-template>
+						<span md-highlight-text="regionName" md-highlight-flags="i">
+					  		{{ region.name }} ({{region.type}})
+				  		</span>
+					</md-item-template>
+					<md-not-found>
+						No regions found.
+					</md-not-found>
+				</md-autocomplete>
+			</md-chips>
+		</div>
+
+	</div>
+	<div layout-padding>
+		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse">
+			<md-card-header>
+				<md-card-avatar>
+					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
+				</md-card-avatar>
+				<md-card-header-text>
+					<span class="md-headline">{{::solution.title}}</span>
+					<span class="md-subhead" ng-bind="solution.description | htmlToPlaintext"></span>
+				</md-card-header-text>
+			</md-card-header>
+			<md-card-actions layout="row" layout-align="start start">
+				<md-card-icon-actions>
+					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'up', $event)">
+						<md-tooltip>
+							<span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
+							<span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
+						</md-tooltip>
+						<md-icon>arrow_upward</md-icon>
+					</md-button>
+					<div class="card-chart-container">
+						<div class="card-chart-score">
+							<span>{{solution.votes.up - solution.votes.down}}</span>
+						</div>
+						<canvas id="card-pie"
+							class="chart chart-pie"
+							chart-data="[solution.votes.down, solution.votes.up]"
+							chart-labels="vm.chartLabels"
+							chart-options="vm.chartOptions"
+							chart-colors="vm.chartColors"
+							height="100%" width="100%">
+						</canvas>
+						<md-tooltip>
+							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
+						</md-tooltip>
+					</div>
+					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'down', $event)">
+						<md-tooltip>
+							<span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
+							<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
+						</md-tooltip>
+						<md-icon>arrow_downward</md-icon>
+					</md-button>
+					<div ng-if="authentication.user.roles != null && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user._id===solution.user._id)">
+						<md-button class="md-icon-button" ng-click="vm.deleteSolution(solution)">
+							<md-tooltip>Delete</md-tooltip>
+							<md-icon>delete</md-icon>
+						</md-button>
+						<md-button class="md-icon-button" ui-sref="solutions.edit({solutionId: solution._id, solutionId: vm.solution._id})">
+							<md-tooltip>Edit Solution</md-tooltip>
+							<md-icon>edit</md-icon>
+						</md-button>
+					</div>
+
+					<div flex>
+					  <share-buttons object="solution" req-object="vm.solution" object-type="'solution'" vertical-resize="true"></share-buttons>
+					</div>
+				</md-card-icon-actions>
+			</md-card-actions>
+		</md-card>
+	</div>
+</md-content>
+
+<!--
+			<div layout-padding>
+				<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse">
+					<md-card-header>
+						<md-card-avatar>
+							<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
+						</md-card-avatar>
+						<md-card-header-text>
+							<span class="md-headline">{{::solution.title}}</span>
+							<span class="md-subhead" ng-bind="solution.description | htmlToPlaintext"></span>
+						</md-card-header-text>
+					</md-card-header>
+					<md-card-actions layout="row" layout-align="start start">
+						<md-card-icon-actions>
+							<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.voteSolution(solution, 'up', $event)">
+								<md-tooltip>
+									<span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
+									<span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
+								</md-tooltip>
+								<md-icon>arrow_upward</md-icon>
+							</md-button>
+							<div class="card-chart-container">
+								<div class="card-chart-score">
+									<span>{{solution.votes.up - solution.votes.down}}</span>
+								</div>
+								<canvas id="card-pie"
+									class="chart chart-pie"
+									chart-data="[solution.votes.down, solution.votes.up]"
+									chart-labels="vm.chartLabels"
+									chart-options="vm.chartOptions"
+									chart-colors="vm.chartColors"
+									height="100%" width="100%">
+								</canvas>
+								<md-tooltip>
+									<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
+								</md-tooltip>
+							</div>
+							<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.voteSolution(solution, 'down', $event)">
+								<md-tooltip>
+									<span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
+									<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
+								</md-tooltip>
+								<md-icon>arrow_downward</md-icon>
+							</md-button>
+							<div ng-if="authentication.user.roles != null && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user._id===solution.user._id)">
+								<md-button class="md-icon-button" ng-click="vm.deleteSolution(solution)">
+									<md-tooltip>Delete</md-tooltip>
+									<md-icon>delete</md-icon>
+								</md-button>
+								<md-button class="md-icon-button" ui-sref="solutions.edit({solutionId: solution._id, solutionId: vm.solution._id})">
+									<md-tooltip>Edit Solution</md-tooltip>
+									<md-icon>edit</md-icon>
+								</md-button>
+							</div>
+
+							<div flex>
+							  <share-buttons object="solution" req-object="vm.solution" object-type="'solution'" vertical-resize="true"></share-buttons>
+							</div>
+						</md-card-icon-actions>
+					</md-card-actions>
+				</md-card>
+				</div>-->
