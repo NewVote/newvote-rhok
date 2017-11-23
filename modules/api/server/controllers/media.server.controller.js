@@ -177,7 +177,6 @@ exports.getMeta = function (req, res) {
 			title = meta.general.title;
 		}
 
-		var description;
 		if(meta.dublinCore && meta.dublinCore.description){
 			description = meta.dublinCore.description;
 		}else if(meta.openGraph && meta.openGraph.description){
@@ -186,7 +185,6 @@ exports.getMeta = function (req, res) {
 			description = meta.general.description;
 		}
 
-		var image;
 		if(meta.openGraph && meta.openGraph.image){
 			image = meta.openGraph.image.url;
 		}else if(meta.twitter && meta.twitter.description){
