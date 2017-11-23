@@ -48,6 +48,9 @@ module.exports = function (app) {
 		.get(regions.list)
 		.post(regions.create);
 
+	app.route('/api/countries').all(policy.isAllowed)
+		.get(countries.list);
+
 	app.route('/api/meta/:uri').all(policy.isAllowed)
 		.get(media.getMeta);
 
@@ -91,6 +94,9 @@ module.exports = function (app) {
 		.put(regions.update)
 		.delete(regions.delete);
 
+	app.route('/api/countries/:countryId').all(policy.isAllowed)
+		.get(countries.read);
+
 	// Finish by binding the article middleware
 	app.param('issueId', issues.issueByID);
 	app.param('goalId', goals.goalByID);
@@ -100,4 +106,5 @@ module.exports = function (app) {
 	app.param('suggestionId', suggestions.suggestionByID);
 	app.param('mediaId', media.mediaByID);
 	app.param('regionId', regions.regionByID);
+	app.param('countryId', countries.countryByID);
 };

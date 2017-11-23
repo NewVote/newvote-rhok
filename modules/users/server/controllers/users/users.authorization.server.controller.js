@@ -19,13 +19,13 @@ exports.userByID = function (req, res, next, id) {
 
   User.findOne({
     _id: id
-  }).exec(function (err, user) {
+}).populate('country').exec(function (err, user) {
     if (err) {
       return next(err);
     } else if (!user) {
       return next(new Error('Failed to load User ' + id));
     }
-
+    console.log('got user by id: ', user);
     req.profile = user;
     next();
   });

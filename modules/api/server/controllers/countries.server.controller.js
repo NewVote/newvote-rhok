@@ -69,7 +69,7 @@ exports.delete = function (req, res) {
 };
 
 /**
- * List of Countrys
+ * List of Countries
  */
 exports.list = function (req, res) {
   var searchParams = req.query.search;
@@ -87,13 +87,13 @@ exports.list = function (req, res) {
   } else {
     query = null;
   }
-  Country.find(query).exec(function (err, countrys) {
+  Country.find(query).exec(function (err, countries) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(countrys);
+      res.json(countries);
     }
   });
 };

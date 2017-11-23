@@ -49,6 +49,30 @@
 									</div>
 								</div>
 							</md-input-container>
+							<md-autocomplete
+							    ng-if="user.international"
+								required
+					            md-no-cache="true"
+					            md-selected-item="user.country"
+					            md-search-text="countryName"
+					            md-items="country in vm.searchCountries(countryName)"
+					            md-item-text="country.name"
+					            md-min-length="0"
+					            placeholder="Please select your country"
+								md-floating-label="Country"
+								md-require-match
+								md-input-name="country">
+					          <md-item-template>
+					            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{country.name}}</span>
+					          </md-item-template>
+					          <md-not-found>
+					            No countries matching "{{countryName}}" were found.
+					          </md-not-found>
+
+							  <div ng-messages="userForm.country.$error">
+					            <div ng-message="required">Please provide your country of residency.</div>
+					          </div>
+					        </md-autocomplete>
 
 							<md-input-container class="md-block" flex-gt-sm>
 								<md-checkbox ng-model="user.international" aria-label="I'm not from Australia" name="international">

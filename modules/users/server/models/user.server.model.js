@@ -64,7 +64,8 @@ var UserSchema = new Schema({
       default: false
   },
   country: {
-      type: String,
+      type: Schema.ObjectId,
+      ref: 'Country',
       required: function() {
           return this.international == true;
       }
