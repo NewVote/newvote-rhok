@@ -19,8 +19,17 @@ var MediaSchema = new Schema({
 		ref: 'User'
 	},
 	title: {
-		type: String,
-		required: true
+		type: String
+	},
+	description: {
+		type: String
+	},
+	image: {
+		type: String
+	},
+	imageOnly: {
+		type: Boolean,
+		default: false
 	},
 	url: {
 		type: String,

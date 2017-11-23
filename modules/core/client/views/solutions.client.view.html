@@ -1,0 +1,20 @@
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
+
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+    <solution-list solutions="vm.solutions"></solution-list>
+</div>

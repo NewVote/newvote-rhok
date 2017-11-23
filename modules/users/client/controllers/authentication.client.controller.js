@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users',
-	function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users', 'CountryService',
+	function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users, CountryService) {
+		$scope.vm = this;
+		var vm = $scope.vm;
 		$scope.authentication = Authentication;
 		$scope.popoverMsg = PasswordValidator.getPopoverMsg();
 		if ($scope.authentication.user && $scope.authentication.user.data) {
@@ -40,6 +42,12 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 		for (var i = 100;i--;) {
 			$scope.birthYears.unshift(year - i);
 		}
+
+		vm.searchCountries = function(query) {
+			return CountryService.list({
+				search: query
+			});
+		};
 
 		$scope.signup = function (isValid) {
 			$scope.error = null;

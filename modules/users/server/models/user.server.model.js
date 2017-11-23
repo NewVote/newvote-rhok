@@ -55,7 +55,20 @@ var UserSchema = new Schema({
   postalCode: {
     type: String,
     trim: true,
-    default: '',
+    required: function() {
+        return (!this.isNew && this.international == false);
+    }
+  },
+  international: {
+      type: Boolean,
+      default: false
+  },
+  country: {
+      type: Schema.ObjectId,
+      ref: 'Country',
+      required: function() {
+          return this.international == true;
+      }
   },
   username: {
     type: String,

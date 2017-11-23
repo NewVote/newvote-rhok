@@ -7,11 +7,12 @@ var policy = require('../policies/generic.server.policy'),
 	issues = require('../controllers/issues.server.controller'),
 	goals = require('../controllers/goals.server.controller'),
 	solutions = require('../controllers/solutions.server.controller'),
-  suggestions = require('../controllers/suggestions.server.controller'),
+    suggestions = require('../controllers/suggestions.server.controller'),
 	media = require('../controllers/media.server.controller'),
 	comments = require('../controllers/comments.server.controller'),
 	votes = require('../controllers/votes.server.controller'),
-	regions = require('../controllers/regions.server.controller');
+	regions = require('../controllers/regions.server.controller'),
+	countries = require('../controllers/countries.server.controller');
 
 module.exports = function (app) {
 	// Articles collection routes
@@ -46,6 +47,9 @@ module.exports = function (app) {
 	app.route('/api/regions').all(policy.isAllowed)
 		.get(regions.list)
 		.post(regions.create);
+
+	app.route('/api/countries').all(policy.isAllowed)
+		.get(countries.list);
 
 	app.route('/api/meta/:uri').all(policy.isAllowed)
 		.get(media.getMeta);
@@ -90,6 +94,9 @@ module.exports = function (app) {
 		.put(regions.update)
 		.delete(regions.delete);
 
+	app.route('/api/countries/:countryId').all(policy.isAllowed)
+		.get(countries.read);
+
 	// Finish by binding the article middleware
 	app.param('issueId', issues.issueByID);
 	app.param('goalId', goals.goalByID);
@@ -99,4 +106,5 @@ module.exports = function (app) {
 	app.param('suggestionId', suggestions.suggestionByID);
 	app.param('mediaId', media.mediaByID);
 	app.param('regionId', regions.regionByID);
+	app.param('countryId', countries.countryByID);
 };
