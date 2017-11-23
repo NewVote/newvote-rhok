@@ -322,6 +322,9 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
   position: absolute;
   width: 360px; }
 
+.md-media-xl.image-only img {
+  max-height: 100%; }
+
 @media screen and (max-width: 480px) {
   .share-button {
     margin-top: 1px !important;

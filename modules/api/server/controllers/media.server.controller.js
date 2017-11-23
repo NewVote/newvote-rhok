@@ -165,10 +165,44 @@ exports.getMeta = function (req, res) {
 	var url = req.params.uri;
 	// console.log(url);
 	return scrape(url).then(function (meta) {
-		// console.log(meta);
-		return res.json(meta);
+		console.log(meta);
+
+		var media = {};
+		var title, description, image;
+		if(meta.dublinCore && meta.dublinCore.title){
+			title = meta.openGraph.title;
+		}else if(meta.dublinCore && meta.openGraph.title){
+			title = meta.openGraph.title;
+		}else if(meta.general && meta.general.title) {
+			title = meta.general.title;
+		}
+
+		var description;
+		if(meta.dublinCore && meta.dublinCore.description){
+			description = meta.dublinCore.description;
+		}else if(meta.openGraph && meta.openGraph.description){
+			description = meta.openGraph.description;
+		}else if(meta.general && meta.general.description) {
+			description = meta.general.description;
+		}
+
+		var image;
+		if(meta.openGraph && meta.openGraph.image){
+			image = meta.openGraph.image.url;
+		}else if(meta.twitter && meta.twitter.description){
+			image = meta.twitter.image;
+		}
+
+		media.title = title ? title : null;
+		media.description = description ? description : null;
+		media.image = image ? image : null;
+		media.url = url;
+
+		return res.json(media);
 	}, function (error) {
 		console.log('Error scraping: ', error.message);
-		return res.json(error);
+		return res.status(400).send({
+			message: 'No metadata found.'
+		});
 	});
 };

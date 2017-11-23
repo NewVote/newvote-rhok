@@ -10,18 +10,33 @@
 	</div>
 	<div layout-padding>
 		<md-card class="media-card" ng-repeat="media in vm.media | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse">
-			<img hide-gt-sm class="md-card-image" src='{{media.meta.openGraph.image.url}}' />
-			<md-card-title>
+			<img hide-gt-sm class="md-card-image" src='{{media.image}}' />
+			<md-card-title ng-if="!media.imageOnly">
 				<md-card-title-text>
 					<!-- <span>votes object:{{media.votes.currentUser.voteValue}}</span> -->
-					<span class="md-headline">{{media.title}}</span>
-					<span class="md-subhead">{{media.meta.openGraph.description}}</span>
-					<a href="media.url">{{media.url}}</a>
+					<span class="md-headline"><a href="{{media.url}}" target="_blank">{{media.title}}</a></span>
+					<span class="md-subhead">{{media.description}}</span>
+
 				</md-card-title-text>
-				<md-card-title-media hide show-gt-sm>
-					<div class="md-media-sm card-media"><img src='{{media.meta.openGraph.image.url}}' /></div>
+				<md-card-title-media hide show-gt-sm ng-if="!media.imageOnly">
+					<div class="md-media-lg card-media"><img src='{{media.image}}' /></div>
 				</md-card-title-media>
 			</md-card-title>
+			<md-card-title hide-gt-sm ng-if="media.imageOnly">
+				<md-card-title-text>
+					<!-- <span>votes object:{{media.votes.currentUser.voteValue}}</span> -->
+					<span class="md-headline"><a href="{{media.url}}" target="_blank">{{media.title}}</a></span>
+					<span class="md-subhead">{{media.description}}</span>
+
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content hide show-gt-sm ng-if="media.imageOnly" layout="row" layout-padding>
+				<div layout="column" flex>
+					<span class="md-headline"><a href="{{media.url}}" target="_blank">{{media.title}}</a></span>
+					<span class="md-subhead">{{media.description}}</span>
+				</div>
+				<div class="md-media-xl card-media image-only"><img src='{{media.image}}' /></div>
+			</md-card-content>
 			<md-card-actions layout="row" layout-align="start center">
 				<md-button class="md-icon-button vote-btn" ng-class="{ selected: media.votes.currentUser.voteValue===1 }" ng-click="vm.vote(media, 'up', $event)">
 					<md-tooltip>
@@ -29,13 +44,13 @@
 						<span ng-if="media.votes.currentUser.voteValue!==1">Like</span>
 					</md-tooltip>
 					<md-icon>thumb_up</md-icon>
-        </md-button>
+        		</md-button>
 				<!-- <md-button class="md-icon-button">
 					<md-icon>share</md-icon>
 				</md-button> -->
-				<div flex>
-          <share-buttons object="media" object-type="'media'" vertical-resize="true"></share-buttons>
-				</div>
+				<!-- <div flex>
+          			<share-buttons object="media" object-type="'media'" vertical-resize="true"></share-buttons>
+				</div> -->
 				<div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id===media.user._id" layout-align="end center">
 					<md-button class="md-icon-button" ng-click="vm.delete(media)">
 						<md-tooltip>Delete Media</md-tooltip>
@@ -48,42 +63,5 @@
 				</div>
 			</md-card-actions>
 		</md-card>
-		<!-- <md-card class="goal-card" ng-repeat="goal in vm.goals | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="goals.view({goalId:goal._id})">
-			<md-card-header>
-				<md-card-avatar>
-					<img ng-src="{{::goal.imageUrl}}" alt="Goal Image" />
-				</md-card-avatar>
-				<md-card-header-text>
-					<span ng-if="authentication.user.roles.indexOf('admin')>-1">cont: {{vm.controversialSort(goal)}}</span>
-					<span class="md-title">{{::goal.title}}</span>
-					<span class="md-subhead description-container"><div class="description" ng-bind="goal.description | htmlToPlaintext"></div></span>
-				</md-card-header-text>
-			</md-card-header>
-			<md-card-actions layout="row" layout-align="end center">
-				<md-card-icon-actions>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'up', $event)">
-						<md-tooltip>
-							<span ng-if="goal.votes.currentUser.voteValue===1">Undo</span>
-							<span ng-if="goal.votes.currentUser.voteValue!==1">Vote Up</span>
-						</md-tooltip>
-						<md-icon>arrow_upward</md-icon>
-					</md-button>
-					<md-button class="md-icon-button" ng-class="" ng-click="">
-						<md-tooltip>
-							<span>For: {{goal.votes.up}}, Against: {{goal.votes.down}}</span>
-						</md-tooltip>
-						{{goal.votes.up - goal.votes.down}}
-					</md-button>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(goal, 'down', $event)">
-						<md-tooltip>
-							<span ng-if="goal.votes.currentUser.voteValue===-1">Undo</span>
-							<span ng-if="goal.votes.currentUser.voteValue!==-1">Vote Down</span>
-						</md-tooltip>
-						<md-icon>arrow_downward</md-icon>
-					</md-button>
-					<share-buttons object="" object-type="'media'" vertical-resize="true"></share-buttons>
-				</md-card-icon-actions>
-			</md-card-actions>
-		</md-card> -->
 	</div>
 </md-content>
