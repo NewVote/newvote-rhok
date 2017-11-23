@@ -70,6 +70,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					goals: function () {
 						return {};
 					},
+					solutions: function () {
+						return [];
+					},
 					media: function () {
 						return [];
 					}
@@ -91,6 +94,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					goals: function () {
 						return {};
 					},
+					solutions: function () {
+						return [];
+					},
 					media: function () {
 						return [];
 					}
@@ -107,6 +113,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					}],
 					goals: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
 						return GoalService.list({
+							issueId: $stateParams.issueId
+						});
+					}],
+					solutions: ['SolutionService', '$stateParams', function(SolutionService, $stateParams) {
+						return SolutionService.list({
 							issueId: $stateParams.issueId
 						});
 					}],
@@ -241,7 +252,20 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				abstract: true,
 				template: '<ui-view/>'
 			})
-
+			.state('solutions.list', {
+				url: '/',
+				templateUrl: 'modules/core/client/views/solutions.client.view.html',
+				data: {
+					title: 'NewVote | Solutions'
+				},
+				controller: 'SolutionsController',
+				controllerAs: 'vm',
+				resolve: {
+					solutions: ['SolutionService', function (SolutionService) {
+						return SolutionService.list();
+					}]
+				}
+			})
 			.state('solutions.create', {
 				url: '/create?:goalId',
 				templateUrl: 'modules/core/client/views/edit-solution.client.view.html',

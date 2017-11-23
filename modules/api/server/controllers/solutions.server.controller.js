@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Solution = mongoose.model('Solution'),
   votes = require('./votes.server.controller'),
+  Goal = mongoose.model('Goal'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -79,36 +80,70 @@ exports.list = function (req, res) {
   var goalId = req.query.goalId;
   var searchParams = req.query.search;
   var solutionId = req.query.solutionId;
-  var query;
-  if (goalId) {
-    query = {
-        $or: [{ goals: goalId }, { goal: goalId }, { solutions: goalId }, { solution: goalId }]
-    };
-  } else if (searchParams) {
-    query = { title: {
-      $regex: searchParams,
-      $options: 'i'
-    } };
-  } else {
-    query = null;
-  }
-  Solution.find(query).sort('-created')
-  .populate('user', 'displayName')
-  .exec(function (err, solutions) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+  var issueId = req.query.issueId;
+  var getQuery = function() {
+        return new Promise(function(resolve, reject) {
+          //build thhe query
+        if (goalId) {
+              return resolve({ $or: [{ goals: goalId }, { goal: goalId }, { solutions: goalId }, { solution: goalId } ] });
+        } else if (issueId) {
+              //get the goals for an issue
+              //create query to find any solutions with matching goalId's
+              Goal.find({ issues: issueId }).then(function (goals) {
+                  // console.log('Goal.find query found: ', goals.length);
+                  var goalIds = goals.map(function(goal) {
+                      return goal._id;
+                  });
+                  return resolve({ $or: [ { goals: { $in: goalIds } }, { solutions: { $in: goalIds } } ] });
+              });
+        } else if (searchParams) {
+              return resolve({ title: { $regex: searchParams, $options: 'i' } });
+        } else {
+              return resolve(null);
+        }
+    });};
+
+    // //build thhe query
+    // if (goalId) {
+    //     query = {
+    //         $or: [{ goals: goalId }, { goal: goalId }, { solutions: goalId }, { solution: goalId }]
+    //     };
+    // } else if (issueId) {
+    //     //get the goals for an issue
+    //     //create query to find any solutions with matching goalId's
+    //     Issue.find({issueId: issueId}).then(function (issue) {
+    //
+    //     })
+    // } else if (searchParams) {
+    //     query = {
+    //         title: {
+    //             $regex: searchParams,
+    //             $options: 'i'
+    //         }
+    //     };
+    // } else {
+    //     query = null;
+    // }
+  getQuery().then(function(query) {
+      // console.log('query from promise is: ', query);
+      Solution.find(query).sort('-created')
+      .populate('user', 'displayName')
+      .exec(function (err, solutions) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          updateSchema(solutions);
+          votes.attachVotes(solutions, req.user, req.query.regions).then(function(solutions) {
+            res.json(solutions);
+          }).catch(function(err) {
+            res.status(500).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          });
+        }
       });
-    } else {
-      updateSchema(solutions);
-      votes.attachVotes(solutions, req.user, req.query.regions).then(function(solutions) {
-        res.json(solutions);
-      }).catch(function(err) {
-        res.status(500).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      });
-    }
   });
 };
 

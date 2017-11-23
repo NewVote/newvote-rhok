@@ -5,7 +5,8 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 		restrict: 'E',
 		scope: {
 			solutions: '=',
-			goalId: '='
+			goalId: '=',
+			issueId: '='
 		},
 		templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 		bindToController: true,
@@ -16,8 +17,6 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 				vm.sortSvc = SortService;
 				vm.regions = [];
 				$scope.authentication = Authentication;
-
-				console.log('solution-list - have solutions: ', vm.solutions);
 
 				vm.vote = function (solution, voteType, $event) {
 					$event.stopPropagation();

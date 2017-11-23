@@ -9,7 +9,7 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 
-var collectionRoutes = ['/api/issues', '/api/goals', '/api/votes', '/api/comments', '/api/solutions', '/api/suggestions', '/api/media', '/api/regions'];
+var collectionRoutes = ['/api/issues', '/api/goals', '/api/votes', '/api/comments', '/api/solutions', '/api/suggestions', '/api/media', '/api/regions', '/api/countries'];
 var objectRoutes = ['/api/issues/:issueId', '/api/goals/:goalId', '/api/votes/:voteId', '/api/comments/:commentId', '/api/solutions/:solutionId', '/api/suggestions/:suggestionId', '/api/media/:mediaId', '/api/meta/:uri', '/api/regions/:regionId'];
 /**
  * Invoke Articles Permissions

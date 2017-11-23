@@ -7,11 +7,12 @@ var policy = require('../policies/generic.server.policy'),
 	issues = require('../controllers/issues.server.controller'),
 	goals = require('../controllers/goals.server.controller'),
 	solutions = require('../controllers/solutions.server.controller'),
-  suggestions = require('../controllers/suggestions.server.controller'),
+    suggestions = require('../controllers/suggestions.server.controller'),
 	media = require('../controllers/media.server.controller'),
 	comments = require('../controllers/comments.server.controller'),
 	votes = require('../controllers/votes.server.controller'),
-	regions = require('../controllers/regions.server.controller');
+	regions = require('../controllers/regions.server.controller'),
+	countries = require('../controllers/countries.server.controller');
 
 module.exports = function (app) {
 	// Articles collection routes
