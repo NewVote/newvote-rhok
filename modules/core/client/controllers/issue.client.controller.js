@@ -32,7 +32,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		$scope.authentication = Authentication;
 		$scope.prerender = document.getElementById('prerender');
 
-		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
+		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();

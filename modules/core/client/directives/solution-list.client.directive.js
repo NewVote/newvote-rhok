@@ -17,6 +17,15 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 				vm.sortSvc = SortService;
 				vm.regions = [];
 				$scope.authentication = Authentication;
+				vm.goal = {};
+
+				vm.$onInit = function() {
+					if(vm.goalId){
+						GoalService.get(vm.goalId).then(function(goal) {
+							vm.goal = goal;
+						})
+					}
+				}
 
 				vm.vote = function (solution, voteType, $event) {
 					$event.stopPropagation();

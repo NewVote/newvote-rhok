@@ -11,11 +11,12 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
-		if ($state.is('solutions.solution')) {
+
+		if ($state.is('goals.solution')) {
 			vm.desc = 'Proposed solution for the solution "' + vm.solution.title + '": ' + vm.solutions[0].title;
 		}
 
-		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
+		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
 		$scope.authentication = Authentication;
 		$scope.prerender = document.getElementById('prerender');
@@ -34,7 +35,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			$rootScope.headerTitle = vm.solution.title + ' (editing)';
 		} else if ($state.is('solutions.create')) {
 			vm.titleText = 'Add a Solution';
-			$rootScope.headerTitle = 'Add Goal';
+			$rootScope.headerTitle = 'Add Solution';
 		}
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
 
@@ -48,9 +49,13 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			}
 			return promise.then(function () {
 				return SolutionService.createOrUpdate(vm.solution).then(function (solution) {
-					$state.go('goals.view', {
-						goalId: $stateParams.goalId
-					});
+					if($stateParams.goalId){
+						$state.go('goals.view', {
+							goalId: $stateParams.goalId
+						});
+					}else {
+						$state.go('solutions.list');
+					}
 				});
 			});
 		};
