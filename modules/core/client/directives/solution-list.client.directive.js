@@ -23,9 +23,9 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 					if(vm.goalId){
 						GoalService.get(vm.goalId).then(function(goal) {
 							vm.goal = goal;
-						})
+						});
 					}
-				}
+				};
 
 				vm.vote = function (solution, voteType, $event) {
 					$event.stopPropagation();
