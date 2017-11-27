@@ -15,6 +15,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			}
 		};
 
+	    $scope.message = true;
+
 		// Page title config
 		$rootScope.titlePrefix = '';
     	$rootScope.titleSuffix = ' | NewVote';
@@ -28,6 +30,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		' also allows people to vote on the solutions, making people\'s opinion ' +
 		'available to the decision makers.';
 		$rootScope.headerTitle = 'Home';
+
+		$scope.toggleMessage = function() {
+			$scope.message = !$scope.message;
+		}
 
 		$scope.toggleLeft = function () {
 			$mdSidenav('left').toggle();

@@ -16,6 +16,9 @@
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
 <md-toolbar class="md-primary">
+	<div ng-if="vm.goal.imageUrl" class="header-image-container" ng-style="{'background-image':'url({{::vm.goal.imageUrl}})'}">
+		<!-- <img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image"> -->
+	</div>
 	<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout="column" layout-padding>
 		<div layout-gt-sm="row" layout="column" layout-align="start start" layout-align-gt-sm="center center">
 			<h1 class="md-display-1" flex-gt-sm="65">{{vm.goal.title}}</h1>
@@ -45,11 +48,7 @@
 			</div>
 		</div>
 
-		<div class="header-image-container" flex>
-			<img ng-src="{{::vm.goal.imageUrl}}" alt="Goal Image">
-		</div>
-
-		<span class="md-body-1">Related Issues:
+		<span class="md-title">This is a goal for:
 			<a layout-margin ng-repeat="issue in vm.goal.issues" ui-sref="issues.view({issueId: issue._id})">{{issue.name}}</a>
 		</span>
 
@@ -115,7 +114,7 @@
 		<md-tab label="discuss">
 			<md-content layout="column" layout-align="center" ng-if="!prerender">
 				<div layout-padding>
-					<div class="polis" data-topic="What do you think?" data-page_id="{{vm.goal._id}}" data-site_id="polis_site_id_Mn0DPMpcOmF0sSZntb">
+					<div class="polis" data-topic="What do you think?" data-page_id="{{vm.goal._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
 					</div>
 				</div>
 			</md-content>

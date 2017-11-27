@@ -73,3 +73,12 @@
 		</md-autocomplete>
 	</md-input-container>
 </md-toolbar>
+
+<md-content ng-if="message" md-colors="{color: 'grey-A200', 'background': 'default-warn'}" class="md-accent md-hue-1">
+	<div class="footer" layout-padding layout="row" layout-align="center center" flex>
+		<span>This is a prototype. We have a long way to go. Please give us <a target="_blank" href="https://goo.gl/forms/YqvYcDA7GGwtVGRd2">your feedback here.</a></span>
+		<md-button class="md-icon-button" aria-label="More">
+			<md-icon ng-click="toggleMessage()">close</md-icon>
+		</md-button>
+	</div>
+</md-content>

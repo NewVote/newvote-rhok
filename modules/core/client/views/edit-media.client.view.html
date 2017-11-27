@@ -66,7 +66,14 @@
 
 	<div layout="column" layout-padding>
 		<span>Media Preview</span>
-		<md-card>
+		<md-card class="solution-card" ng-if="vm.media.length==0">
+			<md-card-header>
+				<md-card-header-text>
+					<span class="md-headline">No media has been added yet!</span>
+				</md-card-header-text>
+			</md-card-header>
+		</md-card>
+		<md-card class="media-card">
 			<img hide-gt-sm class="md-card-image" src='{{vm.media.image}}' />
 			<md-card-title ng-if="!vm.media.imageOnly">
 				<md-card-title-text>
@@ -79,18 +86,25 @@
 					<div class="md-media-lg card-media"><img src='{{vm.media.image}}' /></div>
 				</md-card-title-media>
 			</md-card-title>
-			<md-card-content ng-if="vm.media.imageOnly" layout="row" layout-padding>
+			<md-card-title hide-gt-sm ng-if="vm.media.imageOnly">
+				<md-card-title-text>
+					<!-- <span>votes object:{{media.votes.currentUser.voteValue}}</span> -->
+					<span class="md-headline"><a href="{{vm.media.url}}" target="_blank">{{vm.media.title}}</a></span>
+					<span class="md-subhead">{{vm.media.description}}</span>
+
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content hide show-gt-sm ng-if="vm.media.imageOnly" layout="row" layout-padding>
 				<div layout="column" flex>
 					<span class="md-headline"><a href="{{vm.media.url}}" target="_blank">{{vm.media.title}}</a></span>
 					<span class="md-subhead">{{vm.media.description}}</span>
 				</div>
-				<div class="md-media-xl card-media"><img src='{{vm.media.image}}' /></div>
+				<div class="md-media-xl card-media image-only"><img src='{{vm.media.image}}' /></div>
 			</md-card-content>
 			<md-card-actions layout="row" layout-align="start center">
 				<md-button class="md-icon-button vote-btn">
 					<md-icon>thumb_up</md-icon>
-				</md-button>
-			</md-card-actions>
+        		</md-button>
 		</md-card>
 	</div>
 

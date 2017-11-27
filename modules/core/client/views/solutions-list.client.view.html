@@ -19,11 +19,11 @@
 		</div>
 		<span>Filter</span>
 		<div layout-align="start center">
-			<md-chips ng-model="vm.regions" md-require-match="true" md-on-add="vm.updateVotes(vm.regions)" md-on-remove="vm.updateVotes(vm.regions)" md-delay="400" placeholder="All regions" secondary-placeholder="Add another region">
+			<md-chips ng-model="vm.regions" md-require-match="true" md-on-add="vm.updateVotes(vm.regions)" md-on-remove="vm.updateVotes(vm.regions)" md-delay="400" placeholder="All electorates" secondary-placeholder="Add another electorate">
 				<md-chip-template>
 					<span>{{ $chip.name }}</span>
 				</md-chip-template>
-				<md-autocomplete md-no-cache="true" md-items="region in vm.searchRegions(regionName)" md-dropdown-items="5" md-search-text="regionName" placeholder="Add regions" md-item-text="region.name">
+				<md-autocomplete md-no-cache="true" md-items="region in vm.searchRegions(regionName)" md-dropdown-items="5" md-search-text="regionName" placeholder="Add electorates" md-item-text="region.name">
 					<md-item-template>
 						<span md-highlight-text="regionName" md-highlight-flags="i">
 					  		{{ region.name }} ({{region.type}})
