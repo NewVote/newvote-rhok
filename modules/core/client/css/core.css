@@ -197,12 +197,13 @@ md-input-container.compact {
   background-color: #205763;
   padding: 20px 40px;
   color: white; }
-  .footer-banner .social-link.twitter img {
-    margin: -15px 0;
-    height: 60px; }
-  .footer-banner .social-link img {
-    height: 30px;
-    width: auto; }
+  .footer-banner .social-link {
+    width: 48px;
+    height: 48px;
+    color: white;
+    text-decoration: none; }
+  .footer-banner a, .footer-banner a:link, .footer-banner a:visited, .footer-banner a:hover, .footer-banner a:active {
+    text-decoration: none; }
 
 .title-text {
   font-size: 42px;

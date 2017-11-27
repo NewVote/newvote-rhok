@@ -280,18 +280,14 @@ md-input-container {
 	color: white;
 
 	.social-link {
-		&.twitter {
-			img {
-				margin: -15px 0;
-				height: 60px;
-			}
-		}
-
-		img {
-			height: 30px;
-			width: auto;
-		}
+        width: 48px;
+        height: 48px;
+        color: white;
+        text-decoration:  none;
 	}
+    a, a:link, a:visited, a:hover, a:active {
+        text-decoration: none;
+    }
 }
 
 .title-text {
