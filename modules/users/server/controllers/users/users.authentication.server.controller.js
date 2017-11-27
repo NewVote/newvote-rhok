@@ -73,7 +73,7 @@ exports.signin = function (req, res, next) {
               res.json(user);
             }
           });
-      })
+      });
     }
   })(req, res, next);
 };
