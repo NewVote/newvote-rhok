@@ -50,7 +50,7 @@ angular.module('core').controller('GoalController', ['$scope', 'Authentication',
 			vm.desc = 'Proposed solution for the goal "' + vm.goal.title + '": ' + vm.solutions[0].title;
 		}
 
-		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
+		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
 		$scope.authentication = Authentication;
 		$scope.prerender = document.getElementById('prerender');

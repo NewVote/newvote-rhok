@@ -63,13 +63,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 					$scope.authentication.user = response.data;
 					$window.user = response.data;
 
+					// console.log('signup success, post data: ', response);
+
 					// And redirect to the previous or home page
-					if ($scope.user.terms) {
+					if ($scope.authentication.user.terms) {
 						$state.go($state.previous.state.name || 'home', $state.previous.params);
 					} else {
-						$state.go('setup', {
-							previous: $state.previous.state.name
-						});
+						console.log('trying to go to setup state');
+						$state.go('setup', {previous: $state.previous.state.name});
+						console.log('$scope: ', $scope);
 					}
 
 				},
