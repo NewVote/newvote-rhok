@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'SolutionService', 'MediaService',
-	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, SolutionService, MediaService) {
+angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'GoalService', 'MediaService',
+	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, GoalService, MediaService) {
 		var vm = this;
 		vm.media = media;
 
@@ -22,12 +22,12 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 						issueId: issue._id
 					};
 				});
-			} else if ($stateParams.objectType === 'solution') {
-				SolutionService.get($stateParams.objectId).then(function (solution) {
-					previousState = 'solutions.view';
-					vm.media.solutions.push(solution);
+			} else if ($stateParams.objectType === 'goal') {
+				GoalService.get($stateParams.objectId).then(function (goal) {
+					previousState = 'goals.view';
+					vm.media.goals.push(goal);
 					stateData = {
-						solutionId: solution._id
+						goalId: goal._id
 					};
 				});
 			}
@@ -38,18 +38,34 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 				stateData = {
 					issueId: $stateParams.previousObjectId
 				};
-			} else if ($stateParams.objectType === 'solution') {
-				previousState = 'solutions.view';
+			} else if ($stateParams.objectType === 'goal') {
+				previousState = 'goals.view';
 				stateData = {
-					solutionId: $stateParams.previousObjectId
+					goalId: $stateParams.previousObjectId
 				};
 			}
 		}
 
+		// http://www.abc.net.au/news/2015-05-07/e-health-programs-should-be-used-to-tackle-mental-health-issues/6450972
 		vm.getMeta = function () {
 			console.log('scraping meta for url: ', vm.media.url);
-			vm.previewData = MediaService.getMeta(vm.media.url);
+			MediaService.getMeta(vm.media.url).$promise.then(function(meta) {
+				console.log('meta is: ', meta);
+				vm.media.title = meta.title;
+				vm.media.description = meta.description;
+				vm.media.image = meta.image;
+				vm.media.imageOnly = false;
+				console.log('finished scrape');
+			}, function(err) {
+				console.log('was an error scraping');
+				if ( /\.(jpe?g|png|gif|bmp)$/i.test(vm.media.url) ) {
+					console.log('user linking directly to image');
+					vm.media.image = vm.media.url;
+					vm.media.imageOnly = true;
+				}
+			});
 		};
+
 		if (vm.media.url) {
 			vm.getMeta();
 		}
@@ -60,8 +76,8 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 			});
 		};
 
-		vm.searchSolutions = function (query) {
-			return SolutionService.list({
+		vm.searchGoals = function (query) {
+			return GoalService.list({
 				search: query
 			});
 		};

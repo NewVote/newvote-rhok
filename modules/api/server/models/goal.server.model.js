@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * Article Schema
  */
-var ActionSchema = new Schema({
+var GoalSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
@@ -33,16 +33,15 @@ var ActionSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	solutions: [{
+	comments: [{
 		type: Schema.ObjectId,
-		ref: 'Solution',
-        required: true
+		ref: 'Comment'
 	}],
-	solution: {
+	issues: [{
 		type: Schema.ObjectId,
-		ref: 'Solution',
-        required: true
-	},
+		ref: 'Issue',
+		required: true
+	}],
 	votes: {
 		up: Number,
 		down: Number,
@@ -51,7 +50,11 @@ var ActionSchema = new Schema({
 			type: Schema.ObjectId,
 			ref: 'Vote'
 		}
-	}
+	},
+	tags: [{
+		type: String,
+		trim: true
+	}]
 });
 
-mongoose.model('Action', ActionSchema);
+mongoose.model('Goal', GoalSchema);

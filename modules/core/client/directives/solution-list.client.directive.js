@@ -5,21 +5,31 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 		restrict: 'E',
 		scope: {
 			solutions: '=',
+			goalId: '=',
 			issueId: '='
 		},
 		templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
-		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'SolutionService',
-			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, SolutionService) {
+		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'GoalService', 'SolutionService',
+			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, GoalService, SolutionService) {
 				var vm = this;
 				vm.sortSvc = SortService;
 				vm.regions = [];
 				$scope.authentication = Authentication;
+				vm.goal = {};
+
+				vm.$onInit = function() {
+					if(vm.goalId){
+						GoalService.get(vm.goalId).then(function(goal) {
+							vm.goal = goal;
+						});
+					}
+				};
 
 				vm.vote = function (solution, voteType, $event) {
 					$event.stopPropagation();
-					VoteService.vote(solution, 'Solution', voteType).then(function (data) {
+					VoteService.vote(solution, 'solution', voteType).then(function (data) {
 						solution.$get();
 					});
 				};
@@ -35,20 +45,6 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 						title: solution.title,
 						hashtags: solution.tags.join()
 					});
-				};
-
-				//this is just to show the controversial score in the UI
-				vm.controversialSort = function (a) {
-					var votes = a.solutionMetaData ? a.solutionMetaData.votes : a.votes;
-					// var aUp = votes.up===0 ? 1 : votes.up;
-					// return (votes.down / aUp) * votes.total;
-					var diff = Math.abs(votes.up - votes.down);
-					diff = diff ? diff : 1;
-					var sum = votes.up + votes.down;
-					sum = sum ? sum : 1;
-					var percentDiff = Math.pow((diff / sum), -1);
-					var multiplier = 0.5;
-					return percentDiff * (votes.total * multiplier);
 				};
 
 				vm.chartLabels = ['Against', 'For'];
@@ -70,7 +66,8 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 
 				vm.updateVotes = function (regions) {
 					SolutionService.list({
-						issueId: vm.issueId ? vm.issueId : null,
+						goalId: vm.goalId ? vm.goalId : null,
+						issueId: vm.issueId ? vm.issueId: null,
 						regions: regions
 					}).then(function (solutions) {
 						console.log(solutions);

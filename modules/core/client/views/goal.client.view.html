@@ -1,0 +1,124 @@
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
+
+<md-toolbar class="md-primary">
+	<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout="column" layout-padding>
+		<div layout-gt-sm="row" layout="column" layout-align="start start" layout-align-gt-sm="center center">
+			<h1 class="md-display-1" flex-gt-sm="65">{{vm.goal.title}}</h1>
+
+			<div flex></div>
+
+			<div layout="row" layout-align="center center">
+				<div ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.issue.user._id)">
+					<md-button class="md-icon-button" ng-click="vm.delete()">
+						<md-tooltip>Delete Goal</md-tooltip>
+						<md-icon>delete</md-icon>
+					</md-button>
+					<md-button class="md-icon-button" ui-sref="goals.edit({goalId: vm.goal._id})">
+						<md-tooltip>Edit Goal</md-tooltip>
+						<md-icon>edit</md-icon>
+					</md-button>
+				</div>
+
+				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="solutions.create({goalId: vm.goal._id})">
+					<md-icon>add</md-icon><span hide show-gt-sm>New</span>
+					<md-tooltip>Create a new solution</md-tooltip>
+				</md-button>
+				<md-button ng-hide="authentication.user.roles.indexOf('admin')==1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="suggestions">
+					<md-icon>add</md-icon><span hide show-gt-sm>New</span>
+					<md-tooltip>Suggest a new solution</md-tooltip>
+				</md-button>
+			</div>
+		</div>
+
+		<div class="header-image-container" flex>
+			<img ng-src="{{::vm.goal.imageUrl}}" alt="Goal Image">
+		</div>
+
+		<span class="md-body-1">Related Issues:
+			<a layout-margin ng-repeat="issue in vm.goal.issues" ui-sref="issues.view({issueId: issue._id})">{{issue.name}}</a>
+		</span>
+
+		<div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.goal.description"></div>
+
+		<div layout="row">
+			<div layout="column" ng-if="vm.goal.tags.length > 0">
+				<md-chips class="descriptionChips" ng-model="vm.goal.tags" readonly="true" md-removable="false">
+				</md-chips>
+			</div>
+
+			<div flex></div>
+
+			<md-button  ng-click="vm.showFullDesc=!vm.showFullDesc">
+				<span ng-if="vm.showFullDesc">Show Less</span>
+				<span ng-if="!vm.showFullDesc">...Show More</span>
+			</md-button>
+		</div>
+
+		<div layout="column" layout-gt-sm="row" layout-align="start start" layout-align-gt-sm="start center">
+
+			<div layout="row">
+				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote('up')">
+					<md-icon>arrow_upward</md-icon> Vote Up
+					<md-tooltip ng-if="vm.goal.votes.currentUser.voteValue===1">Undo</md-tooltip>
+				</md-button>
+				<div class="chart-container">
+					<div class="chart-score">
+						<span>{{vm.goal.votes.up - vm.goal.votes.down}}</span>
+					</div>
+					<vote-details object="vm.goal"></vote-details>
+				</div>
+				<!-- <md-button class="md-fab md-primary md-hue-2 vote-score" ng-class="" ng-click="">
+					<md-tooltip>
+						<span>For: {{vm.goal.votes.up}}, Against: {{vm.goal.votes.down}}</span>
+					</md-tooltip>
+					{{vm.goal.votes.up - vm.goal.votes.down}}
+				</md-button> -->
+				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote('down')">
+					<md-icon>arrow_downward</md-icon>Vote Down
+					<md-tooltip ng-if="vm.goal.votes.currentUser.voteValue===-1">Undo</md-tooltip>
+				</md-button>
+			</div>
+
+			<div layout="row">
+				<share-buttons object="vm.goal" object-type="'goal'" vertical-resize="false"></share-buttons>
+			</div>
+		</div>
+	</div>
+	<div layout="row" layout-padding md-colors="{background: 'orange'}" ng-if="vm.isSingleSolution" ui-sref="goals.view({goalId: '{{vm.goal._id}}'})">
+		<span flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">You are viewing a single solution, click here to view all solutions for this goal.</span>
+	</div>
+</md-toolbar>
+
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+	<md-tabs md-dynamic-height md-border-bottom>
+		<md-tab label="solutions">
+			<solution-list solutions="vm.solutions" goal-id="vm.goal._id"></solution-list>
+		</md-tab>
+		<md-tab label="media">
+			<media-list media="vm.media" object-id="vm.goal._id" , object-type="'goal'"></media-list>
+		</md-tab>
+		<md-tab label="discuss">
+			<md-content layout="column" layout-align="center" ng-if="!prerender">
+				<div layout-padding>
+					<div class="polis" data-topic="What do you think?" data-page_id="{{vm.goal._id}}" data-site_id="polis_site_id_Mn0DPMpcOmF0sSZntb">
+					</div>
+				</div>
+			</md-content>
+		</md-tab>
+	</md-tabs>
+</div>

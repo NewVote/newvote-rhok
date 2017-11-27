@@ -11,8 +11,8 @@ angular.module('core').controller('SolutionsController', ['$scope', '$rootScope'
     vm.title = $rootScope.titlePrefix + 'Solutions' + $rootScope.titleSuffix;
     $rootScope.headerTitle = 'Solutions';
 
-		// Meta tags
-		vm.desc = vm.desc = 'A collection of the current solutions being discussed on the NewVote platform.';
-		vm.image = vm.solutions[0].imageUrl;
+	// Meta tags
+	vm.desc = vm.desc = 'A collection of the current solutions being discussed on the NewVote platform.';
+	vm.image = vm.solutions[0] ? vm.solutions[0].imageUrl : null;
 	}
 ]);

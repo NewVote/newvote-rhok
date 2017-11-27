@@ -95,8 +95,6 @@ module.exports.initMiddleware = function (app) {
     .set('prerenderServiceUrl', 'https://newvote-prerender.herokuapp.com/')
     .set('forwardHeaders', true)
     .blacklisted(['/admin', '/api/']));
-  // app.use(require('prerender-node').set('prerenderToken', 'Sp1xuBcejkoGhbvsTk5p'));
-  // app.use(require('prerender-node').whitelisted(['/solutions/']));
 };
 
 /**

@@ -19,8 +19,17 @@ var MediaSchema = new Schema({
 		ref: 'User'
 	},
 	title: {
-		type: String,
-		required: true
+		type: String
+	},
+	description: {
+		type: String
+	},
+	image: {
+		type: String
+	},
+	imageOnly: {
+		type: Boolean,
+		default: false
 	},
 	url: {
 		type: String,
@@ -30,9 +39,9 @@ var MediaSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Issue'
 	}],
-	solutions: [{
+	goals: [{
 		type: Schema.ObjectId,
-		ref: 'Solution'
+		ref: 'Goal'
 	}],
 	votes: {
 		up: Number,

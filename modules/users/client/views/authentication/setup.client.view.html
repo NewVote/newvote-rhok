@@ -38,18 +38,48 @@
 							</md-input-container>
 						</div>
 
+						<div class="" layout="row">
+							<md-input-container class="md-block" ng-if="!user.international">
+								<label>Postal Code</label>
+								<input name="postalCode" ng-model="user.postalCode" placeholder="e.g 4000" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
 
-						<md-input-container class="md-block">
-							<label>Postal Code</label>
-							<input name="postalCode" ng-model="user.postalCode" placeholder="e.g 4000" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
-
-							<div ng-messages="userForm.lastName.$error" role="alert" multiple>
-								<div ng-message="required" class="my-message">You must supply a postal code.</div>
-								<div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
+								<div ng-messages="userForm.lastName.$error" role="alert" multiple>
+									<div ng-message="required" class="my-message">You must supply a postal code.</div>
+									<div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
+									</div>
 								</div>
-							</div>
-						</md-input-container>
+							</md-input-container>
+							<md-autocomplete
+							    ng-if="user.international"
+								required
+					            md-no-cache="true"
+					            md-selected-item="user.country"
+					            md-search-text="countryName"
+					            md-items="country in vm.searchCountries(countryName)"
+					            md-item-text="country.name"
+					            md-min-length="0"
+					            placeholder="Please select your country"
+								md-floating-label="Country"
+								md-require-match
+								md-input-name="country">
+					          <md-item-template>
+					            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{country.name}}</span>
+					          </md-item-template>
+					          <md-not-found>
+					            No countries matching "{{countryName}}" were found.
+					          </md-not-found>
 
+							  <div ng-messages="userForm.country.$error">
+					            <div ng-message="required">Please provide your country of residency.</div>
+					          </div>
+					        </md-autocomplete>
+
+							<md-input-container class="md-block" flex-gt-sm>
+								<md-checkbox ng-model="user.international" aria-label="I'm not from Australia" name="international">
+									I'm not from Australia
+								</md-checkbox>
+							</md-input-container>
+						</div>
 
 						<md-input-container class="md-block" flex-gt-sm>
 							<md-checkbox ng-model="user.terms" aria-label="I accept the terms and conditions" required name="terms">
@@ -161,7 +191,7 @@
 							</md-input-container>
 
 							<md-input-container class="md-block" flex-gt-sm>
-								<label>Favored political party</label>
+								<label>Favoured political party</label>
 								<md-select ng-model="user.party">
 									<md-option value="unspecified"><em>Unspecified</em></md-option>
 									<md-option value="liberal">Liberal</md-option>

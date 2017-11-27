@@ -67,8 +67,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 							tags: []
 						};
 					},
-					solutions: function () {
+					goals: function () {
 						return {};
+					},
+					solutions: function () {
+						return [];
 					},
 					media: function () {
 						return [];
@@ -88,8 +91,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					issue: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
 						return IssueService.get($stateParams.issueId);
 					}],
-					solutions: function () {
+					goals: function () {
 						return {};
+					},
+					solutions: function () {
+						return [];
 					},
 					media: function () {
 						return [];
@@ -105,7 +111,12 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					issue: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
 						return IssueService.get($stateParams.issueId);
 					}],
-					solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
+					goals: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
+						return GoalService.list({
+							issueId: $stateParams.issueId
+						});
+					}],
+					solutions: ['SolutionService', '$stateParams', function(SolutionService, $stateParams) {
 						return SolutionService.list({
 							issueId: $stateParams.issueId
 						});
@@ -115,6 +126,124 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 							issueId: $stateParams.issueId
 						});
 					}]
+				}
+			})
+
+			.state('goals', {
+				url: '/goals',
+				abstract: true,
+				template: '<ui-view/>'
+			})
+			.state('goals.list', {
+				url: '/',
+				templateUrl: 'modules/core/client/views/goals.client.view.html',
+				data: {
+					title: 'NewVote | Goals'
+				},
+				controller: 'GoalsController',
+				controllerAs: 'vm',
+				resolve: {
+					goals: ['GoalService', function (GoalService) {
+						return GoalService.list();
+					}]
+				}
+			})
+			.state('goals.create', {
+				url: '/create?:issueId',
+				templateUrl: 'modules/core/client/views/edit-goal.client.view.html',
+				controller: 'GoalController',
+				controllerAs: 'vm',
+				data: {
+					roles: ['admin'],
+					title: 'Create Goal'
+				},
+				resolve: {
+					goal: function () {
+						return {
+							issues: [],
+							tags: []
+						};
+					},
+					solutions: function () {
+						return [];
+					},
+					media: function () {
+						return [];
+					},
+					isSingleSolution: function () {
+						return false;
+					}
+				}
+			})
+			.state('goals.edit', {
+				url: '/:goalId/edit',
+				templateUrl: 'modules/core/client/views/edit-goal.client.view.html',
+				controller: 'GoalController',
+				controllerAs: 'vm',
+				data: {
+					roles: ['admin'],
+					title: 'Edit Goal'
+				},
+				resolve: {
+					goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
+						return GoalService.get($stateParams.goalId);
+					}],
+					solutions: function () {
+						return [];
+					},
+					media: function () {
+						return [];
+					},
+					isSingleSolution: function () {
+						return false;
+					}
+				}
+			})
+			.state('goals.view', {
+				url: '/:goalId',
+				templateUrl: 'modules/core/client/views/goal.client.view.html',
+				controller: 'GoalController',
+				controllerAs: 'vm',
+				resolve: {
+					goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
+						return GoalService.get($stateParams.goalId);
+					}],
+					solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
+						return SolutionService.list({
+							goalId: $stateParams.goalId
+						});
+					}],
+					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+						return MediaService.list({
+							goalId: $stateParams.goalId
+						});
+					}],
+					isSingleSolution: function () {
+						return false;
+					}
+				}
+			})
+
+			.state('goals.solution', {
+				url: '/:goalId/?:solutionId',
+				templateUrl: 'modules/core/client/views/goal.client.view.html',
+				controller: 'GoalController',
+				controllerAs: 'vm',
+				resolve: {
+					goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
+						return GoalService.get($stateParams.goalId);
+					}],
+					solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
+						return SolutionService.get($stateParams.solutionId);
+					}],
+					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+						return MediaService.list({
+							goalId: $stateParams.goalId
+						});
+					}],
+					isSingleSolution: function () {
+						return true;
+					}
 				}
 			})
 
@@ -138,7 +267,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				}
 			})
 			.state('solutions.create', {
-				url: '/create?:issueId',
+				url: '/create?:goalId',
 				templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
 				controller: 'SolutionController',
 				controllerAs: 'vm',
@@ -149,18 +278,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				resolve: {
 					solution: function () {
 						return {
-							issues: [],
-							tags: []
+							goals: []
 						};
-					},
-					actions: function () {
-						return [];
-					},
-					media: function () {
-						return [];
-					},
-					isSingleAction: function () {
-						return false;
 					}
 				}
 			})
@@ -169,6 +288,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
 				controller: 'SolutionController',
 				controllerAs: 'vm',
+				params: {
+					solutionId: null,
+					goalId: null
+				},
 				data: {
 					roles: ['admin'],
 					title: 'Edit Solution'
@@ -176,105 +299,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				resolve: {
 					solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
 						return SolutionService.get($stateParams.solutionId);
-					}],
-					actions: function () {
-						return [];
-					},
-					media: function () {
-						return [];
-					},
-					isSingleAction: function () {
-						return false;
-					}
-				}
-			})
-			.state('solutions.view', {
-				url: '/:solutionId',
-				templateUrl: 'modules/core/client/views/solution.client.view.html',
-				controller: 'SolutionController',
-				controllerAs: 'vm',
-				resolve: {
-					solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
-						return SolutionService.get($stateParams.solutionId);
-					}],
-					actions: ['ActionService', '$stateParams', function (ActionService, $stateParams) {
-						return ActionService.list({
-							solutionId: $stateParams.solutionId
-						});
-					}],
-					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
-						return MediaService.list({
-							solutionId: $stateParams.solutionId
-						});
-					}],
-					isSingleAction: function () {
-						return false;
-					}
-				}
-			})
-
-			.state('solutions.action', {
-				url: '/:solutionId/?:actionId',
-				templateUrl: 'modules/core/client/views/solution.client.view.html',
-				controller: 'SolutionController',
-				controllerAs: 'vm',
-				resolve: {
-					solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
-						return SolutionService.get($stateParams.solutionId);
-					}],
-					actions: ['ActionService', '$stateParams', function (ActionService, $stateParams) {
-						return ActionService.get($stateParams.actionId);
-					}],
-					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
-						return MediaService.list({
-							solutionId: $stateParams.solutionId
-						});
-					}],
-					isSingleAction: function () {
-						return true;
-					}
-				}
-			})
-
-			.state('actions', {
-				url: '/actions',
-				abstract: true,
-				template: '<ui-view/>'
-			})
-
-			.state('actions.create', {
-				url: '/create?:solutionId',
-				templateUrl: 'modules/core/client/views/edit-action.client.view.html',
-				controller: 'ActionController',
-				controllerAs: 'vm',
-				data: {
-					roles: ['admin'],
-					title: 'Create Action'
-				},
-				resolve: {
-					action: function () {
-						return {
-							solutions: []
-						};
-					}
-				}
-			})
-			.state('actions.edit', {
-				url: '/:actionId/edit',
-				templateUrl: 'modules/core/client/views/edit-action.client.view.html',
-				controller: 'ActionController',
-				controllerAs: 'vm',
-				params: {
-					actionId: null,
-					solutionId: null
-				},
-				data: {
-					roles: ['admin'],
-					title: 'Edit Action'
-				},
-				resolve: {
-					action: ['ActionService', '$stateParams', function (ActionService, $stateParams) {
-						return ActionService.get($stateParams.actionId);
 					}]
 				}
 			})
@@ -292,7 +316,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					suggestion: function() {
 						return {
 							issues: [],
-							solutions: []
+							goals: []
 						};
 					}
 				}
@@ -321,7 +345,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					media: function () {
 						return {
 							issues: [],
-							solutions: []
+							goals: []
 						};
 					}
 				}

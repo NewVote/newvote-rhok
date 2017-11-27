@@ -88,20 +88,20 @@ md-sidenav {
   color: #009688; }
 
 .issues,
-.solutions {
+.goals {
   margin: 16px; }
 
 .issue,
-.solution {
+.goal {
   cursor: pointer; }
   .issue figcaption,
-  .solution figcaption {
+  .goal figcaption {
     width: 100%; }
     .issue figcaption h2,
-    .solution figcaption h2 {
+    .goal figcaption h2 {
       text-align: center; }
   .issue img,
-  .solution img {
+  .goal img {
     width: 100%;
     height: 100%;
     -o-object-fit: cover;
@@ -149,16 +149,16 @@ md-tooltip {
 .vote-score {
   line-height: normal !important; }
 
-.action-card,
-.solution-card {
+.solution-card,
+.goal-card {
   cursor: pointer; }
-  .action-card .description-container .description,
-  .solution-card .description-container .description {
+  .solution-card .description-container .description,
+  .goal-card .description-container .description {
     overflow: hidden;
     height: 20px;
     float: left; }
-  .action-card .description-container::after,
-  .solution-card .description-container::after {
+  .solution-card .description-container::after,
+  .goal-card .description-container::after {
     content: '...';
     float: left; }
 
@@ -321,6 +321,9 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
           transform: translate(-50%, -50%);
   position: absolute;
   width: 360px; }
+
+.md-media-xl.image-only img {
+  max-height: 100%; }
 
 @media screen and (max-width: 480px) {
   .share-button {

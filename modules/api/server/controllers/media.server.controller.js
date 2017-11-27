@@ -93,15 +93,15 @@ exports.delete = function (req, res) {
  * List of Medias
  */
 exports.list = function (req, res) {
-	var solutionId = req.query.solutionId,
+	var goalId = req.query.goalId,
 		issueId = req.query.issueId,
 		searchParams = req.query.search,
 		mediaId = req.query.mediaId,
 		query;
 
-	if (solutionId) {
+	if (goalId) {
 		query = {
-			solutions: solutionId
+			goals: goalId
 		};
 	} else if(issueId) {
 		query = {
@@ -117,7 +117,7 @@ exports.list = function (req, res) {
 	} else {
 		query = null;
 	}
-	Media.find(query).sort('-created').populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err, medias) {
+	Media.find(query).sort('-created').populate('user', 'displayName').populate('issues').populate('goals').exec(function (err, medias) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -146,7 +146,7 @@ exports.mediaByID = function (req, res, next, id) {
 		});
 	}
 
-	Media.findById(id).populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err, media) {
+	Media.findById(id).populate('user', 'displayName').populate('issues').populate('goals').exec(function (err, media) {
 		if (err) {
 			return next(err);
 		} else if (!media) {
@@ -165,10 +165,42 @@ exports.getMeta = function (req, res) {
 	var url = req.params.uri;
 	// console.log(url);
 	return scrape(url).then(function (meta) {
-		// console.log(meta);
-		return res.json(meta);
+		console.log(meta);
+
+		var media = {};
+		var title, description, image;
+		if(meta.dublinCore && meta.dublinCore.title){
+			title = meta.openGraph.title;
+		}else if(meta.dublinCore && meta.openGraph.title){
+			title = meta.openGraph.title;
+		}else if(meta.general && meta.general.title) {
+			title = meta.general.title;
+		}
+
+		if(meta.dublinCore && meta.dublinCore.description){
+			description = meta.dublinCore.description;
+		}else if(meta.openGraph && meta.openGraph.description){
+			description = meta.openGraph.description;
+		}else if(meta.general && meta.general.description) {
+			description = meta.general.description;
+		}
+
+		if(meta.openGraph && meta.openGraph.image){
+			image = meta.openGraph.image.url;
+		}else if(meta.twitter && meta.twitter.description){
+			image = meta.twitter.image;
+		}
+
+		media.title = title ? title : null;
+		media.description = description ? description : null;
+		media.image = image ? image : null;
+		media.url = url;
+
+		return res.json(media);
 	}, function (error) {
 		console.log('Error scraping: ', error.message);
-		return res.json(error);
+		return res.status(400).send({
+			message: 'No metadata found.'
+		});
 	});
 };

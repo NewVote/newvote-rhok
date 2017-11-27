@@ -33,13 +33,13 @@
 						<md-icon>edit</md-icon>
 					</md-button>
 				</div>
-				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="solutions.create({ issueId: vm.issue._id })">
+				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="goals.create({ issueId: vm.issue._id })">
 					<md-icon>add</md-icon><span hide show-gt-sm>New</span>
-					<md-tooltip>Create a new solution</md-tooltip>
+					<md-tooltip>Create a new goal</md-tooltip>
 				</md-button>
 				<md-button ng-hide="authentication.user.roles.indexOf('admin')==1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="suggestions">
 					<md-icon>add</md-icon><span hide show-gt-sm>New</span>
-					<md-tooltip>Suggest a new solution</md-tooltip>
+					<md-tooltip>Suggest a new goal</md-tooltip>
 				</md-button>
 			</div>
 		</div>
@@ -71,6 +71,9 @@
 
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 	<md-tabs md-dynamic-height md-border-bottom>
+		<md-tab label="goals">
+			<goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
+		</md-tab>
 		<md-tab label="solutions">
 			<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
 		</md-tab>
@@ -80,7 +83,7 @@
 		<md-tab label="discuss">
 			<md-content layout="column" ng-if="!prerender">
 				<div layout-padding>
-					<div class="polis" data-topic="What do you think?" data-page_id="{{vm.issue._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+					<div class="polis" data-topic="What do you think?" data-page_id="{{vm.issue._id}}" data-site_id="polis_site_id_Mn0DPMpcOmF0sSZntb">
 					</div>
 				</div>
 			</md-content>

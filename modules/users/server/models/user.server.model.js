@@ -55,7 +55,20 @@ var UserSchema = new Schema({
   postalCode: {
     type: String,
     trim: true,
-    default: '',
+    required: function() {
+        return (!this.isNew && this.international == false);
+    }
+  },
+  international: {
+      type: Boolean,
+      default: false
+  },
+  country: {
+      type: Schema.ObjectId,
+      ref: 'Country',
+      required: function() {
+          return this.international == true;
+      }
   },
   username: {
     type: String,
@@ -156,7 +169,7 @@ UserSchema.pre('validate', function (next) {
  */
 UserSchema.methods.hashPassword = function (password) {
   if (this.salt && password) {
-    return crypto.pbkdf2Sync(password, new Buffer(this.salt, 'base64'), 10000, 64).toString('base64');
+    return crypto.pbkdf2Sync(password, new Buffer(this.salt, 'base64'), 10000, 64, 'SHA1').toString('base64');
   } else {
     return password;
   }

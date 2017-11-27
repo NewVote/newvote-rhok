@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, solutions, media, UploadService, $q, SortService, $mdConstant) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'goals', 'solutions', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, goals, solutions, media, UploadService, $q, SortService, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.issue = issue;
 		vm.media = media;
 		vm.issueId = issue._id;
+		vm.goals = goals;
 		vm.solutions = solutions;
 
 		// Meta tags
@@ -31,7 +32,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		$scope.authentication = Authentication;
 		$scope.prerender = document.getElementById('prerender');
 
-		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
+		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();
@@ -65,9 +66,9 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 			});
 		};
 
-		vm.vote = function (solution, voteType, $event) {
+		vm.vote = function (goal, voteType, $event) {
 			$event.stopPropagation();
-			VoteService.vote(solution, 'Solution', voteType);
+			VoteService.vote(goal, 'Goal', voteType);
 		};
 
 		angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();

@@ -15,21 +15,32 @@
 <update-meta name="twitter:url" use-abs-url="true"></update-meta>
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
-<div layout-padding layout="column" layout-align="top start" flex flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 
-	<md-input-container>
-		<label>Media Title</label>
-		<input
+<div layout-padding layout="column" flex flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+
+	<div layout="column">
+		<md-input-container>
+			<label>Media Link</label>
+			<input ng-model="vm.media.url"
+				autofocus
+				ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
+				ng-change="vm.getMeta()">
+		</md-input-container>
+
+		<md-input-container>
+			<label>Media Title</label>
+			<input
 			ng-model="vm.media.title">
-	</md-input-container>
+		</md-input-container>
 
-	<md-input-container>
-		<label>Media Link</label>
-		<input ng-model="vm.media.url"
-			autofocus
-			ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-			ng-change="vm.getMeta()">
-	</md-input-container>
+		<md-input-container>
+			<label>Media Description</label>
+			<textarea
+			ng-model="vm.media.description">
+			</textarea>
+		</md-input-container>
+	</div>
+
 
 	<md-contact-chips
       ng-model="vm.media.issues"
@@ -43,31 +54,38 @@
     </md-contact-chips>
 
 	<md-contact-chips
-	  ng-model="vm.media.solutions"
-	  md-contacts="vm.searchSolutions($query)"
+	  ng-model="vm.media.goals"
+	  md-contacts="vm.searchGoals($query)"
 	  md-contact-name="title"
 	  md-require-match="true"
 	  md-highlight-flags="i"
 	  md-delay="400"
-	  placeholder="Linked Solutions"
-	  secondary-placeholder="Add another solution">
+	  placeholder="Linked Goals"
+	  secondary-placeholder="Add another goal">
 	</md-contact-chips>
 
 	<div layout="column" layout-padding>
 		<span>Media Preview</span>
 		<md-card>
-			<img hide-gt-sm class="md-card-image" src='{{vm.previewData.openGraph.image.url}}' />
-			<md-card-title>
+			<img hide-gt-sm class="md-card-image" src='{{vm.media.image}}' />
+			<md-card-title ng-if="!vm.media.imageOnly">
 				<md-card-title-text>
 					<!-- <span>votes object:{{media.votes.currentUser.voteValue}}</span> -->
-					<span class="md-headline">{{vm.media.title}}</span>
-					<span class="md-subhead">{{vm.previewData.openGraph.description}}</span>
-					<a href="media.url">{{vm.media.url}}</a>
+					<span class="md-headline"><a href="{{vm.media.url}}" target="_blank">{{vm.media.title}}</a></span>
+					<span class="md-subhead">{{vm.media.description}}</span>
+
 				</md-card-title-text>
-				<md-card-title-media hide show-gt-sm>
-					<div class="md-media-sm card-media"><img src='{{vm.previewData.openGraph.image.url}}' /></div>
+				<md-card-title-media hide show-gt-sm ng-if="!vm.media.imageOnly">
+					<div class="md-media-lg card-media"><img src='{{vm.media.image}}' /></div>
 				</md-card-title-media>
 			</md-card-title>
+			<md-card-content ng-if="vm.media.imageOnly" layout="row" layout-padding>
+				<div layout="column" flex>
+					<span class="md-headline"><a href="{{vm.media.url}}" target="_blank">{{vm.media.title}}</a></span>
+					<span class="md-subhead">{{vm.media.description}}</span>
+				</div>
+				<div class="md-media-xl card-media"><img src='{{vm.media.image}}' /></div>
+			</md-card-content>
 			<md-card-actions layout="row" layout-align="start center">
 				<md-button class="md-icon-button vote-btn">
 					<md-icon>thumb_up</md-icon>

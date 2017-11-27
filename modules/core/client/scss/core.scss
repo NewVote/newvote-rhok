@@ -120,12 +120,12 @@ md-sidenav {
 }
 
 .issues,
-.solutions {
+.goals {
 	margin: 16px;
 }
 
 .issue,
-.solution {
+.goal {
 	cursor: pointer;
 
 	figcaption {
@@ -209,8 +209,8 @@ md-tooltip {
 	line-height: normal !important;
 }
 
-.action-card,
-.solution-card {
+.solution-card,
+.goal-card {
 	cursor: pointer;
 
 	.description-container {
@@ -430,6 +430,13 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
     position: absolute;
     width: 360px;
 }
+
+.md-media-xl.image-only  {
+    img {
+        max-height: 100%;
+    }
+}
+
 // Share buttons
 .share-button {
 	@media screen and (max-width: 480px) {

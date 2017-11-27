@@ -64,9 +64,9 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 								}, {
 									reload: true
 								});
-							} else if ($state.is('solutions.view')) {
+							} else if ($state.is('goals.view')) {
 								$state.go('issues.view', {
-									solutionId: vm.objectId
+									goalId: vm.objectId
 								});
 							}
 

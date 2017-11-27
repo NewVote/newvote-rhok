@@ -1,63 +1,30 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'SolutionService', 'IssueService', 'ActionService', 'RegionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'actions', 'media', 'UploadService', 'SortService', 'isSingleAction', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, SolutionService, IssueService, ActionService, RegionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, actions, media, UploadService, SortService, isSingleAction, $mdConstant) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'SolutionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'UploadService', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, SolutionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, UploadService, SortService, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
-		vm.newAction = {};
-		vm.actions = Array.isArray(actions) ? actions : [actions];
-		vm.sortSvc = SortService;
-		vm.isSingleAction = isSingleAction;
-		vm.media = media;
-		vm.regions = [];
 
-		vm.chartLabels = ['Against', 'For'];
-		vm.chartOptions = {
-			elements: {
-				arc: {
-					borderWidth: 0
-				}
-			},
-			responsive: true,
-			legend: {
-				display: false
-			}
-		};
-
-		vm.chartColors = [{
-				backgroundColor: 'rgba(255,0,0,0.8)',
-				pointBackgroundColor: 'rgba(255,0,0,0.5)',
-				pointHoverBackgroundColor: 'rgba(255,0,0,0.6)',
-				borderColor: 'rgba(255,0,0,0.6)',
-				pointBorderColor: 'rgba(255,0,0,0.6)',
-				pointHoverBorderColor: 'rgba(255,0,0,0.6)'
-			},
-			{
-				backgroundColor: 'rgba(0,255,0,0.8)',
-				pointBackgroundColor: 'rgba(0,255,0,0.5)',
-				pointHoverBackgroundColor: 'rgba(77,83,96,1)',
-				borderColor: 'rgba(77,83,96,1)',
-				pointBorderColor: '#fff',
-				pointHoverBorderColor: 'rgba(77,83,96,0.8)'
-			}
-		];
+		// console.log($stateParams);
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
-		if ($state.is('solutions.action')) {
-			vm.desc = 'Proposed action for the solution "' + vm.solution.title + '": ' + vm.actions[0].title;
+
+		if ($state.is('goals.solution')) {
+			vm.desc = 'Proposed solution for the solution "' + vm.solution.title + '": ' + vm.solutions[0].title;
 		}
 
-		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
+		vm.customKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
 		$scope.authentication = Authentication;
 		$scope.prerender = document.getElementById('prerender');
 
-		if ($stateParams.issueId) {
-			IssueService.get($stateParams.issueId).then(function (issue) {
-				vm.solution.issues.push(issue);
+		if ($stateParams.goalId) {
+			vm.solution.goals = [];
+			GoalService.get($stateParams.goalId).then(function (goal) {
+				vm.solution.goals.push(goal);
 			});
 		}
 
@@ -69,55 +36,26 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		} else if ($state.is('solutions.create')) {
 			vm.titleText = 'Add a Solution';
 			$rootScope.headerTitle = 'Add Solution';
-		} else if ($state.is('solutions.view')) {
-			vm.titleText = solution.title;
-			$rootScope.headerTitle = 'Solution';
-		} else if ($state.is('solutions.action')) {
-			vm.titleText = solution.title + ' | Proposed Action';
-			$rootScope.headerTitle = 'Proposed Action';
 		}
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
-
-		vm.searchRegions = function (query) {
-			return RegionService.searchRegions(query);
-		};
-
-		vm.updateVotes = function (regions) {
-			// console.log(vm.solution);
-			SolutionService.get($stateParams.solutionId, vm.regions).then(function (solution) {
-				vm.solution = solution;
-			});
-			ActionService.list({
-				solutionId: vm.solution._id,
-				regions: regions
-			}).then(function (actions) {
-				vm.actions = actions;
-			});
-		};
-
-		function getActions() {
-			ActionService.list({
-				solutionId: $stateParams.solutionId
-			}).then(function (actions) {
-				vm.actions = actions;
-			}, function (err) {
-				console.log('Error getting actions for solution', $stateParams.solutionId, err);
-			});
-		}
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();
 			if (vm.imageFile) {
 				promise = UploadService.upload(vm.imageFile).then(function () {
-					console.log('uploaded file', vm.imageFile);
+					// console.log('uploaded file', vm.imageFile);
 					vm.solution.imageUrl = vm.imageFile.result.url;
 				});
 			}
 			return promise.then(function () {
 				return SolutionService.createOrUpdate(vm.solution).then(function (solution) {
-					$state.go('solutions.view', {
-						solutionId: solution._id
-					});
+					if($stateParams.goalId){
+						$state.go('goals.view', {
+							goalId: $stateParams.goalId
+						});
+					}else {
+						$state.go('solutions.list');
+					}
 				});
 			});
 		};
@@ -128,55 +66,17 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			confirm('Are you sure you want to delete this solution?',
 				'This cannot be undone. Please confirm your decision').then(function () {
 				SolutionService.delete(vm.solution._id).then(function () {
-					$state.go('solutions.list');
+					$state.go('goals.view', {
+						goalId: $stateParams.goalId
+					});
 				});
 			});
 		};
 
-		vm.showCreateAction = function () {
-			vm.creatingAction = !vm.creatingAction;
-		};
-
-		vm.createAction = function () {
-			vm.newAction.solution = $stateParams.solutionId;
-			ActionService.createOrUpdate(vm.newAction).then(function () {
-				getActions();
-				vm.creatingAction = false;
-				vm.newAction = {};
-			});
-		};
-
-		vm.searchIssues = function (query) {
-			return IssueService.list({
+		vm.searchGoals = function (query) {
+			return GoalService.list({
 				search: query
 			});
-		};
-
-		vm.deleteAction = function (action) {
-			confirm('Are you sure you want to delete this action?', 'This cannot be undone.').then(function () {
-				ActionService.delete(action._id).then(function () {
-					getActions();
-				});
-			});
-		};
-
-		vm.voteAction = function (action, voteType, $event) {
-			$event.stopPropagation();
-			VoteService.vote(action, 'Action', voteType).then(function (data) {
-				action.$get();
-			});
-		};
-
-		vm.vote = function (voteType) {
-			VoteService.vote(vm.solution, 'Solution', voteType).then(function (data) {
-				vm.solution.$get();
-			});
-		};
-
-		vm.sort = function (sortData, $event) {
-			if ($event) $event.stopPropagation();
-			// console.log('sorting by: ', sortData.type, sortData.order);
-			SortService.setSort('action', sortData.type, sortData.order);
 		};
 
 		function confirm(title, text) {
@@ -188,9 +88,5 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 			return $mdDialog.show(confirmDialog);
 		}
-
-		angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
-		var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
-		angular.element(document).find('body').append(el);
 	}
 ]);

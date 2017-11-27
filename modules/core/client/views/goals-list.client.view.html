@@ -19,6 +19,7 @@
 		</div>
 		<span>Filter</span>
 		<div layout-align="start center">
+
 			<md-chips ng-model="vm.regions" md-require-match="true" md-on-add="vm.updateVotes(vm.regions)" md-on-remove="vm.updateVotes(vm.regions)" md-delay="400" placeholder="All regions" secondary-placeholder="Add another region">
 				<md-chip-template>
 					<span>{{ $chip.name }}</span>
@@ -35,76 +36,65 @@
 				</md-autocomplete>
 			</md-chips>
 		</div>
-
 	</div>
 	<div layout-padding>
-		<md-card class="solution-card" ng-if="vm.solutions.length==0">
+		<md-card class="solution-card" ng-if="vm.goals.length==0">
 			<md-card-header>
 				<md-card-header-text>
-					<span class="md-headline">Looks like there are no proposed solutions yet, why not suggest one?</span>
+					<span class="md-headline">Looks like there are no goal here yet, why not suggest one?</span>
 				</md-card-header-text>
 			</md-card-header>
 		</md-card>
-		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse">
+		<md-card class="goal-card" ng-repeat="goal in vm.goals | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="goals.view({goalId:goal._id})">
 			<md-card-header>
 				<md-card-avatar>
-					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
+					<img ng-src="{{::goal.imageUrl}}" alt="Goal Image" />
 				</md-card-avatar>
 				<md-card-header-text>
-					<span class="md-headline">{{::solution.title}}</span>
-
+					<!-- <span ng-if="authentication.user.roles.indexOf('admin')>-1">cont: {{vm.controversialSort(goal)}}</span> -->
+					<span class="md-headline">{{::goal.title}}</span>
 				</md-card-header-text>
 			</md-card-header>
 			<md-card-content>
-				<span class="md-subhead" ng-bind="solution.description | htmlToPlaintext"></span>
+				<span class="md-subhead description-container"><div class="description" ng-bind="goal.description | htmlToPlaintext"></div></span>
 			</md-card-content>
 			<md-card-actions layout="row" layout-align="start start">
 				<md-card-icon-actions>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'up', $event)">
+					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'up', $event)">
 						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
+							<span ng-if="goal.votes.currentUser.voteValue===1">Undo</span>
+							<span ng-if="goal.votes.currentUser.voteValue!==1">Vote Up</span>
 						</md-tooltip>
 						<md-icon>arrow_upward</md-icon>
 					</md-button>
+					<!-- <md-button class="md-icon-button" ng-class="" ng-click="">
+						<md-tooltip>
+							<span>For: {{goal.votes.up}}, Against: {{goal.votes.down}}</span>
+						</md-tooltip>
+						{{goal.votes.up - goal.votes.down}}
+					</md-button> -->
 					<div class="card-chart-container">
 						<div class="card-chart-score">
-							<span>{{solution.votes.up - solution.votes.down}}</span>
+							<span>{{goal.votes.up - goal.votes.down}}</span>
 						</div>
-						<canvas id="card-pie"
-							class="chart chart-pie"
-							chart-data="[solution.votes.down, solution.votes.up]"
-							chart-labels="vm.chartLabels"
-							chart-options="vm.chartOptions"
-							chart-colors="vm.chartColors"
-							height="100%" width="100%">
+						<canvas id="card-pie" class="chart chart-pie" chart-data="[goal.votes.down, goal.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" height="100%" width="100%">
 						</canvas>
 						<md-tooltip>
-							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
+							<span>For: {{goal.votes.up}}, Against: {{goal.votes.down}}</span>
 						</md-tooltip>
 					</div>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'down', $event)">
+					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(goal, 'down', $event)">
 						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
+							<span ng-if="goal.votes.currentUser.voteValue===-1">Undo</span>
+							<span ng-if="goal.votes.currentUser.voteValue!==-1">Vote Down</span>
 						</md-tooltip>
 						<md-icon>arrow_downward</md-icon>
 					</md-button>
-					<div ng-if="authentication.user.roles != null && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user._id===solution.user._id)">
-						<md-button class="md-icon-button" ng-click="vm.deleteSolution(solution)">
-							<md-tooltip>Delete</md-tooltip>
-							<md-icon>delete</md-icon>
-						</md-button>
-						<md-button class="md-icon-button" ui-sref="solutions.edit({solutionId: solution._id, goalId: vm.goalId})">
-							<md-tooltip>Edit Solution</md-tooltip>
-							<md-icon>edit</md-icon>
-						</md-button>
-					</div>
-
 					<div flex>
-					  <share-buttons object="solution" req-object="vm.goal" object-type="'solution'" vertical-resize="true"></share-buttons>
+						<share-buttons object="goal" object-type="'goal'" vertical-resize="true"></share-buttons>
 					</div>
 				</md-card-icon-actions>
+
 			</md-card-actions>
 		</md-card>
 	</div>

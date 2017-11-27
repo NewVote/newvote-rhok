@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('IssuesController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'issues', 'SolutionService', 'SortService',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, issues, SolutionService, SortService) {
+angular.module('core').controller('IssuesController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'issues', 'GoalService', 'SortService',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, issues, GoalService, SortService) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.issues = issues;
@@ -13,16 +13,16 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 
 		// Meta tags
 		vm.desc = 'A collection of the current issues being discussed on the NewVote platform.';
-		vm.image = vm.issues[0].imageUrl;
+		vm.image = vm.issues[0] ? vm.issues[0].imageUrl : null;
 
 		// vm.filterTags = [];
 		//
 		// var tagPromise = issues.map(function (issue) {
-		// 	return SolutionService.list({issueId: issue._id}).then(function (solutions) {
+		// 	return GoalService.list({issueId: issue._id}).then(function (goals) {
 		// 		var tags = [];
-		// 		solutions.map(function (solution) {
-		// 			// console.log(solution.tags);
-		// 			return solution.tags.map(function (tag) {
+		// 		goals.map(function (goal) {
+		// 			// console.log(goal.tags);
+		// 			return goal.tags.map(function (tag) {
 		// 				tags.push({name: tag});
 		// 			});
 		// 		});
