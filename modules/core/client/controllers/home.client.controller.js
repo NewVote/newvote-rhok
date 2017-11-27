@@ -33,7 +33,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		$scope.toggleMessage = function() {
 			$scope.message = !$scope.message;
-		}
+		};
 
 		$scope.toggleLeft = function () {
 			$mdSidenav('left').toggle();
