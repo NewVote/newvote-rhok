@@ -47,6 +47,13 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$root
                 .position('bottom center')
                 .hideDelay(3000)
             );
+        }, function(err) {
+            $mdToast.show(
+                $mdToast.simple()
+                .textContent('There was a problem updating the user account')
+                .position('bottom center')
+                .hideDelay(3000)
+            );
         });
     };
 

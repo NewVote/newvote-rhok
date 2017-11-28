@@ -16,8 +16,8 @@
   <md-list>
       <!-- ui-sref="admin.user({userId: user._id})" -->
       <md-list-item ng-repeat="user in pagedItems">
-          <img ng-if="user.imgUrl" alt="avatar" ng-src="user.imgUrl" class="md-avatar" />
-          <img ng-if="!user.imgUrl" alt="avatar" ng-src="modules/users/client/img/profile/default.png" class="md-avatar" />
+          <img alt="avatar" ng-src="{{user.profileImageURL}}" class="md-avatar" />
+          <!-- <img ng-if="!user.profileImageURL" alt="avatar" ng-src="modules/users/client/img/profile/default.png" class="md-avatar" /> -->
           <p>{{ user.firstName }} {{user.lastName}} ({{user.username}})</p>
           <label layout-padding>Set Admin</label><md-checkbox aria-label="set user admin" class="md-secondary" ng-disabled="user._id == authentication.user._id" ng-checked='isAdmin(user)' ng-change="setAdmin(user)" ng-model="checked[user._id]"></md-checkbox>
           <!-- <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Edit">edit</md-icon> -->
