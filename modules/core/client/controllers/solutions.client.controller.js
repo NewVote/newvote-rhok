@@ -1,11 +1,10 @@
 'use strict';
 
-angular.module('core').controller('SolutionsController', ['$scope', '$rootScope', '$stateParams', 'SolutionService', 'VoteService', 'Authentication', 'solutions', '$location',
-  function ($scope, $rootScope, $stateParams, SolutionService, VoteService, Authentication, solutions, $location) {
+angular.module('core').controller('SolutionsController', ['$scope', '$rootScope', '$state', '$stateParams', 'SolutionService', 'VoteService', 'Authentication', 'solutions', '$location',
+  function ($scope, $rootScope, $state, $stateParams, SolutionService, VoteService, Authentication, solutions, $location) {
     var vm = this;
     vm.issueId = $stateParams.issueId;
     vm.solutions = solutions;
-    // vm.sortParam = 'votes.up-';
 
     // Title
     vm.title = $rootScope.titlePrefix + 'Solutions' + $rootScope.titleSuffix;

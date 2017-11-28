@@ -45,6 +45,12 @@
 					</md-button>
 				</md-menu-item>
 
+				<md-menu-item ng-if="authentication.user.roles.indexOf('admin') != -1">
+					<md-button ui-sref="admin.users">
+						Manage Users
+					</md-button>
+				</md-menu-item>
+
 				<md-menu-item>
 					<md-button href="/api/auth/signout" target="_self">
 						Sign Out

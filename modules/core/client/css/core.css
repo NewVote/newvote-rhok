@@ -356,3 +356,13 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
       position: absolute;
       top: -115px;
       left: 50px; } }
+
+@media (min-width: 960px) {
+  md-toast.md-center {
+    margin-left: auto;
+    margin-right: auto;
+    left: 50%;
+    right: auto;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    padding: 0px; } }

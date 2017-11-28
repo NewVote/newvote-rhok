@@ -9,6 +9,7 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		vm.issueId = issue._id;
 		vm.goals = goals;
 		vm.solutions = solutions;
+		$scope.$state = $state;
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
