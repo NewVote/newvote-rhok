@@ -197,12 +197,13 @@ md-input-container.compact {
   background-color: #205763;
   padding: 20px 40px;
   color: white; }
-  .footer-banner .social-link.twitter img {
-    margin: -15px 0;
-    height: 60px; }
-  .footer-banner .social-link img {
-    height: 30px;
-    width: auto; }
+  .footer-banner .social-link {
+    width: 48px;
+    height: 48px;
+    color: white;
+    text-decoration: none; }
+  .footer-banner a, .footer-banner a:link, .footer-banner a:visited, .footer-banner a:hover, .footer-banner a:active {
+    text-decoration: none; }
 
 .title-text {
   font-size: 42px;
@@ -255,9 +256,13 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
     max-height: none;
     overflow: visible; }
 
-.header-image-container img {
-  max-height: 200px;
-  width: auto; }
+.header-image-container {
+  height: 300px;
+  background-position: center;
+  background-size: cover; }
+  .header-image-container img {
+    max-height: 200px;
+    width: auto; }
 
 [ng-quill-editor] {
   display: block; }
@@ -323,7 +328,8 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
   width: 360px; }
 
 .md-media-xl.image-only img {
-  max-height: 100%; }
+  max-height: 100%;
+  max-width: 100%; }
 
 @media screen and (max-width: 480px) {
   .share-button {
@@ -350,3 +356,13 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
       position: absolute;
       top: -115px;
       left: 50px; } }
+
+@media (min-width: 960px) {
+  md-toast.md-center {
+    margin-left: auto;
+    margin-right: auto;
+    left: 50%;
+    right: auto;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    padding: 0px; } }

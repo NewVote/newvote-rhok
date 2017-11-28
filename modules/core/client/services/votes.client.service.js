@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').service('VoteService', ['$resource', '$state', '$stateParams', '$q', '_', 'VOTE_TYPES', '$localStorage',
-	function ($resource, $state, $stateParams, $q, _, VOTE_TYPES, $localStorage) {
+angular.module('core').service('VoteService', ['$resource', '$state', '$stateParams', '$q', '_', 'VOTE_TYPES', '$localStorage', '$mdToast',
+	function ($resource, $state, $stateParams, $q, _, VOTE_TYPES, $localStorage, $mdToast) {
 		var Vote = $resource('api/votes/:voteId', {
 			voteId: '@_id'
 		}, {
@@ -32,6 +32,7 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 				object.votes.currentUser = vote;
 
 				return svc.createOrUpdate(vote).then(function(data) {
+					svc.showSimpleToast();
 					return data;
 				}, function (err) {
 					if(err.status === 401){
@@ -50,5 +51,14 @@ angular.module('core').service('VoteService', ['$resource', '$state', '$statePar
 				console.log('there was no .votes');
 			}
 		};
+
+		svc.showSimpleToast = function() {
+	      $mdToast.show(
+	        $mdToast.simple()
+	          .textContent('Your vote has been recorded')
+	          .position('bottom center')
+	          .hideDelay(3000)
+	      );
+	    };
 	}
 ]);

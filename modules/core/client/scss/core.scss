@@ -280,18 +280,14 @@ md-input-container {
 	color: white;
 
 	.social-link {
-		&.twitter {
-			img {
-				margin: -15px 0;
-				height: 60px;
-			}
-		}
-
-		img {
-			height: 30px;
-			width: auto;
-		}
+        width: 48px;
+        height: 48px;
+        color: white;
+        text-decoration:  none;
 	}
+    a, a:link, a:visited, a:hover, a:active {
+        text-decoration: none;
+    }
 }
 
 .title-text {
@@ -375,6 +371,10 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 }
 
 .header-image-container {
+    height: 300px;
+    background-position: center;
+    background-size: cover;
+
 	img {
 		max-height: 200px;
 		width: auto;
@@ -434,6 +434,7 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 .md-media-xl.image-only  {
     img {
         max-height: 100%;
+        max-width: 100%;
     }
 }
 
@@ -466,5 +467,16 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 		position: absolute;
 		top: -115px;
 		left: 50px;
+	}
+}
+
+@media (min-width: 960px) {
+	md-toast.md-center {
+		margin-left: auto;
+		margin-right: auto;
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%);
+		padding: 0px;
 	}
 }

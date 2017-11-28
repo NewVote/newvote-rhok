@@ -45,6 +45,12 @@
 					</md-button>
 				</md-menu-item>
 
+				<md-menu-item ng-if="authentication.user.roles.indexOf('admin') != -1">
+					<md-button ui-sref="admin.users">
+						Manage Users
+					</md-button>
+				</md-menu-item>
+
 				<md-menu-item>
 					<md-button href="/api/auth/signout" target="_self">
 						Sign Out
@@ -73,3 +79,12 @@
 		</md-autocomplete>
 	</md-input-container>
 </md-toolbar>
+
+<md-content ng-if="message" md-colors="{color: 'grey-A200', 'background': 'default-warn'}" class="md-accent md-hue-1">
+	<div class="footer" layout-padding layout="row" layout-align="center center" flex>
+		<span>This is a prototype. We have a long way to go. Please give us <a target="_blank" href="https://goo.gl/forms/YqvYcDA7GGwtVGRd2">your feedback here.</a></span>
+		<md-button  ng-click="toggleMessage()" class="md-icon-button" aria-label="More">
+			<md-icon>close</md-icon>
+		</md-button>
+	</div>
+</md-content>
