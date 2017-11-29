@@ -46,18 +46,23 @@
 			</md-card-header>
 		</md-card>
 		<md-card class="goal-card" ng-repeat="goal in vm.goals | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="goals.view({goalId:goal._id})">
-			<md-card-header>
+			<!-- <md-card-header>
 				<md-card-avatar>
 					<img ng-src="{{::goal.imageUrl}}" alt="Goal Image" />
 				</md-card-avatar>
 				<md-card-header-text>
-					<!-- <span ng-if="authentication.user.roles.indexOf('admin')>-1">cont: {{vm.controversialSort(goal)}}</span> -->
-					<span class="md-headline">{{::goal.title}}</span>
+					<p class="md-headline" ng-bind="goal.title"></p>
 				</md-card-header-text>
-			</md-card-header>
-			<md-card-content>
-				<span class="md-subhead description-container"><div class="description" ng-bind="goal.description | htmlToPlaintext"></div></span>
-			</md-card-content>
+			</md-card-header> -->
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline" ng-bind="goal.title"></span>
+					<span class="md-body-2 description-container"><span class="description" ng-bind="goal.description | htmlToPlaintext"></span></span>
+				</md-card-title-text>
+				<md-card-title-media layout-padding>
+					<div class="md-media-sm card-media"><img ng-src="{{::goal.imageUrl}}" alt="Goal Image" /></div>
+				</md-card-title-media>
+			</md-card-title>
 			<md-card-actions layout="row" layout-align="start start">
 				<md-card-icon-actions>
 					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'up', $event)">

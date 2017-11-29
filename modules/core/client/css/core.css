@@ -156,6 +156,7 @@ md-tooltip {
   .goal-card .description-container .description {
     overflow: hidden;
     height: 20px;
+    max-width: 90%;
     float: left; }
   .solution-card .description-container::after,
   .goal-card .description-container::after {
