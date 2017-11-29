@@ -55,10 +55,12 @@ exports.create = function (req, res) {
 		} else {
 			Suggestion.populate(suggestion, { path: 'issues goals user' }).then(function(suggestion) {
 				// console.log(buildMessage(suggestion, req));
+				// console.log(process.env);
 				transporter.sendMail({
-					from: req.user.email,
+					from: process.env.MAILER_FROM,
 					// to: 'dion@newvote.org.au',
-					to: 'noomnahor@gmail.com',
+					to: process.env.MAILER_TO,
+					replyTo: req.user.email,
 					subject: 'NewVote Suggestion',
 					html: buildMessage(suggestion, req)
 				}).then(function(data) {
