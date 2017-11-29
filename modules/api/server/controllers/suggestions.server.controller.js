@@ -58,7 +58,7 @@ exports.create = function (req, res) {
 				transporter.sendMail({
 					from: req.user.email,
 					// to: 'dion@newvote.org.au',
-					to: 'rohan.m.richards@gmail.com',
+					to: 'noomnahor@gmail.com',
 					subject: 'NewVote Suggestion',
 					html: buildMessage(suggestion, req)
 				}).then(function(data) {
