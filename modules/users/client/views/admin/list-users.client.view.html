@@ -1,4 +1,4 @@
-<section>
+<section flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding>
 
   <!-- Basic meta tags -->
   <update-title title="{{ title }}"></update-title>
@@ -13,13 +13,23 @@
       </div>
     </div>
   </div>
-  <div class="list-group">
+  <md-list>
+      <!-- ui-sref="admin.user({userId: user._id})" -->
+      <md-list-item ng-repeat="user in pagedItems">
+          <img alt="avatar" ng-src="{{user.profileImageURL}}" class="md-avatar" />
+          <!-- <img ng-if="!user.profileImageURL" alt="avatar" ng-src="modules/users/client/img/profile/default.png" class="md-avatar" /> -->
+          <p>{{ user.firstName }} {{user.lastName}} ({{user.username}})</p>
+          <label layout-padding>Set Admin</label><md-checkbox aria-label="set user admin" class="md-secondary" ng-disabled="user._id == authentication.user._id" ng-checked='isAdmin(user)' ng-change="setAdmin(user)" ng-model="checked[user._id]"></md-checkbox>
+          <!-- <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Edit">edit</md-icon> -->
+      </md-list-item>
+  </md-list>
+  <!-- <div class="list-group">
     <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
       <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
       <p class="list-group-item-text" ng-bind="user.email"></p>
     </a>
-  </div>
+  </div> -->
 
   <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
 </section>

@@ -127,7 +127,7 @@ exports.list = function (req, res) {
   getQuery().then(function(query) {
       // console.log('query from promise is: ', query);
       Solution.find(query).sort('-created')
-      .populate('user', 'displayName')
+      .populate('user', 'displayName').populate('goals', 'title')
       .exec(function (err, solutions) {
         if (err) {
           return res.status(400).send({

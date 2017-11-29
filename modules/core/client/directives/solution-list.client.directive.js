@@ -11,12 +11,13 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 		templateUrl: 'modules/core/client/views/solutions-list.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
-		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'GoalService', 'SolutionService',
-			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, GoalService, SolutionService) {
+		controller: ['$scope', '$state', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'GoalService', 'SolutionService',
+			function ($scope, $state, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, GoalService, SolutionService) {
 				var vm = this;
 				vm.sortSvc = SortService;
 				vm.regions = [];
 				$scope.authentication = Authentication;
+				$scope.$state = $state;
 				vm.goal = {};
 
 				vm.$onInit = function() {
