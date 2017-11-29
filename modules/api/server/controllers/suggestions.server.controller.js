@@ -57,9 +57,14 @@ exports.create = function (req, res) {
 				// console.log(buildMessage(suggestion, req));
 				transporter.sendMail({
 					from: req.user.email,
-					to: 'dion@newvote.org.au',
+					// to: 'dion@newvote.org.au',
+					to: 'rohan.m.richards@gmail.com',
 					subject: 'NewVote Suggestion',
 					html: buildMessage(suggestion, req)
+				}).then(function(data) {
+					console.log('mailer success: ', data);
+				}, function(err) {
+					console.log('mailer failed: ', err);
 				});
 			});
 			res.json(suggestion);
