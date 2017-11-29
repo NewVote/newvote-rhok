@@ -312,6 +312,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					roles: ['admin', 'user'],
 					title: 'Create Suggestion'
 				},
+				params: {'objectId': null, 'objectType': null, 'suggestionType': null},
 				resolve: {
 					suggestion: function() {
 						return {
