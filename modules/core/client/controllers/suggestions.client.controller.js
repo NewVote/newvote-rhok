@@ -29,8 +29,11 @@ angular.module('core').controller('SuggestionsController', ['$scope', '$rootScop
 				IssueService.get(vm.objectId).then(function (issue) {
 					console.log('got issue as parentObject: ', issue);
 					vm.parentObject = issue;
-					vm.suggestion.title = 'Edit for issue: ' + issue.name;
-					vm.suggestion.issues.push(issue);
+					if(vm.type == 'edit'){
+						vm.suggestion.title = 'Edit for issue: ' + issue.name;
+					}else {
+						vm.suggestion.title = 'New goal for issue: ' + issue.name;
+					}
 					vm.suggestion.issues.push(issue);
 				});
 				break;
@@ -38,7 +41,11 @@ angular.module('core').controller('SuggestionsController', ['$scope', '$rootScop
 				GoalService.get(vm.objectId).then(function (goal) {
 					console.log('got goal as parentObject: ', goal);
 					vm.parentObject = goal;
-					vm.suggestion.title = 'Edit for goal: ' + goal.title;
+					if(vm.type == 'edit'){
+						vm.suggestion.title = 'Edit for goal: ' + goal.title;
+					}else {
+						vm.suggestion.title = 'New solution for goal: ' + goal.title;
+					}
 					vm.suggestion.goals.push(goal);
 				});
 				break;
