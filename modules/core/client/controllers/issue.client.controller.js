@@ -11,8 +11,8 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		vm.solutions = solutions;
 		$scope.$state = $state;
 		$scope.toggle = function() {
-      $scope.interactions = !$scope.interactions;
-    };
+			$scope.interactions = !$scope.interactions;
+		};
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
