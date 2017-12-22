@@ -76,7 +76,7 @@
 	</div>
 </md-toolbar>
 
-<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+<!-- <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
 	<md-tabs class="md-primary md-hue-2" md-dynamic-height md-border-bottom>
 		<md-tab label="goals">
 			<goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
@@ -106,4 +106,77 @@
 			</div>
 		</md-tab>
 	</md-tabs>
+</div> -->
+
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column">
+
+	<md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Goals</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+	    <goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
+	  </md-card-content>
+	</md-card>
+
+	<md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Soultions</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+	    <goal-list goals="vm.soultions" issue-id="vm.issueId"></goal-list>
+	  </md-card-content>
+	</md-card>
+
+	<md-button class="md-raised md-primary"
+	  ng-click="toggle()"
+	  aria-expanded="{{isOpen()}}">
+		<div flex="" layout="column" class="md-title ng-binding ng-scope column flex">
+    More Interactions
+    <span flex="" class="flex"></span>
+  </div>
+	</md-button>
+
+</div>
+
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
+
+	<md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Discuss</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+			<div class="polis" data-topic="What do you think?" data-page_id="{{vm.issue._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+			</div>
+	  </md-card-content>
+	</md-card>
+
+	<md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Endorsements</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+	    <span>In the future this section will provide endorsements from reputable organisations.</span>
+	  </md-card-content>
+	</md-card>
+
+	<md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Meetups</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+	    <span>In the future this section will contain details of real world events related to this issue.</span>
+	  </md-card-content>
+	</md-card>
+
 </div>
