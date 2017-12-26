@@ -173,7 +173,7 @@
 							</md-select>
 						</md-input-container>
 
-						<md-input-container class="md-block" flex-gt-sm>
+						<md-input-container class="md-block" flex-gt-sm="33">
 							<label>Housing Situation</label>
 							<md-select ng-model="user.housing">
 								<md-option value="unspecified"><em>Unspecified</em></md-option>
@@ -183,7 +183,7 @@
 							</md-select>
 						</md-input-container>
 
-						<md-input-container class="md-block" flex-gt-sm>
+						<md-input-container class="md-block" flex-gt-sm="33">
 							<label>Favoured political party</label>
 							<md-select ng-model="user.party">
 								<md-option value="unspecified"><em>Unspecified</em></md-option>
@@ -193,6 +193,16 @@
 								<md-option value="one-nation">One Nation</md-option>
 								<md-option value="family-first">Family First</md-option>
 								<md-option value="other">Other</md-option>
+							</md-select>
+						</md-input-container>
+
+						<md-input-container class="md-block" flex-gt-sm="33">
+							<label>Woodfordian Citizen?</label>
+							<md-select ng-model="user.woodfordian">
+								<md-option value="nominated"><em>Yes, I'm a Nominated Citizen</em></md-option>
+								<md-option value="open">Yes, I'm an Open Citizen</md-option>
+								<md-option value="interested">Not yet, but I'm interested</md-option>
+								<md-option value="not-insterested">No, and I'm not interested</md-option>
 							</md-select>
 						</md-input-container>
 					</div>

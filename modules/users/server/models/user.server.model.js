@@ -81,16 +81,19 @@ var UserSchema = new Schema({
       type: String
   },
   birthYear: {
-      type: String
+    type: String
   },
   income: {
-      type: String
+    type: String
   },
   housing: {
-      type: String
+    type: String
   },
   party: {
-      type: String
+    type: String
+  },
+  woodfordian: {
+    type: String
   },
   terms: {
     type: Boolean,
