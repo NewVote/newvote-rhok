@@ -30,34 +30,34 @@ angular.module('core').service('SortService', ['$resource', '$stateParams', '$q'
     var buildExpression = function(objectType, sortParam, order){
         svc.reverse = order === 'asc' ? false : true;
 
-        if(objectType === 'goal' || objectType === 'solution'){
-            if(sortParam === 'top'){
+        if(objectType === 'solution' || objectType === 'goal') {
+            if(sortParam === 'top') {
                 return 'votes.up-votes.down';
-            }else if(sortParam === 'controversial'){
+            } else if(sortParam === 'controversial') {
                 return controversialSort;
-            }else if(sortParam === 'trending'){
+            } else if(sortParam === 'trending') {
                 return trendingSort;
-            }else if(sortParam === 'newest'){
+            } else if(sortParam === 'newest') {
                 return 'created';
             }
         }
         else if(objectType === 'issue') {
             if(sortParam === 'alpha') {
                 return 'name';
-            }else if(sortParam === 'top'){
+            } else if(sortParam === 'top') {
                 return 'goalMetaData.votes.up-goalMetaData.votes.down';
-            }else if(sortParam === 'controversial'){
+            } else if(sortParam === 'controversial') {
                 return controversialSort;
-            }else if(sortParam === 'trending'){
+            } else if(sortParam === 'trending') {
                 return 'goalMetaData.totalTrendingScore';
-            }else if(sortParam === 'newest'){
+            } else if(sortParam === 'newest' ){
                 return 'goalMetaData.lastCreated';
             }
         }
     };
 
     svc.setSort = function(objectType, sortParam, order) {
-        svc.expression = buildExpression(objectType, sortParam, order);
+      svc.expression = buildExpression(objectType, sortParam, order);
     };
   }
 ]);
