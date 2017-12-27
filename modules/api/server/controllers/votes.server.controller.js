@@ -179,10 +179,19 @@ exports.attachVotes = function (objects, user, regions) {
 				}, {
 					path: 'user',
 					match: {
-						postalCode: {
-							$in: postCodes
-						}
-					},
+            $or: [
+              {
+                postalCode: {
+                  $in: postCodes
+                }
+              },
+              {
+                woodfordian: {
+                  $in: postCodes
+                }
+              }
+            ]
+          },
 					select: 'postalCode -_id'
 				}).then(function (votes) {
 					return mapObjectWithVotes(objects, user, votes);
