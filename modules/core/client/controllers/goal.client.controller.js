@@ -11,6 +11,10 @@ angular.module('core').controller('GoalController', ['$scope', 'Authentication',
 		vm.isSingleSolution = isSingleSolution;
 		vm.media = media;
 		vm.regions = [];
+		$scope.$state = $state;
+		$scope.toggle = function() {
+			$scope.interactions = !$scope.interactions;
+		};
 
 		vm.chartLabels = ['Against', 'For'];
 		vm.chartOptions = {
