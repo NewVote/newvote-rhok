@@ -81,7 +81,7 @@
 	<md-card>
 	  <md-card-title>
 	    <md-card-title-text>
-	      <span class="md-headline">Goals</span>
+	      <span class="md-headline">Vote on Goals</span>
 	    </md-card-title-text>
 	  </md-card-title>
 	  <md-card-content>
@@ -92,7 +92,7 @@
 	<md-card>
 	  <md-card-title>
 	    <md-card-title-text>
-	      <span class="md-headline">Soultions</span>
+	      <span class="md-headline">Vote on Solutions</span>
 	    </md-card-title-text>
 	  </md-card-title>
 	  <md-card-content>
@@ -117,6 +117,8 @@
 	  <md-card-title>
 	    <md-card-title-text>
 	      <span class="md-headline">Where do I stand?</span>
+				<span class="md-subhead">In order to use this section of the App you may need to login again with Poli.Is.<br>
+					 Please be aware that your image (showing where you stand) may be visible to other users</span>
 	    </md-card-title-text>
 	  </md-card-title>
 	  <md-card-content>
@@ -144,6 +146,17 @@
 	  </md-card-title>
 	  <md-card-content>
 	    <span>In the future this section will contain details of real world events related to this issue.</span>
+	  </md-card-content>
+	</md-card>
+
+	<md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Media</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+			<media-list media="vm.media" object-id="vm.isuues._id" , object-type="'issue'"></media-list>
 	  </md-card-content>
 	</md-card>
 
