@@ -46,14 +46,6 @@
 			</md-card-header>
 		</md-card>
 		<md-card class="goal-card" ng-repeat="goal in vm.goals | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="goals.view({goalId:goal._id})">
-			<!-- <md-card-header>
-				<md-card-avatar>
-					<img ng-src="{{::goal.imageUrl}}" alt="Goal Image" />
-				</md-card-avatar>
-				<md-card-header-text>
-					<p class="md-headline" ng-bind="goal.title"></p>
-				</md-card-header-text>
-			</md-card-header> -->
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline" ng-bind="goal.title"></span>
@@ -65,22 +57,16 @@
 			</md-card-title>
 			<md-card-actions layout="row" layout-align="start start">
 				<md-card-icon-actions>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'up', $event)">
+					<md-button class="md-raised vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'up', $event)">
 						<md-tooltip>
 							<span ng-if="goal.votes.currentUser.voteValue===1">Undo</span>
 							<span ng-if="goal.votes.currentUser.voteValue!==1">Vote Up</span>
 						</md-tooltip>
-						<md-icon>arrow_upward</md-icon>
+						<md-icon>arrow_upward</md-icon> Vote Up
 					</md-button>
-					<!-- <md-button class="md-icon-button" ng-class="" ng-click="">
-						<md-tooltip>
-							<span>For: {{goal.votes.up}}, Against: {{goal.votes.down}}</span>
-						</md-tooltip>
-						{{goal.votes.up - goal.votes.down}}
-					</md-button> -->
 					<div class="card-chart-container">
 						<div class="card-chart-score">
-							<span>{{goal.votes.up - goal.votes.down}}</span>
+							<span>{{goal.votes.up / (goal.votes.up + goal.votes.down) * 100 || 0 | number: 0}} %</span>
 						</div>
 						<canvas id="card-pie" class="chart chart-pie" chart-data="[goal.votes.down, goal.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" height="100%" width="100%">
 						</canvas>
@@ -88,12 +74,18 @@
 							<span>For: {{goal.votes.up}}, Against: {{goal.votes.down}}</span>
 						</md-tooltip>
 					</div>
-					<md-button class="md-icon-button vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(goal, 'down', $event)">
+					<md-button class="md-raised vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(goal, 'down', $event)">
 						<md-tooltip>
 							<span ng-if="goal.votes.currentUser.voteValue===-1">Undo</span>
 							<span ng-if="goal.votes.currentUser.voteValue!==-1">Vote Down</span>
 						</md-tooltip>
-						<md-icon>arrow_downward</md-icon>
+						<md-icon>arrow_downward</md-icon> Vote Down
+					</md-button>
+					<md-button class="md-raised md-primary">
+						<md-tooltip>
+							<span>View solutions to this Goal.</span>
+						</md-tooltip>
+						View Solutions
 					</md-button>
 					<div flex>
 						<share-buttons object="goal" object-type="'goal'" vertical-resize="true"></share-buttons>
