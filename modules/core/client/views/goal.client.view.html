@@ -87,7 +87,7 @@
 				</md-button>
 				<div class="chart-container">
 					<div class="chart-score">
-						<span>{{vm.goal.votes.up - vm.goal.votes.down}}</span>
+						<span>{{vm.goal.votes.up / (vm.goal.votes.up + vm.goal.votes.down) * 100 | number: 0}}%</span>
 					</div>
 					<vote-details object="vm.goal"></vote-details>
 				</div>
