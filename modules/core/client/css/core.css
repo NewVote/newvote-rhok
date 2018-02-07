@@ -163,9 +163,30 @@ md-tooltip {
     content: '...';
     float: left; }
 
+.carousel-container {
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+  overflow: visible;
+  padding: 0 !important; }
+  .carousel-container:last-of-type {
+    margin-bottom: 2rem; }
+  .carousel-container > .md-headline {
+    margin-bottom: 2rem; }
+  .carousel-container ui-carousel {
+    margin-bottom: 0px;
+    padding: 1rem 0; }
+    .carousel-container ui-carousel md-card {
+      overflow: hidden; }
+      .carousel-container ui-carousel md-card > .md-card-image {
+        height: 205px;
+        -ms-flex-item-align: center;
+            align-self: center;
+        width: auto;
+        max-width: none; }
+
 .img-link-container {
   margin-top: 80px;
-  margin-bottom: 80px; }
+  margin-bottom: 0px; }
   .img-link-container .themed-link {
     color: white;
     text-decoration: underline; }
