@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'goals', 'solutions', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, IssueService, $mdDialog, issue, VoteService, goals, solutions, media, UploadService, $q, SortService, $mdConstant) {
+angular.module('core').controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'goals', 'solutions', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, IssueService, $mdDialog, issue, VoteService, goals, solutions, media, UploadService, $q, SortService, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.issue = issue;
@@ -13,6 +13,10 @@ angular.module('core').controller('IssueController', ['$scope', 'Authentication'
 		$scope.toggle = function() {
 			$scope.interactions = !$scope.interactions;
 		};
+		$scope.scrollTo = function(id) {
+      $location.hash(id);
+      $anchorScroll();
+   	};
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.issue.description);
