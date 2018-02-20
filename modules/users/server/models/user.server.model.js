@@ -131,6 +131,19 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  /* For endorser profiles */
+  organisationName: {
+    type: String
+  },
+  organisationWebsite: {
+    type: String
+  },
+  organisationAbn: {
+    type: String
+  },
+  organisationBio: {
+    type: String
+  },
   /* For reset password */
   resetPasswordToken: {
     type: String
