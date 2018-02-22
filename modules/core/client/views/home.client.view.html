@@ -59,7 +59,7 @@
 
 				<carousel-item>
 					<md-card>
-						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="Washed Out">
+						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="{{item.title}}">
 						<md-card-title>
 							<md-card-title-text ng-init="limit = 25" layout="row">
 								<span class="md-headline" ng-bind-html="item.name | limitTo : limit"></span>
@@ -92,7 +92,7 @@
 
 				<carousel-item>
 					<md-card>
-						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="Washed Out">
+						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="{{item.title}}">
 						<md-card-title>
 							<md-card-title-text ng-init="limit = 25" layout="row">
 								<span class="md-headline" ng-bind-html="item.title | limitTo : limit"></span>
@@ -133,7 +133,7 @@
 
 				<carousel-item>
 					<md-card>
-						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="Washed Out">
+						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="{{item.title}}">
 						<md-card-title>
 							<md-card-title-text ng-init="limit = 25" layout="row">
 								<span class="md-headline" ng-bind-html="item.title | limitTo : limit"></span>
