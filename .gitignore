@@ -74,3 +74,4 @@ mongod
 *.njsproj
 *.sln
 modules/core/client/css/core.css
+modules/core/client/css/core.css
