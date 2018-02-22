@@ -83,7 +83,7 @@
 					</md-button>
 					<div class="card-chart-container">
 						<div class="card-chart-score">
-							<span>{{solution.votes.up / (solution.votes.up + solution.votes.down) * 100 | number: 0}} %</span>
+							<span>{{solution.votes.up / (solution.votes.up + solution.votes.down) * 100 || 0 | number: 0}} %</span>
 						</div>
 						<canvas id="card-pie"
 							class="chart chart-pie"
