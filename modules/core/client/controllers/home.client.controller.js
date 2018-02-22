@@ -90,7 +90,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		function getSolutions() {
 			return SolutionService.list().then(function(solutions) {
-				console.log(solutions);
 	      vm.solutions = solutions;
 				return vm.solutions;
 	    });

@@ -141,8 +141,8 @@
 							</md-checkbox>
 						</md-input-container>
 					</div>
-					<h2 class="md-headline">Personal Information</h2>
-					<div layout-gt-sm="row" layout-wrap layout-padding>
+					<h2 class="md-headline" ng-if="user.roles.indexOf('endorser') == -1">Personal Information</h2>
+					<div layout-gt-sm="row" layout-wrap layout-padding ng-if="user.roles.indexOf('endorser') == -1">
 						<md-input-container class="md-block" flex-gt-sm="33">
 							<label>Gender</label>
 							<md-select ng-model="user.gender">
@@ -205,6 +205,43 @@
 								<md-option value="3">No, and I'm not interested</md-option>
 							</md-select>
 						</md-input-container>
+					</div>
+
+					<h2 class="md-headline"  ng-if="user.roles.indexOf('endorser') != -1">Organisation Information</h2>
+					<div layout="row" layout-padding ng-if="user.roles.indexOf('endorser') != -1">
+						<div layout="column" flex>
+							<div class="" layout="row">
+								<md-input-container class="md-block" flex-gt-sm="33">
+									<label>Organisation Name</label>
+									<input required ng-model="user.organisationName" name="organisationName">
+									<div ng-messages="userForm.organisationName.$error" role="alert">
+										<div ng-message="required" class="my-message">This is required.</div>
+									</div>
+								</md-input-container>
+
+								<md-input-container class="md-block" flex-gt-sm="33">
+									<label>Website</label>
+									<input required ng-model="user.organisationWebsite" name="organisationWebsite">
+									<div ng-messages="userForm.organisationWebsite.$error" role="alert">
+										<div ng-message="required" class="my-message">This is required.</div>
+									</div>
+								</md-input-container>
+
+								<md-input-container class="md-block"  flex-gt-sm="33">
+									<label>ABN</label>
+									<input required ng-model="user.organisationAbn" name="organisationAbn">
+									<div ng-messages="userForm.organisationAbn.$error" role="alert">
+										<div ng-message="required" class="my-message">This is required.</div>
+									</div>
+								</md-input-container>
+							</div>
+							<div class="" layout="row">
+								<md-input-container class="md-block"flex-gt-sm="100">
+			          <label>Biography</label>
+			          <textarea ng-model="user.organisationBio" rows="5" md-select-on-focus></textarea>
+			        </md-input-container>
+						</div>
+						</div>
 					</div>
 
 					<div ng-show="success" class="text-center text-success">
