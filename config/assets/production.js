@@ -8,6 +8,7 @@ module.exports = {
         'public/lib/quill/quill.core.css',
         'public/lib/quill/quill.bubble.css',
         'public/lib/quill/quill.snow.css',
+        'public/lib/angular-ui-carousel/dist/ui-carousel.min.css',
 
         'https://fonts.googleapis.com/icon?family=Material+Icons',
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
@@ -35,7 +36,8 @@ module.exports = {
         'public/lib/chart.js/dist/Chart.min.js',
         'public/lib/angular-chart.js/dist/angular-chart.min.js',
         'public/lib/angular-material-icons/angular-material-icons.min.js',
-        'public/lib/ngstorage/ngStorage.min.js'
+        'public/lib/ngstorage/ngStorage.min.js',
+        'public/lib/angular-ui-carousel/dist/ui-carousel.min.js'
       ]
     },
     css: 'public/dist/application.min.css',

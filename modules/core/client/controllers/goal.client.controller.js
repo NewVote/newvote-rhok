@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('GoalController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'IssueService', 'SolutionService', 'RegionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'goal', 'solutions', 'media', 'UploadService', 'SortService', 'isSingleSolution', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, IssueService, SolutionService, RegionService, $q, $mdDialog, VoteService, VOTE_TYPES, goal, solutions, media, UploadService, SortService, isSingleSolution, $mdConstant) {
+angular.module('core').controller('GoalController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'GoalService', 'IssueService', 'SolutionService', 'RegionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'goal', 'solutions', 'media', 'UploadService', 'SortService', 'isSingleSolution', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, GoalService, IssueService, SolutionService, RegionService, $q, $mdDialog, VoteService, VOTE_TYPES, goal, solutions, media, UploadService, SortService, isSingleSolution, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.goal = goal;
@@ -11,6 +11,14 @@ angular.module('core').controller('GoalController', ['$scope', 'Authentication',
 		vm.isSingleSolution = isSingleSolution;
 		vm.media = media;
 		vm.regions = [];
+		$scope.$state = $state;
+		$scope.toggle = function() {
+			$scope.interactions = !$scope.interactions;
+		};
+		$scope.scrollTo = function(id) {
+      $location.hash(id);
+      $anchorScroll();
+   	};
 
 		vm.chartLabels = ['Against', 'For'];
 		vm.chartOptions = {

@@ -18,7 +18,7 @@
 <div class="home-container">
 	<div class="home-search-banner" layout="column" layout-align="center center">
 		<h1 class="title-text">
-      What do you think?
+      What matters to you?
     </h1>
 
 		<md-input-container md-no-float class="md-block search-input home-search simple " md-no-asterisk>
@@ -39,14 +39,121 @@
 		</md-input-container>
 
 	</div>
-	<div class="img-link-container" layout-gt-xs="row" layout="column" layout-gt-xs="row" layout-align="center center">
-		<a ui-sref="issues.list">
-        	<img src="modules/core/client/img/homelink.png">
-      	</a>
 
-		<a ui-sref="authentication.signup">
-        	<img src="modules/core/client/img/join.png">
-      	</a>
+	<a class="authenticationsignup" ng-if="!authentication.user" ui-sref="authentication.signup" layout="row" layout-align="center center">
+		<img src="modules/core/client/img/join.png" flex="15">
+	</a>
+
+	<md-content>
+    <div class="md-toolbar transparent" flex="90" flex-offset="5">
+      <h2 class="md-display-1">Recent Issues</h2>
+    </div>
+		<div class="carousel-container" ng-controller="HomeController as carousel" layout="row" layout-align="center center">
+			<ui-carousel flex="90"
+			  slides="carousel.issues"
+			  slides-to-show="4"
+			  slides-to-scroll="1"
+			  autoplay="false"
+			  dots="false"
+				arrows="true">
+
+			  <carousel-item>
+					<md-card>
+	        <img ng-src="{{item.imageUrl}}" class="md-card-image" alt="Washed Out">
+	        <md-card-title>
+	          <md-card-title-text ng-init="limit = 25" layout="row">
+	            <span class="md-headline" ng-bind-html="item.name | limitTo : limit"></span>
+							<span class="md-headline" ng-show="item.name.length > limit">...</span>
+	          </md-card-title-text>
+	        </md-card-title>
+					<md-card-content ng-bind-html="item.description | limitTo: 200"></md-card-content>
+	        <md-card-actions layout="row" layout-align="start center">
+						<button class="md-raised md-primary md-button md-ink-ripple" type="button" ui-sref="issues.view({ issueId: item._id })">Learn More<div class="md-ripple-container" style=""></div></button>
+	        </md-card-actions>
+	      </md-card>
+			  </carousel-item>
+			</ui-carousel>
+		</div>
+	</md-content>
+
+	<md-content>
+		<div class="md-toolbar transparent" flex="90" flex-offset="5">
+			<h2 class="md-display-1">Vote on Goals</h2>
+		</div>
+		<div class="carousel-container" ng-controller="HomeController as carousel" layout="row" layout-align="center center">
+			<ui-carousel flex="90"
+			  slides="carousel.goals"
+			  slides-to-show="4"
+			  slides-to-scroll="1"
+			  autoplay="false"
+			  dots="false"
+				arrows="true">
+
+			  <carousel-item>
+					<md-card>
+	        <img ng-src="{{item.imageUrl}}" class="md-card-image" alt="Washed Out">
+	        <md-card-title>
+						<md-card-title-text ng-init="limit = 25" layout="row">
+	            <span class="md-headline" ng-bind-html="item.title | limitTo : limit"></span>
+							<span class="md-headline" ng-show="item.title.length > limit">...</span>
+	          </md-card-title-text>
+	        </md-card-title>
+					<md-card-actions layout="row" layout-align="space-around center">
+						<span>For: {{item.votes.up}}</span>
+						<div class="card-chart-container">
+							<div class="card-chart-score">
+								<span>{{item.votes.up / (item.votes.up + item.votes.down) * 100 || 0 | number: 0}} %</span>
+							</div>
+							<canvas id="card-pie" class="chart chart-pie" chart-data="[item.votes.down, item.votes.up]" chart-labels="['Against', 'For']" chart-options="{elements: {arc: {borderWidth: 0}},responsive: true,legend: {display: false},events: []}" chart-colors="[{backgroundColor: 'rgba(255,0,0,0.8)',pointBackgroundColor: 'rgba(255,0,0,0.5)',pointHoverBackgroundColor: 'rgba(255,0,0,0.6)',borderColor: 'rgba(255,0,0,0.6)',pointBorderColor: 'rgba(255,0,0,0.6)',pointHoverBorderColor: 'rgba(255,0,0,0.6)'},{backgroundColor: 'rgba(0,255,0,0.8)',pointBackgroundColor: 'rgba(0,255,0,0.5)',pointHoverBackgroundColor: 'rgba(77,83,96,1)',borderColor: 'rgba(77,83,96,1)',pointBorderColor: '#fff',pointHoverBorderColor: 'rgba(77,83,96,0.8)'}]" height="100%" width="100%">
+							</canvas>
+						</div>
+						<span>Against: {{item.votes.down}}</span>
+						<button class="md-raised md-primary md-button md-ink-ripple" type="button" ui-sref="goals.view({ goalId: item._id })">Vote Now<div class="md-ripple-container" style=""></div></button>
+	        </md-card-actions>
+	      </md-card>
+			  </carousel-item>
+			</ui-carousel>
+		</div>
+	</md-content>
+
+	<md-content>
+		<div class="md-toolbar transparent" flex="90" flex-offset="5">
+			<h2 class="md-display-1">Vote on Solutions</h2>
+		</div>
+		<div class="carousel-container" ng-controller="HomeController as carousel" layout="row" layout-align="center center">
+			<ui-carousel flex="90"
+			  slides="carousel.solutions"
+			  slides-to-show="4"
+			  slides-to-scroll="1"
+			  autoplay="false"
+			  dots="false"
+				arrows="true">
+
+			  <carousel-item>
+					<md-card>
+	        <img ng-src="{{item.imageUrl}}" class="md-card-image" alt="Washed Out">
+	        <md-card-title>
+						<md-card-title-text ng-init="limit = 25" layout="row">
+	            <span class="md-headline" ng-bind-html="item.title | limitTo : limit"></span>
+							<span class="md-headline" ng-show="item.title.length > limit">...</span>
+	          </md-card-title-text>
+	        </md-card-title>
+	        <md-card-actions layout="row" layout-align="space-around center">
+						<span>For: {{item.votes.up}}</span>
+						<div class="card-chart-container">
+							<div class="card-chart-score">
+								<span>{{item.votes.up / (item.votes.up + item.votes.down) * 100 || 0 | number: 0}} %</span>
+							</div>
+							<canvas id="card-pie" class="chart chart-pie" chart-data="[item.votes.down, item.votes.up]" chart-labels="['Against', 'For']" chart-options="{elements: {arc: {borderWidth: 0}},responsive: true,legend: {display: false},events: []}" chart-colors="[{backgroundColor: 'rgba(255,0,0,0.8)',pointBackgroundColor: 'rgba(255,0,0,0.5)',pointHoverBackgroundColor: 'rgba(255,0,0,0.6)',borderColor: 'rgba(255,0,0,0.6)',pointBorderColor: 'rgba(255,0,0,0.6)',pointHoverBorderColor: 'rgba(255,0,0,0.6)'},{backgroundColor: 'rgba(0,255,0,0.8)',pointBackgroundColor: 'rgba(0,255,0,0.5)',pointHoverBackgroundColor: 'rgba(77,83,96,1)',borderColor: 'rgba(77,83,96,1)',pointBorderColor: '#fff',pointHoverBorderColor: 'rgba(77,83,96,0.8)'}]" height="100%" width="100%">
+							</canvas>
+						</div>
+						<span>Against: {{item.votes.down}}</span>
+						<button class="md-raised md-primary md-button md-ink-ripple" type="button" ui-sref="goals.view({ goalId: item.goals[0]._id })">Vote Now<div class="md-ripple-container" style=""></div></button>
+	        </md-card-actions>
+	      </md-card>
+			  </carousel-item>
+			</ui-carousel>
+		</md-content>
 	</div>
 
 	<div class="footer-banner">

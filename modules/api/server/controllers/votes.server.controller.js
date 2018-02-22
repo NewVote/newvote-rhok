@@ -122,8 +122,7 @@ exports.list = function (req, res) {
 			path: 'user',
 			select: 'postalCode -_id'
 		}, res);
-
-	}	
+	}
 };
 
 /**
@@ -180,18 +179,27 @@ exports.attachVotes = function (objects, user, regions) {
 				}, {
 					path: 'user',
 					match: {
-						postalCode: {
-							$in: postCodes
-						}
-					},
+            $or: [
+              {
+                postalCode: {
+                  $in: postCodes
+                }
+              },
+              {
+                woodfordian: {
+                  $in: postCodes
+                }
+              }
+            ]
+          },
 					select: 'postalCode -_id'
 				}).then(function (votes) {
 					return mapObjectWithVotes(objects, user, votes);
 				});
 			});
-	
+
 		} else {
-	
+
 			return getVotes({
 				object: {
 					$in: objectIds
@@ -199,7 +207,7 @@ exports.attachVotes = function (objects, user, regions) {
 			}, null).then(function (votes) {
 				return mapObjectWithVotes(objects, user, votes);
 			});
-	
+
 		}
 	});
 };
@@ -287,4 +295,3 @@ function mapObjectWithVotes(objects, user, votes) {
 function isString(value) {
 	return typeof value === 'string' || value instanceof String;
 }
-
