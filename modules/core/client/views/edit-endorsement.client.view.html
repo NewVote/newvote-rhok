@@ -1,0 +1,78 @@
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
+
+
+<div layout-padding layout="column" flex flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+
+	<div layout="column">
+		<md-input-container>
+			<label>Endorsement Title</label>
+			<input
+			ng-model="vm.endorsement.title">
+		</md-input-container>
+
+		<md-input-container>
+			<label>Organisation Name</label>
+			<input
+			ng-model="vm.endorsement.organisationName">
+		</md-input-container>
+
+		<md-input-container>
+			<label>Organisation Website</label>
+			<input
+			ng-model="vm.endorsement.organisationWebsite">
+		</md-input-container>
+		
+		<label>Endorsement Description</label>
+		<ng-quill-editor ng-model="vm.endorsement.description"></ng-quill-editor>
+
+	</div>
+
+
+	<md-contact-chips
+      ng-model="vm.endorsement.issues"
+      md-contacts="vm.searchIssues($query)"
+      md-contact-name="name"
+      md-require-match="true"
+      md-highlight-flags="i"
+      md-delay="400"
+      placeholder="Linked Issues"
+      secondary-placeholder="Add another issue">
+    </md-contact-chips>
+
+	<md-contact-chips
+	  ng-model="vm.endorsement.goals"
+	  md-contacts="vm.searchGoals($query)"
+	  md-contact-name="title"
+	  md-require-match="true"
+	  md-highlight-flags="i"
+	  md-delay="400"
+	  placeholder="Linked Goals"
+	  secondary-placeholder="Add another goal">
+	</md-contact-chips>
+
+
+	<div layout="row">
+		<md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
+			<span ng-if="vm.endorsement._id">Update</span>
+			<span ng-if="!vm.endorsement._id">Create</span>
+		</md-button>
+		<md-button class="md-raised md-warn" ng-if="vm.endorsement._id" ng-click="vm.delete()">
+			Delete
+		</md-button>
+	</div>
+</div>
