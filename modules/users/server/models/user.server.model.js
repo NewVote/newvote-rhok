@@ -119,7 +119,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['user', 'admin', 'endorser']
     }],
     default: ['user'],
     required: 'Please provide at least one role'
@@ -130,6 +130,19 @@ var UserSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  /* For endorser profiles */
+  organisationName: {
+    type: String
+  },
+  organisationWebsite: {
+    type: String
+  },
+  organisationAbn: {
+    type: String
+  },
+  organisationBio: {
+    type: String
   },
   /* For reset password */
   resetPasswordToken: {

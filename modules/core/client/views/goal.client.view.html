@@ -87,7 +87,7 @@
 				</md-button>
 				<div class="chart-container">
 					<div class="chart-score">
-						<span>{{vm.goal.votes.up - vm.goal.votes.down}}</span>
+						<span>{{vm.goal.votes.up / (vm.goal.votes.up + vm.goal.votes.down) * 100 | number: 0}}%</span>
 					</div>
 					<vote-details object="vm.goal"></vote-details>
 				</div>
@@ -141,7 +141,7 @@
 	</md-card>
 
 	<md-button class="md-raised md-primary"
-	  ng-click="toggle()"
+	  ng-click="toggle(); scrollTo('engagement')"
 	  aria-expanded="{{isOpen()}}">
 		<div flex="" layout="column" class="md-title ng-binding ng-scope column flex">
     More Engagement
@@ -151,7 +151,7 @@
 
 </div>
 
-<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
+<div id="engagement" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
 
 	<md-card>
 	  <md-card-title>

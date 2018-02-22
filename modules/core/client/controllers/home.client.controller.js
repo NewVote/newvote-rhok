@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia', 'IssueService', 'GoalService', 'SolutionService', '$timeout',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia, IssueService, GoalService, SolutionService, $timeout) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$scope.$state = $state;
@@ -62,5 +62,38 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.openSearch = function () {
 			$scope.searchOpen = !$scope.searchOpen;
 		};
+
+		var vm = this;
+		vm.issues = [];
+		vm.goals = [];
+		vm.solutions = [];
+
+		getIssues();
+
+		function getIssues() {
+			return IssueService.list().then(function(issues) {
+	      vm.issues = issues;
+				return vm.issues;
+	    });
+		}
+
+		getGoals();
+
+		function getGoals() {
+			return GoalService.list().then(function(goals) {
+	      vm.goals = goals;
+				return vm.goals;
+	    });
+		}
+
+		getSolutions();
+
+		function getSolutions() {
+			return SolutionService.list().then(function(solutions) {
+	      vm.solutions = solutions;
+				return vm.solutions;
+	    });
+		}
+
 	}
 ]);
