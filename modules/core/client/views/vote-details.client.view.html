@@ -1,6 +1,6 @@
 <div class="chart-container">
 	<div class="chart-score">
-		<span>{{vm.object.votes.up - vm.object.votes.down}}</span>
+		<span>{{vm.object.votes.up / (vm.object.votes.up + vm.object.votes.down) * 100 | number: 0}}%</span>
 	</div>
 	<canvas
 		ng-click="vm.showAdvanced($event)"

@@ -31,7 +31,11 @@ angular.module('core').controller('MediaController', ['$scope', '$rootScope', '$
 					};
 				});
 			}
+		} else {
+			//there was no previous object data so just set previous state to home page
+			previousState = "home";
 		}
+
 		if ($state.is('media.edit')) {
 			if ($stateParams.objectType === 'issue') {
 				previousState = 'issues.view';

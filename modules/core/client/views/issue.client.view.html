@@ -101,7 +101,7 @@
 	</md-card>
 
 	<md-button class="md-raised md-primary"
-	  ng-click="toggle()"
+	  ng-click="toggle(); scrollTo('engagement')"
 	  aria-expanded="{{isOpen()}}">
 		<div flex="" layout="column" class="md-title ng-binding ng-scope column flex">
     More Engagement
@@ -111,7 +111,7 @@
 
 </div>
 
-<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
+<div id="engagement" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
 
 	<md-card>
 	  <md-card-title>
@@ -134,7 +134,7 @@
 	    </md-card-title-text>
 	  </md-card-title>
 	  <md-card-content>
-	    <span>In the future this section will provide endorsements from reputable organisations.</span>
+	    <endorsement-list endorsement="vm.endorsement" object-id="vm.issue._id" object-type="'issue'"></endorsement-list>
 	  </md-card-content>
 	</md-card>
 
@@ -156,7 +156,7 @@
 	    </md-card-title-text>
 	  </md-card-title>
 	  <md-card-content>
-			<media-list media="vm.media" object-id="vm.isuues._id" , object-type="'issue'"></media-list>
+			<media-list media="vm.media" object-id="vm.issue._id" object-type="'issue'"></media-list>
 	  </md-card-content>
 	</md-card>
 

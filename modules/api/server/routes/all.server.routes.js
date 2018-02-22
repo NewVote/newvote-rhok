@@ -7,8 +7,9 @@ var policy = require('../policies/generic.server.policy'),
 	issues = require('../controllers/issues.server.controller'),
 	goals = require('../controllers/goals.server.controller'),
 	solutions = require('../controllers/solutions.server.controller'),
-    suggestions = require('../controllers/suggestions.server.controller'),
+  suggestions = require('../controllers/suggestions.server.controller'),
 	media = require('../controllers/media.server.controller'),
+	endorsement = require('../controllers/endorsement.server.controller'),
 	comments = require('../controllers/comments.server.controller'),
 	votes = require('../controllers/votes.server.controller'),
 	regions = require('../controllers/regions.server.controller'),
@@ -39,6 +40,10 @@ module.exports = function (app) {
 	app.route('/api/suggestions').all(policy.isAllowed)
 		.get(suggestions.list)
 		.post(suggestions.create);
+
+		app.route('/api/endorsement').all(policy.isAllowed)
+			.get(endorsement.list)
+			.post(endorsement.create);
 
 	app.route('/api/media').all(policy.isAllowed)
 		.get(media.list)
@@ -84,6 +89,11 @@ module.exports = function (app) {
 		.get(suggestions.read)
 		.delete(suggestions.delete);
 
+	app.route('/api/endorsement/:endorsementId').all(policy.isAllowed)
+		.get(endorsement.read)
+		.put(endorsement.update)
+		.delete(endorsement.delete);
+
 	app.route('/api/media/:mediaId').all(policy.isAllowed)
 		.get(media.read)
 		.put(media.update)
@@ -104,6 +114,7 @@ module.exports = function (app) {
 	app.param('commentId', comments.commentByID);
 	app.param('voteId', votes.voteByID);
 	app.param('suggestionId', suggestions.suggestionByID);
+	app.param('endorsementId', endorsement.endorsementByID);
 	app.param('mediaId', media.mediaByID);
 	app.param('regionId', regions.regionByID);
 	app.param('countryId', countries.countryByID);

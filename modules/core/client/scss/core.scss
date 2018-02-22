@@ -228,9 +228,40 @@ md-tooltip {
 	}
 }
 
+.carousel-container {
+	margin-top: 2rem;
+	margin-bottom: 0rem;
+  overflow: visible;
+  padding: 0!important;
+
+  &:last-of-type {
+    margin-bottom: 2rem;
+  }
+
+  > .md-headline {
+    margin-bottom: 2rem;
+  }
+
+  ui-carousel {
+    margin-bottom: 0px;
+    padding: 1rem 0;
+
+    md-card {
+      overflow: hidden;
+
+      > .md-card-image {
+        height: 205px;
+        align-self: center;
+        width: auto;
+        max-width: none;
+      }
+    }
+  }
+}
+
 .img-link-container {
 	margin-top: 80px;
-	margin-bottom: 80px;
+	margin-bottom: 0px;
 
 	.themed-link {
 		color: white;
@@ -480,4 +511,9 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 		transform: translateX(-50%);
 		padding: 0px;
 	}
+}
+
+.authenticationsignup {
+  background-color: #4fa0d8;
+  padding: 2rem 0;
 }

@@ -125,6 +125,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 						return MediaService.list({
 							issueId: $stateParams.issueId
 						});
+					}],
+					endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+						return EndorsementService.list({
+							issueId: $stateParams.issueId
+						});
 					}]
 				}
 			})
@@ -215,6 +220,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 					}],
 					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
 						return MediaService.list({
+							goalId: $stateParams.goalId
+						});
+					}],
+					endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+						return EndorsementService.list({
 							goalId: $stateParams.goalId
 						});
 					}],
@@ -363,6 +373,50 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				resolve: {
 					media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
 						return MediaService.get($stateParams.mediaId);
+					}]
+				}
+			})
+
+			.state('endorsement', {
+				url: '/endorsement',
+				abstract: true,
+				template: '<ui-view/>'
+			})
+
+			.state('endorsement.create', {
+				url: '/create',
+				templateUrl: 'modules/core/client/views/edit-endorsement.client.view.html',
+				controller: 'EndorsementController',
+				controllerAs: 'vm',
+				data: {
+					roles: ['endorser'],
+					title: 'Create Endorsement'
+				},
+				params: {
+					objectId: null,
+					objectType: null
+				},
+				resolve: {
+					endorsement: function () {
+						return {
+							issues: [],
+							goals: []
+						};
+					}
+				}
+			})
+			.state('endorsement.edit', {
+				url: '/edit?:endorsementId&:previousObjectId&:objectType',
+				templateUrl: 'modules/core/client/views/edit-endorsement.client.view.html',
+				controller: 'EndorsementController',
+				controllerAs: 'vm',
+				data: {
+					roles: ['admin', 'endorser'],
+					title: 'Edit Endorsement'
+				},
+				resolve: {
+					endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+						return EndorsementService.get($stateParams.endorsementId);
 					}]
 				}
 			})
