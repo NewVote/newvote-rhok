@@ -101,7 +101,7 @@
 	</md-card>
 
 	<md-button class="md-raised md-primary"
-	  ng-click="toggle()"
+	  ng-click="toggle(); scrollTo('engagement')"
 	  aria-expanded="{{isOpen()}}">
 		<div flex="" layout="column" class="md-title ng-binding ng-scope column flex">
     More Engagement
@@ -111,7 +111,7 @@
 
 </div>
 
-<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
+<div id="engagement" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
 
 	<md-card>
 	  <md-card-title>

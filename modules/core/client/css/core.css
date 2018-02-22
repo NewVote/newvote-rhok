@@ -163,9 +163,30 @@ md-tooltip {
     content: '...';
     float: left; }
 
+.carousel-container {
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+  overflow: visible;
+  padding: 0 !important; }
+  .carousel-container:last-of-type {
+    margin-bottom: 2rem; }
+  .carousel-container > .md-headline {
+    margin-bottom: 2rem; }
+  .carousel-container ui-carousel {
+    margin-bottom: 0px;
+    padding: 1rem 0; }
+    .carousel-container ui-carousel md-card {
+      overflow: hidden; }
+      .carousel-container ui-carousel md-card > .md-card-image {
+        height: 205px;
+        -ms-flex-item-align: center;
+            align-self: center;
+        width: auto;
+        max-width: none; }
+
 .img-link-container {
   margin-top: 80px;
-  margin-bottom: 80px; }
+  margin-bottom: 0px; }
   .img-link-container .themed-link {
     color: white;
     text-decoration: underline; }
@@ -280,19 +301,14 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
   left: 0;
   height: 60px;
   width: 60px;
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   text-align: center;
   z-index: -100; }
 
@@ -307,24 +323,18 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
   left: 0;
   height: 40px;
   width: 40px;
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   text-align: center; }
 
 .vote-details {
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   position: absolute;
   width: 360px; }
 
@@ -364,6 +374,9 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
     margin-right: auto;
     left: 50%;
     right: auto;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
     padding: 0px; } }
+
+.authenticationsignup {
+  background-color: #4fa0d8;
+  padding: 2rem 0; }
