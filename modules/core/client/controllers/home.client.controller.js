@@ -1,11 +1,43 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia', 'IssueService', 'GoalService', 'SolutionService', '$timeout',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia, IssueService, GoalService, SolutionService, $timeout) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia', 'IssueService', 'GoalService', 'SolutionService', '$timeout', 'Carousel',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia, IssueService, GoalService, SolutionService, $timeout, Carousel) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$scope.$state = $state;
 		$scope.$mdMedia = $mdMedia;
+
+		//number of slides to show on the carousel
+		$scope.slidesToShow = 3;
+		$scope.showCarousel = true;
+
+		//watch for changes in screen width and catch when screen is gt-md
+		$scope.$watch(function() {
+			return $scope.$mdMedia('gt-md');
+		}, function(gtMd) {
+			if(gtMd){
+				//screen is greater than medium (gt-md)
+				$scope.slidesToShow = 3;
+				Carousel.setOptions({
+					slidesToShow: $scope.slidesToShow
+				});
+				$scope.showCarousel = false;
+				$timeout(function() {
+					$scope.showCarousel = true;
+				});
+			}else {
+				//screen is less than medium (xs, sm)
+				$scope.slidesToShow = 1;
+				Carousel.setOptions({
+					slidesToShow: $scope.slidesToShow
+				});
+				$scope.showCarousel = false;
+				$timeout(function() {
+					$scope.showCarousel = true;
+				});
+			}
+		});
+
 		$rootScope.removeHtmlElements = function (text) {
 			if (text != null) {
 				//ignore this lint warning we need to test for undefined as well
@@ -90,7 +122,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		function getSolutions() {
 			return SolutionService.list().then(function(solutions) {
-				console.log(solutions);
+				// console.log(solutions);
 	      vm.solutions = solutions;
 				return vm.solutions;
 	    });
