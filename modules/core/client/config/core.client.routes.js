@@ -223,6 +223,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 							goalId: $stateParams.goalId
 						});
 					}],
+					endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+						return EndorsementService.list({
+							goalId: $stateParams.goalId
+						});
+					}],
 					isSingleSolution: function () {
 						return false;
 					}
