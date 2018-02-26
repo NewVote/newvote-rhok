@@ -33,7 +33,7 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 			}
 		} else {
 			//there was no previous object data so just set previous state to home page
-			previousState = "home";
+			previousState = 'home';
 		}
 
 		if ($state.is('endorsement.edit')) {

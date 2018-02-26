@@ -29,230 +29,250 @@
             </div>
         </div> -->
 		<md-content flex layout-padding class="user-verification" ng-controller="EditProfileController">
+			<div ng-if="!user.verified">
+				<h2 class="md-headline">Account Verification</h2>
+				<div layout="column" layout-padding>
+					<div ng-if="verificationStatus.success" md-colors="{color: 'primary'}">{{verificationStatus.message}}</div>
+					<div ng-if="verificationStatus.error" md-colors="{color: 'accent'}">{{verificationStatus.message}}</div>
+					<div>
+						<md-input-container>
+							<label>Mobile Number</label>
+							<input ng-model="user.mobileNumber" name="mobileNumber">
+						</md-input-container>
+						<md-button type="button" class="md-raised md-primary" ng-click="sendSMS();" ng-disabled="verificationStatus.status=='sending'">SEND CODE</md-button>
+					</div>
+					<div ng-if="verificationStatus.status=='sent'">
+						<md-input-container>
+							<label>Verification Code</label>
+							<input name="verificationCode" ng-model="user.verificationCode">
+						</md-input-container>
+						<md-button type="button" class="md-raised md-primary" ng-click="verify();" >VERIFY</md-button>
+					</div>
+				</div>
+			</div>
+
 			<h2 class="md-headline">Account Settings</h2>
-				<form name="userForm" ng-submit="updateUserProfile(userForm.$valid)">
-					<div layout-gt-sm="row" layout-padding>
-						<div layout="column">
-							<div class="" layout="row">
-								<md-input-container class="md-block">
-									<label>First Name</label>
-									<input required ng-model="user.firstName" name="firstName">
-									<div ng-messages="userForm.firstName.$error" role="alert">
-										<div ng-message="required" class="my-message">This is required.</div>
-									</div>
-								</md-input-container>
 
-								<md-input-container class="md-block">
-									<label>Last Name</label>
-									<input required ng-model="user.lastName" name="lastName">
-									<div ng-messages="userForm.lastName.$error" role="alert">
-										<div ng-message="required" class="my-message">This is required.</div>
-									</div>
-								</md-input-container>
-							</div>
-							<div class="" layout="row">
-								<md-input-container class="md-block" flex-gt-sm>
-									<label>User Name</label>
-									<input required ng-model="user.username" name="userName">
-									<div ng-messages="userForm.userName.$error" role="alert">
-										<div ng-message="required" class="my-message">This is required.</div>
-									</div>
-								</md-input-container>
+			<form name="userForm" ng-submit="updateUserProfile(userForm.$valid)">
+				<div layout-gt-sm="row" layout-padding>
+					<div layout="column">
+						<div class="" layout="row">
+							<md-input-container class="md-block">
+								<label>First Name</label>
+								<input required ng-model="user.firstName" name="firstName">
+								<div ng-messages="userForm.firstName.$error" role="alert">
+									<div ng-message="required" class="my-message">This is required.</div>
+								</div>
+							</md-input-container>
 
-								<md-input-container class="md-block" flex-gt-sm>
-									<label>E-mail</label>
-									<input required ng-model="user.email" name="email">
-									<div ng-messages="userForm.email.$error" role="alert">
-										<div ng-message="required" class="my-message">This is required.</div>
-									</div>
-								</md-input-container>
-							</div>
+							<md-input-container class="md-block">
+								<label>Last Name</label>
+								<input required ng-model="user.lastName" name="lastName">
+								<div ng-messages="userForm.lastName.$error" role="alert">
+									<div ng-message="required" class="my-message">This is required.</div>
+								</div>
+							</md-input-container>
 						</div>
+						<div class="" layout="row">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label>User Name</label>
+								<input required ng-model="user.username" name="userName">
+								<div ng-messages="userForm.userName.$error" role="alert">
+									<div ng-message="required" class="my-message">This is required.</div>
+								</div>
+							</md-input-container>
 
-						<div layout="column">
-							<label>Profile Picture</label>
-							<div layout-padding ng-controller="ChangeProfilePictureController">
-								<div layout="row">
-									<div class="form-group text-center" layout-padding>
-										<img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture">
-									</div>
-									<div layout="column" layout-padding>
-										<div class="text-center form-group" ng-hide="uploader.queue.length">
-											<span class="md-button md-raised md-primary btn-file">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label>E-mail</label>
+								<input required ng-model="user.email" name="email">
+								<div ng-messages="userForm.email.$error" role="alert">
+									<div ng-message="required" class="my-message">This is required.</div>
+								</div>
+							</md-input-container>
+						</div>
+						<div class="" layout="row">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label>Mobile Number</label>
+								<input ng-model="user.mobileNumber" name="mobileNumber">
+								<div ng-messages="userForm.mobileNumber.$error" role="alert">
+								</div>
+							</md-input-container>
+							<div flex-gt-sm></div>
+						</div>
+					</div>
+
+					<div layout="column">
+						<label>Profile Picture</label>
+						<div layout-padding ng-controller="ChangeProfilePictureController">
+							<div layout="row">
+								<div class="form-group text-center" layout-padding>
+									<img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture">
+								</div>
+								<div layout="column" layout-padding>
+									<div class="text-center form-group" ng-hide="uploader.queue.length">
+										<span class="md-button md-raised md-primary btn-file">
 												Select Image <input type="file" nv-file-select uploader="uploader">
 											</span>
-										</div>
-										<div ng-show="uploader.queue.length" layout="column">
-											<md-button type="button" class="md-raised md-primary" ng-click="uploadProfilePicture();">Upload</md-button>
-											<md-button type="button" class="md-secondary" ng-click="cancelUpload();">Cancel</md-button>
-										</div>
+									</div>
+									<div ng-show="uploader.queue.length" layout="column">
+										<md-button type="button" class="md-raised md-primary" ng-click="uploadProfilePicture();">Upload</md-button>
+										<md-button type="button" class="md-secondary" ng-click="cancelUpload();">Cancel</md-button>
 									</div>
 								</div>
-								<div ng-show="success" class="text-center text-success">
-									<strong>Profile Picture Changed Successfully</strong>
-								</div>
-								<div ng-show="error" class="text-center text-danger">
-									<strong ng-bind="error"></strong>
-								</div>
+							</div>
+							<div ng-show="success" class="text-center text-success">
+								<strong>Profile Picture Changed Successfully</strong>
+							</div>
+							<div ng-show="error" class="text-center text-danger">
+								<strong ng-bind="error"></strong>
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<h2 class="md-headline">Location Settings</h2>
-					<div class="" layout="row" layout-padding>
-						<md-input-container class="md-block" ng-if="!user.international">
-							<label>Postal Code</label>
-							<input name="postalCode" ng-model="user.postalCode" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+				<h2 class="md-headline">Location Settings</h2>
+				<div class="" layout="row" layout-padding>
+					<md-input-container class="md-block" ng-if="!user.international">
+						<label>Postal Code</label>
+						<input name="postalCode" ng-model="user.postalCode" required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
 
-							<div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-								<div ng-message="required" class="my-message">You must supply a postal code.</div>
-								<div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
-								</div>
+						<div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+							<div ng-message="required" class="my-message">You must supply a postal code.</div>
+							<div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
 							</div>
-						</md-input-container>
-						<md-autocomplete
-							ng-if="user.international"
-							required
-							md-no-cache="true"
-							md-selected-item="user.country"
-							md-search-text="countryName"
-							md-items="country in vm.searchCountries(countryName)"
-							md-item-text="country.name"
-							md-min-length="0"
-							placeholder="Please select your country"
-							md-floating-label="Country"
-							md-require-match
-							md-input-name="country">
-						  <md-item-template>
+						</div>
+					</md-input-container>
+					<md-autocomplete ng-if="user.international" required md-no-cache="true" md-selected-item="user.country" md-search-text="countryName" md-items="country in vm.searchCountries(countryName)" md-item-text="country.name" md-min-length="0" placeholder="Please select your country" md-floating-label="Country" md-require-match md-input-name="country">
+						<md-item-template>
 							<span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{country.name}}</span>
-						  </md-item-template>
-						  <md-not-found>
+						</md-item-template>
+						<md-not-found>
 							No countries matching "{{countryName}}" were found.
-						  </md-not-found>
+						</md-not-found>
 
-						  <div ng-messages="userForm.country.$error">
+						<div ng-messages="userForm.country.$error">
 							<div ng-message="required">Please provide your country of residency.</div>
-						  </div>
-						</md-autocomplete>
-
-						<md-input-container class="md-block" flex-gt-sm>
-							<md-checkbox ng-model="user.international" aria-label="I'm not from Australia" name="international">
-								I'm not from Australia
-							</md-checkbox>
-						</md-input-container>
-					</div>
-					<h2 class="md-headline" ng-if="user.roles.indexOf('endorser') == -1">Personal Information</h2>
-					<div layout-gt-sm="row" layout-wrap layout-padding ng-if="user.roles.indexOf('endorser') == -1">
-						<md-input-container class="md-block" flex-gt-sm="33">
-							<label>Gender</label>
-							<md-select ng-model="user.gender">
-								<md-option value="unspecified"><em>Unspecified</em></md-option>
-								<md-option value="male">Male</md-option>
-								<md-option value="female">Female</md-option>
-								<md-option value="other">Other</md-option>
-							</md-select>
-						</md-input-container>
-
-						<md-input-container class="md-block" flex-gt-sm="33">
-							<label>Birth Year</label>
-							<md-select ng-model="user.birthYear">
-								<md-option><em>Unspecified</em></md-option>
-								<md-option ng-repeat="year in birthYears" ng-value="year">{{year}}</md-option>
-							</md-select>
-						</md-input-container>
-
-						<md-input-container class="md-block" flex-gt-sm="33">
-							<label>Income</label>
-							<md-select ng-model="user.income">
-								<md-option value="unspecified"><em>Unspecified</em></md-option>
-								<md-option value="0-20,000">$0 - $20,000</md-option>
-								<md-option value="20,001-40,000">$20,001 - $40,000</md-option>
-								<md-option value="40,001-80,000">$40,001 - $80,000</md-option>
-								<md-option value="80,001-180,000">$80,001 - $180,000</md-option>
-								<md-option value="Over 180,000">Over $180,000</md-option>
-							</md-select>
-						</md-input-container>
-
-						<md-input-container class="md-block" flex-gt-sm="33">
-							<label>Housing Situation</label>
-							<md-select ng-model="user.housing">
-								<md-option value="unspecified"><em>Unspecified</em></md-option>
-								<md-option value="renting">Renting</md-option>
-								<md-option value="owner">Own your own home</md-option>
-								<md-option value="other">Other</md-option>
-							</md-select>
-						</md-input-container>
-
-						<md-input-container class="md-block" flex-gt-sm="33">
-							<label>Favoured political party</label>
-							<md-select ng-model="user.party">
-								<md-option value="unspecified"><em>Unspecified</em></md-option>
-								<md-option value="liberal">Liberal</md-option>
-								<md-option value="labor">Labor</md-option>
-								<md-option value="greens">Greens</md-option>
-								<md-option value="one-nation">One Nation</md-option>
-								<md-option value="family-first">Family First</md-option>
-								<md-option value="other">Other</md-option>
-							</md-select>
-						</md-input-container>
-
-						<md-input-container class="md-block" flex-gt-sm="33">
-							<label>Woodfordian Citizen?</label>
-							<md-select ng-model="user.woodfordian">
-								<md-option value="0"><em>Yes, I'm a Nominated Citizen</em></md-option>
-								<md-option value="1">Yes, I'm an Open Citizen</md-option>
-								<md-option value="2">Not yet, but I'm interested</md-option>
-								<md-option value="3">No, and I'm not interested</md-option>
-							</md-select>
-						</md-input-container>
-					</div>
-
-					<h2 class="md-headline"  ng-if="user.roles.indexOf('endorser') != -1">Organisation Information</h2>
-					<div layout="row" layout-padding ng-if="user.roles.indexOf('endorser') != -1">
-						<div layout="column" flex>
-							<div class="" layout="row">
-								<md-input-container class="md-block" flex-gt-sm="33">
-									<label>Organisation Name</label>
-									<input required ng-model="user.organisationName" name="organisationName">
-									<div ng-messages="userForm.organisationName.$error" role="alert">
-										<div ng-message="required" class="my-message">This is required.</div>
-									</div>
-								</md-input-container>
-
-								<md-input-container class="md-block" flex-gt-sm="33">
-									<label>Website</label>
-									<input required ng-model="user.organisationWebsite" name="organisationWebsite">
-									<div ng-messages="userForm.organisationWebsite.$error" role="alert">
-										<div ng-message="required" class="my-message">This is required.</div>
-									</div>
-								</md-input-container>
-
-								<md-input-container class="md-block"  flex-gt-sm="33">
-									<label>ABN</label>
-									<input required ng-model="user.organisationAbn" name="organisationAbn">
-									<div ng-messages="userForm.organisationAbn.$error" role="alert">
-										<div ng-message="required" class="my-message">This is required.</div>
-									</div>
-								</md-input-container>
-							</div>
-							<div class="" layout="row">
-								<md-input-container class="md-block"flex-gt-sm="100">
-			          <label>Biography</label>
-			          <textarea ng-model="user.organisationBio" rows="5" md-select-on-focus></textarea>
-			        </md-input-container>
 						</div>
+					</md-autocomplete>
+
+					<md-input-container class="md-block" flex-gt-sm>
+						<md-checkbox ng-model="user.international" aria-label="I'm not from Australia" name="international">
+							I'm not from Australia
+						</md-checkbox>
+					</md-input-container>
+				</div>
+				<h2 class="md-headline" ng-if="user.roles.indexOf('endorser') == -1">Personal Information</h2>
+				<div layout-gt-sm="row" layout-wrap layout-padding ng-if="user.roles.indexOf('endorser') == -1">
+					<md-input-container class="md-block" flex-gt-sm="33">
+						<label>Gender</label>
+						<md-select ng-model="user.gender">
+							<md-option value="unspecified"><em>Unspecified</em></md-option>
+							<md-option value="male">Male</md-option>
+							<md-option value="female">Female</md-option>
+							<md-option value="other">Other</md-option>
+						</md-select>
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm="33">
+						<label>Birth Year</label>
+						<md-select ng-model="user.birthYear">
+							<md-option><em>Unspecified</em></md-option>
+							<md-option ng-repeat="year in birthYears" ng-value="year">{{year}}</md-option>
+						</md-select>
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm="33">
+						<label>Income</label>
+						<md-select ng-model="user.income">
+							<md-option value="unspecified"><em>Unspecified</em></md-option>
+							<md-option value="0-20,000">$0 - $20,000</md-option>
+							<md-option value="20,001-40,000">$20,001 - $40,000</md-option>
+							<md-option value="40,001-80,000">$40,001 - $80,000</md-option>
+							<md-option value="80,001-180,000">$80,001 - $180,000</md-option>
+							<md-option value="Over 180,000">Over $180,000</md-option>
+						</md-select>
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm="33">
+						<label>Housing Situation</label>
+						<md-select ng-model="user.housing">
+							<md-option value="unspecified"><em>Unspecified</em></md-option>
+							<md-option value="renting">Renting</md-option>
+							<md-option value="owner">Own your own home</md-option>
+							<md-option value="other">Other</md-option>
+						</md-select>
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm="33">
+						<label>Favoured political party</label>
+						<md-select ng-model="user.party">
+							<md-option value="unspecified"><em>Unspecified</em></md-option>
+							<md-option value="liberal">Liberal</md-option>
+							<md-option value="labor">Labor</md-option>
+							<md-option value="greens">Greens</md-option>
+							<md-option value="one-nation">One Nation</md-option>
+							<md-option value="family-first">Family First</md-option>
+							<md-option value="other">Other</md-option>
+						</md-select>
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm="33">
+						<label>Woodfordian Citizen?</label>
+						<md-select ng-model="user.woodfordian">
+							<md-option value="0"><em>Yes, I'm a Nominated Citizen</em></md-option>
+							<md-option value="1">Yes, I'm an Open Citizen</md-option>
+							<md-option value="2">Not yet, but I'm interested</md-option>
+							<md-option value="3">No, and I'm not interested</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+
+				<h2 class="md-headline" ng-if="user.roles.indexOf('endorser') != -1">Organisation Information</h2>
+				<div layout="row" layout-padding ng-if="user.roles.indexOf('endorser') != -1">
+					<div layout="column" flex>
+						<div class="" layout="row">
+							<md-input-container class="md-block" flex-gt-sm="33">
+								<label>Organisation Name</label>
+								<input required ng-model="user.organisationName" name="organisationName">
+								<div ng-messages="userForm.organisationName.$error" role="alert">
+									<div ng-message="required" class="my-message">This is required.</div>
+								</div>
+							</md-input-container>
+
+							<md-input-container class="md-block" flex-gt-sm="33">
+								<label>Website</label>
+								<input required ng-model="user.organisationWebsite" name="organisationWebsite">
+								<div ng-messages="userForm.organisationWebsite.$error" role="alert">
+									<div ng-message="required" class="my-message">This is required.</div>
+								</div>
+							</md-input-container>
+
+							<md-input-container class="md-block" flex-gt-sm="33">
+								<label>ABN</label>
+								<input required ng-model="user.organisationAbn" name="organisationAbn">
+								<div ng-messages="userForm.organisationAbn.$error" role="alert">
+									<div ng-message="required" class="my-message">This is required.</div>
+								</div>
+							</md-input-container>
+						</div>
+						<div class="" layout="row">
+							<md-input-container class="md-block" flex-gt-sm="100">
+								<label>Biography</label>
+								<textarea ng-model="user.organisationBio" rows="5" md-select-on-focus></textarea>
+							</md-input-container>
 						</div>
 					</div>
+				</div>
 
-					<div ng-show="success" class="text-center text-success">
-						<strong>Profile Saved Successfully</strong>
-					</div>
-					<div ng-show="error" class="text-center text-danger">
-						<strong ng-bind="error"></strong>
-					</div>
+				<div ng-show="success" class="text-center text-success">
+					<strong>Profile Saved Successfully</strong>
+				</div>
+				<div ng-show="error" class="text-center text-danger">
+					<strong ng-bind="error"></strong>
+				</div>
 
-                    <md-button type="submit" class="md-raised md-primary">Update</md-button>
-				</form>
+				<md-button type="submit" class="md-raised md-primary">Update</md-button>
+			</form>
 		</md-content>
 	</section>
 </div>
