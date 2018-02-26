@@ -80,6 +80,10 @@ module.exports = {
         }
       }
   },
+  smsBroadcast: {
+      username: process.env.SMS_USERNAME || '',
+      password: process.env.SMS_PASSWORD || ''
+  },
   livereload: true,
   seedDB: {
     seed: process.env.MONGO_SEED === 'true' ? true : false,
