@@ -37,7 +37,8 @@ module.exports = {
         'public/lib/angular-chart.js/dist/angular-chart.min.js',
         'public/lib/angular-material-icons/angular-material-icons.min.js',
         'public/lib/ngstorage/ngStorage.min.js',
-        'public/lib/angular-ui-carousel/dist/ui-carousel.min.js'
+        'public/lib/angular-ui-carousel/dist/ui-carousel.min.js',
+        'public/lib/angular-recaptcha/release/angular-recaptcha.js'
       ]
     },
     css: 'public/dist/application.min.css',

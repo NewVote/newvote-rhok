@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "acl": "~0.4.4",
+    "angular-recaptcha": "^4.1.3",
     "angular-ui-carousel": "^0.1.10",
     "async": "^1.3.0",
     "body-parser": "^1.13.1",
@@ -80,6 +81,7 @@
     "passport-twitter": "^1.0.2",
     "phantomjs": ">=1.9.0",
     "prerender-node": "^2.7.4",
+    "recaptcha-verify": "^0.1.1",
     "run-sequence": "^1.1.1",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.3.7",

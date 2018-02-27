@@ -12,11 +12,13 @@ angular.module('users')
             if (result.requiredTestErrors.length) {
               scope.popoverMsg = PasswordValidator.getPopoverMsg();
               scope.passwordErrors = result.requiredTestErrors;
+              ngModel.$setValidity('passwordVerify', false);
               status = false;
             } else {
               scope.popoverMsg = '';
               scope.passwordErrors = [];
               status = true;
+              ngModel.$setValidity('passwordVerify', true);
             }
           }
           return status;

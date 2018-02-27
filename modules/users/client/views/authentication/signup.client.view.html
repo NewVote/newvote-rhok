@@ -1,27 +1,27 @@
 <div ng-controller="AuthenticationController">
 
-  <!-- Meta tags -->
-  <!-- Basic meta tags -->
-  <update-title title="{{ title }}"></update-title>
+    <!-- Meta tags -->
+    <!-- Basic meta tags -->
+    <update-title title="{{ title }}"></update-title>
 
-  <!-- Facebook META -->
-  <update-meta property="og:title" content="{{ title }}"></update-meta>
-  <update-meta property="og:url" use-abs-url="true"></update-meta>
+    <!-- Facebook META -->
+    <update-meta property="og:title" content="{{ title }}"></update-meta>
+    <update-meta property="og:url" use-abs-url="true"></update-meta>
 
-  <!-- Twitter META -->
-  <update-meta name="twitter:title" content="{{ title }}"></update-meta>
-  <update-meta name="twitter:url" use-abs-url="true"></update-meta>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-3 col-md-6">
-		<form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" autocomplete="off">
-			<fieldset>
-				<md-input-container class="md-block" flex-gt-sm>
-					<label>Username</label>
-					<input required lowercase ng-model="credentials.username" name="username">
-					<div ng-messages="userForm.username.$error">
+    <!-- Twitter META -->
+    <update-meta name="twitter:title" content="{{ title }}"></update-meta>
+    <update-meta name="twitter:url" use-abs-url="true"></update-meta>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-3 col-md-6">
+        <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" autocomplete="off">
+            <fieldset>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Username</label>
+                    <input required lowercase ng-model="credentials.username" name="username">
+                    <div ng-messages="userForm.username.$error">
                         <div ng-message="required">This is required.</div>
-						<!-- <p class="help-block error-text" ng-message="required">Username is required.</p> -->
-					</div>
-				</md-input-container>
+                        <!-- <p class="help-block error-text" ng-message="required">Username is required.</p> -->
+                    </div>
+                </md-input-container>
 
                 <div layout="row">
                     <md-input-container class="md-block" flex-gt-sm>
@@ -43,39 +43,45 @@
                     </md-input-container>
                 </div>
 
-
-				<md-input-container class="md-block" flex-gt-sm>
-					<label>E-mail</label>
-					<input required lowercase type="email" ng-model="credentials.email" name="email">
-    				<div ng-messages="userForm.email.$error">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>E-mail</label>
+                    <input required lowercase type="email" ng-model="credentials.email" name="email">
+                    <div ng-messages="userForm.email.$error">
                         <div ng-message="required">This is required.</div>
                         <div ng-message="email">Email address is invalid.</div>
-    					<!-- <p class="help-block error-text" ng-message="required">Email address is required.</p>
+                        <!-- <p class="help-block error-text" ng-message="required">Email address is required.</p>
     					<p class="help-block error-text" ng-message="email">Email address is invalid.</p> -->
-    				</div>
-				</md-input-container>
+                    </div>
+                </md-input-container>
 
-				<md-input-container class="md-block" flex-gt-sm>
-					<label>Password</label>
-					<input required password-validate type="password" ng-model="credentials.password" name="password">
-    				<div ng-messages="userForm.password.$error">
-    					<div ng-message="required">This is required.</div>
-    					<div ng-repeat="passwordError in passwordErrors">
-    						<p class="help-block error-text" ng-show="userForm.password.$error.requirements">{{passwordError}}</p>
-    					</div>
-    				</div>
-				</md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Password</label>
+                    <input required password-validate type="password" ng-model="credentials.password" name="password" popover="{{popoverMsg}}" popover-trigger="focus" popover-placement="top" password-validator>
+                    <div ng-messages="userForm.password.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="passwordVerify">{{passwordErrors[0]}}</div>
+                    </div>
+                </md-input-container>
 
-				<div ng-show="error" class="text-center text-danger">
-					<strong ng-bind="error"></strong>
-				</div>
+                <md-input-container>
+                    <div vc-recaptcha
+                    theme="'light'"
+                    key="recaptchaKey"
+                    on-create="setWidgetId(widgetId)"
+                    on-success="setResponse(response)"
+                    on-expire="cbExpiration()"></div>
+                </md-input-container>
 
-				<div class="text-center form-group">
-                    <md-button type="submit" class="md-raised md-primary">Sign Up</md-button> or
+                <div ng-show="error" class="text-center text-danger">
+                        <strong ng-bind="error"></strong>
+                </div>
+
+                <div class="text-center form-group">
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="userForm.$invalid">Sign Up</md-button> or
                     <md-button ui-sref="authentication.signin" class="md-raised md-secondary">Sign In</md-button>
-				</div>
+                </div>
 
-			</fieldset>
-		</form>
-	</div>
+            </fieldset>
+        </form>
+    </div>
 </div>

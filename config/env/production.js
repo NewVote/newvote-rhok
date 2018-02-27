@@ -80,6 +80,9 @@ module.exports = {
 		username: process.env.SMS_USERNAME || '',
         password: process.env.SMS_PASSWORD || ''
 	},
+    reCaptcha: {
+        secret: process.env.RECAPTCHA_SECRET || ''
+    },
 	seedDB: {
 		seed: process.env.MONGO_SEED === 'true' ? true : false,
 		options: {
