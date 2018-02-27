@@ -4,16 +4,23 @@
  * Module dependencies.
  */
 var path = require('path'),
+	config = require(path.resolve('./config/config')),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	Recaptcha = require('recaptcha-verify');
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
 	'/authentication/signin',
 	'/authentication/signup'
 ];
+
+var recaptcha = new Recaptcha({
+	secret: config.reCaptcha.secret,
+	verbose: true
+});
 
 /**
  * Signup
@@ -25,29 +32,50 @@ exports.signup = function (req, res) {
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
+	var recaptchaResponse = req.body.recaptchaResponse;
 
-	// Add missing user fields
-	user.provider = 'local';
-	user.displayName = user.firstName + ' ' + user.lastName;
-
-	// Then save the user
-	user.save(function (err) {
+	//ensure captcha code is valid or return with an error
+	recaptcha.checkResponse(recaptchaResponse, function (err, response) {
+		console.log(response);
 		if (err) {
 			return res.status(400)
 				.send({
 					message: errorHandler.getErrorMessage(err)
 				});
-		} else {
-			// Remove sensitive data before login
-			user.password = undefined;
-			user.salt = undefined;
+		}
 
-			req.login(user, function (err) {
+		if (!response.success) {
+			return res.status(400)
+				.send({
+					message: "CAPTCHA verification failed"
+				});
+		} else {
+			//user is not a robot, captcha success, continue with sign up
+
+			// Add missing user fields
+			user.provider = 'local';
+			user.displayName = user.firstName + ' ' + user.lastName;
+
+			// Then save the user
+			user.save(function (err) {
 				if (err) {
-					res.status(400)
-						.send(err);
+					return res.status(400)
+						.send({
+							message: errorHandler.getErrorMessage(err)
+						});
 				} else {
-					res.json(user);
+					// Remove sensitive data before login
+					user.password = undefined;
+					user.salt = undefined;
+
+					req.login(user, function (err) {
+						if (err) {
+							res.status(400)
+								.send(err);
+						} else {
+							res.json(user);
+						}
+					});
 				}
 			});
 		}

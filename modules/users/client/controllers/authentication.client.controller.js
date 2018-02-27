@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('users')
-	.controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users', 'CountryService',
-		function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users, CountryService) {
+	.controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users', 'CountryService', 'vcRecaptchaService',
+		function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users, CountryService, vcRecaptchaService) {
 			$scope.vm = this;
 			var vm = $scope.vm;
 			$scope.authentication = Authentication;
@@ -52,10 +52,38 @@ angular.module('users')
 				});
 			};
 
+			//recaptcha functions and variables
+			$scope.recaptchaKey = '6Lch50gUAAAAABBUYvdb3AM8ZS9tYRPCPeRNmT66';
+			$scope.recaptchaResponse = null;
+			$scope.recaptchaWidgetId = null;
+
+			$scope.setWidgetId = function(id) {
+				console.log('set widget id to: ', id);
+				$scope.recaptchaWidgetId = id;
+			};
+
+			$scope.setResponse = function(response) {
+				console.log('set response to: ', response);
+				$scope.credentials.recaptchaResponse = response;
+			};
+
+			$scope.cbExpiration = function() {
+				console.log('callback expired');
+				$scope.credentials.recaptchaResponse = null;
+			};
+
 			$scope.signup = function (isValid) {
 				$scope.error = null;
 
 				if (!isValid) {
+					$scope.$broadcast('show-errors-check-validity', 'userForm');
+
+					return false;
+				}
+
+				var test = PasswordValidator.getResult($scope.credentials.password)
+				if(test.requiredTestErrors.length){
+					$scope.error = test.errors;
 					$scope.$broadcast('show-errors-check-validity', 'userForm');
 
 					return false;
@@ -82,6 +110,8 @@ angular.module('users')
 						function (response) {
 							console.log('error in sign up: ', response);
 							$scope.error = response.data.message;
+							$scope.credentials.recaptchaResponse = null;
+							vcRecaptchaService.reload($scope.recaptchaWidgetId);
 						});
 			};
 
