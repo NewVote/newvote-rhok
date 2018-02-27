@@ -81,7 +81,7 @@ angular.module('users')
 					return false;
 				}
 
-				var test = PasswordValidator.getResult($scope.credentials.password)
+				var test = PasswordValidator.getResult($scope.credentials.password);
 				if(test.requiredTestErrors.length){
 					$scope.error = test.errors;
 					$scope.$broadcast('show-errors-check-validity', 'userForm');
