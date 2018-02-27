@@ -74,6 +74,8 @@ angular.module('users')
 						$scope.verificationStatus.success = true;
 						$scope.verificationStatus.error = false;
 						$scope.verificationStatus.message = 'Success! Your account has been verified.';
+
+						$scope.user.verified = true;
 					})
 					.catch(function (err) {
 						console.log('critical error: ', err.data.message);
