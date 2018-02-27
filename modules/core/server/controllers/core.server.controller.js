@@ -1,8 +1,8 @@
 'use strict';
 
 var path = require('path'),
-  config = require(path.resolve('config/config'));
-  const util = require('util');
+  config = require(path.resolve('config/config')),
+  util = require('util');
 /**
  * Render the main application page
  */

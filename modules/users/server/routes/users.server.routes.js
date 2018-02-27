@@ -4,6 +4,10 @@ module.exports = function (app) {
   // User Routes
   var users = require('../controllers/users.server.controller');
 
+  //sms verification
+  app.route('/api/users/sms').post(users.sendVerificationCode);
+  app.route('/api/users/verify').post(users.verify);
+
   // Setting up the users profile api
   app.route('/api/users/me').get(users.me);
   app.route('/api/users').put(users.update);
