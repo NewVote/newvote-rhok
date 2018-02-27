@@ -20,8 +20,6 @@ exports.sendVerificationCode = function (req, res, next) {
 	var number = req.body.params;
 	var code = User.generateVerificationCode();
 
-	console.log(config.smsBroadcast);
-
 	//send code via sms
 	console.log(`sending code ${code} to user ${user.firstName.toString()} at ${number}`);
 	var options = {
