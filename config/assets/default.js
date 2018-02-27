@@ -36,7 +36,8 @@ module.exports = {
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/angular-material-icons/angular-material-icons.js',
         'public/lib/ngstorage/ngStorage.js',
-        'public/lib/angular-ui-carousel/dist/ui-carousel.min.js'
+        'public/lib/angular-ui-carousel/dist/ui-carousel.min.js',
+        'public/lib/angular-recaptcha/release/angular-recaptcha.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
