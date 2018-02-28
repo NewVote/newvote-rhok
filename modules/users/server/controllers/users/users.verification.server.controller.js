@@ -38,28 +38,28 @@ exports.sendVerificationCode = function (req, res, next) {
 		function (error, response, body) {
 			if (error) {
 				return res.status(400)
-					.send({ message: "There was a problem sending your verification code: " + error });
+					.send({ message: 'There was a problem sending your verification code: ' + error });
 			}
 
 			if (response.statusCode == 200) {
-				var responseMessage = body.split(":");
+				var responseMessage = body.split(':');
 				if (responseMessage[0] == 'OK') {
 					saveVerificationCode(user, code, number, res);
 				} else if (responseMessage[0] == 'BAD') {
 					return res.status(400)
-						.send({ message: "There was a problem sending your verification code, please make sure the phone number you have entered is correct." });
+						.send({ message: 'There was a problem sending your verification code, please make sure the phone number you have entered is correct.' });
 				} else if (responseMessage[0] == 'ERROR') {
-					console.log("SMS BROADCAST ERROR: " + responseMessage[1]);
+					console.log('SMS BROADCAST ERROR: ' + responseMessage[1]);
 					return res.status(400)
-						.send({ message: "There was a problem sending your verification code. There was an internal server error, please try again later." });
+						.send({ message: 'There was a problem sending your verification code. There was an internal server error, please try again later.' });
 				}else {
-					console.log("SMS BROADCAST ERROR: " + responseMessage[1]);
+					console.log('SMS BROADCAST ERROR: ' + responseMessage[1]);
 					return res.status(400)
-						.send({ message: "Something went wrong: " + responseMessage[1] });
+						.send({ message: 'Something went wrong: ' + responseMessage[1] });
 				}
 			}else {
 				return res.status(response.statusCode)
-					.send({ message: "There was a problem contacting the server." });
+					.send({ message: 'There was a problem contacting the server.' });
 			}
 		}
 	);
@@ -72,7 +72,7 @@ function saveVerificationCode(user, code, number, res) {
 		.then((user) => {
 			if (!user) {
 				return res.status(400)
-					.send({ message: "We could not find the user in the database. Please contact administration." });
+					.send({ message: 'We could not find the user in the database. Please contact administration.' });
 			}
 
 			//add hashed code to users model
@@ -82,7 +82,7 @@ function saveVerificationCode(user, code, number, res) {
 			//update user model
 			user.save(function (err) {
 				if (err) {
-					console.log("error saving user: ", err);
+					console.log('error saving user: ', err);
 					return res.status(400)
 						.send({
 							message: err
@@ -93,7 +93,7 @@ function saveVerificationCode(user, code, number, res) {
 			});
 		})
 		.catch((err) => {
-			console.log("error finding user: ", err);
+			console.log('error finding user: ', err);
 			return res.status(400)
 				.send({
 					message: errorHandler.getErrorMessage(err)
@@ -112,7 +112,7 @@ exports.verify = function (req, res) {
 		.then((user) => {
 			if (!user) {
 				return res.status(400)
-					.send({ message: "We could not find the user in the database. Please contact administration." });
+					.send({ message: 'We could not find the user in the database. Please contact administration.' });
 			}
 
 			//add hashed code to users model
@@ -122,7 +122,7 @@ exports.verify = function (req, res) {
 				user.verified = verified;
 				user.save(function (err) {
 					if (err) {
-						console.log("error saving user: ", err);
+						console.log('error saving user: ', err);
 						return res.status(400)
 							.send({
 								message: err
@@ -134,12 +134,12 @@ exports.verify = function (req, res) {
 			} else {
 				return res.status(400)
 					.send({
-						message: "Verification code was incorrect."
+						message: 'Verification code was incorrect.'
 					});
 			}
 		})
 		.catch((err) => {
-			console.log("error finding user: ", err);
+			console.log('error finding user: ', err);
 			return res.status(400)
 				.send({
 					message: errorHandler.getErrorMessage(err)
