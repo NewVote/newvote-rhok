@@ -9,6 +9,7 @@ var path = require('path'),
 	Vote = mongoose.model('Vote'),
 	Goal = mongoose.model('Goal'),
 	Solution = mongoose.model('Solution'),
+	Media = mongoose.model('Media'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 exports.all = function (req, res) {
@@ -51,9 +52,14 @@ function attachObjects(votes) {
 			model = Solution;
 		} else if (type === 'Goal') {
 			model = Goal;
+		} else if(type === 'Media') {
+			model = Media;
+		}
+		else {
+			return vote;
 		}
 		return model.findById(objectID)
-			.select('title tags votes imageUrl description')
+			.select('title tags votes imageUrl description image')
 			.exec()
 			.then(function (object) {
 				vote.object = object;
