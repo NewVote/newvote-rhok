@@ -32,7 +32,7 @@ angular.module('core')
 
 					vm.vote = function (solution, voteType, $event) {
 						$event.stopPropagation();
-						VoteService.vote(solution, 'solution', voteType)
+						VoteService.vote(solution, 'Solution', voteType)
 							.then(function (data) {
 								solution.$get();
 							});

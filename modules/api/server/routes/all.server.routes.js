@@ -13,7 +13,8 @@ var policy = require('../policies/generic.server.policy'),
 	comments = require('../controllers/comments.server.controller'),
 	votes = require('../controllers/votes.server.controller'),
 	regions = require('../controllers/regions.server.controller'),
-	countries = require('../controllers/countries.server.controller');
+	countries = require('../controllers/countries.server.controller'),
+	data = require('../controllers/data.server.controller');
 
 module.exports = function (app) {
 	// Articles collection routes
@@ -106,6 +107,9 @@ module.exports = function (app) {
 
 	app.route('/api/countries/:countryId').all(policy.isAllowed)
 		.get(countries.read);
+
+	app.route('/api/raw/votes')
+		.get(data.all)
 
 	// Finish by binding the article middleware
 	app.param('issueId', issues.issueByID);
