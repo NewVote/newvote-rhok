@@ -55,7 +55,11 @@
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-actions layout="row" layout-align="start center">
-				<div layout-align-gt-sm="end start" flex-gt-sm layout-align="end end">
+
+
+				<share-buttons object="goal" object-type="'goal'" vertical-resize="true"></share-buttons>
+				
+				<div layout flex layout-align="end start">
 					<md-button class="md-raised md-primary">
 						<md-tooltip>
 							<span>View solutions to this Goal.</span>
@@ -63,13 +67,12 @@
 						View Solutions
 					</md-button>
 				</div>
-				<share-buttons object="goal" object-type="'goal'" vertical-resize="true"></share-buttons>
 			</md-card-actions>
 			<md-card-content ng-if="goal.description">
 				<span class="md-body-2 description-container"><span class="description" ng-bind="goal.description | htmlToPlaintext"></span></span>
 			</md-card-content>
-			<md-card-actions layout-gt-sm="row" layout-align="start start">
-				<div layout layout-align="start start">
+			<md-card-actions layout-gt-sm="row">
+				<div layout>
 					<md-button class="md-raised vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'str_agree', $event)">
 						<md-tooltip>
 							<span ng-if="goal.votes.currentUser.voteValue===1">Undo</span>
