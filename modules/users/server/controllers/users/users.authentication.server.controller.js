@@ -47,7 +47,7 @@ exports.signup = function (req, res) {
 		if (!response.success) {
 			return res.status(400)
 				.send({
-					message: "CAPTCHA verification failed"
+					message: 'CAPTCHA verification failed'
 				});
 		} else {
 			//user is not a robot, captcha success, continue with sign up
