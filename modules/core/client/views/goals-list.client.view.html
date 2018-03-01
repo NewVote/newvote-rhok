@@ -37,7 +37,7 @@
 			</md-chips>
 		</div>
 	</div>
-	<div layout-padding>
+	<div>
 		<md-card class="solution-card" ng-if="vm.goals.length==0">
 			<md-card-header>
 				<md-card-header-text>
@@ -49,20 +49,33 @@
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline" ng-bind="goal.title"></span>
-					<span class="md-body-2 description-container"><span class="description" ng-bind="goal.description | htmlToPlaintext"></span></span>
 				</md-card-title-text>
 				<md-card-title-media layout-padding>
 					<div class="md-media-sm card-media"><img ng-src="{{::goal.imageUrl}}" alt="Goal Image" /></div>
 				</md-card-title-media>
 			</md-card-title>
-			<md-card-actions layout="row" layout-align="start start">
-				<md-card-icon-actions>
+			<md-card-actions layout="row" layout-align="start center">
+				<div layout-align-gt-sm="end start" flex-gt-sm layout-align="end end">
+					<md-button class="md-raised md-primary">
+						<md-tooltip>
+							<span>View solutions to this Goal.</span>
+						</md-tooltip>
+						View Solutions
+					</md-button>
+				</div>
+				<share-buttons object="goal" object-type="'goal'" vertical-resize="true"></share-buttons>
+			</md-card-actions>
+			<md-card-content ng-if="goal.description">
+				<span class="md-body-2 description-container"><span class="description" ng-bind="goal.description | htmlToPlaintext"></span></span>
+			</md-card-content>
+			<md-card-actions layout-gt-sm="row" layout-align="start start">
+				<div layout layout-align="start start">
 					<md-button class="md-raised vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'str_agree', $event)">
 						<md-tooltip>
 							<span ng-if="goal.votes.currentUser.voteValue===1">Undo</span>
 							<span ng-if="goal.votes.currentUser.voteValue!==1">Vote Up</span>
 						</md-tooltip>
-						<md-icon>arrow_upward</md-icon> Vote Up
+						<md-icon>arrow_upward</md-icon> <span hide show-gt-xs>Vote Up</span>
 					</md-button>
 					<div class="card-chart-container">
 						<div class="card-chart-score">
@@ -79,19 +92,9 @@
 							<span ng-if="goal.votes.currentUser.voteValue===-1">Undo</span>
 							<span ng-if="goal.votes.currentUser.voteValue!==-1">Vote Down</span>
 						</md-tooltip>
-						<md-icon>arrow_downward</md-icon> Vote Down
+						<md-icon>arrow_downward</md-icon> <span hide show-gt-xs>Vote Down</span>
 					</md-button>
-					<md-button class="md-raised md-primary">
-						<md-tooltip>
-							<span>View solutions to this Goal.</span>
-						</md-tooltip>
-						View Solutions
-					</md-button>
-					<div flex>
-						<share-buttons object="goal" object-type="'goal'" vertical-resize="true"></share-buttons>
-					</div>
-				</md-card-icon-actions>
-
+				</div>
 			</md-card-actions>
 		</md-card>
 	</div>

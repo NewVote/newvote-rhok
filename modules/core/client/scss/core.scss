@@ -442,19 +442,24 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
     position: relative;
 	height: 40px !important;
 	width: 40px !important;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .card-chart-score {
 	position: absolute;
     top: 0;
     left: 0;
-	height: 40px;
-	width: 40px;
+	height: 38px;
+	width: 38px;
+	padding: 1px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+
+	font-size: 14px;
 }
 
 .vote-details {
@@ -472,7 +477,7 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 
 // Share buttons
 .share-button {
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 580px) {
 		margin-top: 1px !important;
 		margin-bottom: 1px !important;
 	}
@@ -483,7 +488,7 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 }
 
 .share-button-horizontal {
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 580px) {
 		margin-left: 1px !important;
 		margin-right: 1px !important;
 	}
@@ -495,10 +500,10 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 
 .share-button-config {
 	position: relative;
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 580px) {
 		position: absolute;
-		top: -115px;
-		left: 50px;
+		top: -85px;
+		left: 40px;
 	}
 }
 

@@ -78,7 +78,7 @@
 
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column">
 
-	<md-card>
+	<!-- <md-card>
 	  <md-card-title>
 	    <md-card-title-text>
 	      <span class="md-headline">Vote on Goals</span>
@@ -87,9 +87,12 @@
 	  <md-card-content>
 	    <goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
 	  </md-card-content>
-	</md-card>
+	</md-card> -->
 
-	<md-card>
+	<span class="md-headline">Vote on Goals</span>
+	<goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
+
+	<!-- <md-card>
 	  <md-card-title>
 	    <md-card-title-text>
 	      <span class="md-headline">Vote on Solutions</span>
@@ -98,7 +101,10 @@
 	  <md-card-content>
 	    <solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
 	  </md-card-content>
-	</md-card>
+	</md-card> -->
+
+	<span class="md-headline">Vote on Solutions</span>
+	<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
 
 	<md-button class="md-raised md-primary"
 	  ng-click="toggle(); scrollTo('engagement')"
@@ -127,7 +133,7 @@
 	  </md-card-content>
 	</md-card>
 
-	<md-card>
+	<!-- <md-card>
 	  <md-card-title>
 	    <md-card-title-text>
 	      <span class="md-headline">Endorsements</span>
@@ -136,20 +142,26 @@
 	  <md-card-content>
 	    <endorsement-list endorsement="vm.endorsement" object-id="vm.issue._id" object-type="'issue'"></endorsement-list>
 	  </md-card-content>
-	</md-card>
+	</md-card> -->
 
-	<md-card>
-	  <md-card-title>
-	    <md-card-title-text>
-	      <span class="md-headline">Meetups</span>
-	    </md-card-title-text>
-	  </md-card-title>
-	  <md-card-content>
-	    <span>In the future this section will contain details of real world events related to this issue.</span>
-	  </md-card-content>
-	</md-card>
+	<span class="md-headline">Endorsements</span>
+	<endorsement-list endorsement="vm.endorsement" object-id="vm.issue._id" object-type="'issue'"></endorsement-list>
 
-	<md-card>
+	<span class="md-headline">Meetups</span>
+	<div layout-paddnig>
+		<!-- temporary wrapper until we have a meetup lis directive -->
+		<md-card>
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content>
+			</md-card-content>
+		</md-card>
+	</div>
+
+	<!-- <md-card>
 	  <md-card-title>
 	    <md-card-title-text>
 	      <span class="md-headline">Media</span>
@@ -158,6 +170,9 @@
 	  <md-card-content>
 			<media-list media="vm.media" object-id="vm.issue._id" object-type="'issue'"></media-list>
 	  </md-card-content>
-	</md-card>
+	</md-card> -->
+
+	<span class="md-headline">Media</span>
+	<media-list media="vm.media" object-id="vm.issue._id" object-type="'issue'"></media-list>
 
 </div>
