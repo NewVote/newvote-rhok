@@ -353,6 +353,14 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
   position: absolute;
   width: 360px; }
 
+.likert-container {
+  margin-right: 15px;
+  margin-bottom: 15px; }
+
+.likert-button {
+  margin-right: 5px !important;
+  background-color: #fafafa !important; }
+
 .md-media-xl.image-only img {
   max-height: 100%;
   max-width: 100%; }

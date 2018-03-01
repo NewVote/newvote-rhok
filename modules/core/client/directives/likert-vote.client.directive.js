@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('core').directive('binaryVote', ['$timeout', function ($timeout) {
+angular.module('core').directive('likertVote', ['$timeout', function ($timeout) {
 	return {
 		restrict: 'E',
 		scope: {
@@ -8,7 +8,7 @@ angular.module('core').directive('binaryVote', ['$timeout', function ($timeout) 
 			objectType: '=',
 			size: '='
 		},
-		templateUrl: 'modules/core/client/views/binary-vote.client.view.html',
+		templateUrl: 'modules/core/client/views/likert-vote.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
 		controller: ['$scope', '$state', '$mdDialog', 'VoteService', 'Authentication',

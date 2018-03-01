@@ -70,7 +70,8 @@
 				<span class="md-body-2 description-container"><span class="description" ng-bind="goal.description | htmlToPlaintext"></span></span>
 			</md-card-content>
 			<md-card-actions layout-gt-sm="row">
-				<binary-vote object="goal" object-type="'goal'"></binary-vote>
+				<binary-vote ng-if="!goal.likert" object="goal" object-type="'goal'"></binary-vote>
+				<likert-vote ng-if="goal.likert" object="goal" object-type="'goal'"></likert-vote>
 				<!-- <div layout>
 					<md-button class="md-raised vote-btn" ng-class="{ selected: goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(goal, 'str_agree', $event)">
 						<md-tooltip>

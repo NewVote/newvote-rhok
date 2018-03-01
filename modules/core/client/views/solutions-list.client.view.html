@@ -84,7 +84,8 @@
 				<p class="md-subhead" ng-bind="solution.description | htmlToPlaintext"></p>
 			</md-card-content>
 			<md-card-actions layout="column" layout-gt-sm="row" layout-align="start start">
-				<binary-vote object="solution" object-type="'solution'"></binary-vote>
+				<binary-vote ng-if="!solution.likert" object="solution" object-type="'solution'"></binary-vote>
+				<likert-vote ng-if="solution.likert" object="solution" object-type="'solution'"></likert-vote>
 				<!-- <div layout>
 					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'str_agree', $event)">
 						<md-tooltip>

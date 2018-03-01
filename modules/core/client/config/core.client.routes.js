@@ -101,7 +101,12 @@ angular.module('core')
 						},
 						media: function () {
 							return [];
-						}
+						},
+						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+							return EndorsementService.list({
+								issueId: $stateParams.issueId
+							});
+						}]
 					}
 				})
 				.state('issues.view', {
@@ -203,7 +208,12 @@ angular.module('core')
 						},
 						isSingleSolution: function () {
 							return false;
-						}
+						},
+						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+							return EndorsementService.list({
+								issueId: $stateParams.issueId
+							});
+						}]
 					}
 				})
 				.state('goals.view', {

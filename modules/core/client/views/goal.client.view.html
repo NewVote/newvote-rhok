@@ -76,28 +76,8 @@
 
 		<div layout="column" layout-gt-sm="row" layout-align="start start" layout-align-gt-sm="start center">
 
-			<div layout="row">
-				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote('str_agree')">
-					<md-icon>arrow_upward</md-icon> Vote Up
-					<md-tooltip ng-if="vm.goal.votes.currentUser.voteValue===1">Undo</md-tooltip>
-				</md-button>
-				<div class="chart-container">
-					<div class="chart-score">
-						<span>{{vm.goal.votes.up / (vm.goal.votes.up + vm.goal.votes.down) * 100 | number: 0}}%</span>
-					</div>
-					<vote-details object="vm.goal"></vote-details>
-				</div>
-				<!-- <md-button class="md-fab md-primary md-hue-2 vote-score" ng-class="" ng-click="">
-					<md-tooltip>
-						<span>For: {{vm.goal.votes.up}}, Against: {{vm.goal.votes.down}}</span>
-					</md-tooltip>
-					{{vm.goal.votes.up - vm.goal.votes.down}}
-				</md-button> -->
-				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote('str_disagree')">
-					<md-icon>arrow_downward</md-icon>Vote Down
-					<md-tooltip ng-if="vm.goal.votes.currentUser.voteValue===-1">Undo</md-tooltip>
-				</md-button>
-			</div>
+			<binary-vote ng-if="!vm.goal.likert" object="vm.goal" object-type="'goal'" size="'large'"></binary-vote>
+			<likert-vote ng-if="vm.goal.likert" object="vm.goal" object-type="'goal'" size="'large'"></likert-vote>
 
 			<div layout="row">
 				<share-buttons object="vm.goal" object-type="'goal'" vertical-resize="false"></share-buttons>
