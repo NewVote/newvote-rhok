@@ -1,0 +1,51 @@
+<div layout>
+	<md-button class="md-raised vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===1 }" ng-click="vm.vote(vm.object, 'str_agree', $event)">
+		<md-tooltip>
+			<span ng-if="vm.object.votes.currentUser.voteValue===1">Undo</span>
+			<span ng-if="vm.object.votes.currentUser.voteValue!==1">Vote Up</span>
+		</md-tooltip>
+		<md-icon>arrow_upward</md-icon> <span hide show-gt-xs>Vote Up</span>
+	</md-button>
+	<div ng-if="vm.size!=='large'" class="card-chart-container">
+		<div class="card-chart-score">
+			<span>{{vm.object.votes.up / (vm.object.votes.up + vm.object.votes.down) * 100 || 0 | number: 0}} %</span>
+		</div>
+		<canvas id="card-pie" class="chart chart-pie" chart-data="[vm.object.votes.down, vm.object.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" height="100%" width="100%">
+		</canvas>
+		<md-tooltip>
+			<span>For: {{vm.object.votes.up}}, Against: {{vm.object.votes.down}}</span>
+		</md-tooltip>
+	</div>
+
+	<div ng-if="vm.size==='large'" class="chart-container">
+		<div class="chart-score">
+			<span>{{vm.object.votes.up / (vm.object.votes.up + vm.object.votes.down) * 100 | number: 0}}%</span>
+		</div>
+		<vote-details object="vm.object"></vote-details>
+	</div>
+
+	<md-button class="md-raised vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(vm.object, 'str_disagree', $event)">
+		<md-tooltip>
+			<span ng-if="vm.object.votes.currentUser.voteValue===-1">Undo</span>
+			<span ng-if="vm.object.votes.currentUser.voteValue!==-1">Vote Down</span>
+		</md-tooltip>
+		<md-icon>arrow_downward</md-icon> <span hide show-gt-xs>Vote Down</span>
+	</md-button>
+</div>
+
+<!-- <div layout="row">
+	<md-button class="md-raised vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===1 }" ng-click="vm.vote('str_agree')">
+		<md-icon>arrow_upward</md-icon> Vote Up
+		<md-tooltip ng-if="vm.object.votes.currentUser.voteValue===1">Undo</md-tooltip>
+	</md-button>
+	<div class="chart-container">
+		<div class="chart-score">
+			<span>{{vm.object.votes.up / (vm.object.votes.up + vm.object.votes.down) * 100 | number: 0}}%</span>
+		</div>
+		<vote-details object="vm.object"></vote-details>
+	</div>
+	<md-button class="md-raised vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===-1 }" ng-click="vm.vote('str_disagree')">
+		<md-icon>arrow_downward</md-icon>Vote Down
+		<md-tooltip ng-if="vm.object.votes.currentUser.voteValue===-1">Undo</md-tooltip>
+	</md-button>
+</div> -->

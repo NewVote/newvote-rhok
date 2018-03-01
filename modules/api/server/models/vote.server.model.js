@@ -28,7 +28,7 @@ var VoteSchema = new Schema({
   },
   voteValue: {
     type: Number,
-    enum: [0, 1, -1]
+    enum: ['0', '1', '-1', '0.5', '-0.5']
   }
 });
 

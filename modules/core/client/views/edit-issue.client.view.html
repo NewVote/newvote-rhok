@@ -21,19 +21,14 @@
 		<label>Issue Title</label>
 		<input ng-model="vm.issue.name" autofocus>
 	</md-input-container>
+
 	<md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
 	<img ngf-thumbnail="vm.imageFile || vm.issue.imageUrl">
 	<label>Issue Description</label>
 	<ng-quill-editor ng-model="vm.issue.description"></ng-quill-editor>
 
 	<form name="tagsForm">
-		<md-chips
-            ng-model="vm.issue.tags"
-            md-separator-keys="vm.customKeys"
-            name="tagsName"
-            md-removable="true"
-            md-max-chips="5"
-            placeholder="Enter a tag...">
+		<md-chips ng-model="vm.issue.tags" md-separator-keys="vm.customKeys" name="tagsName" md-removable="true" md-max-chips="5" placeholder="Enter a tag...">
 		</md-chips>
 
 		<div class="errors" ng-messages="tagsForm.tagsName.$error">
