@@ -81,7 +81,7 @@
 		<div layout="column" layout-gt-sm="row" layout-align="start start" layout-align-gt-sm="start center">
 
 			<div layout="row">
-				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote('up')">
+				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===1 }" ng-click="vm.vote('str_agree')">
 					<md-icon>arrow_upward</md-icon> Vote Up
 					<md-tooltip ng-if="vm.goal.votes.currentUser.voteValue===1">Undo</md-tooltip>
 				</md-button>
@@ -97,7 +97,7 @@
 					</md-tooltip>
 					{{vm.goal.votes.up - vm.goal.votes.down}}
 				</md-button> -->
-				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote('down')">
+				<md-button class="md-raised vote-btn" ng-class="{ selected: vm.goal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote('str_disagree')">
 					<md-icon>arrow_downward</md-icon>Vote Down
 					<md-tooltip ng-if="vm.goal.votes.currentUser.voteValue===-1">Undo</md-tooltip>
 				</md-button>

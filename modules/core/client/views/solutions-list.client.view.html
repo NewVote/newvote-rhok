@@ -74,7 +74,7 @@
 			</md-card-content> -->
 			<md-card-actions layout="row" layout-align="start start">
 				<md-card-icon-actions>
-					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'up', $event)">
+					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'str_agree', $event)">
 						<md-tooltip>
 							<span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
 							<span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
@@ -97,7 +97,7 @@
 							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
 						</md-tooltip>
 					</div>
-					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'down', $event)">
+					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'str_disagree', $event)">
 						<md-tooltip>
 							<span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
 							<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
