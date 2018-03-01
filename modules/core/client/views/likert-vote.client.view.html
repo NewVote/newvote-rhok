@@ -1,0 +1,51 @@
+<div layout layout-align="center center" class="likert-container">
+	<!-- {{vm.object.votes.currentUser.voteValue}} -->
+	<md-button class="md-fab md-mini likert-button vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(vm.object, 'str_disagree', $event)">
+		<md-tooltip>
+			<span>Strongly Disagree</span>
+		</md-tooltip>
+		<span>-2</span>
+	</md-button>
+	<md-button class="md-fab md-mini likert-button vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===-0.5 }" ng-click="vm.vote(vm.object, 'disagree', $event)">
+		<md-tooltip>
+			<span>Disagree</span>
+		</md-tooltip>
+		-1
+	</md-button>
+	<md-button class="md-fab md-mini likert-button vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===0 }" ng-click="vm.vote(vm.object, 'cancel', $event)">
+		<md-tooltip>
+			<span>Neutral</span>
+		</md-tooltip>
+		-0
+	</md-button>
+	<md-button class="md-fab md-mini likert-button vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===0.5 }" ng-click="vm.vote(vm.object, 'agree', $event)">
+		<md-tooltip>
+			<span>Agree</span>
+		</md-tooltip>
+		+1
+	</md-button>
+	<md-button class="md-fab md-mini likert-button vote-btn" ng-class="{ selected: vm.object.votes.currentUser.voteValue===1 }" ng-click="vm.vote(vm.object, 'str_agree', $event)">
+		<md-tooltip>
+			<span>Strongly Agree</span>
+		</md-tooltip>
+		+2
+	</md-button>
+
+	<div ng-if="vm.size!=='large'" class="card-chart-container">
+		<div class="card-chart-score">
+			<span>{{vm.object.votes.up / (vm.object.votes.up + vm.object.votes.down) * 100 || 0 | number: 0}} %</span>
+		</div>
+		<canvas id="card-pie" class="chart chart-pie" chart-data="[vm.object.votes.down, vm.object.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" height="100%" width="100%"></canvas>
+		<md-tooltip>
+			<span>For: {{vm.object.votes.up}}, Against: {{vm.object.votes.down}}</span>
+		</md-tooltip>
+	</div>
+
+	<div ng-if="vm.size==='large'" class="chart-container">
+		<div class="chart-score">
+			<span>{{vm.object.votes.up / (vm.object.votes.up + vm.object.votes.down) * 100 | number: 0}}%</span>
+		</div>
+		<vote-details object="vm.object"></vote-details>
+	</div>
+
+</div>

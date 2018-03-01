@@ -15,52 +15,41 @@
 <update-meta name="twitter:url" use-abs-url="true"></update-meta>
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
-<div layout-padding  layout="column" layout-align="top center" flex>
+<div layout-padding layout="column" layout-align="top center" flex>
 
-  <md-input-container>
-    <label>Goal Title</label>
-    <input ng-model="vm.goal.title" autofocus>
-  </md-input-container>
+	<md-input-container>
+		<label>Goal Title</label>
+		<input ng-model="vm.goal.title" autofocus>
+	</md-input-container>
 
-  <md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'"
-    ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
-  <img ngf-thumbnail="vm.imageFile || vm.goal.imageUrl">
+	<md-checkbox ng-model="vm.goal.likert" aria-label="Likert Voting">
+		Use Likert Voting
+	</md-checkbox>
 
-  <label>Goal Description</label>
-  <ng-quill-editor ng-model="vm.goal.description"></ng-quill-editor>
+	<md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
+	<img ngf-thumbnail="vm.imageFile || vm.goal.imageUrl">
 
-  <md-contact-chips
-    ng-model="vm.goal.issues"
-    md-contacts="vm.searchIssues($query)"
-    md-contact-name="name"
-    md-require-match="true"
-    md-highlight-flags="i"
-    md-delay="400"
-    placeholder="Issues Addressed"
-    secondary-placeholder="Add another issue">
-  </md-contact-chips>
+	<label>Goal Description</label>
+	<ng-quill-editor ng-model="vm.goal.description"></ng-quill-editor>
 
-  <form name="tagsForm">
-      <md-chips
-            ng-model="vm.goal.tags"
-            md-separator-keys="vm.customKeys"
-            name="tagsName"
-            md-removable="true"
-            md-max-chips="5"
-            placeholder="Enter a tag...">
-      </md-chips>
+	<md-contact-chips ng-model="vm.goal.issues" md-contacts="vm.searchIssues($query)" md-contact-name="name" md-require-match="true" md-highlight-flags="i" md-delay="400" placeholder="Issues Addressed" secondary-placeholder="Add another issue">
+	</md-contact-chips>
 
-      <div class="errors" ng-messages="tagsForm.tagsName.$error">
-          <div ng-message="md-max-chips">Maximum number of tags reached.</div>
-      </div>
-  </form>
-  <div layout="row">
-    <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
-      <span ng-if="vm.goal._id">Update</span>
-      <span ng-if="!vm.goal._id">Create</span>
-    </md-button>
-    <md-button  class="md-raised md-warn" ng-if="vm.goal._id" ng-click="vm.delete()">
-      Delete
-    </md-button>
-  </div>
+	<form name="tagsForm">
+		<md-chips ng-model="vm.goal.tags" md-separator-keys="vm.customKeys" name="tagsName" md-removable="true" md-max-chips="5" placeholder="Enter a tag...">
+		</md-chips>
+
+		<div class="errors" ng-messages="tagsForm.tagsName.$error">
+			<div ng-message="md-max-chips">Maximum number of tags reached.</div>
+		</div>
+	</form>
+	<div layout="row">
+		<md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
+			<span ng-if="vm.goal._id">Update</span>
+			<span ng-if="!vm.goal._id">Create</span>
+		</md-button>
+		<md-button class="md-raised md-warn" ng-if="vm.goal._id" ng-click="vm.delete()">
+			Delete
+		</md-button>
+	</div>
 </div>

@@ -54,7 +54,11 @@ var GoalSchema = new Schema({
 	tags: [{
 		type: String,
 		trim: true
-	}]
+	}],
+	likert: {
+		type: Boolean,
+		default: false
+	}
 });
 
 mongoose.model('Goal', GoalSchema);

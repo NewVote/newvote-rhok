@@ -108,8 +108,10 @@ module.exports = function (app) {
 	app.route('/api/countries/:countryId').all(policy.isAllowed)
 		.get(countries.read);
 
-	app.route('/api/raw/votes')
-		.get(data.all)
+	//this was to demonstrate how we might expose our voting data
+	//it is not secure and should not be used this way in future
+	// app.route('/api/raw/votes')
+	// 	.get(data.all)
 
 	// Finish by binding the article middleware
 	app.param('issueId', issues.issueByID);

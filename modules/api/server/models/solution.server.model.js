@@ -58,6 +58,10 @@ var SolutionSchema = new Schema({
 			type: Schema.ObjectId,
 			ref: 'Vote'
 		}
+	},
+	likert: {
+		type: Boolean,
+		default: false
 	}
 });
 

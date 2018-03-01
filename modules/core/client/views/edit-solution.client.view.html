@@ -15,38 +15,33 @@
 <update-meta name="twitter:url" use-abs-url="true"></update-meta>
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
-<div layout-padding  layout="column" layout-align="top center" flex>
+<div layout-padding layout="column" layout-align="top center" flex>
 
-  <md-input-container>
-    <label>Solution Title</label>
-    <input ng-model="vm.solution.title" autofocus>
-  </md-input-container>
+	<md-input-container>
+		<label>Solution Title</label>
+		<input ng-model="vm.solution.title" autofocus>
+	</md-input-container>
 
-  <md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'"
-    ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
-  <img ngf-thumbnail="vm.imageFile || vm.solution.imageUrl">
+	<md-checkbox ng-model="vm.solution.likert" aria-label="Likert Voting">
+		Use Likert Voting
+	</md-checkbox>
 
-  <label>Solution Description</label>
-  <ng-quill-editor ng-model="vm.solution.description"></ng-quill-editor>
+	<md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
+	<img ngf-thumbnail="vm.imageFile || vm.solution.imageUrl">
 
-  <md-contact-chips
-    ng-model="vm.solution.goals"
-    md-contacts="vm.searchGoals($query)"
-    md-contact-name="title"
-    md-require-match="true"
-    md-highlight-flags="i"
-    md-delay="400"
-    placeholder="Goals Solutioned"
-    secondary-placeholder="Add another goal">
-  </md-contact-chips>
+	<label>Solution Description</label>
+	<ng-quill-editor ng-model="vm.solution.description"></ng-quill-editor>
 
-  <div layout="row">
-    <md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
-      <span ng-if="vm.solution._id">Update</span>
-      <span ng-if="!vm.solution._id">Create</span>
-    </md-button>
-    <md-button  class="md-raised md-warn" ng-if="vm.solution._id" ng-click="vm.delete()">
-      Delete
-    </md-button>
-  </div>
+	<md-contact-chips ng-model="vm.solution.goals" md-contacts="vm.searchGoals($query)" md-contact-name="title" md-require-match="true" md-highlight-flags="i" md-delay="400" placeholder="Goals Solutioned" secondary-placeholder="Add another goal">
+	</md-contact-chips>
+
+	<div layout="row">
+		<md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
+			<span ng-if="vm.solution._id">Update</span>
+			<span ng-if="!vm.solution._id">Create</span>
+		</md-button>
+		<md-button class="md-raised md-warn" ng-if="vm.solution._id" ng-click="vm.delete()">
+			Delete
+		</md-button>
+	</div>
 </div>
