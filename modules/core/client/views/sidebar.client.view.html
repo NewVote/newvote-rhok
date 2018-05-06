@@ -33,8 +33,11 @@
 		<div layout-padding></div>
 
 		<div layout-padding></div>
-		<md-list-item href="http://newvote.org.au/about-us" target="_blank">
-			<p class="item-content">About</p>
+		<md-list-item ui-sref="about-us" ui-sref-active="active">
+			<p class="item-content">About Us</p>
+		</md-list-item>
+		<md-list-item ui-sref="help" ui-sref-active="active">
+			<p class="item-content">Help</p>
 		</md-list-item>
         <!-- <md-divider></md-divider> -->
 		<md-list-item class="" ng-if="!authentication.user" ui-sref="authentication.signup" ui-sref-active="active">

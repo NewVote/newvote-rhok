@@ -5,6 +5,12 @@ md-grid-tile-footer.ng-scope {
 md-toolbar a:link, md-toolbar a:visited, md-toolbar a:active {
   color: white; }
 
+.about-container.ng-scope {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%; }
+
 .footer a:link, .footer a:visited, .footer a:active {
   color: black; }
 

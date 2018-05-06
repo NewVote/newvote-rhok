@@ -34,6 +34,26 @@ angular.module('core')
 					}
 				})
 
+				.state('about-us', {
+					url: '/about-us',
+					templateUrl: 'modules/core/client/views/about.client.view.html',
+					controller: 'AboutController',
+					controllerAs: 'vm',
+					data: {
+						title: 'NewVote'
+					}
+				})
+
+				.state('help', {
+					url: '/help',
+					templateUrl: 'modules/core/client/views/help.client.view.html',
+					controller: 'HelpController',
+					controllerAs: 'vm',
+					data: {
+						title: 'NewVote'
+					}
+				})
+
 				.state('issues', {
 					url: '/issues',
 					abstract: true,
