@@ -155,6 +155,9 @@ md-tooltip {
 .vote-score {
   line-height: normal !important; }
 
+.carousel-item md-card {
+  cursor: pointer; }
+
 .solution-card,
 .goal-card {
   cursor: pointer; }
