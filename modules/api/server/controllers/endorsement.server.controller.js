@@ -76,6 +76,7 @@ exports.delete = function (req, res) {
 exports.list = function (req, res) {
 	var goalId = req.query.goalId,
 		issueId = req.query.issueId,
+		solutionId = req.query.solutionId,
 		searchParams = req.query.search,
 		endorsementId = req.query.endorsementId,
 		query;
@@ -87,6 +88,10 @@ exports.list = function (req, res) {
 	} else if(issueId) {
 		query = {
 			issues: issueId
+		};
+	} else if(solutionId) {
+		query = {
+			solutions: solutionId
 		};
 	} else {
 		query = null;

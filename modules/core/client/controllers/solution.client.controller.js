@@ -1,12 +1,14 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'SolutionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'UploadService', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, SolutionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, UploadService, SortService, $mdConstant) {
+angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'SolutionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'goals', 'endorsement', 'media', 'UploadService', 'SortService', 'isSingleSolution', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, SolutionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, goals, endorsement, media, UploadService, SortService, isSingleSolution, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
-
-		// console.log($stateParams);
+		vm.goals = goals;
+		vm.endorsement = endorsement;
+		vm.media = media;
+		vm.isSingleSolution = isSingleSolution;
 
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
@@ -88,5 +90,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 			return $mdDialog.show(confirmDialog);
 		}
+
+		angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
+		var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
+		angular.element(document).find('body').append(el);
 	}
 ]);

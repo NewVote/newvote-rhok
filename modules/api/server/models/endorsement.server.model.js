@@ -43,6 +43,10 @@ var EndorsementSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Goal'
 	}],
+	solutions: [{
+		type: Schema.ObjectId,
+		ref: 'Solution'
+	}],
 });
 
 mongoose.model('Endorsement', EndorsementSchema);
