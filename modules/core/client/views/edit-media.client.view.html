@@ -64,6 +64,17 @@
 	  secondary-placeholder="Add another goal">
 	</md-contact-chips>
 
+	<md-contact-chips
+	  ng-model="vm.media.solutions"
+	  md-contacts="vm.searchSolutions($query)"
+	  md-contact-name="title"
+	  md-require-match="true"
+	  md-highlight-flags="i"
+	  md-delay="400"
+	  placeholder="Linked Solutions"
+	  secondary-placeholder="Add another solution">
+	</md-contact-chips>
+
 	<div layout="column" layout-padding>
 		<span>Media Preview</span>
 		<md-card class="solution-card" ng-if="vm.media.length==0">

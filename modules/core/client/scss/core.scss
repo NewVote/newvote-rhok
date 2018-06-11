@@ -9,6 +9,11 @@ md-toolbar{
     }
 }
 
+.about-container.ng-scope {
+  display: flex;
+  height: 100%;
+}
+
 .footer{
     a:link, a:visited, a:active {
         color: black;
@@ -207,6 +212,12 @@ md-tooltip {
 
 .vote-score {
 	line-height: normal !important;
+}
+
+.carousel-item {
+  md-card {
+    cursor: pointer;
+  }
 }
 
 .solution-card,
