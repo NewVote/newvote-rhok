@@ -86,40 +86,24 @@
 	</div>
 </md-toolbar>
 
-<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout="column">
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout="column" layout-padding>
 
-	<md-card>
-		<md-card-title>
-			<md-card-title-text>
-				<span class="md-headline">Where do I stand?</span>
-				<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
-					 Please be aware that your image (showing where you stand) may be visible to other users</span>
-			</md-card-title-text>
-		</md-card-title>
-		<md-card-content>
-			<div class="polis" data-topic="What do you think?" data-page_id="{{vm.solution._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
-			</div>
-		</md-card-content>
-	</md-card>
-
-	<span class="md-headline" layout-padding>Endorsements</span>
-	<endorsement-list endorsement="vm.endorsement" object-id="vm.solution._id" object-type="'solution'"></endorsement-list>
-
-	<span class="md-headline" layout-padding>Meetups</span>
-	<div layout-paddnig>
-		<!-- temporary wrapper until we have a meetup lis directive -->
-		<md-card>
-			<md-card-title>
-				<md-card-title-text>
-					<span class="md-headline">In the future this section will contain details of real world events related to this Solution.</span>
-				</md-card-title-text>
-			</md-card-title>
-			<md-card-content>
-			</md-card-content>
-		</md-card>
-	</div>
-
-	<span class="md-headline" layout-padding>Media</span>
-	<media-list media="vm.media" object-id="vm.solution._id" object-type="'solution'"></media-list>
+	<ang-accordion>
+		<collapsible-item item-title="Where do I stand?">
+			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
+				 Please be aware that your image (showing where you stand) may be visible to other users</span>
+				 <div class="polis" data-topic="What do you think?" data-page_id="{{vm.solution._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+	 			</div>
+    </collapsible-item>
+		<collapsible-item item-title="Endorsements">
+      <endorsement-list endorsement="vm.endorsement" object-id="vm.solution._id" object-type="'solution'"></endorsement-list>
+    </collapsible-item>
+		<collapsible-item item-title="Meetups">
+      <span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
+    </collapsible-item>
+		<collapsible-item item-title="Media">
+      <media-list media="vm.media" object-id="vm.solution._id" object-type="'solution'"></media-list>
+    </collapsible-item>
+	</ang-accordion>
 
 </div>
