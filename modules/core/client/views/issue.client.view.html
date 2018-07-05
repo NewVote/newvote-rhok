@@ -78,28 +78,101 @@
 
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column">
 
-	<ang-accordion>
-    <collapsible-item item-title="Vote on Goals">
-      <goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
-    </collapsible-item>
-		<collapsible-item item-title="Vote on Solutions">
-      <solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
-    </collapsible-item>
-		<collapsible-item item-title="Where do I stand?">
-			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
-				 Please be aware that your image (showing where you stand) may be visible to other users</span>
-				 <div class="polis" data-topic="What do you think?" data-page_id="{{vm.issue._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
-	 			</div>
-    </collapsible-item>
-		<collapsible-item item-title="Endorsements">
-      <endorsement-list endorsement="vm.endorsement" object-id="vm.issue._id" object-type="'issue'"></endorsement-list>
-    </collapsible-item>
-		<collapsible-item item-title="Meetups">
-      <span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
-    </collapsible-item>
-		<collapsible-item item-title="Media">
-      <media-list media="vm.media" object-id="vm.issue._id" object-type="'issue'"></media-list>
-    </collapsible-item>
-	</ang-accordion>
+	<!-- <md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Vote on Goals</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+	    <goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
+	  </md-card-content>
+	</md-card> -->
+
+	<span class="md-headline">Vote on Goals</span>
+	<goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
+
+	<!-- <md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Vote on Solutions</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+	    <solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
+	  </md-card-content>
+	</md-card> -->
+
+	<span class="md-headline">Vote on Solutions</span>
+	<solution-list solutions="vm.solutions" issue-id="vm.issueId"></solution-list>
+
+	<md-button class="md-raised md-primary"
+	  ng-click="toggle(); scrollTo('engagement')"
+	  aria-expanded="{{isOpen()}}">
+		<div flex="" layout="column" class="md-title ng-binding ng-scope column flex">
+    More Engagement
+    <span flex="" class="flex"></span>
+  </div>
+	</md-button>
+
+</div>
+
+<div id="engagement" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column" ng-show="interactions">
+
+	<md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Where do I stand?</span>
+				<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
+					 Please be aware that your image (showing where you stand) may be visible to other users</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+			<div class="polis" data-topic="What do you think?" data-page_id="{{vm.issue._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+			</div>
+	  </md-card-content>
+	</md-card>
+
+	<!-- <md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Endorsements</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+	    <endorsement-list endorsement="vm.endorsement" object-id="vm.issue._id" object-type="'issue'"></endorsement-list>
+	  </md-card-content>
+	</md-card> -->
+
+	<span class="md-headline">Endorsements</span>
+	<endorsement-list endorsement="vm.endorsement" object-id="vm.issue._id" object-type="'issue'"></endorsement-list>
+
+	<span class="md-headline">Meetups</span>
+	<div layout-paddnig>
+		<!-- temporary wrapper until we have a meetup lis directive -->
+		<md-card>
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content>
+			</md-card-content>
+		</md-card>
+	</div>
+
+	<!-- <md-card>
+	  <md-card-title>
+	    <md-card-title-text>
+	      <span class="md-headline">Media</span>
+	    </md-card-title-text>
+	  </md-card-title>
+	  <md-card-content>
+			<media-list media="vm.media" object-id="vm.issue._id" object-type="'issue'"></media-list>
+	  </md-card-content>
+	</md-card> -->
+
+	<span class="md-headline">Media</span>
+	<media-list media="vm.media" object-id="vm.issue._id" object-type="'issue'"></media-list>
 
 </div>
