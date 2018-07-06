@@ -53,7 +53,7 @@ angular.module('users')
 			};
 
 			//recaptcha functions and variables
-			$scope.recaptchaKey = '6Ldh7V0UAAAAAPtYopMQk_tN_mUc23YT20bSlDsU';
+			$scope.recaptchaKey = '6Lch50gUAAAAAKB4fTMhtdRRwve-hXvEshXVDvXE';
 			$scope.recaptchaResponse = null;
 			$scope.recaptchaWidgetId = null;
 
