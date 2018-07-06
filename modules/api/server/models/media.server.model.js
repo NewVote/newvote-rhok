@@ -35,13 +35,17 @@ var MediaSchema = new Schema({
 		type: String,
 		required: true
 	},
-    issues: [{
+  issues: [{
 		type: Schema.ObjectId,
 		ref: 'Issue'
 	}],
 	goals: [{
 		type: Schema.ObjectId,
 		ref: 'Goal'
+	}],
+	solutions: [{
+		type: Schema.ObjectId,
+		ref: 'Solution'
 	}],
 	votes: {
 		up: Number,

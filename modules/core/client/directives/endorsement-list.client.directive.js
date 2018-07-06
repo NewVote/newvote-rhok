@@ -59,6 +59,10 @@ angular.module('core').directive('endorsementList', ['$timeout', function ($time
 								$state.go('issues.view', {
 									goalId: vm.objectId
 								});
+							} else if ($state.is('solutions.view')) {
+								$state.go('solutions.view', {
+									solutionId: vm.objectId
+								});
 							}
 
 						});

@@ -40,7 +40,7 @@
 	</div>
 
 	<a class="authenticationsignup" ng-if="!authentication.user" ui-sref="authentication.signup" layout="row" layout-align="center center">
-		<img src="modules/core/client/img/join.png" flex="15">
+		<img src="modules/core/client/img/join.png" flex-xs="50" flex-sm="33" flex="15">
 	</a>
 
 	<md-content>
@@ -58,7 +58,7 @@
 				arrows="true">
 
 				<carousel-item>
-					<md-card>
+					<md-card ui-sref="issues.view({ issueId: item._id })">
 						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="{{item.title}}">
 						<md-card-title>
 							<md-card-title-text ng-init="limit = 25" layout="row">
@@ -91,7 +91,7 @@
 				arrows="true">
 
 				<carousel-item>
-					<md-card>
+					<md-card ui-sref="goals.view({ goalId: item._id })">
 						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="{{item.title}}">
 						<md-card-title>
 							<md-card-title-text ng-init="limit = 25" layout="row">
@@ -132,7 +132,7 @@
 				arrows="true">
 
 				<carousel-item>
-					<md-card>
+					<md-card ui-sref="solutions.view({ solutionId: item._id })">
 						<img ng-src="{{item.imageUrl}}" class="md-card-image" alt="{{item.title}}">
 						<md-card-title>
 							<md-card-title-text ng-init="limit = 25" layout="row">

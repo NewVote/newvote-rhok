@@ -45,7 +45,7 @@
 				</md-card-header-text>
 			</md-card-header>
 		</md-card>
-		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse">
+		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
 			<!-- <md-card-header>
 				<md-card-avatar>
 					<img ng-src="{{::solution.imageUrl}}" alt="Solution Image" />
@@ -66,8 +66,14 @@
 					<div class="md-media-sm card-media"><img ng-src="{{::solution.imageUrl}}" alt="solution Image" /></div>
 				</md-card-title-media>
 			</md-card-title>
-			<md-card-actions layout="row" layout-align="start center">
-				<div ng-if="authentication.user.roles != null && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user._id===solution.user._id)">
+			<md-card-content>
+				<p class="md-subhead" ng-bind="solution.description | htmlToPlaintext"></p>
+			</md-card-content>
+			<md-card-actions layout="column" layout-gt-sm="row" layout-align="start start">
+				<binary-vote ng-if="!solution.likert" object="solution" object-type="'solution'"></binary-vote>
+				<likert-vote ng-if="solution.likert" object="solution" object-type="'solution'"></likert-vote>
+
+        <div ng-if="authentication.user.roles != null && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user._id===solution.user._id)">
 					<md-button class="md-icon-button" ng-click="vm.deleteSolution(solution)">
 						<md-tooltip>Delete</md-tooltip>
 						<md-icon>delete</md-icon>
@@ -79,13 +85,6 @@
 				</div>
 
 				<share-buttons object="solution" req-object="vm.goal" object-type="'solution'" vertical-resize="true"></share-buttons>
-			</md-card-actions>
-			<md-card-content>
-				<p class="md-subhead" ng-bind="solution.description | htmlToPlaintext"></p>
-			</md-card-content>
-			<md-card-actions layout="column" layout-gt-sm="row" layout-align="start start">
-				<binary-vote ng-if="!solution.likert" object="solution" object-type="'solution'"></binary-vote>
-				<likert-vote ng-if="solution.likert" object="solution" object-type="'solution'"></likert-vote>
 				<!-- <div layout>
 					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'str_agree', $event)">
 						<md-tooltip>
@@ -112,8 +111,6 @@
 						<md-icon>arrow_downward</md-icon> <span hide show-gt-xs>Vote Down</span>
 					</md-button>
 				</div> -->
-				<md-card-icon-actions layout>
-				</md-card-icon-actions>
 			</md-card-actions>
 		</md-card>
 	</div>

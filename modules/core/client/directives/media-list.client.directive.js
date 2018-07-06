@@ -68,6 +68,10 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 								$state.go('issues.view', {
 									goalId: vm.objectId
 								});
+							} else if ($state.is('solutions.view')) {
+								$state.go('solutions.view', {
+									solutionId: vm.objectId
+								});
 							}
 
 						});
