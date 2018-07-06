@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('EndorsementController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'endorsement', 'IssueService', 'GoalService', 'EndorsementService',
-	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, endorsement, IssueService, GoalService, EndorsementService) {
+angular.module('core').controller('EndorsementController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'endorsement', 'IssueService', 'GoalService', 'SolutionService', 'EndorsementService',
+	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, endorsement, IssueService, GoalService, SolutionService, EndorsementService) {
 		var vm = this;
 		vm.endorsement = endorsement;
 
@@ -30,6 +30,14 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 						goalId: goal._id
 					};
 				});
+			} else if ($stateParams.objectType === 'solution') {
+				SolutionService.get($stateParams.objectId).then(function (solution) {
+					previousState = 'solutions.view';
+					vm.endorsement.solutions.push(solution);
+					stateData = {
+						solutionId: solution._id
+					};
+				});
 			}
 		} else {
 			//there was no previous object data so just set previous state to home page
@@ -47,6 +55,11 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 				stateData = {
 					goalId: $stateParams.previousObjectId
 				};
+			} else if ($stateParams.objectType === 'solution') {
+				previousState = 'solutions.view';
+				stateData = {
+					solutionId: $stateParams.previousObjectId
+				};
 			}
 		}
 
@@ -58,6 +71,12 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 
 		vm.searchGoals = function (query) {
 			return GoalService.list({
+				search: query
+			});
+		};
+
+		vm.searchSolutions = function (query) {
+			return SolutionService.list({
 				search: query
 			});
 		};

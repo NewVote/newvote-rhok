@@ -16,12 +16,12 @@
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
 <md-toolbar class="md-primary">
-	<div ng-if="vm.goal.imageUrl" class="header-image-container" ng-style="{'background-image':'url({{::vm.goal.imageUrl}})'}">
+	<div ng-if="vm.solution.imageUrl" class="header-image-container" ng-style="{'background-image':'url({{::vm.solution.imageUrl}})'}">
 		<!-- <img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image"> -->
 	</div>
 	<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout="column" layout-padding>
 		<div layout-gt-sm="row" layout="column" layout-align="start start" layout-align-gt-sm="center center">
-			<h1 class="md-display-1" flex-gt-sm="65">{{vm.goal.title}}</h1>
+			<h1 class="md-display-1" flex-gt-sm="65">{{vm.solution.title}}</h1>
 
 			<div flex></div>
 
@@ -31,14 +31,14 @@
 				</div>
 
 				<md-button class="md-icon-button" ng-click="vm.delete()" ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.issue.user._id)">
-					<md-tooltip>Delete Goal</md-tooltip>
+					<md-tooltip>Delete Solution</md-tooltip>
 					<md-icon>delete</md-icon>
 				</md-button>
-				<md-button class="md-icon-button" ui-sref="goals.edit({goalId: vm.goal._id})" ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.issue.user._id)">
-					<md-tooltip>Edit Goal</md-tooltip>
+				<md-button class="md-icon-button" ui-sref="solutions.edit({solutionId: vm.solution._id})" ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.issue.user._id)">
+					<md-tooltip>Edit Solution</md-tooltip>
 					<md-icon>edit</md-icon>
 				</md-button>
-				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-icon-button" ui-sref="suggestions({objectId: vm.goal._id, objectType: 'goal', suggestionType: 'edit'})">
+				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1" class="md-icon-button" ui-sref="suggestions({objectId: vm.solution._id, objectType: 'solution', suggestionType: 'edit'})">
 					<md-tooltip>Suggest an edit</md-tooltip>
 					<md-icon>edit</md-icon>
 				</md-button>
@@ -54,15 +54,15 @@
 			</div>
 		</div>
 
-		<span class="md-title">This is a goal for:
-			<a layout-margin ng-repeat="issue in vm.goal.issues" ui-sref="issues.view({issueId: issue._id})">{{issue.name}}</a>
+		<span class="md-title">This is a solution for:
+			<a layout-margin ng-repeat="goal in vm.solution.goals" ui-sref="goals.view({goalId: goal._id})">{{goal.title}}</a>
 		</span>
 
-		<div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.goal.description"></div>
+		<div class="header-description" ng-class="{full: vm.showFullDesc}" ng-bind-html="vm.solution.description"></div>
 
 		<div layout="row">
-			<div layout="column" ng-if="vm.goal.tags.length > 0">
-				<md-chips class="descriptionChips" ng-model="vm.goal.tags" readonly="true" md-removable="false">
+			<div layout="column" ng-if="vm.solution.tags.length > 0">
+				<md-chips class="descriptionChips" ng-model="vm.solution.tags" readonly="true" md-removable="false">
 				</md-chips>
 			</div>
 
@@ -76,39 +76,33 @@
 
 		<div layout="column" layout-gt-sm="row" layout-align="start start" layout-align-gt-sm="start center">
 
-			<binary-vote ng-if="!vm.goal.likert" object="vm.goal" object-type="'goal'" size="'large'"></binary-vote>
-			<likert-vote ng-if="vm.goal.likert" object="vm.goal" object-type="'goal'" size="'large'"></likert-vote>
+			<binary-vote ng-if="!vm.solution.likert" object="vm.solution" object-type="'solution'" size="'large'"></binary-vote>
+			<likert-vote ng-if="vm.solution.likert" object="vm.solution" object-type="'solution'" size="'large'"></likert-vote>
 
 			<div layout="row">
-				<share-buttons object="vm.goal" object-type="'goal'" vertical-resize="false"></share-buttons>
+				<share-buttons object="vm.solution" object-type="'solution'" vertical-resize="false"></share-buttons>
 			</div>
 		</div>
-	</div>
-	<div layout="row" layout-padding md-colors="{background: 'orange'}" ng-if="vm.isSingleSolution" ui-sref="goals.view({goalId: '{{vm.goal._id}}'})">
-		<span flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">You are viewing a single solution, click here to view all solutions for this goal.</span>
 	</div>
 </md-toolbar>
 
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout="column" layout-padding>
 
 	<ang-accordion>
-		<collapsible-item item-title="Vote on Solutions">
-      <solution-list solutions="vm.solutions" goal-id="vm.goal._id"></solution-list>
-    </collapsible-item>
 		<collapsible-item item-title="Where do I stand?">
 			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
 				 Please be aware that your image (showing where you stand) may be visible to other users</span>
-				 <div class="polis" data-topic="What do you think?" data-page_id="{{vm.goal._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+				 <div class="polis" data-topic="What do you think?" data-page_id="{{vm.solution._id}}" data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
 	 			</div>
     </collapsible-item>
 		<collapsible-item item-title="Endorsements">
-      <endorsement-list endorsement="vm.endorsement" object-id="vm.goal._id" object-type="'goal'"></endorsement-list>
+      <endorsement-list endorsement="vm.endorsement" object-id="vm.solution._id" object-type="'solution'"></endorsement-list>
     </collapsible-item>
 		<collapsible-item item-title="Meetups">
       <span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
     </collapsible-item>
 		<collapsible-item item-title="Media">
-      <media-list media="vm.media" object-id="vm.goal._id" , object-type="'goal'"></media-list>
+      <media-list media="vm.media" object-id="vm.solution._id" object-type="'solution'"></media-list>
     </collapsible-item>
 	</ang-accordion>
 

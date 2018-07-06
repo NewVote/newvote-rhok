@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core')
-	.controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'GoalService', 'MediaService',
-		function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, GoalService, MediaService) {
+	.controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'GoalService', 'SolutionService', 'MediaService',
+		function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, GoalService, SolutionService, MediaService) {
 			var vm = this;
 			vm.media = media;
 
@@ -33,6 +33,15 @@ angular.module('core')
 								goalId: goal._id
 							};
 						});
+				} else if ($stateParams.objectType === 'solution') {
+					SolutionService.get($stateParams.objectId)
+						.then(function (solution) {
+							previousState = 'solutions.view';
+							vm.media.solutions.push(solution);
+							stateData = {
+								solutionId: solution._id
+							};
+						});
 				}
 			} else {
 				//there was no previous object data so just set previous state to home page
@@ -49,6 +58,11 @@ angular.module('core')
 					previousState = 'goals.view';
 					stateData = {
 						goalId: $stateParams.previousObjectId
+					};
+				} else if ($stateParams.objectType === 'solution') {
+					previousState = 'solutions.view';
+					stateData = {
+						solutionId: $stateParams.previousObjectId
 					};
 				}
 			}
@@ -86,6 +100,12 @@ angular.module('core')
 
 			vm.searchGoals = function (query) {
 				return GoalService.list({
+					search: query
+				});
+			};
+
+			vm.searchSolutions = function (query) {
+				return SolutionService.list({
 					search: query
 				});
 			};

@@ -34,6 +34,26 @@ angular.module('core')
 					}
 				})
 
+				.state('about-us', {
+					url: '/about-us',
+					templateUrl: 'modules/core/client/views/about.client.view.html',
+					controller: 'AboutController',
+					controllerAs: 'vm',
+					data: {
+						title: 'NewVote'
+					}
+				})
+
+				.state('help', {
+					url: '/help',
+					templateUrl: 'modules/core/client/views/help.client.view.html',
+					controller: 'HelpController',
+					controllerAs: 'vm',
+					data: {
+						title: 'NewVote'
+					}
+				})
+
 				.state('issues', {
 					url: '/issues',
 					abstract: true,
@@ -77,6 +97,9 @@ angular.module('core')
 						},
 						media: function () {
 							return [];
+						},
+						endorsement: function () {
+							return [];
 						}
 					}
 				})
@@ -102,11 +125,9 @@ angular.module('core')
 						media: function () {
 							return [];
 						},
-						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
-							return EndorsementService.list({
-								issueId: $stateParams.issueId
-							});
-						}]
+						endorsement: function () {
+							return [];
+						}
 					}
 				})
 				.state('issues.view', {
@@ -182,6 +203,9 @@ angular.module('core')
 						media: function () {
 							return [];
 						},
+						endorsement: function () {
+							return [];
+						},
 						isSingleSolution: function () {
 							return false;
 						}
@@ -209,11 +233,9 @@ angular.module('core')
 						isSingleSolution: function () {
 							return false;
 						},
-						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
-							return EndorsementService.list({
-								issueId: $stateParams.issueId
-							});
-						}]
+						endorsement: function () {
+							return [];
+						}
 					}
 				})
 				.state('goals.view', {
@@ -302,6 +324,18 @@ angular.module('core')
 							return {
 								goals: []
 							};
+						},
+						goals: function () {
+							return [];
+						},
+						media: function () {
+							return [];
+						},
+						endorsement: function () {
+							return [];
+						},
+						isSingleSolution: function () {
+							return true;
 						}
 					}
 				})
@@ -321,7 +355,48 @@ angular.module('core')
 					resolve: {
 						solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
 							return SolutionService.get($stateParams.solutionId);
-						}]
+						}],
+						goals: function () {
+							return [];
+						},
+						media: function () {
+							return [];
+						},
+						endorsement: function () {
+							return [];
+						},
+						isSingleSolution: function () {
+							return true;
+						}
+					}
+				})
+				.state('solutions.view', {
+					url: '/:solutionId',
+					templateUrl: 'modules/core/client/views/solution.client.view.html',
+					controller: 'SolutionController',
+					controllerAs: 'vm',
+					resolve: {
+						solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
+							return SolutionService.get($stateParams.solutionId);
+						}],
+						goals: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
+							return GoalService.list({
+								solutionId: $stateParams.solutionId
+							});
+						}],
+						media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+							return MediaService.list({
+								solutionId: $stateParams.solutionId
+							});
+						}],
+						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+							return EndorsementService.list({
+								solutionId: $stateParams.solutionId
+							});
+						}],
+						isSingleSolution: function () {
+							return true;
+						}
 					}
 				})
 
