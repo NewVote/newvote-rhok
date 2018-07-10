@@ -81,6 +81,27 @@
 							</md-input-container>
 						</div>
 
+						<div class="" layout="row">
+							<div layout="column">
+								<div ng-if="verificationStatus.success" md-colors="{color: 'primary'}">{{verificationStatus.message}}</div>
+								<div ng-if="verificationStatus.error" md-colors="{color: 'accent'}">{{verificationStatus.message}}</div>
+								<div>
+									<md-input-container>
+										<label>Mobile Number</label>
+										<input ng-model="user.mobileNumber" name="mobileNumber">
+									</md-input-container>
+									<md-button type="button" class="md-raised md-primary" ng-click="sendSMS();" ng-disabled="verificationStatus.status=='sending'">SEND CODE</md-button>
+								</div>
+								<div ng-if="verificationStatus.status=='sent'">
+									<md-input-container>
+										<label>Verification Code</label>
+										<input name="verificationCode" ng-model="user.verificationCode">
+									</md-input-container>
+									<md-button type="button" class="md-raised md-primary" ng-click="verify();" >VERIFY</md-button>
+								</div>
+							</div>
+						</div>
+
 						<md-input-container class="md-block" flex-gt-sm>
 							<md-checkbox ng-model="user.terms" aria-label="I accept the terms and conditions" required name="terms">
 								I accept the <a href="#">terms and conditions</a>

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('users')
-	.controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users', 'CountryService', 'vcRecaptchaService',
-		function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users, CountryService, vcRecaptchaService) {
+	.controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users', 'CountryService', 'vcRecaptchaService', 'VerificationService',
+		function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users, CountryService, vcRecaptchaService, VerificationService) {
 			$scope.vm = this;
 			var vm = $scope.vm;
 			$scope.authentication = Authentication;
@@ -12,6 +12,12 @@ angular.module('users')
 			} else {
 				$scope.user = $scope.authentication.user;
 			}
+			$scope.verificationStatus = {
+				status: '',
+				success: false,
+				error: false,
+				message: ''
+			};
 			// Update Title
 			var titleText = '';
 			if ($state.is('authentication.signin')) {
@@ -70,6 +76,51 @@ angular.module('users')
 			$scope.cbExpiration = function() {
 				console.log('callback expired');
 				$scope.credentials.recaptchaResponse = null;
+			};
+
+			$scope.sendSMS = function () {
+				console.log('attempting to send verification sms');
+				$scope.verificationStatus.status = 'sending';
+				return VerificationService.sendSMS({
+						params: $scope.user.mobileNumber
+					})
+					.then(function (message) {
+						console.log('success: ', message);
+						$scope.verificationStatus.status = 'sent';
+						$scope.verificationStatus.success = true;
+						$scope.verificationStatus.error = false;
+						$scope.verificationStatus.message = 'We have sent an SMS to your mobile number, you should receive it shortly.';
+					})
+					.catch(function (err) {
+						console.log('critical error: ', err);
+						$scope.verificationStatus.status = 'error';
+						$scope.verificationStatus.success = false;
+						$scope.verificationStatus.error = true;
+						$scope.verificationStatus.message = 'Error: ' + err.data.message;
+					});
+			};
+
+			$scope.verify = function () {
+				console.log('attempting to verify code');
+				return VerificationService.verify({
+						params: $scope.user.verificationCode
+					})
+					.then(function (message) {
+						console.log('success: ', message);
+						$scope.verificationStatus.status = 'verified';
+						$scope.verificationStatus.success = true;
+						$scope.verificationStatus.error = false;
+						$scope.verificationStatus.message = 'Success! Your account has been verified.';
+
+						$scope.user.verified = true;
+					})
+					.catch(function (err) {
+						console.log('critical error: ', err.data.message);
+						$scope.verificationStatus.status = 'sent';
+						$scope.verificationStatus.success = false;
+						$scope.verificationStatus.error = true;
+						$scope.verificationStatus.message = 'Error: ' + err.data.message;
+					});
 			};
 
 			$scope.signup = function (isValid) {
