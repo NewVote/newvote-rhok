@@ -61,10 +61,10 @@ var UserSchema = new Schema({
         return false;
       }
       if(this.international) {
-        return true;
+        return false;
       }
       if(this.verified) {
-        return false;
+        return true;
       }
     }
 	},
@@ -87,7 +87,12 @@ var UserSchema = new Schema({
 		trim: true
 	},
     mobileNumber: {
-        type: String
+        type: String,
+				required: function () {
+		      if(this.isNew){
+		        return false;
+		      }
+		    }
     },
     verified : {
         type: Boolean,
@@ -121,7 +126,12 @@ var UserSchema = new Schema({
 	},
 	verificationCode: {
 		type: String,
-		default: ''
+		default: '',
+		required: function () {
+			if(this.isNew){
+				return false;
+			}
+		}
 	},
 	salt: {
 		type: String
