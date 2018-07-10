@@ -56,8 +56,10 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		required: function () {
-			return (!this.isNew && this.international == false);
-		}
+			if (this.isNew && (this.international || !this.verified)) {
+				return false;
+			}
+    }
 	},
 	international: {
 		type: Boolean,
@@ -78,7 +80,12 @@ var UserSchema = new Schema({
 		trim: true
 	},
     mobileNumber: {
-        type: String
+        type: String,
+				required: function () {
+		      if(this.isNew){
+		        return false;
+		      }
+		    }
     },
     verified : {
         type: Boolean,
@@ -112,7 +119,12 @@ var UserSchema = new Schema({
 	},
 	verificationCode: {
 		type: String,
-		default: ''
+		default: '',
+		required: function () {
+			if(this.isNew){
+				return false;
+			}
+		}
 	},
 	salt: {
 		type: String
