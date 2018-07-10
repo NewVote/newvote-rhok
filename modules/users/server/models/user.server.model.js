@@ -56,8 +56,17 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		required: function () {
-			return (!this.isNew && this.international == false);
-		}
+      console.log((!this.isNew && !this.international && !this.verified));
+      if(this.isNew){
+        return false;
+      }
+      if(this.international) {
+        return true;
+      }
+      if(this.verified) {
+        return false;
+      }
+    }
 	},
 	international: {
 		type: Boolean,
