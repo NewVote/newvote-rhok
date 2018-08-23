@@ -413,3 +413,11 @@ md-toolbar.app-header:not(.md-menu-toolbar) .md-errors-spacer {
 .authenticationsignup {
   background-color: #4fa0d8;
   padding: 2rem 0; }
+
+.collapsible-item.open > .body {
+  max-height: none; }
+  .collapsible-item.open > .body .content {
+    margin-top: 0;
+    margin-bottom: 50px; }
+    .collapsible-item.open > .body .content md-content {
+      overflow: initial; }
