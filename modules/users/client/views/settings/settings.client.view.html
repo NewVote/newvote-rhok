@@ -29,27 +29,6 @@
             </div>
         </div> -->
 		<md-content flex layout-padding class="user-verification" ng-controller="EditProfileController">
-			<div ng-if="!user.verified">
-				<h2 class="md-headline">Account Verification</h2>
-				<div layout="column" layout-padding>
-					<div ng-if="verificationStatus.success" md-colors="{color: 'primary'}">{{verificationStatus.message}}</div>
-					<div ng-if="verificationStatus.error" md-colors="{color: 'accent'}">{{verificationStatus.message}}</div>
-					<div>
-						<md-input-container>
-							<label>Mobile Number</label>
-							<input ng-model="user.mobileNumber" name="mobileNumber">
-						</md-input-container>
-						<md-button type="button" class="md-raised md-primary" ng-click="sendSMS();" ng-disabled="verificationStatus.status=='sending'">SEND CODE</md-button>
-					</div>
-					<div ng-if="verificationStatus.status=='sent'">
-						<md-input-container>
-							<label>Verification Code</label>
-							<input name="verificationCode" ng-model="user.verificationCode">
-						</md-input-container>
-						<md-button type="button" class="md-raised md-primary" ng-click="verify();" >VERIFY</md-button>
-					</div>
-				</div>
-			</div>
 
 			<h2 class="md-headline">Account Settings</h2>
 
@@ -90,7 +69,7 @@
 								</div>
 							</md-input-container>
 						</div>
-						<div class="" layout="row">
+						<!-- <div class="" layout="row">
 							<md-input-container class="md-block" flex-gt-sm>
 								<label>Mobile Number</label>
 								<input ng-model="user.mobileNumber" name="mobileNumber">
@@ -98,7 +77,33 @@
 								</div>
 							</md-input-container>
 							<div flex-gt-sm></div>
-						</div>
+						</div> -->
+						<md-content layout="row" flex-gt-sm="50">
+							<div layout="column">
+								<div ng-if="verificationStatus.success" md-colors="{color: 'primary'}">{{verificationStatus.message}}</div>
+								<div ng-if="verificationStatus.error" md-colors="{color: 'accent'}">{{verificationStatus.message}}</div>
+								<div>
+									<md-input-container>
+										<label>Mobile Number</label>
+										<input ng-model="user.mobileNumber" ng-change="newMobile()" required name="mobileNumber">
+										<div ng-messages="userForm.mobileNumber.$error" role="alert">
+											<div ng-message="required" class="my-message">This is required.</div>
+										</div>
+									</md-input-container>
+									<md-button type="button" class="md-raised md-primary" ng-click="sendSMS();" ng-disabled="verificationStatus.status=='sending'">SEND CODE</md-button>
+								</div>
+								<div ng-if="verificationStatus.status=='sent'">
+									<md-input-container>
+										<label>Verification Code</label>
+										<input name="verificationCode" required ng-model="user.verificationCode">
+										<div ng-messages="userForm.verificationCode.$error" role="alert">
+											<div ng-message="required" class="my-message">This is required.</div>
+										</div>
+									</md-input-container>
+									<md-button type="button" class="md-raised md-primary" ng-click="verify();" >VERIFY</md-button>
+								</div>
+							</div>
+						</md-content>
 					</div>
 
 					<div layout="column">
