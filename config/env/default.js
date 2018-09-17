@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    title: 'NewVote',
+    title: 'NewVote UQU',
     description: 'NewVote is a dedicated online platform aimed at providing' +
     ' balanced, unbiased information on the current federal political issues' +
     ' and solutions in Australia. This information is maintained by an in de' +
